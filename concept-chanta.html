@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#EFF6FD">
+<title>بچے کا غصہ، والدین کا راستہ | Imran Aslam</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy: #0A1A3B;
+  --green: #3DAB94;
+  --paper: #FCFAF4;
+  --glass: #EFF6FD;
+  --glass-deep: #D9E7F6;
+  --ink: #172747;
+  --gold: #B49A65;
+  --serif: "Noto Nastaliq Urdu", serif;
+  --latin: "Montserrat", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  background: var(--glass);
+}
+
+body {
+  margin: 0;
+  color: var(--navy);
+  font-family: var(--serif);
+  background:
+    radial-gradient(ellipse at 50% 10%, #FFFFFF 0%, transparent 55%),
+    linear-gradient(150deg, var(--glass), var(--glass-deep));
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+::selection {
+  background: var(--green);
+  color: white;
+}
+
+/* ---------------------------------
+   SHARED TEXT
+---------------------------------- */
+
+.eyebrow {
+  direction: ltr;
+  font-family: var(--latin);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--green);
+}
+
+.beat-word {
+  font-size: clamp(38px, 9vw, 68px);
+  font-weight: 700;
+  line-height: 1.9;
+  margin: 0;
+  color: var(--navy);
+}
+
+.beat-line {
+  font-size: clamp(17px, 4vw, 23px);
+  line-height: 2.2;
+  color: #52617B;
+  margin: 0;
+}
+
+/* ---------------------------------
+   NO JAVASCRIPT / REDUCED MOTION
+---------------------------------- */
+
+.static-page {
+  display: block;
+  padding: 55px 22px;
+  max-width: 760px;
+  margin: auto;
+}
+
+.static-page .static-beat {
+  padding: 45px 0;
+  border-bottom: 1px solid rgba(10,26,59,.12);
+}
+
+.static-page .static-writing {
+  background: var(--paper);
+  padding: 30px 24px;
+  margin: 25px 0;
+  border-radius: 4px;
+  box-shadow: 0 12px 35px rgba(10,26,59,.1);
+  font-size: 19px;
+  line-height: 2.5;
+}
+
+.static-page .static-cover {
+  width: min(100%, 340px);
+  display: block;
+  margin: 30px auto;
+  box-shadow: 0 25px 55px rgba(10,26,59,.25);
+}
+
+.static-page .price {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.static-page .old-price {
+  text-decoration: line-through;
+  color: #8792A5;
+  font-size: 17px;
+}
+
+.static-page .cta {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.motion-stage {
+  display: none;
+}
+
+.motion-ready .static-page {
+  display: none;
+}
+
+.motion-ready .motion-stage {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------------------------------
+   SCROLL ARCHITECTURE
+---------------------------------- */
+
+.scroll-space {
+  position: relative;
+  height: 700vh;
+}
+
+.stage {
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 48% 42%, rgba(255,255,255,.95), transparent 50%),
+    linear-gradient(145deg, #EFF6FD 0%, #E3EDF8 50%, #D9E7F6 100%);
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      rgba(255,255,255,.13) 1px,
+      transparent 2px,
+      transparent 5px
+    );
+  opacity: .55;
+}
+
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  opacity: .15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+.scene-light {
+  position: absolute;
+  width: 90vw;
+  height: 90vw;
+  max-width: 900px;
+  max-height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,.28) 40%, transparent 70%);
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: .85;
+}
+
+.ambient-shadow {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(10,26,59,.09), transparent);
+  pointer-events: none;
+}
+
+/* ---------------------------------
+   TOP INTERFACE
+---------------------------------- */
+
+.topbar {
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 23px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  direction: ltr;
+}
+
+.brand {
+  font-family: var(--latin);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--navy);
+}
+
+.brand span {
+  color: var(--green);
+}
+
+.chapter-counter {
+  font-family: var(--latin);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #63748C;
+}
+
+.progress-track {
+  position: absolute;
+  z-index: 30;
+  top: 65px;
+  left: 25px;
+  right: 25px;
+  height: 2px;
+  background: rgba(10,26,59,.10);
+  direction: ltr;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--green);
+  transform-origin: left center;
+}
+
+.dots {
+  position: absolute;
+  z-index: 30;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  direction: ltr;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(10,26,59,.22);
+  transition: background .25s, transform .25s;
+}
+
+.dot.active {
+  background: var(--green);
+  transform: scale(1.7);
+}
+
+/* ---------------------------------
+   STORY TEXT
+---------------------------------- */
+
+.story-copy {
+  position: absolute;
+  z-index: 25;
+  top: 16%;
+  right: 9%;
+  width: min(82%, 420px);
+  pointer-events: none;
+}
+
+.beat {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(25px);
+  will-change: transform, opacity;
+}
+
+.beat.active {
+  opacity: 1;
+}
+
+.beat .eyebrow {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.beat .beat-word {
+  text-shadow: 0 2px 0 rgba(255,255,255,.5);
+}
+
+.beat .beat-line {
+  margin-top: 4px;
+}
+
+/* ---------------------------------
+   CINEMATIC DESK / SURFACE
+---------------------------------- */
+
+.desk {
+  position: absolute;
+  left: 50%;
+  bottom: -12%;
+  width: 130%;
+  height: 47%;
+  transform: translateX(-50%) perspective(900px) rotateX(8deg);
+  transform-origin: center top;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0 1px, transparent 1px 5px),
+    linear-gradient(150deg, #D8E4EE, #C4D4E5 45%, #AEBFD3);
+  box-shadow:
+    0 -25px 70px rgba(10,26,59,.08),
+    inset 0 2px 5px rgba(255,255,255,.6);
+}
+
+.desk-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
+  background: linear-gradient(to bottom, transparent, rgba(10,26,59,.12));
+}
+
+/* ---------------------------------
+   PAPER
+---------------------------------- */
+
+.paper-stack {
+  position: absolute;
+  width: min(65vw, 410px);
+  height: min(84vw, 535px);
+  max-height: 52vh;
+  min-height: 320px;
+  left: 50%;
+  top: 53%;
+  transform: translate(-50%, -50%);
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.sheet {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(70,93,120,.09) 32px 33px),
+    linear-gradient(115deg, #FFFEF9, #F5F1E6 75%, #E9E3D7);
+  border: 1px solid rgba(130,117,91,.18);
+  box-shadow:
+    0 10px 25px rgba(10,26,59,.10),
+    inset 0 0 35px rgba(125,109,75,.045);
+  transform-origin: left center;
+}
+
+.sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.22'/%3E%3C/svg%3E");
+}
+
+.sheet-back {
+  transform: rotate(-3deg) translate(-7px, 7px);
+  background: #E9E3D7;
+}
+
+.sheet-middle {
+  transform: rotate(2deg) translate(5px, 3px);
+  background: #F2EDDF;
+}
+
+.main-sheet {
+  overflow: hidden;
+  padding: 11% 9%;
+  color: #25344D;
+}
+
+.writing {
+  position: relative;
+  z-index: 2;
+  text-align: right;
+  font-size: clamp(11px, 2.8vw, 17px);
+  line-height: 2.65;
+  font-weight: 400;
+}
+
+.writing-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(9px);
+  will-change: transform, opacity;
+  min-height: 2.4em;
+}
+
+.writing-line.visible {
+  opacity: 1;
+}
+
+.paper-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  background: linear-gradient(to bottom, transparent, rgba(90,70,45,.08));
+}
+
+/* ---------------------------------
+   PEN
+---------------------------------- */
+
+.pen-wrap {
+  position: absolute;
+  z-index: 10;
+  width: 290px;
+  height: 55px;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%) rotate(-28deg);
+  transform-origin: 80% 50%;
+  filter: drop-shadow(4px 13px 9px rgba(10,26,59,.27));
+  will-change: transform, opacity;
+}
+
+.pen {
+  position: absolute;
+  inset: 10px 0;
+  height: 20px;
+  border-radius: 3px 14px 14px 3px;
+  background:
+    linear-gradient(90deg,
+      #111B30 0%,
+      #263E5F 10%,
+      #0B1933 40%,
+      #263B59 65%,
+      #0A172E 100%);
+  box-shadow:
+    inset 0 2px 2px rgba(255,255,255,.22),
+    inset 0 -2px 2px rgba(0,0,0,.4);
+}
+
+.pen::before {
+  content: "";
+  position: absolute;
+  right: -19px;
+  top: 4px;
+  width: 21px;
+  height: 12px;
+  background: linear-gradient(90deg, #C8AD75, #7F6940);
+  clip-path: polygon(0 0,100% 50%,0 100%);
+}
+
+.pen::after {
+  content: "";
+  position: absolute;
+  left: 30px;
+  top: -3px;
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, #D8C38B, transparent);
+  border-radius: 50%;
+}
+
+.pen-clip {
+  position: absolute;
+  top: -7px;
+  left: 58px;
+  width: 85px;
+  height: 12px;
+  border: 2px solid #A58B58;
+  border-bottom: 0;
+  border-radius: 15px 15px 0 0;
+  transform: rotate(2deg);
+}
+
+.pen-tip {
+  position: absolute;
+  right: -28px;
+  top: 14px;
+  width: 11px;
+  height: 11px;
+  background: #A68D59;
+  clip-path: polygon(0 0,100% 50%,0 100%);
+}
+
+.ink-shadow {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 3px;
+  background: rgba(12,26,55,.10);
+  filter: blur(5px);
+  transform: translate(-50%, 30px);
+}
+
+/* ---------------------------------
+   INK FLOW
+---------------------------------- */
+
+.ink-pool {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 53%;
+  width: 220px;
+  height: 150px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ink-drop {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #132747;
+  box-shadow: 0 1px 3px rgba(10,26,59,.25);
+}
+
+.ink-drop:nth-child(1) { top: 10%; left: 20%; }
+.ink-drop:nth-child(2) { top: 75%; left: 65%; width: 5px; height: 5px; }
+.ink-drop:nth-child(3) { top: 40%; left: 85%; width: 6px; height: 6px; }
+.ink-drop:nth-child(4) { top: 85%; left: 10%; width: 4px; height: 4px; }
+
+/* ---------------------------------
+   PRINTING PRESS
+---------------------------------- */
+
+.press-scene {
+  position: absolute;
+  width: min(84vw, 440px);
+  height: 310px;
+  left: 50%;
+  top: 57%;
+  transform: translate(-50%, -50%);
+  transform-style: preserve-3d;
+}
+
+.press-base {
+  position: absolute;
+  width: 100%;
+  height: 36px;
+  bottom: 22px;
+  background: linear-gradient(180deg, #344963, #101E35);
+  border-radius: 4px;
+  box-shadow: 0 22px 30px rgba(10,26,59,.2);
+}
+
+.press-platform {
+  position: absolute;
+  bottom: 59px;
+  left: 7%;
+  right: 7%;
+  height: 13px;
+  background: linear-gradient(#D3C4A0, #8E805E);
+  box-shadow: 0 5px 10px rgba(10,26,59,.2);
+}
+
+.press-column {
+  position: absolute;
+  top: 5px;
+  width: 16px;
+  height: 230px;
+  background: linear-gradient(90deg, #344A64, #0B1932, #50647C);
+  box-shadow: 3px 0 5px rgba(10,26,59,.12);
+}
+
+.press-column.left { left: 8%; }
+.press-column.right { right: 8%; }
+
+.press-top {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 27px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #405975, #10203A);
+  box-shadow: 0 8px 12px rgba(10,26,59,.2);
+}
+
+.press-head {
+  position: absolute;
+  top: 29px;
+  left: 17%;
+  right: 17%;
+  height: 55px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #435A73, #182C47 60%, #0B1932);
+  box-shadow:
+    inset 0 3px 5px rgba(255,255,255,.18),
+    0 8px 14px rgba(10,26,59,.18);
+  transform-origin: center top;
+  will-change: transform;
+}
+
+.press-handle {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 110px;
+  height: 9px;
+  border-radius: 10px;
+  background: linear-gradient(#BBA779, #7D6742);
+  transform: translateX(-50%) rotate(-12deg);
+}
+
+.press-paper {
+  position: absolute;
+  bottom: 73px;
+  left: 15%;
+  right: 15%;
+  height: 120px;
+  background: var(--paper);
+  box-shadow: 0 5px 12px rgba(10,26,59,.17);
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+/* ---------------------------------
+   FINISHED BOOK
+---------------------------------- */
+
+.finished-book {
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  width: min(64vw, 300px);
+  aspect-ratio: 2 / 3;
+  transform: translate(-50%, -50%);
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  filter: drop-shadow(14px 28px 23px rgba(10,26,59,.23));
+  will-change: transform, opacity;
+}
+
+.book-pages {
+  position: absolute;
+  inset: 3px -10px -4px 5px;
+  border-radius: 2px 5px 5px 2px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #FFFDF6 0 2px,
+      #E7E1D5 3px 4px
+    );
+  transform: translateZ(-8px);
+  box-shadow: 4px 5px 7px rgba(10,26,59,.15);
+}
+
+.book-cover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2px 5px 5px 2px;
+  background: #10223F;
+  transform: rotateY(-4deg);
+  transform-origin: left center;
+  box-shadow:
+    inset 4px 0 7px rgba(0,0,0,.15),
+    0 0 0 1px rgba(10,26,59,.15);
+}
+
+.book-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-spine {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 12px;
+  background: linear-gradient(90deg, rgba(0,0,0,.35), rgba(255,255,255,.08), rgba(0,0,0,.12));
+  pointer-events: none;
+}
+
+/* ---------------------------------
+   LIGHT TRANSITIONS
+---------------------------------- */
+
+.final-light {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 47%, rgba(255,255,255,.8), transparent 65%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.film-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  opacity: .07;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------
+   END CARD
+---------------------------------- */
+
+.end-card {
+  position: absolute;
+  z-index: 26;
+  left: 50%;
+  bottom: 6%;
+  width: min(90%, 460px);
+  text-align: center;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.end-card h2 {
+  font-size: clamp(23px, 5.6vw, 32px);
+  line-height: 2;
+  margin: 0 0 5px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.end-card .author {
+  font-size: 14px;
+  color: #62718A;
+  margin: 0 0 15px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 15px;
+  direction: rtl;
+  margin: 5px 0 2px;
+}
+
+.old-price {
+  font-size: 17px;
+  color: #8894A6;
+  text-decoration: line-through;
+}
+
+.new-price {
+  font-size: clamp(24px, 6vw, 34px);
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.offer {
+  font-size: 12px;
+  color: #61738B;
+  margin: 0;
+}
+
+.sample-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17px;
+  padding: 10px 34px;
+  min-width: 195px;
+  min-height: 50px;
+  border-radius: 3px;
+  text-decoration: none;
+  background: var(--navy);
+  color: white;
+  font-size: 16px;
+  box-shadow: 0 8px 20px rgba(10,26,59,.17);
+  pointer-events: auto;
+  transition: background .2s, transform .2s;
+}
+
+.sample-button:hover {
+  background: #17375C;
+  transform: translateY(-2px);
+}
+
+.sample-button:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 4px;
+}
+
+.deadline {
+  font-size: 11px;
+  color: #77849A;
+  margin-top: 9px;
+}
+
+/* ---------------------------------
+   RESPONSIVE
+---------------------------------- */
+
+@media (min-width: 760px) {
+  .story-copy {
+    top: 25%;
+    right: 12%;
+    width: 370px;
+  }
+
+  .paper-stack {
+    left: 58%;
+    top: 58%;
+    width: 340px;
+    height: 440px;
+  }
+
+  .pen-wrap {
+    left: 57%;
+    top: 55%;
+  }
+
+  .press-scene {
+    left: 57%;
+    width: 430px;
+  }
+
+  .finished-book {
+    left: 58%;
+    top: 51%;
+    width: 270px;
+  }
+
+  .end-card {
+    left: 82%;
+    bottom: auto;
+    top: 50%;
+    width: 330px;
+    transform: translateY(-50%);
+  }
+
+  .end-card h2 {
+    font-size: 27px;
+  }
+
+  .dots {
+    left: 35px;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar {
+    padding: 18px 17px;
+  }
+
+  .progress-track {
+    left: 17px;
+    right: 17px;
+    top: 53px;
+  }
+
+  .story-copy {
+    top: 13%;
+    right: 8%;
+    width: 84%;
+  }
+
+  .beat-word {
+    font-size: 43px;
+  }
+
+  .beat-line {
+    font-size: 17px;
+  }
+
+  .paper-stack {
+    width: 70vw;
+    height: 85vw;
+    top: 59%;
+  }
+
+  .pen-wrap {
+    width: 230px;
+    top: 58%;
+  }
+
+  .press-scene {
+    width: 86vw;
+    top: 60%;
+  }
+
+  .finished-book {
+    width: 59vw;
+    top: 48%;
+  }
+
+  .end-card {
+    bottom: 4%;
+  }
+
+  .end-card h2 {
+    font-size: 23px;
+  }
+}
+
+/* ---------------------------------
+   REDUCED MOTION
+---------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-ready .static-page {
+    display: block;
+  }
+
+  .motion-ready .motion-stage {
+    display: none;
+  }
+
+  .static-page *,
+  .motion-stage * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!--
+  STATIC FALLBACK
+  Used when JavaScript is disabled or reduced motion is requested.
+-->
+
+<main class="static-page">
+
+  <div class="eyebrow">AIDE · KITAB</div>
+
+  <section class="static-beat">
+    <p class="eyebrow">01</p>
+    <h2 class="beat-word">قلم</h2>
+    <p class="beat-line">ہر کتاب ایک قلم سے شروع ہوتی ہے۔</p>
+  </section>
+
+  <section class="static-beat">
+    <h2 class="beat-word">صفحہ</h2>
+    <p class="beat-line">سفید صفحہ — اور ایک ارادہ۔</p>
+  </section>
+
+  <section class="static-beat">
+    <h2 class="beat-word">سطریں</h2>
+    <p class="beat-line">پہلی سطر، پھر دوسری۔</p>
+  </section>
+
+  <section class="static-beat">
+    <h2 class="beat-word">تحریر</h2>
+    <p class="beat-line">لفظ لفظ، صفحہ بھرنے لگتا ہے۔</p>
+
+    <div class="static-writing">
+      یہ کتاب اسی ایک سیکنڈ کے وقفے کے بارے میں ہے۔<br>
+      مشکل رویّہ بذاتِ خود مسئلہ نہیں ہوتا،<br>
+      بلکہ وہ کسی گہرے اندرونی مسئلے کا بیرونی اشارہ ہوتا ہے۔<br>
+      مشاہدہ کیا ہے اور فیصلہ کیا ہے؟<br>
+      بچے کو قابو میں لانے سے زیادہ اہم خود اپنے ردِعمل کو قابو میں رکھنا ہے۔
+    </div>
+  </section>
+
+  <section class="static-beat">
+    <h2 class="beat-word">جڑنا</h2>
+    <p class="beat-line">صفحے جڑتے ہیں، کتاب بننے لگتی ہے۔</p>
+  </section>
+
+  <section class="static-beat">
+    <h2 class="beat-word">چھپائی</h2>
+    <p class="beat-line">سیاہی، کاغذ، جلد۔</p>
+  </section>
+
+  <section class="static-beat">
+    <img class="static-cover"
+         src="https://imranaslam.pk/covers/b4.webp"
+         alt="بچے کا غصہ، والدین کا راستہ">
+
+    <h2>بچے کا غصہ، والدین کا راستہ</h2>
+    <p>Imran Aslam</p>
+
+    <div class="price">
+      <span class="old-price">1,190 روپے</span>
+      <br>
+      952 روپے
+    </div>
+
+    <p>افتتاحی قیمت 952 روپے</p>
+
+    <a class="cta" href="https://imranaslam.pk/ur/books.html">
+      مفت نمونہ پڑھیں
+    </a>
+
+    <p>افتتاحی رعایت 31 دسمبر 2026 تک</p>
+  </section>
+
+</main>
+
+<!--
+  CINEMATIC SCROLL EXPERIENCE
+-->
+
+<div class="motion-stage">
+  <div class="scroll-space" id="scrollSpace">
+
+    <section class="stage" id="stage">
+
+      <div class="scene-light" id="sceneLight"></div>
+      <div class="final-light" id="finalLight"></div>
+
+      <header class="topbar">
+        <div class="brand">AIDE <span>·</span> KITAB</div>
+        <div class="chapter-counter" id="counter">01 / 07</div>
+      </header>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <nav class="dots" aria-label="کہانی کے مراحل">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </nav>
+
+      <div class="story-copy">
+
+        <article class="beat" data-beat="0">
+          <span class="eyebrow">01</span>
+          <h1 class="beat-word">قلم</h1>
+          <p class="beat-line">ہر کتاب ایک قلم سے شروع ہوتی ہے۔</p>
+        </article>
+
+        <article class="beat" data-beat="1">
+          <span class="eyebrow">02</span>
+          <h2 class="beat-word">صفحہ</h2>
+          <p class="beat-line">سفید صفحہ — اور ایک ارادہ۔</p>
+        </article>
+
+        <article class="beat" data-beat="2">
+          <span class="eyebrow">03</span>
+          <h2 class="beat-word">سطریں</h2>
+          <p class="beat-line">پہلی سطر، پھر دوسری۔</p>
+        </article>
+
+        <article class="beat" data-beat="3">
+          <span class="eyebrow">04</span>
+          <h2 class="beat-word">تحریر</h2>
+          <p class="beat-line">لفظ لفظ، صفحہ بھرنے لگتا ہے۔</p>
+        </article>
+
+        <article class="beat" data-beat="4">
+          <span class="eyebrow">05</span>
+          <h2 class="beat-word">جڑنا</h2>
+          <p class="beat-line">صفحے جڑتے ہیں، کتاب بننے لگتی ہے۔</p>
+        </article>
+
+        <article class="beat" data-beat="5">
+          <span class="eyebrow">06</span>
+          <h2 class="beat-word">چھپائی</h2>
+          <p class="beat-line">سیاہی، کاغذ، جلد۔</p>
+        </article>
+
+        <article class="beat" data-beat="6">
+          <span class="eyebrow">07</span>
+          <h2 class="beat-word">کتاب</h2>
+        </article>
+
+      </div>
+
+      <!-- Writing desk -->
+
+      <div class="desk" id="desk">
+        <div class="desk-shadow"></div>
+      </div>
+
+      <!-- Paper layers -->
+
+      <div class="paper-stack" id="paperStack">
+
+        <div class="sheet sheet-back" id="sheetBack"></div>
+        <div class="sheet sheet-middle" id="sheetMiddle"></div>
+
+        <div class="sheet main-sheet" id="mainSheet">
+
+          <div class="writing">
+
+            <span class="writing-line" data-line="0">
+              یہ کتاب اسی ایک سیکنڈ کے وقفے کے بارے میں ہے۔
+            </span>
+
+            <span class="writing-line" data-line="1">
+              مشکل رویّہ بذاتِ خود مسئلہ نہیں ہوتا،
+            </span>
+
+            <span class="writing-line" data-line="2">
+              بلکہ وہ کسی گہرے اندرونی مسئلے کا بیرونی اشارہ ہوتا ہے۔
+            </span>
+
+            <span class="writing-line" data-line="3">
+              مشاہدہ کیا ہے اور فیصلہ کیا ہے؟
+            </span>
+
+            <span class="writing-line" data-line="4">
+              بچے کو قابو میں لانے سے زیادہ اہم خود اپنے ردِعمل کو قابو میں رکھنا ہے۔
+            </span>
+
+          </div>
+
+          <div class="paper-edge"></div>
+
+        </div>
+      </div>
+
+      <!-- Ink details -->
+
+      <div class="ink-pool" id="inkPool">
+        <span class="ink-drop"></span>
+        <span class="ink-drop"></span>
+        <span class="ink-drop"></span>
+        <span class="ink-drop"></span>
+      </div>
+
+      <!-- Pen -->
+
+      <div class="pen-wrap" id="pen">
+        <div class="pen">
+          <div class="pen-clip"></div>
+          <div class="pen-tip"></div>
+        </div>
+      </div>
+
+      <div class="ink-shadow" id="inkShadow"></div>
+
+      <!-- Printing press -->
+
+      <div class="press-scene" id="press">
+
+        <div class="press-column left"></div>
+        <div class="press-column right"></div>
+
+        <div class="press-top"></div>
+
+        <div class="press-head" id="pressHead"></div>
+
+        <div class="press-handle"></div>
+
+        <div class="press-paper" id="pressPaper"></div>
+
+        <div class="press-platform"></div>
+        <div class="press-base"></div>
+
+      </div>
+
+      <!-- Finished book -->
+
+      <div class="finished-book" id="finishedBook">
+
+        <div class="book-pages"></div>
+
+        <div class="book-cover">
+          <img
+            src="https://imranaslam.pk/covers/b4.webp"
+            alt="بچے کا غصہ، والدین کا راستہ"
+            draggable="false"
+          >
+          <div class="book-spine"></div>
+        </div>
+
+      </div>
+
+      <!-- End card -->
+
+      <div class="end-card" id="endCard">
+
+        <h2>بچے کا غصہ، والدین کا راستہ</h2>
+
+        <p class="author">Imran Aslam</p>
+
+        <div class="price-row">
+          <span class="old-price">1,190 روپے</span>
+          <span class="new-price">952 روپے</span>
+        </div>
+
+        <p class="offer">افتتاحی قیمت 952 روپے</p>
+
+        <a
+          class="sample-button"
+          href="https://imranaslam.pk/ur/books.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          مفت نمونہ پڑھیں
+        </a>
+
+        <p class="deadline">افتتاحی رعایت 31 دسمبر 2026 تک</p>
+
+      </div>
+
+      <div class="ambient-shadow"></div>
+      <div class="film-grain"></div>
+
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  if (reducedMotion.matches) return;
+
+  const elements = {
+    space: document.getElementById("scrollSpace"),
+    stage: document.getElementById("stage"),
+    counter: document.getElementById("counter"),
+    progress: document.getElementById("progressFill"),
+    dots: [...document.querySelectorAll(".dot")],
+    beats: [...document.querySelectorAll(".beat")],
+
+    light: document.getElementById("sceneLight"),
+    finalLight: document.getElementById("finalLight"),
+
+    desk: document.getElementById("desk"),
+    paper: document.getElementById("paperStack"),
+    back: document.getElementById("sheetBack"),
+    middle: document.getElementById("sheetMiddle"),
+    mainSheet: document.getElementById("mainSheet"),
+
+    pen: document.getElementById("pen"),
+    ink: document.getElementById("inkPool"),
+    inkShadow: document.getElementById("inkShadow"),
+
+    press: document.getElementById("press"),
+    pressHead: document.getElementById("pressHead"),
+    pressPaper: document.getElementById("pressPaper"),
+
+    book: document.getElementById("finishedBook"),
+    endCard: document.getElementById("endCard"),
+
+    writingLines: [
+      ...document.querySelectorAll(".writing-line")
+    ]
+  };
+
+  const clamp = (v, min = 0, max = 1) =>
+    Math.max(min, Math.min(max, v));
+
+  const smooth = (v) => {
+    v = clamp(v);
+    return v * v * (3 - 2 * v);
+  };
+
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  const range = (p, a, b) => {
+    return smooth((p - a) / (b - a));
+  };
+
+  const setTransform = (el, value) => {
+    el.style.transform = value;
+  };
+
+  const setOpacity = (el, value) => {
+    el.style.opacity = clamp(value).toFixed(3);
+  };
+
+  const keyframes = [
+    // 01: قلم
+    0,
+
+    // 02: صفحہ
+    1 / 6,
+
+    // 03: سطریں
+    2 / 6,
+
+    // 04: تحریر
+    3 / 6,
+
+    // 05: جڑنا
+    4 / 6,
+
+    // 06: چھپائی
+    5 / 6,
+
+    // 07: اختتام
+    1
+  ];
+
+  let scrollTarget = 0;
+  let currentProgress = 0;
+  let rafRunning = false;
+  let lastBeat = -1;
+
+  function getScrollProgress() {
+    const maxScroll =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    if (maxScroll <= 0) return 0;
+
+    return clamp(window.scrollY / maxScroll);
+  }
+
+  function updateScrollTarget() {
+    scrollTarget = getScrollProgress();
+
+    if (!rafRunning) {
+      rafRunning = true;
+      requestAnimationFrame(render);
+    }
+  }
+
+  function interpolateElement(
+    el,
+    p,
+    start,
+    end,
+    transformFrom,
+    transformTo,
+    opacityFrom = 1,
+    opacityTo = 1
+  ) {
+    const t = range(p, start, end);
+
+    const value = lerp(transformFrom, transformTo, t);
+    const opacity = lerp(opacityFrom, opacityTo, t);
+
+    setOpacity(el, opacity);
+
+    return value;
+  }
+
+  function getBeat(progress) {
+    let index = 0;
+
+    for (let i = 0; i < keyframes.length; i++) {
+      if (progress >= keyframes[i]) index = i;
+    }
+
+    return Math.min(index, 6);
+  }
+
+  function updateBeatUI(progress) {
+    const beat = getBeat(progress);
+
+    if (beat !== lastBeat) {
+      lastBeat = beat;
+
+      elements.counter.textContent =
+        String(beat + 1).padStart(2, "0") + " / 07";
+
+      elements.dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === beat);
+      });
+    }
+
+    elements.beats.forEach((el, index) => {
+      const distance = Math.abs(progress - keyframes[index]);
+
+      const opacity = clamp(1 - distance * 17);
+
+      const translate = lerp(
+        23,
+        0,
+        opacity
+      );
+
+      setOpacity(el, opacity);
+
+      setTransform(
+        el,
+        `translateY(${translate}px)`
+      );
+    });
+  }
+
+  function updateWriting(progress) {
+    const revealStart = 2 / 6;
+    const revealEnd = 4 / 6;
+
+    const amount = clamp(
+      (progress - revealStart) /
+      (revealEnd - revealStart)
+    );
+
+    const lineCount = elements.writingLines.length;
+
+    elements.writingLines.forEach((line, index) => {
+      const threshold = index / lineCount;
+
+      const opacity = range(
+        amount,
+        threshold,
+        Math.min(1, threshold + .15)
+      );
+
+      setOpacity(line, opacity);
+
+      setTransform(
+        line,
+        `translateY(${lerp(9, 0, opacity)}px)`
+      );
+    });
+  }
+
+  function updatePen(progress) {
+    const writing = range(progress, .04, .45);
+    const joining = range(progress, .48, .69);
+
+    const x = lerp(-70, 75, writing);
+    const y = Math.sin(progress * 35) * 4;
+
+    const fade = 1 - range(progress, .43, .55);
+
+    setOpacity(elements.pen, fade);
+
+    setTransform(
+      elements.pen,
+      `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(${lerp(-32, -12, writing)}deg) scale(${lerp(1, .87, joining)})`
+    );
+
+    setOpacity(elements.ink, writing * (1 - joining));
+
+    const inkX = lerp(-30, 40, writing);
+
+    setTransform(
+      elements.ink,
+      `translate(calc(-50% + ${inkX}px), -50%) scale(${lerp(.55, 1, writing)})`
+    );
+
+    setOpacity(elements.inkShadow, fade * .5);
+  }
+
+  function updatePaper(progress) {
+    const appear = range(progress, .10, .27);
+    const writing = range(progress, .25, .43);
+    const joining = range(progress, .57, .76);
+
+    setOpacity(elements.paper, appear * (1 - range(progress, .76, .91)));
+
+    const rotation = lerp(5, 0, appear);
+
+    setTransform(
+      elements.paper,
+      `translate(-50%, -50%) rotate(${rotation}deg) scale(${lerp(.89, 1, appear)})`
+    );
+
+    setTransform(
+      elements.back,
+      `rotate(${lerp(-8, -2, joining)}deg) translate(${lerp(-25, -5, joining)}px, ${lerp(20, 5, joining)}px) scale(${lerp(.9, 1, joining)})`
+    );
+
+    setTransform(
+      elements.middle,
+      `rotate(${lerp(9, 2, joining)}deg) translate(${lerp(22, 5, joining)}px, ${lerp(10, 3, joining)}px)`
+    );
+
+    setOpacity(elements.mainSheet, appear);
+
+    // The paper's depth comes from overlapping real sheet layers.
+    const fold = range(progress, .55, .73);
+
+    setTransform(
+      elements.mainSheet,
+      `translateY(${lerp(0, -15, fold)}px) scale(${lerp(1, .94, fold)})`
+    );
+
+    setOpacity(elements.desk, 1);
+  }
+
+  function updatePress(progress) {
+    const arrive = range(progress, .65, .79);
+    const compress = range(progress, .81, .89);
+    const disappear = range(progress, .90, .97);
+
+    const opacity = arrive * (1 - disappear);
+
+    setOpacity(elements.press, opacity);
+
+    setTransform(
+      elements.press,
+      `translate(-50%, calc(-50% + ${lerp(75, 0, arrive)}px)) scale(${lerp(.88, 1, arrive)})`
+    );
+
+    const headMovement = Math.sin(compress * Math.PI) * 30;
+
+    setTransform(
+      elements.pressHead,
+      `translateY(${headMovement}px)`
+    );
+
+    setTransform(
+      elements.pressPaper,
+      `translateY(${lerp(0, 15, compress)}px) scaleY(${lerp(1, .95, compress)})`
+    );
+
+    setOpacity(elements.pressPaper, arrive * (1 - disappear));
+  }
+
+  function updateBook(progress) {
+    const entrance = range(progress, .83, .97);
+    const finish = range(progress, .94, 1);
+
+    const rotation = lerp(12, 0, entrance);
+    const tilt = lerp(18, 0, finish);
+
+    setOpacity(elements.book, entrance);
+
+    setTransform(
+      elements.book,
+      `translate(-50%, -50%) rotateY(${rotation}deg) rotateZ(${tilt}deg) scale(${lerp(.72, 1, entrance)})`
+    );
+
+    setOpacity(elements.finalLight, range(progress, .84, 1) * .85);
+
+    const card = range(progress, .92, .985);
+
+    setOpacity(elements.endCard, card);
+
+    setTransform(
+      elements.endCard,
+      `translateX(-50%) translateY(${lerp(25, 0, card)}px)`
+    );
+
+    elements.endCard.style.pointerEvents =
+      card > .85 ? "auto" : "none";
+  }
+
+  function render() {
+    const diff = scrollTarget - currentProgress;
+
+    currentProgress += diff * .105;
+
+    if (Math.abs(diff) < .00012) {
+      currentProgress = scrollTarget;
+    }
+
+    const p = currentProgress;
+
+    // Overall progress.
+    setTransform(
+      elements.progress,
+      `scaleX(${p})`
+    );
+
+    updateBeatUI(p);
+    updatePen(p);
+    updatePaper(p);
+    updateWriting(p);
+    updatePress(p);
+    updateBook(p);
+
+    // Parallax: multiple layers respond at different speeds.
+    const lightMove = lerp(-24, 32, p);
+    const deskMove = lerp(0, -38, p);
+
+    setTransform(
+      elements.light,
+      `translate(-50%, ${lightMove}px) scale(${lerp(1, 1.25, p)})`
+    );
+
+    setTransform(
+      elements.desk,
+      `translate(-50%, ${deskMove}px) perspective(900px) rotateX(8deg)`
+    );
+
+    if (p < .83) {
+      const shadowOpacity = lerp(.05, .22, p);
+
+      elements.stage.style.backgroundColor =
+        `rgba(217,231,246,${shadowOpacity})`;
+    }
+
+    if (Math.abs(scrollTarget - currentProgress) > .00012) {
+      requestAnimationFrame(render);
+    } else {
+      rafRunning = false;
+    }
+  }
+
+  // Activate only after confirming full motion support.
+  elements.space.style.height = "700vh";
+
+  document.body.classList.add("motion-ready");
+
+  window.addEventListener(
+    "scroll",
+    updateScrollTarget,
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "resize",
+    updateScrollTarget,
+    { passive: true }
+  );
+
+  updateScrollTarget();
+
+})();
+</script>
+
+</body>
+</html>
