@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>خاکہ 2 — قلم سے کتاب تک | AIDE لیب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --navy:#0A1A3B; --sea:#3DAB94; --sea-hi:#4FBFA7;
+    --ink:#1C2739; --muted:#46536A;
+  }
+  html{scroll-behavior:auto}
+  body{
+    font-family:"Noto Nastaliq Urdu",serif; color:var(--ink);
+    background:linear-gradient(180deg,#EFF6FD 0%,#E4EEF9 45%,#D9E7F6 100%);
+    background-attachment:fixed; overflow-x:hidden;
+  }
+  /* No-JS / reduced-motion: beats stack as a plain readable page. */
+  .scroll{position:relative}
+  .beat{padding:56px 24px;text-align:center;max-width:640px;margin:0 auto}
+  .word{font-size:clamp(56px,15vw,96px);font-weight:700;line-height:1.9;color:var(--navy)}
+  .line{font-size:clamp(19px,5vw,24px);line-height:2.2;color:var(--muted);margin-top:6px}
+  .eyebrow{font-family:Montserrat,sans-serif;font-size:13px;letter-spacing:.28em;color:var(--sea);font-weight:700}
+  .btn{display:inline-block;margin-top:26px;background:var(--sea);color:#fff;text-decoration:none;
+    font-size:20px;line-height:2;padding:8px 34px;border-radius:99px;font-weight:700}
+  .price{font-size:20px;margin-top:14px;color:var(--ink)}
+  .price s{color:var(--muted);margin-inline-end:8px}
+  .tag{position:fixed;top:14px;inset-inline-start:14px;z-index:50;background:rgba(255,255,255,.7);
+    border:1px solid rgba(30,80,140,.2);border-radius:99px;padding:2px 14px;font-size:14px;color:var(--muted);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .progress,.dots,.hint{display:none}
+
+  /* The book box: stacked sheets + writing page + spine + cover. */
+  .bookbox{position:relative;width:clamp(190px,48vw,280px);aspect-ratio:480/681;margin:26px auto}
+  .stackwrap{position:absolute;inset:0}
+  .sheet{position:absolute;inset:0;background:#fff;border-radius:10px;
+    box-shadow:0 30px 60px rgba(10,26,59,.28);will-change:transform}
+  .page{position:absolute;inset:0;background:#FDFDFB;border-radius:10px;overflow:hidden;
+    box-shadow:0 30px 60px rgba(10,26,59,.28);padding:24px 20px;text-align:right}
+  .ln{font-size:14.5px;line-height:2.05;color:#2A3547}
+  .spine{position:absolute;top:0;bottom:0;right:0;width:9px;border-radius:0 10px 10px 0;
+    background:linear-gradient(180deg,#12294F,#0A1A3B)}
+  .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px;
+    box-shadow:0 30px 60px rgba(10,26,59,.28)}
+  .pen,.press{display:none}
+
+  /* JS scroll-stage mode */
+  html.js body{background:linear-gradient(180deg,#EFF6FD 0%,#E4EEF9 45%,#D9E7F6 100%) fixed}
+  html.js .scroll{height:700vh}
+  html.js .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+  html.js .beat{position:absolute;inset:0;max-width:none;padding:0;opacity:0;will-change:transform,opacity}
+  html.js .beat .word{position:absolute;top:9%;left:0;right:0}
+  html.js .beat .line{position:absolute;bottom:11%;left:0;right:0;padding:0 28px}
+  html.js .beat .eyebrow{position:absolute;top:6%;left:0;right:0}
+  html.js .bookbox{position:absolute;left:50%;top:52%;margin:0;will-change:transform,opacity}
+  html.js .endbeat .price{position:absolute;bottom:26%;left:0;right:0}
+  html.js .endbeat .btn{position:absolute;bottom:15%;left:50%;transform:translateX(-50%);white-space:nowrap}
+  html.js .endbeat .tiny{position:absolute;bottom:8%;left:0;right:0;font-size:14px;color:var(--muted)}
+  html.js .pen{display:block;position:absolute;left:0;top:0;width:36px;z-index:20;
+    pointer-events:none;will-change:transform,opacity;transform-origin:50% 96%}
+  html.js .press{display:block;position:absolute;left:50%;top:0;width:150%;height:9vh;margin-left:-75%;
+    background:linear-gradient(180deg,#12294F,#0A1A3B);border-bottom:4px solid var(--sea);
+    z-index:15;will-change:transform;box-shadow:0 18px 30px rgba(10,26,59,.25);
+    text-align:center}
+  html.js .press span{font-family:Montserrat,sans-serif;font-weight:700;font-size:12px;
+    letter-spacing:.34em;color:rgba(255,255,255,.75);line-height:9vh}
+  .blob{position:absolute;width:64vmin;height:64vmin;border-radius:50%;left:50%;top:44%;
+    background:radial-gradient(circle,rgba(79,191,167,.28),rgba(79,191,167,0) 68%);
+    pointer-events:none;will-change:transform}
+  html.js .progress{display:block;position:fixed;top:0;right:0;left:0;height:4px;z-index:60;
+    background:var(--sea);transform-origin:right;transform:scaleX(0)}
+  html.js .dots{display:flex;flex-direction:column;gap:12px;position:fixed;left:16px;top:50%;
+    transform:translateY(-50%);z-index:60}
+  html.js .dots i{width:9px;height:9px;border-radius:50%;background:rgba(10,26,59,.22);box-shadow:0 0 0 1.5px rgba(255,255,255,.55);transition:background .3s,transform .3s}
+  html.js .dots i.on{background:var(--sea);transform:scale(1.4)}
+  html.js .hint{display:block;position:absolute;bottom:6%;left:0;right:0;font-size:15px;color:var(--muted);
+    animation:pulse 2.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){
+    html.js .scroll{height:auto}
+    html.js .stage{position:static;height:auto;overflow:visible}
+    html.js .beat{position:relative;opacity:1!important;transform:none!important;padding:56px 24px}
+    html.js .beat .word,html.js .beat .line,html.js .beat .eyebrow{position:static}
+    html.js .bookbox{position:relative;left:auto;top:auto;transform:none!important;margin:26px auto}
+    html.js .endbeat .price,html.js .endbeat .btn,html.js .endbeat .tiny{position:static;transform:none}
+    html.js .progress,html.js .dots,.hint{display:none!important}
+    html.js .pen,html.js .press{display:none!important}
+    html.js .sheet{transform:none!important}
+    html.js .cover{opacity:1!important}
+    html.js .ln{opacity:1!important;transform:none!important}
+    html.js .spine{opacity:1!important}
+  }
+</style>
+</head>
+<body>
+<span class="tag">تصوراتی خاکہ — لیب</span>
+<div class="progress" id="progress"></div>
+<div class="dots" id="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="scroll" id="scroll">
+  <div class="stage" id="stage">
+    <div class="blob" id="blob"></div>
+
+    <div class="bookbox" id="bookbox">
+      <div class="stackwrap" id="stackwrap">
+        <div class="sheet" id="sheetC"></div>
+        <div class="sheet" id="sheetB"></div>
+        <div class="page" id="page">
+          <div class="ln">یہ کتاب اسی ایک سیکنڈ کے وقفے کے بارے میں ہے۔</div>
+          <div class="ln">مشکل رویّہ بذاتِ خود مسئلہ نہیں ہوتا،</div>
+          <div class="ln">بلکہ وہ کسی گہرے اندرونی مسئلے کا بیرونی اشارہ ہوتا ہے۔</div>
+          <div class="ln">مشاہدہ کیا ہے اور فیصلہ کیا ہے؟</div>
+          <div class="ln">بچے کو قابو میں لانے سے زیادہ اہم خود اپنے ردِعمل کو قابو میں رکھنا ہے۔</div>
+        </div>
+        <div class="spine" id="spine"></div>
+      </div>
+      <img class="cover" id="cover" src="covers/b4.webp" alt="بچے کا غصہ، والدین کا راستہ — کتاب کا سرورق">
+    </div>
+
+    <div class="pen" id="pen">
+      <svg viewBox="0 0 36 150" width="36" height="150" aria-hidden="true">
+        <defs>
+          <linearGradient id="pg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#1B3A6B"/><stop offset=".5" stop-color="#0A1A3B"/><stop offset="1" stop-color="#12294F"/>
+          </linearGradient>
+          <linearGradient id="ng" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#E3C766"/><stop offset="1" stop-color="#B8912B"/>
+          </linearGradient>
+        </defs>
+        <path d="M18 2 C26 2 30 10 30 22 L30 98 L6 98 L6 22 C6 10 10 2 18 2 Z" fill="url(#pg)"/>
+        <rect x="28" y="14" width="4" height="34" rx="2" fill="#C9A227"/>
+        <path d="M11 14 C10 32 10 60 11 90" stroke="rgba(255,255,255,.28)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="6" y="90" width="24" height="8" fill="#C9A227"/>
+        <path d="M6 98 L30 98 L18 148 Z" fill="url(#ng)"/>
+        <line x1="18" y1="106" x2="18" y2="138" stroke="#8A6D1F" stroke-width="1.6"/>
+        <circle cx="18" cy="112" r="2.4" fill="#8A6D1F"/>
+      </svg>
+    </div>
+
+    <div class="press" id="press"><span>CHHAPAI &middot; PRINT</span></div>
+
+    <section class="beat" data-beat="0">
+      <div class="eyebrow">AIDE &middot; KITAB</div>
+      <div class="word">قلم</div>
+      <div class="line">ہر کتاب ایک قلم سے شروع ہوتی ہے۔</div>
+      <div class="hint">نیچے اسکرول کریں &darr;</div>
+    </section>
+
+    <section class="beat" data-beat="1">
+      <div class="word">صفحہ</div>
+      <div class="line">سفید صفحہ — اور ایک ارادہ۔</div>
+    </section>
+
+    <section class="beat" data-beat="2">
+      <div class="word">سطریں</div>
+      <div class="line">پہلی سطر، پھر دوسری۔</div>
+    </section>
+
+    <section class="beat" data-beat="3">
+      <div class="word">تحریر</div>
+      <div class="line">لفظ لفظ، صفحہ بھرنے لگتا ہے۔</div>
+    </section>
+
+    <section class="beat" data-beat="4">
+      <div class="word">جڑنا</div>
+      <div class="line">صفحے جڑتے ہیں، کتاب بننے لگتی ہے۔</div>
+    </section>
+
+    <section class="beat" data-beat="5">
+      <div class="word">چھپائی</div>
+      <div class="line">سیاہی، کاغذ، جلد۔</div>
+    </section>
+
+    <section class="beat endbeat" data-beat="6">
+      <div class="price"><s>1,190 روپے</s> افتتاحی قیمت 952 روپے</div>
+      <a class="btn" href="ur/books.html">مفت نمونہ پڑھیں</a>
+      <div class="tiny">افتتاحی رعایت 31 دسمبر 2026 تک</div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  document.documentElement.classList.add('js');
+  var N = 7;
+  var beats = Array.prototype.slice.call(document.querySelectorAll('.beat'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('#dots i'));
+  var box = document.getElementById('bookbox');
+  var stack = document.getElementById('stackwrap');
+  var sheetB = document.getElementById('sheetB');
+  var sheetC = document.getElementById('sheetC');
+  var spine = document.getElementById('spine');
+  var cover = document.getElementById('cover');
+  var pen = document.getElementById('pen');
+  var press = document.getElementById('press');
+  var blob = document.getElementById('blob');
+  var bar = document.getElementById('progress');
+  var lines = Array.prototype.slice.call(document.querySelectorAll('.ln'));
+  // Pen keyframes per beat: x/y in vw/vh, rotation, scale, opacity.
+  var penKeys = [
+    {x:50, y:44, r:-18, s:1.25, o:1}, {x:64, y:33, r:28, s:1, o:1},
+    {x:42, y:38, r:28, s:1, o:1}, {x:56, y:47, r:28, s:1, o:1},
+    {x:50, y:38, r:10, s:.9, o:0}, {x:50, y:32, r:10, s:.9, o:0},
+    {x:50, y:32, r:10, s:.9, o:0}
+  ];
+  var lineStarts = [1.7, 2.05, 2.6, 2.95, 3.3];
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function ss(a, b, v){
+    var t = Math.min(1, Math.max(0, (v - a) / (b - a)));
+    return t * t * (3 - 2 * t);
+  }
+  function frame(){
+    var max = document.getElementById('scroll').offsetHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    var x = p * N;
+    beats.forEach(function(b, i){
+      var q = x - i;
+      var o = 0, ty = 46;
+      if (q >= 0 && q < 1){
+        o = q < .22 ? q / .22 : (q > .78 ? (1 - q) / .22 : 1);
+        ty = (1 - Math.min(1, q / .3)) * 46;
+      }
+      b.style.opacity = o.toFixed(3);
+      b.style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+      dots[i].className = (q >= 0 && q < 1) ? 'on' : '';
+    });
+    // Pen: interpolate keyframes.
+    var seg = Math.min(N - 2, Math.floor(x));
+    var t = ss(0, 1, Math.min(1, Math.max(0, x - seg)));
+    var pk = {};
+    ['x','y','r','s','o'].forEach(function(k){
+      pk[k] = lerp(penKeys[seg][k], penKeys[seg + 1][k], t);
+    });
+    pen.style.transform = 'translate(' + pk.x.toFixed(2) + 'vw,' + pk.y.toFixed(2) + 'vh) translate(-50%,-96%) rotate(' + pk.r.toFixed(1) + 'deg) scale(' + pk.s.toFixed(3) + ')';
+    pen.style.opacity = pk.o.toFixed(3);
+    // Page fades in during beat 0 -> 1; fades out as the cover arrives.
+    var pageO = ss(.45, 1.15, x);
+    var coverF = ss(5.45, 6.05, x);
+    stack.style.opacity = (pageO * (1 - coverF)).toFixed(3);
+    cover.style.opacity = coverF.toFixed(3);
+    // Sheets fan open, then converge into a bound block.
+    var open = 1 - ss(3.6, 4.4, x);
+    sheetB.style.transform = 'translate(' + (-18 * open).toFixed(1) + 'px,' + (10 * open).toFixed(1) + 'px) rotate(' + (-6 * open).toFixed(2) + 'deg)';
+    sheetC.style.transform = 'translate(' + (18 * open).toFixed(1) + 'px,' + (16 * open).toFixed(1) + 'px) rotate(' + (5 * open).toFixed(2) + 'deg)';
+    spine.style.opacity = ss(3.8, 4.4, x).toFixed(3);
+    // Writing lines appear one by one.
+    lines.forEach(function(ln, i){
+      var r = ss(lineStarts[i], lineStarts[i] + .55, x);
+      ln.style.opacity = r.toFixed(3);
+      ln.style.transform = 'translateY(' + ((1 - r) * 12).toFixed(1) + 'px)';
+    });
+    // Press descends at beat 5, retreats at beat 6; the block squashes under it.
+    var down = ss(4.45, 5.0, x) - ss(5.55, 5.95, x);
+    press.style.transform = 'translateY(' + (-16 + down * 61.5).toFixed(2) + 'vh)';
+    var sq = ss(4.7, 5.0, x) - ss(5.35, 5.6, x);
+    var endShrink = ss(5.5, 6.2, x);
+    var vh = window.innerHeight;
+    box.style.transform = 'translate(-50%,-50%) translateY(' + (-3 * endShrink * vh / 100).toFixed(1) + 'px) scale(' + ((1 + sq * .02) * (1 - endShrink * .08)).toFixed(3) + ',' + ((1 - sq * .045) * (1 - endShrink * .08)).toFixed(3) + ')';
+    blob.style.transform = 'translate(-50%,-50%) translateY(' + (-p * 40).toFixed(1) + 'px) scale(' + (1 + p * .35).toFixed(3) + ')';
+    bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
