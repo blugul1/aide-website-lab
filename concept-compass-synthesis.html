@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#C4AE8D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<title>نوجوان 18 تا 30 | سمت سے کتاب تک — حتمی تجربہ</title>
+<style>
+:root{--paper:#C4AE8D;--ink:#452E16;--brass:#9A846E}
+*{box-sizing:border-box}
+html,body{margin:0}body{background:var(--ink);color:#000;font-family:"Noto Nastaliq Urdu","Noto Naskh Arabic","Jameel Noori Nastaleeq",Tahoma,serif}
+.track{display:none;height:700vh;height:700svh;position:relative}
+.sticky{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;overflow:hidden}
+.frame{position:relative;height:100%;width:min(100%,540px);overflow:hidden;isolation:isolate;background:var(--paper);box-shadow:0 0 70px #0006}
+.stage{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden}
+.ink-layer{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;pointer-events:none;z-index:7}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 48% 42%,transparent 44%,#452E1625 75%,#452E1655 100%)}
+.caption-shade{position:absolute;bottom:8%;left:5%;right:5%;height:19%;background:linear-gradient(180deg,#C4AE8D00,#C4AE8DEB 30%,#C4AE8D 85%);pointer-events:none}
+.captions{position:absolute;z-index:4;bottom:10%;left:8%;right:8%;height:15%;display:grid;place-items:center;pointer-events:none}
+.beat{grid-area:1/1;visibility:hidden;clip-path:inset(100% 0 0 0);margin:0;text-align:center;color:#000;line-height:1.95;font-size:clamp(18px,5.4vw,29px);font-weight:700;text-wrap:balance}
+
+/* A brass link anchored to the actual compass/bound book drives the six
+   caption mechanisms. It never acts as a decorative fade controller. */
+.caption-mechanics{position:absolute;inset:0;width:100%;height:100%;z-index:5;overflow:hidden;pointer-events:none}
+.caption-shade{z-index:2}
+.caption-mechanics g,.caption-mechanics path{vector-effect:non-scaling-stroke}
+.progress{position:absolute;z-index:6;top:32%;right:13px;height:32%;display:flex;align-items:center;flex-direction:column;justify-content:space-between;direction:ltr;pointer-events:none}
+.rail{position:absolute;inset:4px auto;width:2px;background:#0003}.fill{width:100%;height:0;background:#000}
+.dot{z-index:1;width:8px;height:8px;border:1.5px solid #000;border-radius:50%;background:var(--paper)}.dot.on{background:#000}
+/* The offer is PRINTED by surviving compass parts, not faded in. */
+.offer{position:absolute;z-index:5;left:5%;right:5%;top:46%;bottom:3%;display:flex;align-items:center;justify-content:flex-start;flex-direction:column;text-align:center;gap:clamp(5px,1.2svh,12px);pointer-events:none}
+.offer h1{font-size:clamp(27px,6.4vw,38px);line-height:1.65;margin:0;font-weight:800;color:#000}
+.engrave-rtl{clip-path:inset(0 0 0 100%);will-change:clip-path}
+.prices{display:flex;gap:12px;align-items:baseline;justify-content:center;flex-wrap:wrap;line-height:1.8}
+.prices del{font-size:clamp(17px,4vw,22px);text-decoration:none;color:#000}
+.prices strong{font-size:clamp(21px,5vw,29px);color:#000}
+.old-wrap{position:relative;display:inline-block}
+.cta{pointer-events:auto;display:inline-block;position:relative;isolation:isolate;overflow:hidden;width:min(82%,295px);padding:12px 16px;background:transparent;color:#fff;text-decoration:none;text-align:center;line-height:1.9;font-size:clamp(17px,4.1vw,22px);font-weight:700;border:0;--join:0}
+.cta .half{position:absolute;top:0;bottom:0;width:50%;background:var(--ink);z-index:-1;transform:scaleX(var(--join))}
+.cta .half.left{left:0;transform-origin:left}
+.cta .half.right{right:0;transform-origin:right}
+.cta-label{display:block;color:#fff;position:relative;clip-path:inset(0 0 0 100%)}
+.cta:focus-visible,.fallback a:focus-visible{outline:3px solid #000;outline-offset:5px}
+.fine{font-size:clamp(12px,2.8vw,15px);line-height:2.2;max-width:440px;margin:0;color:#000;clip-path:inset(0 0 100% 0);text-wrap:balance}
+.cover-reveal{position:absolute;z-index:8;left:50%;top:28px;width:min(52%,280px);pointer-events:none;will-change:transform}
+.cover-reveal img{display:block;width:100%;aspect-ratio:480/681;object-fit:cover;border:1px solid var(--ink);box-shadow:0 18px 40px #0007}
+.fallback-cover{display:block;width:min(64%,220px);margin:0 auto 18px;border:1px solid var(--ink);box-shadow:0 12px 28px #0005}
+.fallback{background:linear-gradient(155deg,#ffffff75,var(--paper) 66%,var(--brass));min-height:100svh;padding:24px;display:grid;place-items:center;text-align:center}
+.fallback-inner{max-width:550px}.fallback h1{line-height:1.8;font-size:clamp(29px,7vw,44px)}.fallback p{line-height:2.1;font-size:clamp(17px,4.5vw,22px)}.fallback .prices{margin:18px 0}.fallback .fine{font-size:14px;margin:18px 0;clip-path:none}.fallback .cta{margin:10px auto;background:var(--ink);color:#fff;border:2px solid var(--ink)}
+.fallback svg{max-width:130px;display:block;margin:auto}
+.js-ready .track{display:block}.js-ready .fallback{display:none}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-height:650px){.captions{bottom:7%;height:16%}.caption-shade{bottom:3%;height:23%}.offer{top:44%;bottom:1%;gap:3px}.offer h1{line-height:1.3}.fine{line-height:1.6}.cta{padding:6px 10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<main class="fallback">
+  <div class="fallback-inner">
+    <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="57" fill="#9A846E" stroke="#452E16" stroke-width="4"/><circle cx="60" cy="60" r="47" fill="#C4AE8D" stroke="#452E16" stroke-width="2"/><path d="M60 15 72 60 60 67 48 60Z" fill="#452E16"/><path d="M60 105 72 60 60 53 48 60Z" fill="#9A846E" stroke="#452E16"/><circle cx="60" cy="60" r="6" fill="#C4AE8D" stroke="#452E16" stroke-width="2"/></svg>
+    <p>اٹھارہ سے تیس — ہر فیصلہ دباؤ میں کیوں ہوتا ہے؟</p><p>کیریئر، شادی، مقصد — سب ایک ساتھ بولتے ہیں۔</p><p>پہلے سوال صاف ہوں — پھر جواب۔</p><p>سوئی ٹھہرے تو راستہ دکھائی دیتا ہے۔</p><p>سمت ملے تو قدم خود بنتا ہے۔</p><p>نقشہ آپ کا — سمت آپ کی۔</p>
+    <img class="fallback-cover" src="covers/b34.webp" alt="کتاب کا سرورق — نوجوان 18 تا 30">
+    <h1>نوجوان 18 تا 30</h1><div class="prices"><del>990</del><strong>افتتاحی قیمت 792 روپے</strong></div><a class="cta" href="https://imranaslam.pk/ur/books.html">کتابیں دیکھیں</a><p class="fine">افتتاحی رعایت 31 دسمبر 2026 تک · 175 صفحات · 11 ابواب · <span style="white-space:nowrap">مشق نامہ مفت</span></p>
+  </div>
+</main>
+<section class="track" id="track" aria-label="سمت سے کتاب تک متحرک سفر">
+<div class="sticky"><div class="frame">
+<svg class="stage" viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs>
+  <radialGradient id="parchment"><stop stop-color="#ffffff" stop-opacity=".35"/><stop offset=".63" stop-color="#C4AE8D"/><stop offset="1" stop-color="#452E16" stop-opacity=".21"/></radialGradient>
+  <radialGradient id="brass" cx="24%" cy="15%"><stop stop-color="#ffffff" stop-opacity=".75"/><stop offset=".17" stop-color="#C4AE8D"/><stop offset=".44" stop-color="#9A846E"/><stop offset=".73" stop-color="#452E16"/><stop offset="1" stop-color="#9A846E"/></radialGradient>
+  <linearGradient id="leather" x1="0" y1="0" x2="1" y2=".8"><stop stop-color="#9A846E"/><stop offset=".15" stop-color="#C4AE8D"/><stop offset=".69" stop-color="#C4AE8D"/><stop offset="1" stop-color="#9A846E"/></linearGradient>
+  <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff" stop-opacity=".92"/><stop offset=".26" stop-color="#C4AE8D"/><stop offset="1" stop-color="#ffffff" stop-opacity=".65"/></linearGradient>
+  <linearGradient id="needleMetal"><stop stop-color="#452E16"/><stop offset=".42" stop-color="#9A846E"/><stop offset=".56" stop-color="#ffffff"/><stop offset="1" stop-color="#452E16"/></linearGradient>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".32" numOctaves="2" seed="17" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <filter id="blur"><feGaussianBlur stdDeviation="10"/></filter>
+  <path id="rose-shape" d="M0-87 13-14 80 0 13 14 0 87-13 14-80 0-13-14Z"/>
+  <clipPath id="paper-window"><rect x="114" y="300" width="315" height="328" rx="3"/></clipPath>
+  <clipPath id="board-port"><rect id="board-port-rect" x="270" y="325" width="0" height="310"/></clipPath>
+</defs>
+<rect width="540" height="960" fill="#C4AE8D"/><rect width="540" height="960" fill="url(#parchment)"/><rect width="540" height="960" filter="url(#grain)" opacity=".09"/>
+<g fill="none" stroke="#452E16" stroke-opacity=".18"><path d="M-10 164C114 127 284 173 560 98"/><path d="M-30 195C148 159 341 205 551 139"/><path d="M28 86h95M79 30v112"/><circle cx="79" cy="86" r="32" stroke-dasharray="2 5"/><path d="M24 702C158 675 329 699 535 666" stroke-dasharray="2 6"/></g>
+
+<!-- The hardware stays circular. Nothing is morphed into a rectangle. -->
+<g id="machinery">
+  <ellipse cx="270" cy="500" rx="189" ry="174" fill="#452E16" opacity=".28" filter="url(#blur)"/>
+  <circle cx="270" cy="478" r="175" fill="url(#brass)" stroke="#452E16" stroke-width="5"/>
+  <circle cx="270" cy="478" r="157" fill="#452E16" stroke="#C4AE8D" stroke-width="2"/>
+  <circle cx="270" cy="478" r="148" fill="#9A846E" stroke="#452E16" stroke-width="4"/>
+  <circle cx="270" cy="478" r="138" fill="url(#parchment)" stroke="#452E16" stroke-width="2"/>
+  <g id="dial">
+    <circle cx="270" cy="478" r="132" fill="url(#leaf)" stroke="#452E16" stroke-width="2"/>
+    <circle cx="270" cy="478" r="123" fill="none" stroke="#452E16" stroke-width="1"/>
+    <g id="ticks" stroke="#452E16"/>
+    <g fill="#000" font-family="'Noto Nastaliq Urdu','Noto Naskh Arabic',Tahoma,serif" text-anchor="middle" font-weight="bold"><text x="270" y="380" font-size="22">ش</text><text x="378" y="490" font-size="19">م</text><text x="270" y="598" font-size="19">ج</text><text x="162" y="490" font-size="19">غ</text></g>
+  </g>
+  <g id="needle" transform="translate(270 478)"><path d="M0-116 16-4 0 4-16-4Z" fill="url(#needleMetal)" stroke="#452E16" stroke-width="2"/><path d="M0 109 16 5 0-4-16 5Z" fill="#452E16" stroke="#C4AE8D" stroke-width="1.8"/><circle r="15" fill="url(#brass)" stroke="#452E16" stroke-width="2"/><circle r="6" fill="#452E16" stroke="#C4AE8D" stroke-width="2"/></g>
+  <g id="bezel"><circle cx="270" cy="478" r="151" fill="none" stroke="url(#brass)" stroke-width="11"/><circle cx="270" cy="478" r="155" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="1"/><g fill="url(#brass)" stroke="#452E16" stroke-width="2"><circle cx="270" cy="326" r="5"/><circle cx="422" cy="478" r="5"/><circle cx="270" cy="630" r="5"/><circle cx="118" cy="478" r="5"/></g></g>
+  <!-- Two real semicircular rigid shutters and a pinned hinge. -->
+  <g id="jaw-left"><path d="M270 305A173 173 0 0 0 270 651L270 598A120 120 0 0 1 270 358Z" fill="url(#brass)" stroke="#452E16" stroke-width="3"/><path d="M264 319A158 158 0 0 0 264 636" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="2"/></g>
+  <g id="jaw-right"><path d="M270 305A173 173 0 0 1 270 651L270 598A120 120 0 0 0 270 358Z" fill="url(#brass)" stroke="#452E16" stroke-width="3"/><path d="M276 319A158 158 0 0 1 276 636" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="2"/></g>
+  <g id="shell-hinge"><circle cx="270" cy="305" r="12" fill="url(#brass)" stroke="#452E16" stroke-width="3"/><circle cx="270" cy="305" r="4" fill="#452E16"/></g>
+  <g id="winder"><path d="M438 462h18q9 4 9 17t-9 17h-18" fill="url(#brass)" stroke="#452E16" stroke-width="3"/><path d="M453 468v23M459 468v23" stroke="#452E16" stroke-width="1.5"/></g>
+  <g id="latch"><path d="M251 633h38v19q-19 12-38 0Z" fill="url(#brass)" stroke="#452E16" stroke-width="3"/></g>
+  <!-- The lid remains a circular brass tool, later returning as the embossing die. -->
+  <g id="lid">
+    <circle cx="270" cy="478" r="162" fill="url(#brass)" stroke="#452E16" stroke-width="5"/>
+    <circle cx="270" cy="478" r="150" fill="#9A846E" stroke="#C4AE8D" stroke-width="3"/>
+    <circle cx="270" cy="478" r="137" fill="url(#brass)" stroke="#452E16" stroke-width="2"/>
+    <g id="die-rose" transform="translate(270 478)" fill="none" stroke="#452E16" stroke-width="3"><use href="#rose-shape"/><circle r="54" stroke-width="2"/><circle r="8" fill="#C4AE8D"/><path d="M-92-92 92 92M92-92-92 92" stroke-width="1"/></g>
+    <path d="M247 323h46" stroke="#ffffff" stroke-opacity=".8" stroke-width="3"/>
+  </g>
+</g>
+
+<!-- The needle's drawn route catches the case's winding tab. -->
+<g fill="none" stroke="#452E16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path id="route" d="M270 361L270 312C322 289 411 310 469 324C504 349 489 427 452 478"/><circle id="route-tip" cx="270" cy="361" r="4" fill="#452E16" stroke="none"/></g>
+
+<!-- Four hinged *rigid* panels, revealed by the opening case. -->
+<g id="craft">
+  <g id="back-board" clip-path="url(#board-port)" stroke="#452E16">
+    <rect x="270" y="330" width="150" height="145" rx="2" fill="url(#leather)" stroke-width="3"/>
+    <g id="back-bottom"><rect x="270" y="475" width="150" height="145" rx="2" fill="url(#leather)" stroke-width="3"/><path d="M278 481H412" stroke="#C4AE8D" stroke-width="2"/></g>
+    <path d="M276 330v290" stroke="#C4AE8D" stroke-width="5"/>
+  </g>
+  <!-- Five real paper folios, generated once then moved as distinct objects. -->
+  <g id="folios" clip-path="url(#paper-window)"></g>
+  <!-- Binding string visibly pulled through the spine. -->
+  <g id="binding" fill="none" stroke="#452E16" stroke-linecap="round">
+    <path id="feed" d="M451 478Q390 403 335 365T273 338" stroke-width="2.7"/>
+    <path id="stitches" d="M273 338Q249 353 275 368Q295 387 268 401Q248 420 276 441Q296 461 267 480Q250 502 275 520Q294 539 268 560Q251 581 274 600" stroke-width="3"/>
+    <g id="sewing-pin"><path d="M-17 0H17" stroke-width="3"/><path d="M17 0l-9-5v10Z" fill="#9A846E" stroke-width="1"/><circle cx="-16" cy="0" r="3" fill="none" stroke-width="1.5"/></g>
+  </g>
+  <!-- The front board is two hinged pieces, not one scaling rectangle. -->
+  <g id="front-board" clip-path="url(#board-port)" stroke="#452E16">
+    <rect x="120" y="330" width="150" height="145" rx="2" fill="url(#leather)" stroke-width="3"/>
+    <g id="front-bottom"><rect x="120" y="475" width="150" height="145" rx="2" fill="url(#leather)" stroke-width="3"/><path d="M126 481h137" stroke="#C4AE8D" stroke-width="2"/></g>
+    <path d="M264 330v290" stroke="#C4AE8D" stroke-width="5"/>
+  </g>
+  <!-- The imprint exists only after the real lid contacts the cover. -->
+  <g id="imprint" transform="translate(345 424) scale(.57)" fill="none" stroke="#452E16" stroke-width="3" opacity="0"><use href="#rose-shape"/><circle r="54" stroke-width="2"/><circle r="8" fill="#C4AE8D"/></g>
+  <g id="finished-spine" stroke="#452E16"><path d="M272 332v286" stroke-width="8"/><path d="M279 340v273" stroke="#C4AE8D" stroke-width="2"/></g>
+</g>
+
+<!-- Scratches and underwriting are permanent physical ink paths. -->
+<g id="commercial-ink" fill="none" stroke="#452E16" stroke-linecap="round" stroke-linejoin="round">
+  <path id="strike-990" stroke-width="3.4" d="M0 0H1"/>
+  <path id="underline-792" stroke-width="2.6" d="M0 0H1"/>
+  <path id="seal-rule" stroke-width="1.4" d="M0 0H1"/>
+</g>
+<!-- Offer information follows a rule DRAWN from the bound book. -->
+<path id="offer-rule" d="M270 402V439M205 439H335" stroke="#452E16" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+</svg>
+<div class="vignette" aria-hidden="true"></div>
+<div class="caption-shade" aria-hidden="true"></div>
+<div class="captions" aria-hidden="true"><p class="beat">اٹھارہ سے تیس — ہر فیصلہ دباؤ میں کیوں ہوتا ہے؟</p><p class="beat">کیریئر، شادی، مقصد — سب ایک ساتھ بولتے ہیں۔</p><p class="beat">پہلے سوال صاف ہوں — پھر جواب۔</p><p class="beat">سوئی ٹھہرے تو راستہ دکھائی دیتا ہے۔</p><p class="beat">سمت ملے تو قدم خود بنتا ہے۔</p><p class="beat">نقشہ آپ کا — سمت آپ کی۔</p></div>
+
+<!-- Continuously connected caption actuator; the physical brass lever
+     belongs to the compass casing, and to the completed book on beat 6. -->
+<svg id="caption-mechanics" class="caption-mechanics" viewBox="0 0 540 960"
+     preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g id="caption-link" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path id="caption-lever-shadow" stroke="#452E16" stroke-width="7"/>
+    <path id="caption-lever" stroke="#9A846E" stroke-width="4"/>
+    <circle id="caption-pivot" r="7" fill="#9A846E" stroke="#452E16" stroke-width="2"/>
+    <circle id="caption-elbow" r="5" fill="#C4AE8D" stroke="#452E16" stroke-width="1.7"/>
+    <g id="caption-nib"><path d="M-10 -5L5 -5 13 0 5 5 -10 5Z" fill="#9A846E" stroke="#452E16" stroke-width="2"/><circle cx="-3" cy="0" r="2.5" fill="#452E16"/></g>
+  </g>
+  <!-- 1: the lid ratchets a caption-covering rule upward -->
+  <g id="caption-shutter"><rect id="caption-shutter-bar" height="8" rx="2" fill="#9A846E" stroke="#452E16" stroke-width="1.5"/><path id="caption-shutter-highlight" stroke="#C4AE8D" stroke-width="2"/></g>
+  <!-- 2: opposing direction jaws physically clear the words -->
+  <g id="caption-calipers" stroke="#452E16" stroke-width="2.5" fill="none"><path id="caption-caliper-left"/><path id="caption-caliper-right"/><circle id="caption-caliper-hub" r="6" fill="#9A846E"/></g>
+  <!-- 3: a slotted registration bar levels itself -->
+  <g id="caption-register"><rect id="caption-register-blade" width="9" rx="2" fill="#9A846E" stroke="#452E16" stroke-width="1.4"/><path id="caption-register-sight" stroke="#452E16" stroke-width="1.5"/></g>
+  <!-- 4: a compression die strikes then stays stationary -->
+  <g id="caption-stamp"><rect id="caption-stamp-body" height="17" rx="3" fill="#9A846E" stroke="#452E16" stroke-width="2"/><path id="caption-stamp-score" stroke="#C4AE8D" stroke-width="2"/></g>
+  <!-- 5: the compass route continues under the sentence -->
+  <g id="caption-route" fill="none" stroke="#452E16" stroke-linecap="round"><path id="caption-route-trail" stroke-width="2.6"/><circle id="caption-route-point" r="4" fill="#452E16" stroke="none"/></g>
+  <!-- 6: book panels fold outward to uncover a final imprint -->
+  <g id="caption-book-flaps" stroke="#452E16" stroke-width="2">
+    <rect id="caption-flap-up" fill="#9A846E"/>
+    <rect id="caption-flap-down" fill="#9A846E"/>
+    <path id="caption-binding-line" stroke="#452E16" stroke-width="4" fill="none"/>
+  </g>
+</svg>
+<div class="progress" aria-hidden="true"><div class="rail"><div class="fill" id="fill"></div></div><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+<div class="sr-only"><p>اٹھارہ سے تیس — ہر فیصلہ دباؤ میں کیوں ہوتا ہے؟</p><p>کیریئر، شادی، مقصد — سب ایک ساتھ بولتے ہیں۔</p><p>پہلے سوال صاف ہوں — پھر جواب۔</p><p>سوئی ٹھہرے تو راستہ دکھائی دیتا ہے۔</p><p>سمت ملے تو قدم خود بنتا ہے۔</p><p>نقشہ آپ کا — سمت آپ کی۔</p></div>
+<section class="offer" id="offer" aria-label="کتاب کی تفصیل" inert>
+  <!-- The original compass winder prints these letters right-to-left. -->
+  <h1 id="print-title" class="engrave-rtl">نوجوان 18 تا 30</h1>
+  <div class="prices">
+    <span class="old-wrap"><del id="old-price" class="engrave-rtl">990</del></span>
+    <strong id="new-price" class="engrave-rtl">افتتاحی قیمت 792 روپے</strong>
+  </div>
+  <!-- Two dark plates slide together, then the winder stamps the label. -->
+  <a class="cta" id="offer-button" href="https://imranaslam.pk/ur/books.html">
+    <span class="half left" aria-hidden="true"></span><span class="half right" aria-hidden="true"></span>
+    <span class="cta-label" id="button-letters">کتابیں دیکھیں</span>
+  </a>
+  <!-- The winder makes a vertical engraving pass over the entire small type. -->
+  <p class="fine" id="print-fine">افتتاحی رعایت 31 دسمبر 2026 تک · 175 صفحات · 11 ابواب · <span style="white-space:nowrap">مشق نامہ مفت</span></p>
+</section>
+<!-- The exact original needle, winder and ink are moved HERE by JS, over
+     the printable surface, rather than hidden behind its HTML lettering. -->
+<svg id="ink-layer" class="ink-layer" viewBox="0 0 540 960"
+     preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+<div class="cover-reveal" id="cover-reveal" aria-hidden="true"><img src="covers/b34.webp" alt=""></div>
+</div></div>
+</section>
+<script>
+(()=>{
+  const preference=matchMedia('(prefers-reduced-motion: reduce)');
+  if(preference.matches) return;
+  const $=id=>document.getElementById(id);
+  const track=$('track'),machinery=$('machinery'),craft=$('craft'),lid=$('lid');
+  const stage=document.querySelector('.stage');
+  const carriedNeedle=$('needle'),carriedWinder=$('winder');
+  // Move the very SAME nodes into the foreground. Neither is cloned.
+  // They still occupy their original coordinates until the book is bound.
+  const foreground=$('ink-layer');
+  foreground.appendChild($('commercial-ink'));
+  foreground.appendChild(carriedNeedle);
+  foreground.appendChild(carriedWinder);
+  const captions=[...document.querySelectorAll('.beat')];
+  const captionParts={
+    link:$('caption-link'),shadow:$('caption-lever-shadow'),lever:$('caption-lever'),
+    pivot:$('caption-pivot'),elbow:$('caption-elbow'),nib:$('caption-nib'),
+    shutter:$('caption-shutter'),shutterBar:$('caption-shutter-bar'),shutterHighlight:$('caption-shutter-highlight'),
+    calipers:$('caption-calipers'),cl:$('caption-caliper-left'),cr:$('caption-caliper-right'),hub:$('caption-caliper-hub'),
+    register:$('caption-register'),registerBlade:$('caption-register-blade'),registerSight:$('caption-register-sight'),
+    stamp:$('caption-stamp'),stampBody:$('caption-stamp-body'),stampScore:$('caption-stamp-score'),
+    route:$('caption-route'),trail:$('caption-route-trail'),point:$('caption-route-point'),
+    flaps:$('caption-book-flaps'),up:$('caption-flap-up'),down:$('caption-flap-down'),binding:$('caption-binding-line')
+  };
+  // Five evenly spaced readings, then an extended final one carried by the book.
+  const captionStops=[0,1/6,2/6,3/6,4/6,5/6,.887];
+  let captionBounds=[];
+  function measureCaptions(){
+    const transform=stage.getScreenCTM();
+    if(!transform) return;
+    const inverse=transform.inverse();
+    captionBounds=captions.map(el=>{
+      const b=el.getBoundingClientRect();
+      function point(x,y){const p=stage.createSVGPoint();p.x=x;p.y=y;return p.matrixTransform(inverse)}
+      const a=point(b.left,b.top),z=point(b.right,b.bottom);
+      return {x:a.x,y:a.y,w:z.x-a.x,h:z.y-a.y,midX:(a.x+z.x)/2,midY:(a.y+z.y)/2};
+    });
+  }
+  function onCaption(part,enabled){part.style.visibility=enabled?'visible':'hidden'}
+  function rectangle(el,x,y,w,h){
+    el.setAttribute('x',x);el.setAttribute('y',y);
+    el.setAttribute('width',Math.max(0,w));el.setAttribute('height',Math.max(0,h));
+  }
+  // Every caption uses a different reveal and a different contact action.
+  // Visibility switches only when geometry is already fully clipped.
+  function performCaptions(raw){
+    const g=captionParts;
+    let index=-1;
+    for(let i=0;i<6;i++)if(raw>=captionStops[i] && raw<captionStops[i+1]){index=i;break}
+    [g.link,g.shutter,g.calipers,g.register,g.stamp,g.route,g.flaps]
+      .forEach(el=>onCaption(el,false));
+    captions.forEach(el=>{el.style.visibility='hidden';el.style.clipPath='inset(100% 0 0 0)'});
+    if(index<0 || !captionBounds[index])return;
+
+    const b=captionBounds[index],start=captionStops[index],end=captionStops[index+1];
+    const t=clip((raw-start)/(end-start));
+    const enter=ease(phase(t,.00,index===5?.30:.24));
+    const leave=ease(phase(t,index===5?.82:.86,1));
+    const open=enter*(1-leave);
+    const el=captions[index];
+    el.style.visibility='visible';
+    // No opacity or transform transitions are applied to the letters.
+    if(index===0){
+      el.style.clipPath=`inset(${(1-enter)*100}% 0 ${leave*100}% 0)`;
+    }else if(index===1){
+      const side=Math.min(50,(1-enter+leave)*50);
+      el.style.clipPath=`inset(0 ${side}% 0 ${side}%)`;
+    }else if(index===2){
+      el.style.clipPath=`inset(0 ${leave*100}% 0 ${(1-enter)*100}%)`;
+    }else if(index===3){
+      // One pressure event, then a long deliberate HOLD with no wobbling words.
+      el.style.clipPath=`inset(${t<.18?100:0}% 0 ${leave*100}% 0)`;
+    }else if(index===4){
+      // Snap open like beat 4's pressure event, then hold whole: the slow
+      // sideways wipe left this line reading broken at most rest stops.
+      el.style.clipPath=`inset(0 ${leave*100}% 0 ${t<.18?100:0}%)`;
+    }else{
+      const top=Math.min(50,(1-enter)*50),bottom=Math.min(50,(1-enter)*50);
+      el.style.clipPath=`inset(${top}% ${leave*100}% ${bottom}% 0)`;
+    }
+
+    const anchorX=index===5?201:270,anchorY=index===5?406:646;
+    const drive=ease(phase(t,.015,.14))*(1-ease(phase(t,.89,.99)));
+    let tipX=b.midX, tipY=b.y-10;
+    if(index===0){tipX=b.midX;tipY=b.y+b.h*(1-enter)}
+    if(index===1){tipX=b.midX;tipY=b.y-20}
+    if(index===2){tipX=b.x+b.w*(1-enter);tipY=b.y-14}
+    if(index===3){tipX=b.midX;tipY=b.y-26}
+    if(index===4){tipX=b.x+b.w*(1-enter);tipY=b.y+b.h+7}
+    if(index===5){tipX=b.x+b.w+10;tipY=b.y-14}
+    const ex=mix(anchorX,tipX,drive),ey=mix(anchorY,tipY,drive);
+    const elbowX=anchorX+(ex-anchorX)*.38;
+    const elbowY=anchorY+(ey-anchorY)*.62;
+    const d=`M${anchorX} ${anchorY}L${elbowX} ${elbowY}L${ex} ${ey}`;
+    g.shadow.setAttribute('d',d);g.lever.setAttribute('d',d);
+    g.pivot.setAttribute('cx',anchorX);g.pivot.setAttribute('cy',anchorY);
+    g.elbow.setAttribute('cx',elbowX);g.elbow.setAttribute('cy',elbowY);
+    g.nib.setAttribute('transform',`translate(${ex} ${ey}) rotate(${index===3?90:0})`);
+    onCaption(g.link,drive>.002);
+
+    const left=b.x-8,right=b.x+b.w+8,top=b.y-7,bottom=b.y+b.h+7;
+    if(index===0){
+      onCaption(g.shutter,true);
+      const y=b.y+b.h*(1-enter);rectangle(g.shutterBar,left,y-4,right-left,8);
+      g.shutterHighlight.setAttribute('d',`M${left+4} ${y-1}H${right-4}`);
+    }else if(index===1){
+      onCaption(g.calipers,true);
+      const spread=b.w*.51*open;
+      const y=b.midY;
+      g.cl.setAttribute('d',`M${b.midX} ${y-24}L${b.midX-spread} ${y-24}L${b.midX-spread} ${y+24}`);
+      g.cr.setAttribute('d',`M${b.midX} ${y-24}L${b.midX+spread} ${y-24}L${b.midX+spread} ${y+24}`);
+      g.hub.setAttribute('cx',b.midX);g.hub.setAttribute('cy',y-24);
+    }else if(index===2){
+      onCaption(g.register,true);
+      const x=b.x+b.w*(1-enter);
+      rectangle(g.registerBlade,x-4,top,8,b.h+14);
+      g.registerBlade.setAttribute('transform',`rotate(${mix(-7,0,enter)} ${x} ${b.midY})`);
+      g.registerSight.setAttribute('d',`M${x-12} ${top}v${b.h+14}`);
+    }else if(index===3){
+      onCaption(g.stamp,true);
+      const impact=ease(phase(t,.075,.18));
+      const release=ease(phase(t,.18,.32));
+      const y=mix(mix(top-55,b.midY-9,impact),top-26,release);
+      rectangle(g.stampBody,left,y,right-left,17);
+      g.stampScore.setAttribute('d',`M${left+6} ${y+4}H${right-6}`);
+    }else if(index===4){
+      onCaption(g.route,true);
+      const yy=b.y+b.h+7;
+      const x=b.x+b.w*(1-enter);
+      g.trail.setAttribute('d',`M${right} ${yy}H${x}`);
+      g.point.setAttribute('cx',x);g.point.setAttribute('cy',yy);
+    }else{
+      onCaption(g.flaps,true);
+      const yy=b.midY,full=b.h/2+9;
+      const close=1-enter;
+      rectangle(g.up,left,yy-full*close,right-left,full*close);
+      rectangle(g.down,left,yy,right-left,full*close);
+      g.binding.setAttribute('d',`M${right+4} ${yy-full}V${yy+full}`);
+    }
+  }
+
+  const clip=(n,a=0,b=1)=>Math.min(b,Math.max(a,n));
+  const mix=(a,b,t)=>a+(b-a)*t;
+  const phase=(p,a,b)=>clip((p-a)/(b-a));
+  const ease=t=>{t=clip(t);return t*t*(3-2*t)};
+  const easeOut=t=>1-(1-clip(t))**3;
+  const easeInOut=t=>{t=clip(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+  // Chela's needle character arc, keyed to this track's dial window:
+  // the dial window p .29 -> .67 maps onto Chela's p 0 -> .72, so the
+  // needle locks onto True North just before the route draws (p .677).
+  function needleArc(p){
+    const cp=clip((p-0.29)/0.38,0,1)*0.72;
+    if(cp<0.16)return{target:25,amp:0.5};
+    if(cp<0.32){const s=(cp-0.16)/0.16;return{target:25+s*960,amp:2.4}}
+    if(cp<0.48){const t=easeOut((cp-0.32)/0.16);return{target:mix(628,268,t),amp:1.4}}
+    if(cp<0.62){const t=easeInOut((cp-0.48)/0.14);return{target:mix(268,396,t),amp:0.9}}
+    if(cp<0.72){const t=easeOut((cp-0.62)/0.10);return{target:mix(396,360,t)+Math.sin(t*Math.PI*3)*(1-t)*4.5,amp:0.45}}
+    return{target:360,amp:0.28};
+  }
+  let needleCurrent=25,needleTarget=25,needleAmp=0.5,needleDropY=-320,needleDial=true;
+  const lerpKeys=(p,points)=>{
+    for(let i=1;i<points.length;i++)if(p<=points[i][0]){
+      const a=points[i-1],b=points[i];return mix(a[1],b[1],ease(phase(p,a[0],b[0])));
+    }
+    return points[points.length-1][1];
+  };
+  const set=(id,attr,val)=>$(id).setAttribute(attr,String(val));
+  const grad=$('ticks');
+  const svgNS='http://www.w3.org/2000/svg';
+  for(let i=0;i<120;i++){
+    const a=i*Math.PI/60, major=i%10===0,minor=i%5===0;
+    const r=major?112:minor?119:125;
+    const line=document.createElementNS(svgNS,'line');
+    line.setAttribute('x1',270+Math.sin(a)*r);line.setAttribute('y1',478-Math.cos(a)*r);
+    line.setAttribute('x2',270+Math.sin(a)*129);line.setAttribute('y2',478-Math.cos(a)*129);
+    line.setAttribute('stroke-width',major?2.3:minor?1.5:.8);grad.appendChild(line);
+  }
+  // The physical die must cover the folios while making the impression.
+  craft.after(lid);
+  const folios=$('folios'),paper=[];
+  for(let i=0;i<5;i++){
+    const g=document.createElementNS(svgNS,'g');g.id='folio-'+i;
+    const right=document.createElementNS(svgNS,'g');
+    const rect=document.createElementNS(svgNS,'rect');
+    rect.setAttribute('x','270');rect.setAttribute('y',String(332+i));rect.setAttribute('width','146');rect.setAttribute('height','283');rect.setAttribute('rx','1.5');rect.setAttribute('fill','url(#leaf)');rect.setAttribute('stroke','#452E16');rect.setAttribute('stroke-width','1.2');
+    right.appendChild(rect);
+    const fold=document.createElementNS(svgNS,'g');
+    const leaf=document.createElementNS(svgNS,'rect');
+    leaf.setAttribute('x','124');leaf.setAttribute('y',String(332+i));leaf.setAttribute('width','146');leaf.setAttribute('height','283');leaf.setAttribute('rx','1.5');leaf.setAttribute('fill','url(#leaf)');leaf.setAttribute('stroke','#452E16');leaf.setAttribute('stroke-width','1.2');
+    fold.appendChild(leaf);
+    const score=document.createElementNS(svgNS,'path');score.setAttribute('d',`M264 ${334+i}v277`);score.setAttribute('stroke','#452E16');score.setAttribute('stroke-width','1.1');fold.appendChild(score);
+    g.appendChild(right);g.appendChild(fold);folios.appendChild(g);
+    paper.push({g,fold});
+  }
+  const route=$('route'),feed=$('feed'),stitches=$('stitches'),offerRule=$('offer-rule');
+  const routes=[route,feed,stitches,offerRule].map(el=>({el,len:el.getTotalLength()}));
+  routes.forEach(({el,len})=>{el.style.strokeDasharray=`${len} ${len}`;el.style.strokeDashoffset=String(len)});
+  function drawLen(el,index,t){const len=routes[index].len;el.style.strokeDashoffset=String(len*(1-clip(t)))}
+  // Convert actual laid-out Urdu glyph bounds to the SVG drawing surface.
+  // This keeps the engraved lines aligned at 320px as well as 540px.
+  let glyphCache=new WeakMap();
+  function pos(el,x=.5,y=.5){
+    let points=glyphCache.get(el);
+    if(!points){
+      const b=el.getBoundingClientRect(),m=stage.getScreenCTM();
+      if(!m)return {x:270,y:478};
+      const pt=stage.createSVGPoint(), inverse=m.inverse();
+      pt.x=b.left;pt.y=b.top;const a=pt.matrixTransform(inverse);
+      pt.x=b.right;pt.y=b.bottom;const z=pt.matrixTransform(inverse);
+      points={left:a.x,right:z.x,top:a.y,bottom:z.y};
+      glyphCache.set(el,points);
+    }
+    return {x:mix(points.left,points.right,x),y:mix(points.top,points.bottom,y)};
+  }
+  function revealRTL(el,t){
+    el.style.clipPath=`inset(0 0 0 ${(1-clip(t))*100}%)`;
+  }
+  function drawStroke(id,x1,y1,x2,y2,t){
+    const el=$(id);
+    el.setAttribute('d',`M${x1} ${y1}L${x2} ${y2}`);
+    const length=Math.hypot(x2-x1,y2-y1)||1;
+    el.style.strokeDasharray=`${length} ${length}`;
+    el.style.strokeDashoffset=String(length*(1-clip(t)));
+  }
+  let scheduled=false;
+  // Layout can change with responsive Urdu line wrapping. Cache on resize.
+  measureCaptions();
+  function render(){
+    scheduled=false;
+    const travel=Math.max(1,track.offsetHeight-innerHeight);
+    const raw=clip(-track.getBoundingClientRect().top/travel);
+    // Move the pre-existing mechanism earlier to reserve real scroll travel
+    // for production of the offer; the track remains precisely 700vh.
+    const p=raw<=.58?raw*(.677/.58)
+      :raw<=.842?.677+(raw-.58)*(.323/.262):1;
+    // Lid's FIRST action: a pinned hinge folds the disc backward.
+    const opening=ease(phase(p,.02,.146));
+    const install=ease(phase(p,.158,.284));
+    $('dial').setAttribute('transform',`translate(${mix(480,0,install)} ${mix(-210,0,install)}) rotate(${mix(-31,0,install)} 270 478) scale(${mix(.84,1,install)})`);
+    const drop=ease(phase(p,.292,.383));
+    needleDropY=mix(-320,0,drop);
+    carriedNeedle.style.visibility=p>.290?'visible':'hidden';
+    const arc=needleArc(p);
+    needleTarget=arc.target;needleAmp=arc.amp;
+    $('bezel').setAttribute('transform',`translate(0 ${mix(-90,0,ease(phase(p,.348,.407)))})`);
+    $('bezel').style.visibility=p>.342?'visible':'hidden';
+    // North creates a route; the endpoint tugs the winder.
+    const ink=ease(phase(p,.677,.756));
+    drawLen(route,0,ink*(1-ease(phase(p,.762,.828))));
+    $('route-tip').style.opacity=String(ink>0&&ink<.99?1:0);
+    const tp=route.getPointAtLength(routes[0].len*ink);
+    $('route-tip').setAttribute('cx',tp.x);$('route-tip').setAttribute('cy',tp.y);
+    const pull=ease(phase(p,.759,.785));
+    carriedWinder.setAttribute('transform',`translate(${pull*16} 0) rotate(${pull*20} 448 478)`);
+    $('latch').setAttribute('transform',`translate(0 ${12*ease(phase(p,.010,.033))})`);
+    $('latch').style.opacity=String(1-ease(phase(p,.072,.118)));
+    // Casing breaks into two hinged half shells. No path morphing.
+    const jaws=ease(phase(p,.779,.833))*(1-ease(phase(p,.957,.980)));
+    $('jaw-left').setAttribute('transform',`rotate(${-66*jaws} 270 305)`);
+    $('jaw-right').setAttribute('transform',`rotate(${66*jaws} 270 305)`);
+    $('shell-hinge').style.opacity=String(1-.15*jaws);
+    // Four plates unfold by rotating about EXISTING hinge lines.
+    const openBoards=ease(phase(p,.819,.857));
+    $('back-board').setAttribute('transform',`translate(0 ${60*(1-openBoards)})`);
+    $('front-board').setAttribute('transform',`translate(0 ${60*(1-openBoards)})`);
+    const boardFold=mix(-1,1,ease(phase(p,.831,.871)));
+    $('back-bottom').setAttribute('transform',`translate(0 475) scale(1 ${boardFold}) translate(0 -475)`);
+    $('front-bottom').setAttribute('transform',`translate(0 475) scale(1 ${boardFold}) translate(0 -475)`);
+    // A narrow seam opens horizontally to expose the stored plates.
+    const aperture=ease(phase(p,.808,.859));
+    set('board-port-rect','x',270-151*aperture);
+    set('board-port-rect','width',302*aperture);
+    // 5 signatures arrive, unfold at the center crease, refold on the right.
+    paper.forEach(({g,fold},i)=>{
+      const start=.853+i*.0105;
+      const arrive=ease(phase(p,start,start+.010));
+      const spread=ease(phase(p,start+.007,start+.019));
+      const refold=ease(phase(p,start+.020,start+.036));
+      const xfold=mix(-1,1,spread)*(1-refold)-refold;
+      g.style.visibility=arrive>.001?'visible':'hidden';
+      const gathered=ease(phase(p,.912,.932));
+      const fan=arrive*(1-gathered);
+      g.setAttribute('transform',`translate(${(i-2)*17*fan+i*1.45*gathered} ${mix(55+i*4,i*.9,arrive)}) rotate(${(i-2)*4*fan} 270 478)`);
+      fold.setAttribute('transform',`translate(270 0) scale(${xfold} 1) translate(-270 0)`);
+    });
+    // The end of the drawn route becomes a feed to the spine.
+    const pullFeed=ease(phase(p,.868,.888));
+    drawLen(feed,1,pullFeed*(1-ease(phase(p,.921,.949))));
+    const bind=ease(phase(p,.894,.941));
+    drawLen(stitches,2,bind);
+    const needlePt=stitches.getPointAtLength(routes[2].len*bind);
+    const nextPt=stitches.getPointAtLength(Math.min(routes[2].len,routes[2].len*bind+2));
+    const ang=Math.atan2(nextPt.y-needlePt.y,nextPt.x-needlePt.x)*180/Math.PI;
+    $('sewing-pin').setAttribute('transform',`translate(${needlePt.x} ${needlePt.y}) rotate(${ang})`);
+    $('sewing-pin').style.visibility=(bind>.002&&bind<.995)?'visible':'hidden';
+    $('finished-spine').style.visibility=p>.918?'visible':'hidden';
+    // Front leaf closes over the bound signatures on the central pin.
+    const closeCover=ease(phase(p,.934,.955));
+    $('front-board').setAttribute('transform',`translate(0 ${60*(1-openBoards)}) translate(270 0) scale(${mix(1,-1,closeCover)} 1) translate(-270 0)`);
+    // Original lid returns as an EMBOSSING DIE, not a cover morph.
+    const stamping=ease(phase(p,.949,.969));
+    const release=ease(phase(p,.975,.987));
+    let sx=1,sy=mix(1,-.68,opening),tx=0,ty=0;
+    sx=mix(sx,.44,stamping);sy=mix(sy,.44,stamping);tx=75*stamping;ty=29*stamping;
+    if(release>0){sx=mix(sx,.35,release);sy=mix(sy,-.25,release);tx=mix(tx,155,release);ty=mix(ty,-65,release)}
+    const lidDeparture=ease(phase(p,.979,.995));
+    lid.setAttribute('transform',`translate(${tx+lidDeparture*200} ${ty+lidDeparture*850}) translate(270 316) scale(${sx} ${sy}) translate(-270 -316)`);
+    // Engraving appears only at contact; stays when the die retreats.
+    const strike=ease(phase(p,.965,.976));
+    $('imprint').style.opacity=String(strike);
+    // Crafted book leaves the jig as the unchanged compass moves away.
+    const depart=ease(phase(p,.973,.993));
+    craft.setAttribute('transform',`translate(${mix(0,270,depart)} ${mix(0,260,depart)}) scale(${mix(1,.92,depart)}) translate(${mix(0,-345,depart)} ${mix(0,-468,depart)})`);
+    machinery.setAttribute('transform',`translate(${depart*105} ${depart*860}) rotate(${depart*9} 270 478)`);
+    // Ink tether: the book's spine remains connected to its offer.
+    drawLen(offerRule,3,ease(phase(p,.972,.990)));
+
+    // The sixth caption finishes before the separate book-printing performance.
+    const offerScroll=raw<.887?.842:.842+(raw-.887)*(.158/.113);
+    // In Round 3 there is NO staggered opacity entrance. Each element is
+    // exposed only behind a moving brass tool that actually traces its edge.
+    // The user can reverse the whole press by scrolling upward.
+    const title=$('print-title'),old=$('old-price'),fresh=$('new-price');
+    const button=$('offer-button'),letters=$('button-letters'),fine=$('print-fine');
+    const titlePrint=ease(phase(offerScroll,.854,.886));
+    const oldPrint=ease(phase(offerScroll,.886,.902));
+    const scratch=ease(phase(offerScroll,.903,.923));
+    const newPrint=ease(phase(offerScroll,.922,.945));
+    const underline=ease(phase(offerScroll,.945,.963));
+    const join=ease(phase(offerScroll,.961,.978));
+    const buttonPrint=ease(phase(offerScroll,.976,.989));
+    const tinyPrint=ease(phase(offerScroll,.983,.993));
+
+    revealRTL(title,titlePrint);
+    revealRTL(old,oldPrint);
+    revealRTL(fresh,newPrint);
+    revealRTL(letters,buttonPrint);
+    button.style.setProperty('--join',String(join));
+    fine.style.clipPath=`inset(0 0 ${(1-tinyPrint)*100}% 0)`;
+
+    const tR=pos(title,1,.55),tL=pos(title,0,.55);
+    const oR=pos(old,1,.55),oL=pos(old,0,.55);
+    const nR=pos(fresh,1,.95),nL=pos(fresh,0,.95);
+    const bR=pos(letters,1,.52),bL=pos(letters,0,.52);
+    const fT=pos(fine,.5,0),fB=pos(fine,.5,1);
+    const scratchX=mix(oR.x,oL.x,scratch),scratchY=mix(oR.y,oL.y,scratch);
+    const underX=mix(nR.x,nL.x,underline),underY=mix(nR.y,nL.y,underline);
+
+    drawStroke('strike-990',oR.x,oR.y,oL.x,oL.y,scratch);
+    drawStroke('underline-792',nR.x,nR.y+4,nL.x,nL.y+4,underline);
+    drawStroke('seal-rule',bR.x,bR.y+17,bL.x,bL.y+17,buttonPrint);
+
+    // The original winding head runs the little printing press. Its travel
+    // continuously matches the moving edge of each physically exposed line.
+    let px=454,py=478,pr=0;
+    if(offerScroll>=.842 && offerScroll<.854){
+      const t=ease(phase(offerScroll,.842,.854));
+      px=mix(454,tR.x,t);py=mix(478,tR.y,t);
+    }else if(offerScroll>=.854 && offerScroll<.886){
+      px=mix(tR.x,tL.x,titlePrint);py=mix(tR.y,tL.y,titlePrint);
+    }else if(offerScroll>=.886 && offerScroll<.902){
+      const t=oldPrint;
+      px=mix(oR.x,oL.x,t);py=mix(oR.y,oL.y,t);
+    }else if(offerScroll>=.902 && offerScroll<.923){
+      px=oL.x;py=oL.y;
+    }else if(offerScroll>=.923 && offerScroll<.945){
+      px=mix(nR.x,nL.x,newPrint);py=mix(nR.y,nL.y,newPrint);
+    }else if(offerScroll>=.945 && offerScroll<.963){
+      px=mix(nR.x,nL.x,underline);py=mix(nR.y+4,nL.y+4,underline);
+    }else if(offerScroll>=.963 && offerScroll<.978){
+      px=mix(bR.x,bL.x,join);py=bR.y;
+    }else if(offerScroll>=.978 && offerScroll<.989){
+      px=mix(bR.x,bL.x,buttonPrint);py=bR.y;
+    }else if(offerScroll>=.989){
+      const retreat=ease(phase(offerScroll,.993,1));
+      px=mix(fT.x,201,retreat);
+      py=mix(mix(fT.y,fB.y,tinyPrint),379,retreat);
+      pr=mix(90,0,retreat);
+    }
+    // The wrench is a retained piece of the brass compass, not a UI cursor.
+    carriedWinder.setAttribute('transform',
+      `translate(${px-450} ${py-478}) rotate(${pr} 450 478)`);
+
+    // The original directional needle makes the strike itself, then draws
+    // the new-price underline. Its trail is the SVG ink just above.
+    // Until the offer performance begins (raw .887) the needle stays in
+    // the dial, owned by the breathing arc loop — never overridden here.
+    needleDial=raw<.887;
+    if(raw>=.887){
+      const start=ease(phase(offerScroll,.842,.900));
+      let nx=mix(270,oR.x,start),ny=mix(478,oR.y,start);
+      if(offerScroll>=.903 && offerScroll<.923){nx=scratchX+29;ny=scratchY;}
+      else if(offerScroll>=.923 && offerScroll<.945){
+        const a=ease(phase(offerScroll,.923,.945));
+        nx=mix(oL.x,nR.x,a);ny=mix(oL.y,nR.y+4,a);
+      }
+      else if(offerScroll>=.945 && offerScroll<.963){nx=underX+29;ny=underY+4;}
+      else if(offerScroll>=.963){
+        const a=ease(phase(offerScroll,.963,.995));
+        nx=mix(nL.x,182,a);ny=mix(nL.y,290,a);
+      }
+      carriedNeedle.setAttribute('transform',
+        `translate(${nx} ${ny}) rotate(94) scale(${mix(1,.26,start)})`);
+    }
+
+    // The finished book itself arrives last: the real cover descends
+    // into the cleared stage in one movement, after the press finishes.
+    const coverT=ease(phase(raw,.955,1));
+    $('cover-reveal').style.transform=`translate(-50%, ${mix(-115,0,coverT).toFixed(2)}%)`;
+
+    // The completed button becomes focusable only once both plates and letters exist.
+    $('offer').inert=offerScroll<.988;
+    performCaptions(raw);
+    // Caption backing retracts by a precise vertical mechanical shutter, not an opacity fade.
+    const captionBacking=document.querySelector('.caption-shade');
+    const shadeRetract=ease(phase(raw,.874,.899));
+    captionBacking.style.clipPath=`inset(0 0 ${shadeRetract*100}% 0)`;
+    const current=raw>=.887?6:Math.min(5,Math.floor(raw*6));
+    document.querySelectorAll('.dot').forEach((el,i)=>
+      el.classList.toggle('on',i<=current));
+    $('fill').style.height=`${raw*100}%`;
+  }
+  function request(){if(!scheduled){scheduled=true;requestAnimationFrame(render)}}
+  // Chela's living needle: the arc target is scroll-driven, but the
+  // magnetic breathing is time-driven, so a rAF loop owns the dial-mode
+  // transform and eases the needle toward its target every frame.
+  function needleLoop(now){
+    if(needleDial){
+      const idle=Math.sin(now*0.0052)*0.65+Math.sin(now*0.0127)*0.35;
+      needleCurrent+=(needleTarget-needleCurrent)*0.22;
+      carriedNeedle.setAttribute('transform',`translate(270 ${478+needleDropY}) rotate(${(needleCurrent+idle*needleAmp).toFixed(2)})`);
+    }
+    requestAnimationFrame(needleLoop);
+  }
+  requestAnimationFrame(needleLoop);
+  document.documentElement.classList.add('js-ready');
+  addEventListener('scroll',request,{passive:true});addEventListener('resize',()=>{glyphCache=new WeakMap();measureCaptions();request()},{passive:true});
+  preference.addEventListener('change',()=>location.reload());
+  if(document.fonts && document.fonts.ready)document.fonts.ready.then(()=>{glyphCache=new WeakMap();measureCaptions();request()});
+  request();
+})();
+</script>
+</body>
+</html>
