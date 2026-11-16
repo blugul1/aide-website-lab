@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1A3B">
+<title>ذہنی تھکاوٹ اور گھریلو دباؤ | AIDE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:#0A1A3B;
+  --green:#3DAB94;
+  --gold:#C9A227;
+  --cream:#F7F0E2;
+  --paper:#EDE2CE;
+  --muted:#A9B9CD;
+  --progress:0;
+}
+
+* { box-sizing:border-box; }
+
+html {
+  scroll-behavior:smooth;
+  background:var(--navy);
+}
+
+body {
+  margin:0;
+  color:#fff;
+  background:var(--navy);
+  font-family:"Noto Nastaliq Urdu",serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+button, a { font:inherit; }
+
+.story-track {
+  height:700vh;
+  position:relative;
+}
+
+.stage {
+  height:100svh;
+  min-height:560px;
+  width:100%;
+  position:sticky;
+  top:0;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 50% 50%,#172B46 0%,#0D1D38 52%,#07142D 100%);
+}
+
+.stage::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.19;
+  background-image:
+    repeating-linear-gradient(0deg,transparent 0px,rgba(255,255,255,.025) 1px,transparent 2px,transparent 5px),
+    repeating-linear-gradient(90deg,transparent 0px,rgba(255,255,255,.018) 1px,transparent 2px,transparent 7px);
+  pointer-events:none;
+}
+
+/* Gradual cool-to-warm atmosphere */
+.warm-atmosphere {
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(ellipse at 50% 51%,rgba(201,162,39,.23),transparent 53%),
+    linear-gradient(180deg,rgba(105,77,39,.09),rgba(201,162,39,.12));
+}
+
+.lab-tag {
+  position:absolute;
+  top:max(12px,env(safe-area-inset-top));
+  left:14px;
+  z-index:20;
+  direction:rtl;
+  font-size:10px;
+  color:#B9C6D5;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:30px;
+  padding:4px 11px;
+  background:rgba(9,24,48,.52);
+}
+
+.eyebrow {
+  position:absolute;
+  top:7.2%;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:Montserrat,sans-serif;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:4px;
+  color:var(--green);
+  direction:ltr;
+  white-space:nowrap;
+  opacity:.92;
+}
+
+.caption-zone {
+  position:absolute;
+  z-index:10;
+  top:11.5%;
+  left:6%;
+  right:6%;
+  height:18%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  pointer-events:none;
+}
+
+.caption {
+  position:absolute;
+  width:100%;
+  max-width:480px;
+  margin:0 auto;
+  color:#F5F1E8;
+  font-size:clamp(19px,5.2vw,29px);
+  font-weight:400;
+  line-height:2.05;
+  text-wrap:balance;
+  text-shadow:0 3px 20px rgba(0,0,0,.45);
+  opacity:0;
+  visibility:hidden;
+}
+
+.caption .tag {
+  display:block;
+  direction:ltr;
+  unicode-bidi:isolate;
+  font-family:Montserrat,sans-serif;
+  font-size:12px;
+  line-height:1.8;
+  letter-spacing:2px;
+  color:var(--green);
+  margin-bottom:9px;
+}
+
+/* The composition occupies the centre of the viewport.
+   Painted SVG bounds are confined to the composition box.
+   Normal: top 33vh, width <= 410px, height <= 320px.
+   MEASURED (auditor probe, 16 Nov, real fonts): at 540x960 the painted
+   sheet bottom is 626px and the end-card title starts at 658px
+   (card top 68.5%) -> 32px clearance; the card's last line ends
+   ~910px and the progress area starts at ~920px -> ~10px clearance.
+   (The original comment claimed 22px sheet clearance and missed the
+   card/progress overlap entirely: the card bottom was 929px against
+   a progress top of 909px, a 19px overlap. Fixed by card top
+   70% -> 68.5%, progress bottom 3.1% -> 2%, and small card trims.)
+   Compact: width 225px, height 176px, top 31vh.
+   At 360x640: measured sheet bottom 368px, card top 410px -> 42px;
+   card bottom 600px, progress top 610px -> 11px. */
+
+.art-wrap {
+  position:absolute;
+  z-index:3;
+  width:min(76vw,410px);
+  aspect-ratio:500 / 390;
+  top:33%;
+  left:50%;
+  transform:translateX(-50%);
+  filter:drop-shadow(0 25px 30px rgba(0,0,0,.24));
+}
+
+.art {
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+.art-base {
+  filter:url(#paperShadow);
+}
+
+.paper-piece {
+  transform-box:view-box;
+  transform-origin:250px 195px;
+  will-change:transform;
+}
+
+.paper-piece path,
+.paper-piece circle {
+  stroke:rgba(92,66,43,.38);
+  stroke-width:1.5;
+  stroke-linejoin:round;
+}
+
+.paper-piece .paper-surface {
+  filter:url(#pieceShadow);
+}
+
+.back-layer {
+  transform-origin:250px 195px;
+  will-change:transform;
+}
+
+.mid-layer {
+  transform-origin:250px 195px;
+  will-change:transform;
+}
+
+.front-layer {
+  transform-origin:250px 195px;
+  will-change:transform;
+}
+
+.sun-glow {
+  transform-origin:250px 195px;
+  will-change:transform;
+}
+
+/* Surface grain */
+.grain {
+  opacity:.21;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+
+.art-vignette {
+  pointer-events:none;
+  opacity:.5;
+}
+
+/* A soft moving shaft of sunlight */
+.light-beam {
+  position:absolute;
+  z-index:5;
+  width:100%;
+  height:100%;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:
+    linear-gradient(112deg,
+      transparent 34%,
+      rgba(255,226,164,.08) 44%,
+      rgba(255,226,164,.16) 49%,
+      rgba(255,226,164,.035) 57%,
+      transparent 68%);
+  mix-blend-mode:screen;
+  will-change:transform,opacity;
+}
+
+.dust {
+  position:absolute;
+  inset:0;
+  z-index:6;
+  pointer-events:none;
+  opacity:0;
+  background-image:
+    radial-gradient(circle at 28% 42%,rgba(255,231,174,.8) 0 1px,transparent 2px),
+    radial-gradient(circle at 72% 35%,rgba(255,231,174,.7) 0 1px,transparent 2px),
+    radial-gradient(circle at 56% 61%,rgba(255,231,174,.7) 0 1px,transparent 2px),
+    radial-gradient(circle at 42% 75%,rgba(255,231,174,.55) 0 1px,transparent 2px),
+    radial-gradient(circle at 82% 68%,rgba(255,231,174,.6) 0 1px,transparent 2px);
+}
+
+/* Progress */
+.progress-area {
+  position:absolute;
+  z-index:20;
+  bottom:max(2%,env(safe-area-inset-bottom));
+  left:8%;
+  right:8%;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+
+.progress-line {
+  width:100%;
+  height:2px;
+  background:rgba(255,255,255,.16);
+  position:relative;
+  overflow:hidden;
+  border-radius:4px;
+  direction:rtl;
+}
+
+.progress-fill {
+  position:absolute;
+  top:0;
+  right:0;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--green),var(--gold));
+  border-radius:4px;
+}
+
+.dots {
+  display:flex;
+  direction:rtl;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  max-width:360px;
+}
+
+.dot {
+  border:0;
+  background:rgba(255,255,255,.27);
+  width:7px;
+  height:7px;
+  padding:0;
+  border-radius:50%;
+  cursor:pointer;
+  transition:background .2s,transform .2s;
+}
+
+.dot.active {
+  background:var(--gold);
+  transform:scale(1.55);
+}
+
+.dot:focus-visible {
+  outline:2px solid white;
+  outline-offset:5px;
+}
+
+/* Final card */
+.end-card {
+  position:absolute;
+  z-index:12;
+  top:68.5%;
+  left:5%;
+  right:5%;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  will-change:opacity;
+}
+
+.end-card h1 {
+  font-weight:700;
+  font-size:clamp(20px,5vw,27px);
+  line-height:1.85;
+  color:#F8F1E2;
+  margin:0 0 3px;
+  text-wrap:balance;
+  max-width:460px;
+}
+
+.price-old {
+  font-size:14px;
+  color:#B4B9C4;
+  text-decoration:line-through;
+  text-decoration-color:#D47B71;
+  text-decoration-thickness:1.5px;
+  line-height:2;
+}
+
+.price-new {
+  font-size:19px;
+  font-weight:700;
+  color:#F0C968;
+  line-height:2;
+  margin-bottom:4px;
+}
+
+.cta {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:45px;
+  padding:8px 25px;
+  border-radius:5px;
+  background:linear-gradient(135deg,#3DAB94,#277E71);
+  color:#fff;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:700;
+  box-shadow:0 7px 22px rgba(61,171,148,.19);
+  transition:transform .2s,background .2s;
+  pointer-events:auto;
+}
+
+.cta:hover {
+  background:#48BDA4;
+  transform:translateY(-2px);
+}
+
+.cta:focus-visible {
+  outline:2px solid #fff;
+  outline-offset:4px;
+}
+
+.deadline {
+  color:#B8C3D1;
+  font-size:11px;
+  margin-top:5px;
+  line-height:1.9;
+}
+
+.coauthors {
+  color:#E6DCC8;
+  font-size:12px;
+  margin-top:4px;
+  line-height:1.9;
+}
+
+.brand {
+  color:#8EA4B9;
+  font-size:10px;
+  margin-top:4px;
+  line-height:1.75;
+}
+
+/* Short viewport: explicit geometry for 360x640 and similar.
+   Composition bottom: 31% + 225/500 * 390/640 = approx 58.4%.
+   Card top: 64%, giving > 35px vertical clearance at 640px. */
+@media(max-height:700px) {
+  .stage {
+    min-height:0;
+  }
+
+  .eyebrow { top:5.5%; }
+
+  .caption-zone {
+    top:9%;
+    height:19%;
+  }
+
+  .caption {
+    font-size:clamp(17px,4.8vw,22px);
+    line-height:1.9;
+  }
+
+  .caption .tag {
+    margin-bottom:4px;
+  }
+
+  .art-wrap {
+    width:min(64vw,225px);
+    top:31%;
+  }
+
+  .end-card {
+    top:64%;
+    left:4%;
+    right:4%;
+  }
+
+  .end-card h1 {
+    font-size:clamp(18px,5vw,23px);
+    line-height:1.7;
+    margin-bottom:0;
+  }
+
+  .price-old {
+    font-size:12px;
+    line-height:1.8;
+  }
+
+  .price-new {
+    font-size:16px;
+    line-height:1.8;
+    margin-bottom:4px;
+  }
+
+  .cta {
+    min-height:38px;
+    font-size:13px;
+    padding:5px 19px;
+  }
+
+  .deadline {
+    font-size:10px;
+    margin-top:3px;
+  }
+
+  .coauthors {
+    font-size:11px;
+    margin-top:1px;
+  }
+
+  .brand {
+    font-size:9px;
+    margin-top:1px;
+  }
+
+  .progress-area {
+    bottom:2%;
+    gap:8px;
+  }
+}
+
+@media(max-width:380px) and (min-height:701px) {
+  .art-wrap {
+    width:min(72vw,285px);
+  }
+  .end-card {
+    top:70%;
+  }
+}
+
+/* No-JS and reduced-motion fallback */
+/* Auditor fix 16 Nov: removed an invalid rule block whose selector list
+   contained "@media-placeholder" (not a selector) — the whole rule was
+   dropped by the parser. Both selectors are re-declared below, so the
+   fallback was never broken; the dead block is gone. */
+
+.no-js .story-track {
+  height:auto;
+}
+
+.no-js .stage {
+  position:relative;
+  height:auto;
+  min-height:100svh;
+  overflow:visible;
+  padding:50px 18px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.no-js .caption-zone {
+  position:relative;
+  inset:auto;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  margin:25px 0;
+}
+
+.no-js .caption {
+  position:relative;
+  visibility:visible;
+  opacity:1;
+  font-size:19px;
+}
+
+.no-js .caption .tag {
+  display:block;
+}
+
+.no-js .art-wrap {
+  position:relative;
+  top:auto;
+  left:auto;
+  transform:none;
+  width:min(80vw,380px);
+}
+
+.no-js .end-card {
+  position:relative;
+  inset:auto;
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  margin-top:30px;
+}
+
+.no-js .progress-area,
+.no-js .eyebrow {
+  display:none;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+
+  .js .story-track {
+    height:auto;
+  }
+
+  .js .stage {
+    position:relative;
+    height:auto;
+    min-height:0;
+    overflow:visible;
+    padding:60px 18px 35px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .js .eyebrow {
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none;
+    margin:0 0 20px;
+  }
+
+  .js .caption-zone {
+    position:relative;
+    inset:auto;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin:15px 0;
+  }
+
+  .js .caption {
+    position:relative;
+    visibility:visible;
+    opacity:1;
+    font-size:20px;
+  }
+
+  .js .art-wrap {
+    position:relative;
+    top:auto;
+    left:auto;
+    transform:none;
+    width:min(80vw,380px);
+  }
+
+  .js .warm-atmosphere {
+    opacity:1;
+  }
+
+  .js .end-card {
+    position:relative;
+    inset:auto;
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    margin-top:30px;
+  }
+
+  .js .progress-area,
+  .js .lab-tag {
+    display:none;
+  }
+
+  .js .paper-piece {
+    transform:none !important;
+  }
+
+  .js .back-layer,
+  .js .mid-layer,
+  .js .front-layer,
+  .js .sun-glow,
+  .js .light-beam,
+  .js .dust {
+    transform:none !important;
+    opacity:1 !important;
+  }
+
+  .js .light-beam { display:none; }
+}
+</style>
+</head>
+
+<body class="no-js">
+
+<main class="story-track" id="story">
+  <section class="stage" id="stage" aria-label="ذہنی تھکاوٹ اور گھریلو دباؤ">
+
+    <div class="warm-atmosphere" id="warmAtmosphere"></div>
+
+    <div class="lab-tag">تصوراتی خاکہ — لیب</div>
+
+    <div class="eyebrow">AIDE · AWARENESS TO EXCELLENCE</div>
+
+    <div class="caption-zone" aria-live="off">
+
+      <p class="caption" data-beat="0">
+        <span class="tag">01 / 07</span>
+        زندگی کے کئی حصے بکھر گئے ہیں۔
+      </p>
+
+      <p class="caption" data-beat="1">
+        <span class="tag">02 / 07</span>
+        کچھ خواب ادھورے رہ گئے ہیں۔
+      </p>
+
+      <p class="caption" data-beat="2">
+        <span class="tag">03 / 07</span>
+        کچھ فیصلے راستہ بھلا گئے ہیں۔
+      </p>
+
+      <p class="caption" data-beat="3">
+        <span class="tag">04 / 07</span>
+        ہر ٹکڑا اپنی جگہ پہچانتا ہے۔
+      </p>
+
+      <p class="caption" data-beat="4">
+        <span class="tag">05 / 07</span>
+        بکھرے حصے جڑنے لگتے ہیں۔
+      </p>
+
+      <p class="caption" data-beat="5">
+        <span class="tag">06 / 07</span>
+        ایک نئی تصویر سامنے آتی ہے۔
+      </p>
+
+    </div>
+
+    <div class="art-wrap" id="artWrap">
+      <svg class="art" id="art" viewBox="0 0 500 390"
+           xmlns="http://www.w3.org/2000/svg"
+           role="img"
+           aria-label="پھٹے ہوئے کاغذ کے ٹکڑوں سے بنتا ہوا طلوع آفتاب اور پہاڑی منظر">
+
+        <defs>
+
+          <linearGradient id="basePaper" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#D8C9AD"/>
+            <stop offset=".45" stop-color="#F1E7D4"/>
+            <stop offset="1" stop-color="#C6B28F"/>
+          </linearGradient>
+
+          <linearGradient id="skyPaper" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#D9E7F6"/>
+            <stop offset="1" stop-color="#EFF6FD"/>
+          </linearGradient>
+
+          <linearGradient id="goldPaper" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F6D88B"/>
+            <stop offset=".55" stop-color="#DDAE4B"/>
+            <stop offset="1" stop-color="#B98435"/>
+          </linearGradient>
+
+          <linearGradient id="hillBack" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8BA7A4"/>
+            <stop offset="1" stop-color="#4B7779"/>
+          </linearGradient>
+
+          <linearGradient id="hillFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#667C69"/>
+            <stop offset="1" stop-color="#334D45"/>
+          </linearGradient>
+
+          <linearGradient id="pathPaper" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#F7E8C8"/>
+            <stop offset="1" stop-color="#D8B982"/>
+          </linearGradient>
+
+          <radialGradient id="sunGlow">
+            <stop offset="0" stop-color="#FFE7A7" stop-opacity=".9"/>
+            <stop offset=".35" stop-color="#F7CF75" stop-opacity=".45"/>
+            <stop offset="1" stop-color="#F7CF75" stop-opacity="0"/>
+          </radialGradient>
+
+          <filter id="paperShadow" x="-30%" y="-30%" width="160%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="blur"/>
+            <feOffset dy="10" dx="0" result="offset"/>
+            <feComponentTransfer>
+              <feFuncA type="linear" slope=".38"/>
+            </feComponentTransfer>
+            <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <filter id="pieceShadow" x="-30%" y="-30%" width="170%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+            <feOffset dy="5" dx="1" result="offset"/>
+            <feComponentTransfer in="offset">
+              <feFuncA type="linear" slope=".65"/>
+            </feComponentTransfer>
+            <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="17"/>
+          </filter>
+
+          <pattern id="paperGrain" width="30" height="30"
+                   patternUnits="userSpaceOnUse">
+            <circle cx="4" cy="6" r=".8" fill="#765E40" opacity=".22"/>
+            <circle cx="19" cy="12" r=".55" fill="#765E40" opacity=".19"/>
+            <circle cx="12" cy="26" r=".7" fill="#765E40" opacity=".2"/>
+            <path d="M1 18l4-.6M21 4l3 .4M23 24l4-.5"
+                  stroke="#80694C" stroke-width=".6" opacity=".17"/>
+          </pattern>
+
+          <pattern id="fineGrain" width="13" height="13"
+                   patternUnits="userSpaceOnUse">
+            <path d="M0 3l13 -1M2 9l8 -1" stroke="#FFF"
+                  stroke-width=".5" opacity=".22"/>
+          </pattern>
+
+          <clipPath id="sheetClip">
+            <path d="M22 18 L88 14 L149 18 L211 12 L276 17 L340 13
+              L410 19 L477 13 L484 76 L478 141 L486 203 L480 267
+              L485 326 L473 374 L407 371 L346 377 L279 370
+              L212 376 L145 370 L83 376 L18 368 L23 306
+              L15 245 L21 180 L15 117 Z"/>
+          </clipPath>
+
+        </defs>
+
+        <!-- The underlying single sheet: always the same composition -->
+        <g class="art-base">
+          <path d="M22 18 L88 14 L149 18 L211 12 L276 17 L340 13
+            L410 19 L477 13 L484 76 L478 141 L486 203 L480 267
+            L485 326 L473 374 L407 371 L346 377 L279 370
+            L212 376 L145 370 L83 376 L18 368 L23 306
+            L15 245 L21 180 L15 117 Z"
+            fill="url(#basePaper)"/>
+        </g>
+
+        <g clip-path="url(#sheetClip)">
+
+          <!-- Deep back paper -->
+          <g class="back-layer" id="backLayer">
+
+            <path d="M0 0H500V390H0Z" fill="url(#skyPaper)"/>
+
+            <path d="M-10 193 L57 125 L106 161 L175 91
+              L244 166 L302 108 L368 162 L438 94 L516 157
+              L516 240 L-10 240Z"
+              fill="#B8CAD0" opacity=".82"/>
+
+            <path d="M-5 220 L72 150 L124 185 L200 125
+              L259 178 L333 132 L400 185 L473 142
+              L520 182 L520 270 L-5 270Z"
+              fill="url(#hillBack)"/>
+
+            <path d="M-5 236 Q90 208 162 230
+              T315 218 T520 224 L520 295 L-5 295Z"
+              fill="#A4B9AC" opacity=".9"/>
+
+            <path d="M25 20L85 16L142 21L210 14L280 19L340 14
+              L420 22L478 17L481 70L474 130L482 200L479 266
+              L484 328L472 371L407 369L347 375L277 368
+              L210 374L145 369L84 373L20 367L24 305
+              L17 245L22 179L17 117Z"
+              fill="url(#paperGrain)" class="grain"/>
+
+          </g>
+
+          <!-- Mid-depth pieces -->
+          <g class="mid-layer" id="midLayer">
+
+            <circle cx="251" cy="176" r="96"
+                    fill="url(#sunGlow)"
+                    filter="url(#softGlow)"
+                    class="sun-glow" id="sunGlowShape"/>
+
+            <path d="M0 243 Q65 200 119 221
+              Q167 233 216 208
+              Q264 182 316 207
+              Q377 230 420 204
+              Q461 181 515 208
+              L515 390 L0 390Z"
+              fill="#789087"/>
+
+            <path d="M-5 276 Q59 239 111 258
+              Q171 278 220 247
+              Q275 212 330 247
+              Q392 283 451 242
+              Q482 224 520 248
+              L520 390 L-5 390Z"
+              fill="#9EAD8C"/>
+
+          </g>
+
+          <!-- Individual deckled paper pieces.
+               Every piece has its own starting displacement and rotation.
+               The final position is the same continuous landscape. -->
+
+          <!-- Piece 1: Sky -->
+          <g class="paper-piece" data-piece="0">
+            <path class="paper-surface"
+              d="M19 19 L91 15 L148 19 L210 13 L276 18
+                L340 14 L414 19 L480 14 L476 89
+                L481 144 L465 169 L404 158 L345 168
+                L278 158 L210 168 L145 158 L81 169
+                L19 156 L23 100Z"
+              fill="url(#skyPaper)"/>
+            <path d="M19 19 L91 15 L148 19 L210 13 L276 18
+                L340 14 L414 19 L480 14 L476 89
+                L481 144 L465 169 L404 158 L345 168
+                L278 158 L210 168 L145 158 L81 169
+                L19 156 L23 100Z"
+              fill="url(#paperGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 2: Sun -->
+          <g class="paper-piece" data-piece="1">
+            <path class="paper-surface"
+              d="M158 101 L179 96 L204 100 L227 94
+                L255 99 L281 95 L307 102 L328 99
+                L347 112 L344 153 L350 181 L333 204
+                L307 212 L276 207 L249 214 L218 207
+                L191 213 L167 201 L153 178 L159 145Z"
+              fill="#EBCB88"/>
+            <circle cx="251" cy="155" r="51" fill="url(#goldPaper)"/>
+            <path d="M158 101 L179 96 L204 100 L227 94
+                L255 99 L281 95 L307 102 L328 99
+                L347 112 L344 153 L350 181 L333 204
+                L307 212 L276 207 L249 214 L218 207
+                L191 213 L167 201 L153 178 L159 145Z"
+              fill="url(#paperGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 3: distant mountain strip -->
+          <g class="paper-piece" data-piece="2">
+            <path class="paper-surface"
+              d="M-8 160 L50 122 L103 160 L173 90
+                L241 163 L303 106 L368 162 L436 93
+                L510 150 L513 239 L453 228 L394 239
+                L332 225 L266 241 L201 225 L140 239
+                L78 227 L-8 240Z"
+              fill="#78969A"/>
+            <path d="M-8 160 L50 122 L103 160 L173 90
+                L241 163 L303 106 L368 162 L436 93
+                L510 150 L513 239 L453 228 L394 239
+                L332 225 L266 241 L201 225 L140 239
+                L78 227 L-8 240Z"
+              fill="url(#paperGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 4: middle hills -->
+          <g class="paper-piece" data-piece="3">
+            <path class="paper-surface"
+              d="M-10 221 Q43 196 85 214
+                Q126 233 171 211
+                Q215 185 257 202
+                Q310 229 353 203
+                Q403 181 447 207
+                Q477 218 516 203
+                L516 301 L-10 301Z"
+              fill="url(#hillBack)"/>
+            <path d="M-10 221 Q43 196 85 214
+                Q126 233 171 211
+                Q215 185 257 202
+                Q310 229 353 203
+                Q403 181 447 207
+                Q477 218 516 203
+                L516 301 L-10 301Z"
+              fill="url(#fineGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 5: near hills -->
+          <g class="paper-piece" data-piece="4">
+            <path class="paper-surface"
+              d="M-10 266 Q48 239 103 257
+                Q162 283 218 247
+                Q272 213 322 246
+                Q378 277 426 246
+                Q477 215 516 245
+                L516 389 L-10 389Z"
+              fill="url(#hillFront)"/>
+            <path d="M-10 266 Q48 239 103 257
+                Q162 283 218 247
+                Q272 213 322 246
+                Q378 277 426 246
+                Q477 215 516 245
+                L516 389 L-10 389Z"
+              fill="url(#paperGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 6: winding path -->
+          <g class="paper-piece" data-piece="5">
+            <path class="paper-surface"
+              d="M222 246 Q239 257 245 275
+                Q254 295 237 315
+                Q218 341 231 371
+                L281 389 L319 389
+                Q288 349 299 321
+                Q314 294 292 270
+                Q281 252 286 237
+                Q255 227 222 246Z"
+              fill="url(#pathPaper)"/>
+            <path d="M257 260 Q273 286 258 311
+              Q245 338 267 372"
+              fill="none" stroke="#B18D5D" stroke-width="2"
+              opacity=".42"/>
+            <path d="M222 246 Q239 257 245 275
+                Q254 295 237 315
+                Q218 341 231 371
+                L281 389 L319 389
+                Q288 349 299 321
+                Q314 294 292 270
+                Q281 252 286 237
+                Q255 227 222 246Z"
+              fill="url(#paperGrain)" class="grain"/>
+          </g>
+
+          <!-- Piece 7: foreground edge and warm earth -->
+          <g class="paper-piece" data-piece="6">
+            <path class="paper-surface"
+              d="M-10 310 Q58 283 112 300
+                Q168 318 219 291
+                Q272 265 321 298
+                Q380 328 438 289
+                Q482 272 516 300
+                L516 390 L-10 390Z"
+              fill="#465C48"/>
+            <path d="M-10 310 Q58 283 112 300
+                Q168 318 219 291
+                Q272 265 321 298
+                Q380 328 438 289
+                Q482 272 516 300
+                L516 390 L-10 390Z"
+              fill="url(#fineGrain)" class="grain"/>
+          </g>
+
+          <!-- Paper edge details -->
+          <g opacity=".28" stroke="#FFF7E6" fill="none" stroke-width="1.1">
+            <path d="M28 24L92 21L147 25"/>
+            <path d="M350 22L412 26L471 21"/>
+            <path d="M27 354L83 360L145 355"/>
+            <path d="M348 362L408 357L467 363"/>
+          </g>
+
+        </g>
+
+        <!-- Fine surface texture over the complete composition -->
+        <path class="art-vignette"
+          d="M22 18 L88 14 L149 18 L211 12 L276 17 L340 13
+          L410 19 L477 13 L484 76 L478 141 L486 203 L480 267
+          L485 326 L473 374 L407 371 L346 377 L279 370
+          L212 376 L145 370 L83 376 L18 368 L23 306
+          L15 245 L21 180 L15 117Z"
+          fill="url(#paperGrain)"/>
+
+        <!-- Sunlight on the assembled scene -->
+        <g id="sunGlowOverlay" opacity=".0">
+          <ellipse cx="250" cy="160" rx="105" ry="95"
+                   fill="#FFD67A" filter="url(#softGlow)"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <div class="light-beam" id="lightBeam"></div>
+    <div class="dust" id="dust"></div>
+
+    <!-- Final card -->
+    <div class="end-card" id="endCard">
+
+      <h1>ذہنی تھکاوٹ اور گھریلو دباؤ</h1>
+
+      <div class="price-old">990 روپے</div>
+      <div class="price-new">افتتاحی قیمت 792 روپے</div>
+
+      <a class="cta"
+         href="https://imranaslam.pk/ur/books.html">
+        اپنی اگلی کتاب منتخب کریں
+      </a>
+
+      <div class="deadline">
+        افتتاحی رعایت 31 دسمبر 2026 تک
+      </div>
+
+      <div class="coauthors">
+        عمران اسلم و سیدہ عمارہ زیدی
+      </div>
+
+      <div class="brand">
+        AIDE · عمران اسلم | لائف کوچ اور ٹرینر
+      </div>
+
+    </div>
+
+    <!-- Navigation and progress -->
+    <div class="progress-area" id="progressArea">
+
+      <div class="progress-line">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <nav class="dots" aria-label="کہانی کے مراحل">
+
+        <button class="dot active" data-go="0"
+                aria-label="پہلا مرحلہ"></button>
+        <button class="dot" data-go="1"
+                aria-label="دوسرا مرحلہ"></button>
+        <button class="dot" data-go="2"
+                aria-label="تیسرا مرحلہ"></button>
+        <button class="dot" data-go="3"
+                aria-label="چوتھا مرحلہ"></button>
+        <button class="dot" data-go="4"
+                aria-label="پانچواں مرحلہ"></button>
+        <button class="dot" data-go="5"
+                aria-label="چھٹا مرحلہ"></button>
+        <button class="dot" data-go="6"
+                aria-label="آخری مرحلہ"></button>
+
+      </nav>
+    </div>
+
+  </section>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const body = document.body;
+  const track = document.getElementById("story");
+  const stage = document.getElementById("stage");
+
+  const captions = [...document.querySelectorAll(".caption")];
+  const dots = [...document.querySelectorAll(".dot")];
+  const pieces = [...document.querySelectorAll(".paper-piece")];
+
+  const warm = document.getElementById("warmAtmosphere");
+  const back = document.getElementById("backLayer");
+  const mid = document.getElementById("midLayer");
+  const light = document.getElementById("lightBeam");
+  const dust = document.getElementById("dust");
+  const sun = document.getElementById("sunGlowOverlay");
+  const card = document.getElementById("endCard");
+  const fill = document.getElementById("progressFill");
+  const art = document.getElementById("art");
+
+  body.classList.remove("no-js");
+  body.classList.add("js");
+
+  const reduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reduced) return;
+
+  /*
+    CAPTION TIMELINE
+
+    Six caption centres:
+    0.0000, 0.1667, 0.3333, 0.5000, 0.6667, 0.8333
+
+    Each caption:
+    fade-in begins at centre - 0.045
+    reaches full opacity at centre - 0.025
+    remains full until centre + 0.025
+    fade-out ends at centre + 0.045
+
+    Beat 0 is explicitly opacity 1 at p=0.
+
+    Outgoing captions are fully invisible before the
+    next caption begins its fade-in. There is no overlap.
+
+    At all six sixth-points each caption is fully visible.
+
+    The final seventh beat is the end card at p >= 0.94.
+  */
+
+  const centres = [
+    0,
+    1/6,
+    2/6,
+    3/6,
+    4/6,
+    5/6
+  ];
+
+  const clamp = (v,min,max) => Math.max(min,Math.min(max,v));
+
+  const smooth = (a,b,v) => {
+    const x = clamp((v-a)/(b-a),0,1);
+    return x*x*(3-2*x);
+  };
+
+  const lerp = (a,b,t) => a+(b-a)*t;
+
+  let target = 0;
+  let current = 0;
+  let raf = 0;
+  let lastBeat = -1;
+
+  /*
+    Each torn paper fragment has a distinct depth and
+    starting displacement. They converge on their own
+    original coordinates, preserving one composition.
+
+    Offsets are expressed in SVG viewBox units.
+  */
+
+  const scatter = [
+    {x:-119,y:-92,r:-25},
+    {x:103,y:-103,r:19},
+    {x:-144,y:15,r:28},
+    {x:128,y:37,r:-21},
+    {x:-91,y:121,r:18},
+    {x:130,y:116,r:-30},
+    {x:-15,y:167,r:25}
+  ];
+
+  const depths = [
+    0.65, 1.05, 0.78, 1.0, 1.18, 1.35, 1.5
+  ];
+
+  function getScrollProgress() {
+    const max = track.offsetHeight - window.innerHeight;
+    if (max <= 0) return 0;
+    return clamp(window.scrollY / max,0,1);
+  }
+
+  function setCaptionOpacity(p) {
+    captions.forEach((el,i) => {
+      const c = centres[i];
+      let opacity = 0;
+
+      if (i === 0 && p === 0) {
+        opacity = 1;
+      } else {
+        const fadeIn = smooth(c-.045,c-.025,p);
+        const fadeOut = 1-smooth(c+.025,c+.045,p);
+        opacity = fadeIn*fadeOut;
+      }
+
+      el.style.opacity = opacity.toFixed(4);
+      el.style.visibility = opacity > .001 ? "visible" : "hidden";
+    });
+  }
+
+  function render(p) {
+
+    // Same pieces, same destination, different depth.
+    pieces.forEach((piece,i) => {
+      const s = scatter[i];
+      const d = depths[i];
+
+      const progress = smooth(
+        .025 + i*.006,
+        .84 + i*.014,
+        p
+      );
+
+      const x = s.x*(1-progress);
+      const y = s.y*(1-progress);
+      const r = s.r*(1-progress);
+
+      const parallax = (1-p)*.08;
+
+      piece.style.transform =
+        `translate3d(${x*d}px,${y*d}px,0) rotate(${r}deg)`;
+
+      piece.style.opacity = "1";
+    });
+
+    // Background layers move at different rates.
+    const movement = p*2-1;
+
+    back.style.transform =
+      `translate3d(${movement*-4}px,${movement*-7}px,0)`;
+
+    mid.style.transform =
+      `translate3d(${movement*7}px,${movement*4}px,0)`;
+
+    const front = document.querySelector(".front-layer");
+    if (front) {
+      front.style.transform =
+        `translate3d(${movement*10}px,${movement*8}px,0)`;
+    }
+
+    // Warmth gradually replaces the cold blue atmosphere.
+    warm.style.opacity = (.03 + .83*smooth(.18,1,p)).toFixed(4);
+
+    // Sunlight gradually becomes stronger.
+    const lightPower = smooth(.20,.95,p);
+    light.style.opacity = (.04 + lightPower*.32).toFixed(4);
+    light.style.transform =
+      `translate3d(${(1-p)*-15}px,${(1-p)*8}px,0)`;
+
+    dust.style.opacity = (.02 + lightPower*.62).toFixed(4);
+    sun.style.opacity = (.02 + lightPower*.72).toFixed(4);
+
+    // Captions and progress.
+    setCaptionOpacity(p);
+
+    fill.style.width = (p*100).toFixed(2)+"%";
+
+    // The seven dots represent the six captions and final card.
+    const beat = p >= .94 ? 6 : Math.min(5,Math.floor(p*6));
+
+    if (beat !== lastBeat) {
+      dots.forEach((dot,i) => {
+        dot.classList.toggle("active",i===beat);
+        if (i===beat) {
+          dot.setAttribute("aria-current","step");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+      lastBeat = beat;
+    }
+
+    // Final card: a dedicated separate end zone.
+    const endOpacity = smooth(.945,1,p);
+    card.style.opacity = endOpacity.toFixed(4);
+    card.style.visibility = endOpacity > .001 ? "visible" : "hidden";
+    card.style.pointerEvents = p > .985 ? "auto" : "none";
+  }
+
+  function animate() {
+    raf = 0;
+
+    target = getScrollProgress();
+
+    const difference = target-current;
+
+    // Damped easing: stops completely once settled.
+    // Auditor change 16 Nov: damping 0.105 -> 0.16 (same value as the
+    // Hilm page). At 0.105 the damped value had not converged after
+    // 1.2s under headless software rendering (captions measured 0.47
+    // and 0 at later holds; the page logic was correct, the easing
+    // was simply too slow to settle). 0.16 converges inside the
+    // standard hold window and is also snappier on slow phones.
+    current += difference*.16;
+
+    if (Math.abs(difference)<.00045) {
+      current = target;
+    }
+
+    render(current);
+
+    if (current !== target) {
+      raf = requestAnimationFrame(animate);
+    }
+  }
+
+  function requestRender() {
+    target = getScrollProgress();
+
+    if (!raf) {
+      raf = requestAnimationFrame(animate);
+    }
+  }
+
+  // First paint: beat 0 must be completely visible.
+  current = getScrollProgress();
+  target = current;
+  render(current);
+
+  window.addEventListener("scroll",requestRender,{passive:true});
+  window.addEventListener("resize",requestRender,{passive:true});
+
+  // Seven RTL dots; their destinations are the caption centres
+  // plus the final end-card position.
+  dots.forEach((dot,i) => {
+    dot.addEventListener("click",() => {
+      const p = i===6 ? 1 : centres[i];
+
+      const max = track.offsetHeight-window.innerHeight;
+      const destination = max*p;
+
+      window.scrollTo({
+        top:destination,
+        behavior:"smooth"
+      });
+    });
+  });
+
+  // Correct first-paint state if fonts alter the layout.
+  document.fonts?.ready.then(() => {
+    requestRender();
+  });
+
+})();
+</script>
+
+</body>
+</html>
