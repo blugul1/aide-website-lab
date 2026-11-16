@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>AIDE — ایک گفتگو، ہلکا سفر</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0A1A3B;
+      --sea: #3DAB94;
+      --glass-top: #EFF6FD;
+      --glass-bot: #D9E7F6;
+      --gold: #C9A227;
+      --gold-bright: #F7DC79;
+      --font-ur: 'Noto Nastaliq Urdu', serif;
+      --font-en: 'Montserrat', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background: var(--navy);
+      color: var(--glass-top);
+      font-family: var(--font-ur);
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: auto;
+    }
+
+    body {
+      overflow-x: hidden;
+      background: var(--navy);
+      min-height: 100svh;
+    }
+
+    /* Scroll Track: ~700vh for unhurried 7-beat pacing */
+    .scroll-track {
+      position: relative;
+      height: 700vh;
+      width: 100%;
+    }
+
+    /* Sticky Viewport Stage */
+    .stage {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100svh;
+      overflow: hidden;
+      background: var(--navy);
+      user-select: none;
+    }
+
+    /* =====================================================================
+       ATMOSPHERE & PARALLAX LAYERS (Cool Dim Navy -> Warm Golden Dawn)
+       ===================================================================== */
+    .atmo-cool {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 85% 55% at 50% 42%, #142B59 0%, #0D1F44 52%, #071229 100%);
+      z-index: 1;
+    }
+
+    .atmo-warm {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      will-change: opacity;
+      background:
+        radial-gradient(ellipse 90% 62% at 50% 48%, rgba(201, 162, 39, 0.34) 0%, rgba(61, 171, 148, 0.16) 44%, rgba(10, 26, 59, 0.96) 100%),
+        linear-gradient(180deg, #0D2147 0%, #162E58 48%, #1E2A44 100%);
+      z-index: 2;
+    }
+
+    /* Subtle film grain & vignette */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 48%, transparent 48%, rgba(4, 10, 24, 0.68) 100%);
+      z-index: 9;
+    }
+
+    /* LAYER 1: Distant Horizon & Path (Slow Parallax) */
+    .layer-bg {
+      position: absolute;
+      inset: -4% -8%;
+      z-index: 3;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    .layer-bg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* =====================================================================
+       TOP HEADER & LAB TAG
+       ===================================================================== */
+    .top-bar {
+      position: absolute;
+      top: max(14px, 2.2svh);
+      inset-inline: 20px;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .brand-eyebrow {
+      font-family: var(--font-en);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      color: var(--glass-top);
+      opacity: 0.88;
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+
+    .lab-tag {
+      font-family: var(--font-ur);
+      font-size: 10.5px;
+      line-height: 1.6;
+      color: var(--glass-bot);
+      background: rgba(239, 246, 253, 0.08);
+      border: 1px solid rgba(239, 246, 253, 0.16);
+      padding: 2px 10px 4px;
+      border-radius: 999px;
+      opacity: 0.78;
+    }
+
+    /* =====================================================================
+       ZONE 1: CAPTIONS (11% to 29% of viewport height)
+       ===================================================================== */
+    .caption-zone {
+      position: absolute;
+      top: 10.5svh;
+      height: 19svh;
+      inset-inline: 22px;
+      z-index: 14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .beat-caption {
+      position: absolute;
+      width: 100%;
+      max-width: 460px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      will-change: opacity, transform;
+    }
+
+    .beat-caption[data-beat="0"] {
+      opacity: 1; /* Visible at first paint p=0 */
+    }
+
+    .beat-tag {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--sea);
+      direction: ltr;
+      unicode-bidi: isolate;
+      transition: color 0.3s ease;
+    }
+
+    .beat-caption[data-beat="5"] .beat-tag {
+      color: var(--gold-bright);
+    }
+
+    .beat-text {
+      font-family: var(--font-ur);
+      font-weight: 700;
+      font-size: clamp(19px, 4.3vw, 24px);
+      line-height: 1.78;
+      color: var(--glass-top);
+      text-wrap: balance;
+      text-shadow: 0 2px 18px rgba(5, 12, 28, 0.75);
+    }
+
+    /* =====================================================================
+       ZONE 2: HERO FIGURE & SCENE (33% to 71% of viewport height)
+       Painted figure extent carefully bounded so Beat 6 shrinks/lifts cleanly
+       ===================================================================== */
+    .scene-zone {
+      position: absolute;
+      top: 32svh;
+      height: 40svh;
+      inset-inline: 0;
+      z-index: 6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .hero-rig {
+      position: relative;
+      width: min(76vw, 340px);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+      transform-origin: 50% 22%;
+    }
+
+    .hero-rig svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Pose & Bundle crossfade groups (matched windows keep sum = 1.0) */
+    .pose-group,
+    .carrier-group {
+      will-change: opacity;
+    }
+
+    /* LAYER 3: Foreground Dust Motes & Warm Light Rays (Fast Parallax) */
+    .layer-fg {
+      position: absolute;
+      inset: -6% -10%;
+      z-index: 8;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .layer-fg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* =====================================================================
+       ZONE 3: END CARD (Beat 6 — Clears lifted/shrunk figure by ≥24px)
+       ===================================================================== */
+    .end-card {
+      position: absolute;
+      bottom: 8.5svh;
+      inset-inline: 20px;
+      z-index: 16;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    .end-card.is-active {
+      pointer-events: auto;
+    }
+
+    .end-card-inner {
+      width: 100%;
+      max-width: 440px;
+      background: linear-gradient(165deg, rgba(16, 36, 74, 0.88) 0%, rgba(10, 26, 59, 0.94) 100%);
+      border: 1px solid rgba(201, 162, 39, 0.36);
+      box-shadow: 0 18px 46px rgba(3, 8, 20, 0.72), inset 0 1px 0 rgba(239, 246, 253, 0.14);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 18px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .end-tag {
+      font-family: var(--font-en);
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--gold-bright);
+      direction: ltr;
+      unicode-bidi: isolate;
+    }
+
+    .end-headline {
+      font-family: var(--font-ur);
+      font-weight: 700;
+      font-size: clamp(20px, 4.6vw, 25px);
+      line-height: 1.72;
+      color: var(--glass-top);
+      text-wrap: balance;
+    }
+
+    .end-brand {
+      font-family: var(--font-ur);
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--glass-bot);
+      opacity: 0.92;
+    }
+
+    .end-cta {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--gold) 0%, #DFB93B 100%);
+      color: #08142E;
+      font-family: var(--font-ur);
+      font-weight: 700;
+      font-size: 15.5px;
+      line-height: 1.7;
+      text-decoration: none;
+      padding: 8px 26px 10px;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(201, 162, 39, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .end-cta:hover,
+    .end-cta:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(201, 162, 39, 0.5);
+    }
+
+    .end-micro {
+      font-family: var(--font-ur);
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--sea);
+      margin-top: 2px;
+    }
+
+    /* =====================================================================
+       BOTTOM NAVIGATION: RTL PROGRESS BAR + 7 CLICKABLE DOTS
+       ===================================================================== */
+    .nav-hud {
+      position: absolute;
+      bottom: max(14px, 2.2svh);
+      inset-inline: 24px;
+      z-index: 18;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .dots-row {
+      display: flex;
+      flex-direction: row; /* In dir="rtl", item 0 sits on the RIGHT */
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot-btn {
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .dot-pip {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(239, 246, 253, 0.28);
+      transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .dot-btn[aria-current="true"] .dot-pip {
+      background: var(--gold-bright);
+      transform: scale(1.45);
+      box-shadow: 0 0 10px rgba(247, 220, 121, 0.75);
+    }
+
+    .progress-rail {
+      width: min(240px, 62vw);
+      height: 2.5px;
+      background: rgba(239, 246, 253, 0.14);
+      border-radius: 999px;
+      overflow: hidden;
+      direction: rtl;
+    }
+
+    .progress-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, var(--sea) 0%, var(--gold-bright) 100%);
+      transform-origin: right center; /* Fills from right in RTL */
+      transform: scaleX(0.02);
+      will-change: transform;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 8.2svh;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 12;
+      font-family: var(--font-ur);
+      font-size: 12px;
+      color: var(--glass-bot);
+      opacity: 0.72;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    /* =====================================================================
+       SHORT VIEWPORT COMPACT BLOCK (@media max-height: 700px, e.g. 360x640)
+       Guarantees ≥24px clearance between painted figure and end card
+       ===================================================================== */
+    @media (max-height: 700px) {
+      .caption-zone {
+        top: 8.5svh;
+        height: 18svh;
+      }
+      .beat-text {
+        font-size: clamp(16.5px, 4.4vw, 20px);
+        line-height: 1.65;
+      }
+      .scene-zone {
+        top: 28svh;
+        height: 36svh;
+      }
+      .end-card {
+        bottom: 7.2svh;
+      }
+      .end-card-inner {
+        padding: 12px 16px 11px;
+        gap: 4px;
+        border-radius: 16px;
+      }
+      .end-headline {
+        font-size: clamp(17.5px, 4.6vw, 21px);
+        line-height: 1.58;
+      }
+      .end-brand {
+        font-size: 12px;
+        line-height: 1.5;
+      }
+      .end-cta {
+        font-size: 14px;
+        padding: 6px 20px 7px;
+      }
+      .end-micro {
+        font-size: 11px;
+      }
+      .nav-hud {
+        bottom: 8px;
+        gap: 6px;
+      }
+    }
+
+    /* =====================================================================
+       REDUCED MOTION & NO-JS FALLBACK (Stacked readable static layout)
+       ===================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-track {
+        height: auto;
+      }
+      .stage {
+        position: relative;
+        height: auto;
+        min-height: 100svh;
+        padding: 64px 20px 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+      }
+      .atmo-warm {
+        opacity: 0.65;
+      }
+      .caption-zone {
+        position: static;
+        height: auto;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .beat-caption {
+        position: static;
+        opacity: 1 !important;
+        transform: none !important;
+        background: rgba(239, 246, 253, 0.05);
+        border: 1px solid rgba(239, 246, 253, 0.12);
+        border-radius: 16px;
+        padding: 14px 18px;
+      }
+      .scene-zone {
+        position: static;
+        height: 240px;
+      }
+      #pose-0, #pose-1, #bundle-heavy, #bundle-mid {
+        opacity: 0 !important;
+      }
+      #pose-2, #lantern-light {
+        opacity: 1 !important;
+      }
+      .end-card {
+        position: static;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: auto;
+      }
+      .nav-hud, .scroll-cue {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    CAPTION & BEAT TIMELINE (7 Beats mapped across normalized scroll progress p in [0, 1]):
+    Hold centers (sixths):
+      Beat 0: center p = 0.0000  | full opacity [0.000, 0.095], fades out [0.095 -> 0.115]
+      Beat 1: center p = 0.1667  | fades in [0.125 -> 0.145], full [0.145, 0.235], fades out [0.235 -> 0.255]
+      Beat 2: center p = 0.3333  | fades in [0.265 -> 0.285], full [0.285, 0.405], fades out [0.405 -> 0.425]
+      Beat 3: center p = 0.5000  | fades in [0.435 -> 0.455], full [0.455, 0.575], fades out [0.575 -> 0.595]
+      Beat 4: center p = 0.6667  | fades in [0.605 -> 0.625], full [0.625, 0.745], fades out [0.745 -> 0.765]
+      Beat 5: center p = 0.8333  | fades in [0.775 -> 0.795], full [0.795, 0.895], fades out [0.895 -> 0.915]
+      Beat 6 (End Card): center p = 1.0000 | fades in [0.925 -> 0.945], full [0.945, 1.000]
+
+    FIGURE & BUNDLE MATCHED CROSSFADE WINDOWS (Sum = 1.0 at every p):
+      Pose 0 (weighed down) -> Pose 1 (easing):   p in [0.30, 0.46]
+      Pose 1 (easing)       -> Pose 2 (upright):  p in [0.64, 0.80]
+      Bundle Heavy          -> Bundle Easing:     p in [0.30, 0.46]
+      Bundle Easing         -> Lantern Glow:      p in [0.64, 0.80]
+  -->
+
+  <main class="scroll-track" id="scrollTrack">
+    <section class="stage" aria-label="AIDE ایک گفتگو کی کہانی">
+
+      <!-- Background Atmosphere -->
+      <div class="atmo-cool"></div>
+      <div class="atmo-warm" id="atmoWarm"></div>
+
+      <!-- LAYER 1: Background Horizon, Mist & Walking Path (Slow Parallax) -->
+      <div class="layer-bg" id="layerBg" aria-hidden="true">
+        <svg viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="pathGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3DAB94" stop-opacity="0.03"/>
+              <stop offset="55%" stop-color="#EFF6FD" stop-opacity="0.11"/>
+              <stop offset="100%" stop-color="#071229" stop-opacity="0.65"/>
+            </linearGradient>
+            <linearGradient id="horizonGlow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#C9A227" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#C9A227" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#3DAB94" stop-opacity="0.05"/>
+            </linearGradient>
+            <radialGradient id="distantSun" cx="50%" cy="46%" r="36%">
+              <stop offset="0%" stop-color="#F7DC79" stop-opacity="0.45"/>
+              <stop offset="55%" stop-color="#C9A227" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Distant horizon hills (layered depth) -->
+          <path d="M-40 535 Q130 488 280 518 T600 502 L600 660 L-40 660 Z" fill="#081633" opacity="0.72"/>
+          <path d="M-40 558 Q180 526 340 546 T600 534 L600 690 L-40 690 Z" fill="#0B1D42" opacity="0.85"/>
+
+          <!-- Horizon warm dawn band -->
+          <rect x="-40" y="420" width="620" height="170" fill="url(#horizonGlow)" id="horizonBand" opacity="0.15"/>
+          <circle cx="270" cy="465" r="190" fill="url(#distantSun)" id="horizonSun" opacity="0.08"/>
+
+          <!-- Perspective walking path -->
+          <path d="M235 552 L305 552 L475 960 L65 960 Z" fill="url(#pathGrad)"/>
+          <path d="M266 552 L274 552 L292 960 L248 960 Z" fill="#EFF6FD" opacity="0.06"/>
+
+          <!-- Subtle stone markers along path for parallax speed reference -->
+          <g id="pathStones" fill="#EFF6FD" opacity="0.16">
+            <ellipse cx="195" cy="610" rx="14" ry="2.5"/>
+            <ellipse cx="355" cy="645" rx="18" ry="3"/>
+            <ellipse cx="155" cy="705" rx="22" ry="3.5"/>
+            <ellipse cx="395" cy="755" rx="26" ry="4"/>
+            <ellipse cx="120" cy="825" rx="30" ry="4.5"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Top Header -->
+      <header class="top-bar">
+        <span class="brand-eyebrow">AIDE</span>
+        <span class="lab-tag">تصوراتی خاکہ — لیب</span>
+      </header>
+
+      <!-- ZONE 1: Captions (10.5svh – 29.5svh) -->
+      <div class="caption-zone" aria-live="polite">
+        <article class="beat-caption" data-beat="0">
+          <span class="beat-tag">01 / 07</span>
+          <h1 class="beat-text">کبھی آپ کو پروگرام نہیں چاہیے ہوتا۔</h1>
+        </article>
+
+        <article class="beat-caption" data-beat="1">
+          <span class="beat-tag">02 / 07</span>
+          <p class="beat-text">صرف ایک گفتگو — جو آپ کو اپنی صورتحال واضح دیکھنے میں مدد دے۔</p>
+        </article>
+
+        <article class="beat-caption" data-beat="2">
+          <span class="beat-tag">03 / 07</span>
+          <p class="beat-text">جو اصل میں ہو رہا ہے، وہ کہہ دینا۔</p>
+        </article>
+
+        <article class="beat-caption" data-beat="3">
+          <span class="beat-tag">04 / 07</span>
+          <p class="beat-text">اپنے ردِعمل کو سمجھنا۔</p>
+        </article>
+
+        <article class="beat-caption" data-beat="4">
+          <span class="beat-tag">05 / 07</span>
+          <p class="beat-text">بوجھ ہلکا ہونے لگتا ہے۔</p>
+        </article>
+
+        <article class="beat-caption" data-beat="5">
+          <span class="beat-tag">06 / 07</span>
+          <p class="beat-text">اب ساتھ چلنے کے لیے روشنی ہے۔</p>
+        </article>
+      </div>
+
+      <!-- ZONE 2: Midground Hero Figure & Bundle-to-Lantern Transformation -->
+      <div class="scene-zone">
+        <div class="hero-rig" id="heroRig">
+          <svg id="heroSvg" viewBox="0 0 320 360" aria-label="ایک خاموش مسافر جس کا بھاری بوجھ آہستہ آہستہ روشن لالٹین میں بدل جاتا ہے">
+            <defs>
+              <!-- Silhouette body gradient with subtle rim-light depth -->
+              <linearGradient id="bodyShade" x1="0.15" y1="0" x2="0.85" y2="1">
+                <stop offset="0%" stop-color="#1E3563"/>
+                <stop offset="45%" stop-color="#0C1936"/>
+                <stop offset="100%" stop-color="#050C1D"/>
+              </linearGradient>
+
+              <!-- Rim light stroke along leading edge -->
+              <linearGradient id="rimLight" x1="0" y1="0" x2="1" y2="0.8">
+                <stop offset="0%" stop-color="#3DAB94" stop-opacity="0.7"/>
+                <stop offset="55%" stop-color="#EFF6FD" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#C9A227" stop-opacity="0.85"/>
+              </linearGradient>
+
+              <!-- Heavy dark sack fabric gradient -->
+              <linearGradient id="sackHeavyGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+                <stop offset="0%" stop-color="#27324A"/>
+                <stop offset="52%" stop-color="#131B2E"/>
+                <stop offset="100%" stop-color="#070C18"/>
+              </linearGradient>
+
+              <!-- Easing lighter cloth gradient -->
+              <linearGradient id="sackMidGrad" x1="0.2" y1="0" x2="0.8" y2="1">
+                <stop offset="0%" stop-color="#4A6B8A"/>
+                <stop offset="55%" stop-color="#2D4A68"/>
+                <stop offset="100%" stop-color="#1A2E47"/>
+              </linearGradient>
+
+              <!-- Lantern brass metallic gradient -->
+              <linearGradient id="brassGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#F7DC79"/>
+                <stop offset="50%" stop-color="#C9A227"/>
+                <stop offset="100%" stop-color="#7A5E10"/>
+              </linearGradient>
+
+              <!-- Lantern glass inner warm glow -->
+              <radialGradient id="lanternCore" cx="50%" cy="52%" r="52%">
+                <stop offset="0%" stop-color="#FFFDF5"/>
+                <stop offset="38%" stop-color="#F7DC79"/>
+                <stop offset="78%" stop-color="#C9A227" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+              </radialGradient>
+
+              <!-- Lantern ambient light pool -->
+              <radialGradient id="lanternHalo" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#F7DC79" stop-opacity="0.62"/>
+                <stop offset="42%" stop-color="#C9A227" stop-opacity="0.24"/>
+                <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+              </radialGradient>
+
+              <!-- Ground shadow gradient -->
+              <radialGradient id="groundShadowGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#030814" stop-opacity="0.82"/>
+                <stop offset="65%" stop-color="#030814" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#030814" stop-opacity="0"/>
+              </radialGradient>
+
+              <!-- Warm path light pool under lantern -->
+              <radialGradient id="groundWarmPool" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#F7DC79" stop-opacity="0.48"/>
+                <stop offset="55%" stop-color="#C9A227" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+              </radialGradient>
+
+              <!-- Surface Detail 1: Subtle woven burlap/fabric crosshatch pattern -->
+              <pattern id="fabricWeave" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+                <path d="M 0 3 L 6 3 M 3 0 L 3 6" stroke="#EFF6FD" stroke-width="0.55" stroke-opacity="0.14"/>
+              </pattern>
+            </defs>
+
+            <!-- Ground Shadow (heavy & wide early, compact & soft later) + Warm Light Pool -->
+            <g id="groundLayer" transform="translate(160, 326)">
+              <ellipse id="shadowHeavy" cx="-14" cy="0" rx="88" ry="14" fill="url(#groundShadowGrad)"/>
+              <ellipse id="warmPool" cx="28" cy="2" rx="92" ry="18" fill="url(#groundWarmPool)" opacity="0"/>
+            </g>
+
+            <!-- Subtle walking stride bob group -->
+            <g id="walkStride">
+
+              <!-- ===========================================================
+                   SILHOUETTE POSE 0: WEIGHED DOWN (Hunched shoulders, heavy lean)
+                   Plain faceless human silhouette — zero gender/religious markers
+                   =========================================================== -->
+              <g id="pose-0" class="pose-group" opacity="1">
+                <!-- Back leg trailing -->
+                <path d="M142 198 L124 266 L112 318 C111 323 119 325 123 320 L141 268 L158 206 Z" fill="url(#bodyShade)"/>
+                <!-- Front leg braced under load -->
+                <path d="M162 200 L176 264 L182 319 C183 324 192 324 192 318 L189 260 L176 196 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.8"/>
+                <!-- Hunched torso & dropped forward head -->
+                <path d="M138 116 C144 96 168 92 184 104 C196 113 196 134 190 158 L182 204 L140 204 C135 174 133 140 138 116 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.9"/>
+                <!-- Faceless head tilted forward under strain -->
+                <ellipse cx="192" cy="84" rx="16.5" ry="19.5" transform="rotate(24 192 84)" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.9"/>
+                <!-- Straining arm reaching back to hold heavy bundle strap -->
+                <path d="M174 114 C186 132 192 152 194 170 C195 175 186 177 184 171 C180 154 173 138 162 124 Z" fill="#13264D" stroke="url(#rimLight)" stroke-width="0.7"/>
+              </g>
+
+              <!-- ===========================================================
+                   SILHOUETTE POSE 1: EASING (Shoulders lifting, spine straightening)
+                   =========================================================== -->
+              <g id="pose-1" class="pose-group" opacity="0">
+                <!-- Back leg -->
+                <path d="M146 196 L132 264 L124 319 C123 324 131 325 135 320 L149 266 L161 202 Z" fill="url(#bodyShade)"/>
+                <!-- Front leg -->
+                <path d="M161 196 L173 264 L177 319 C178 324 186 324 186 318 L184 261 L174 194 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.85"/>
+                <!-- Easing torso -->
+                <path d="M143 108 C148 92 168 90 181 102 C189 112 188 136 182 162 L176 202 L144 202 C141 172 140 136 143 108 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.95"/>
+                <!-- Faceless head lifting toward horizon -->
+                <ellipse cx="180" cy="76" rx="16.5" ry="19.5" transform="rotate(10 180 76)" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.95"/>
+                <!-- Arm easing downward toward anchor point -->
+                <path d="M174 112 C185 132 191 154 194 172 C195 177 186 178 184 172 C180 154 174 136 164 120 Z" fill="#152B56" stroke="url(#rimLight)" stroke-width="0.75"/>
+              </g>
+
+              <!-- ===========================================================
+                   SILHOUETTE POSE 2: WALKING LIGHT (Balanced, upright, calm stride)
+                   =========================================================== -->
+              <g id="pose-2" class="pose-group" opacity="0">
+                <!-- Back leg in smooth stride -->
+                <path d="M149 194 L137 262 L131 319 C130 324 138 325 141 320 L153 264 L163 200 Z" fill="url(#bodyShade)"/>
+                <!-- Front leg in smooth stride -->
+                <path d="M160 194 L170 262 L173 319 C174 324 182 324 182 318 L180 260 L172 192 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="0.9"/>
+                <!-- Upright balanced torso -->
+                <path d="M146 102 C150 88 168 88 178 100 C185 110 184 136 179 162 L174 200 L146 200 C144 170 143 132 146 102 Z" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="1"/>
+                <!-- Faceless head poised & level -->
+                <ellipse cx="171" cy="70" rx="16.5" ry="19.5" fill="url(#bodyShade)" stroke="url(#rimLight)" stroke-width="1"/>
+                <!-- Relaxed arm holding lantern handle at side anchor (190, 173) -->
+                <path d="M173 108 C184 130 190 152 193 172 C194 177 186 178 184 172 C180 153 174 133 164 116 Z" fill="#172F5E" stroke="url(#rimLight)" stroke-width="0.8"/>
+              </g>
+
+              <!-- ===========================================================
+                   SHARED ANCHOR POINT AT FIGURE'S SIDE: (190, 174)
+                   All 3 carrier states pivot from this exact hand anchor and
+                   cross-dissolve over matched windows so nothing ever pops or vanishes.
+                   =========================================================== -->
+              <g id="carrierAnchor" transform="translate(190, 174)">
+
+                <!-- CARRIER STATE 0: HEAVY SAGGING BUNDLE + STRAINING STRAP -->
+                <g id="bundle-heavy" class="carrier-group" opacity="1">
+                  <!-- Straining rope/strap over shoulder & hand -->
+                  <path d="M-24 -64 C-10 -46 -3 -22 0 0" fill="none" stroke="#4D5D7A" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M-24 -64 C-10 -46 -3 -22 0 0" fill="none" stroke="#8FA5C9" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>
+                  <!-- Gathered knot at hand -->
+                  <path d="M-6 -4 C0 -8 7 -5 6 2 C4 7 -5 7 -6 -4 Z" fill="#1C263B" stroke="#53688C" stroke-width="0.9"/>
+                  <!-- Heavy sagging teardrop sack pulled down by gravity -->
+                  <path d="M-4 3 C-34 18 -58 58 -48 96 C-40 124 -8 134 22 126 C52 118 62 84 46 48 C34 22 14 10 3 3 Z"
+                        fill="url(#sackHeavyGrad)" stroke="#3B4D70" stroke-width="1.1"/>
+                  <!-- Surface Detail 1: Woven burlap texture overlay -->
+                  <path d="M-4 3 C-34 18 -58 58 -48 96 C-40 124 -8 134 22 126 C52 118 62 84 46 48 C34 22 14 10 3 3 Z"
+                        fill="url(#fabricWeave)"/>
+                  <!-- Deep tension creases showing weight -->
+                  <path d="M-2 10 C-16 36 -24 68 -18 104 M4 10 C14 38 22 70 16 106 M-26 78 C-8 90 16 90 34 76"
+                        fill="none" stroke="#060B16" stroke-width="1.8" stroke-linecap="round" opacity="0.78"/>
+                  <path d="M-14 34 C-22 58 -24 80 -20 98"
+                        fill="none" stroke="#6E86B0" stroke-width="0.9" stroke-linecap="round" opacity="0.32"/>
+                </g>
+
+                <!-- CARRIER STATE 1: EASING, SMALLER & LIGHTER BUNDLE -->
+                <g id="bundle-mid" class="carrier-group" opacity="0">
+                  <!-- Relaxed strap -->
+                  <path d="M-20 -58 C-8 -38 -2 -18 0 0" fill="none" stroke="#5E85A8" stroke-width="2.8" stroke-linecap="round"/>
+                  <!-- Smaller, softer cloth bundle -->
+                  <path d="M-3 3 C-22 14 -34 40 -27 64 C-21 82 -2 88 16 82 C34 76 40 52 29 29 C21 13 9 7 2 3 Z"
+                        fill="url(#sackMidGrad)" stroke="#3DAB94" stroke-width="1" stroke-opacity="0.65"/>
+                  <path d="M-3 3 C-22 14 -34 40 -27 64 C-21 82 -2 88 16 82 C34 76 40 52 29 29 C21 13 9 7 2 3 Z"
+                        fill="url(#fabricWeave)"/>
+                  <!-- Soft inner warmth beginning to show through weave -->
+                  <ellipse cx="2" cy="48" rx="16" ry="20" fill="#C9A227" opacity="0.18"/>
+                  <path d="M-1 9 C-9 28 -12 48 -9 68 M3 9 C10 28 13 48 10 68"
+                        fill="none" stroke="#13233B" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+                </g>
+
+                <!-- CARRIER STATE 2: WARM BRASS & GLASS LANTERN AT THE SIDE -->
+                <g id="lantern-light" class="carrier-group" opacity="0">
+                  <!-- Wide warm radial halo -->
+                  <circle cx="0" cy="42" r="96" fill="url(#lanternHalo)"/>
+
+                  <!-- Brass wire handle held at (0,0) -->
+                  <path d="M-9 18 C-11 2 -5 -4 0 -4 C5 -4 11 2 9 18"
+                        fill="none" stroke="url(#brassGrad)" stroke-width="2.2" stroke-linecap="round"/>
+
+                  <!-- Lantern Top Cap & Chimney -->
+                  <path d="M-11 18 L11 18 L7 13 L-7 13 Z" fill="url(#brassGrad)"/>
+                  <circle cx="0" cy="11" r="2.5" fill="#F7DC79"/>
+                  <rect x="-14" y="18" width="28" height="3.5" rx="1.5" fill="url(#brassGrad)"/>
+
+                  <!-- Surface Detail 2: Glass Chamber + Inner Flame Core -->
+                  <path d="M-11 21.5 L11 21.5 L13.5 54 L-13.5 54 Z"
+                        fill="url(#lanternCore)" stroke="url(#brassGrad)" stroke-width="1.3"/>
+                  <!-- Glass specular highlight & protective brass cage ribs -->
+                  <line x1="-6" y1="22" x2="-7.5" y2="53" stroke="#FFFDF5" stroke-width="1.2" opacity="0.65"/>
+                  <line x1="0" y1="21.5" x2="0" y2="54" stroke="#8C6B14" stroke-width="1.1" opacity="0.75"/>
+                  <line x1="7" y1="21.5" x2="8.5" y2="54" stroke="#8C6B14" stroke-width="1.1" opacity="0.75"/>
+
+                  <!-- Living inner flame -->
+                  <path d="M0 31 C4 37 5 43 0 47 C-5 43 -4 37 0 31 Z" fill="#FFFDF5"/>
+
+                  <!-- Lantern Brass Base -->
+                  <rect x="-15" y="54" width="30" height="4" rx="1.5" fill="url(#brassGrad)"/>
+                  <path d="M-11 58 L11 58 L9 62 L-9 62 Z" fill="#8C6B14"/>
+                </g>
+
+              </g><!-- /carrierAnchor -->
+            </g><!-- /walkStride -->
+          </svg>
+        </div>
+      </div>
+
+      <!-- LAYER 3: Foreground Ambient Dust & Golden Light Motes (Fast Parallax) -->
+      <div class="layer-fg" id="layerFg" aria-hidden="true">
+        <svg viewBox="0 0 540 960" preserveAspectRatio="xMidYMid slice">
+          <g id="dustCool" fill="#EFF6FD" opacity="0.22">
+            <circle cx="92" cy="340" r="1.6"/>
+            <circle cx="448" cy="390" r="2"/>
+            <circle cx="130" cy="590" r="1.4"/>
+            <circle cx="410" cy="640" r="1.8"/>
+            <circle cx="76" cy="730" r="2.1"/>
+            <circle cx="468" cy="520" r="1.5"/>
+          </g>
+          <g id="dustGold" fill="#F7DC79" opacity="0">
+            <circle cx="155" cy="380" r="2.4"/>
+            <circle cx="385" cy="410" r="2.8"/>
+            <circle cx="215" cy="530" r="2.1"/>
+            <circle cx="345" cy="560" r="3"/>
+            <circle cx="125" cy="650" r="2.5"/>
+            <circle cx="420" cy="675" r="2.2"/>
+            <circle cx="275" cy="450" r="1.9"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Scroll Cue on Beat 0 -->
+      <div class="scroll-cue" id="scrollCue">نیچے سکرول کریں</div>
+
+      <!-- ZONE 3: End Card (Beat 6) -->
+      <aside class="end-card" id="endCard" aria-hidden="true">
+        <div class="end-card-inner">
+          <span class="end-tag">07 / 07</span>
+          <h2 class="end-headline">عملی اگلے قدم لے کر جائیں۔</h2>
+          <p class="end-brand">AIDE · عمران اسلم | لائف کوچ اور ٹرینر</p>
+          <a class="end-cta" href="https://imranaslam.pk/ur/coaching.html" target="_blank" rel="noopener noreferrer">مفت ڈسکوری کال بک کریں</a>
+          <p class="end-micro">پہلی گفتگو مفت ہے — 15 منٹ</p>
+        </div>
+      </aside>
+
+      <!-- Bottom HUD: 7 RTL Dots + RTL Progress Bar -->
+      <nav class="nav-hud" aria-label="کہانی کے مراحل">
+        <div class="dots-row" id="dotsRow">
+          <button type="button" class="dot-btn" data-index="0" aria-label="مرحلہ 1" aria-current="true"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="1" aria-label="مرحلہ 2"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="2" aria-label="مرحلہ 3"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="3" aria-label="مرحلہ 4"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="4" aria-label="مرحلہ 5"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="5" aria-label="مرحلہ 6"><span class="dot-pip"></span></button>
+          <button type="button" class="dot-btn" data-index="6" aria-label="اختتامی کارڈ"><span class="dot-pip"></span></button>
+        </div>
+        <div class="progress-rail" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </nav>
+
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion) return;
+
+      const track = document.getElementById('scrollTrack');
+      const atmoWarm = document.getElementById('atmoWarm');
+      const horizonBand = document.getElementById('horizonBand');
+      const horizonSun = document.getElementById('horizonSun');
+      const layerBg = document.getElementById('layerBg');
+      const layerFg = document.getElementById('layerFg');
+      const dustCool = document.getElementById('dustCool');
+      const dustGold = document.getElementById('dustGold');
+      const heroRig = document.getElementById('heroRig');
+      const walkStride = document.getElementById('walkStride');
+
+      const pose0 = document.getElementById('pose-0');
+      const pose1 = document.getElementById('pose-1');
+      const pose2 = document.getElementById('pose-2');
+
+      const bundleHeavy = document.getElementById('bundle-heavy');
+      const bundleMid = document.getElementById('bundle-mid');
+      const lanternLight = document.getElementById('lantern-light');
+
+      const shadowHeavy = document.getElementById('shadowHeavy');
+      const warmPool = document.getElementById('warmPool');
+
+      const captions = Array.from(document.querySelectorAll('.beat-caption'));
+      const endCard = document.getElementById('endCard');
+      const scrollCue = document.getElementById('scrollCue');
+      const progressFill = document.getElementById('progressFill');
+      const dotBtns = Array.from(document.querySelectorAll('.dot-btn'));
+
+      // Sixths hold centers matching the 7 stages
+      const CENTERS = [0, 1 / 6, 2 / 6, 3 / 6, 4 / 6, 5 / 6, 1];
+
+      // Non-overlapping caption windows (fade span <= 0.02; outgoing hits 0 before incoming passes 0.5)
+      const CAPTION_WINDOWS = [
+        { inStart: -0.05, inEnd: 0.00, outStart: 0.095, outEnd: 0.115 }, // Beat 0: 1.0 at p=0
+        { inStart: 0.125, inEnd: 0.145, outStart: 0.235, outEnd: 0.255 }, // Beat 1: center 0.1667
+        { inStart: 0.265, inEnd: 0.285, outStart: 0.405, outEnd: 0.425 }, // Beat 2: center 0.3333
+        { inStart: 0.435, inEnd: 0.455, outStart: 0.575, outEnd: 0.595 }, // Beat 3: center 0.5000
+        { inStart: 0.605, inEnd: 0.625, outStart: 0.745, outEnd: 0.765 }, // Beat 4: center 0.6667
+        { inStart: 0.775, inEnd: 0.795, outStart: 0.895, outEnd: 0.915 }  // Beat 5: center 0.8333
+      ];
+
+      const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const smooth = (t) => {
+        const c = clamp01(t);
+        return c * c * (3 - 2 * c);
+      };
+
+      function windowOpacity(p, win) {
+        if (p < win.inStart || p > win.outEnd) return 0;
+        if (p < win.inEnd) return smooth((p - win.inStart) / (win.inEnd - win.inStart));
+        if (p > win.outStart) return 1 - smooth((p - win.outStart) / (win.outEnd - win.outStart));
+        return 1;
+      }
+
+      let targetP = 0;
+      let currentP = 0;
+      let rafId = null;
+      let activeDotIndex = 0;
+      const DAMPING = 0.15; // Within 0.14–0.16 damped easing range
+
+      function readScrollTarget() {
+        const maxScroll = Math.max(1, track.offsetHeight - window.innerHeight);
+        targetP = clamp01(window.scrollY / maxScroll);
+      }
+
+      function render(p) {
+        // 1. Gradual color & atmosphere shift: cool dim navy -> warm golden glow
+        const warmT = smooth((p - 0.18) / 0.72);
+        atmoWarm.style.opacity = warmT.toFixed(4);
+        horizonBand.style.opacity = lerp(0.12, 0.85, warmT).toFixed(4);
+        horizonSun.style.opacity = lerp(0.06, 0.92, smooth((p - 0.45) / 0.50)).toFixed(4);
+
+        // 2. Three-layer parallax (transform/opacity ONLY)
+        const bgShiftY = lerp(18, -26, p);
+        const bgScale = lerp(1.02, 1.07, p);
+        layerBg.style.transform = `translate3d(0, ${bgShiftY.toFixed(2)}px, 0) scale(${bgScale.toFixed(4)})`;
+
+        const fgShiftY = lerp(36, -64, p);
+        layerFg.style.transform = `translate3d(0, ${fgShiftY.toFixed(2)}px, 0)`;
+        dustCool.style.opacity = lerp(0.28, 0.04, warmT).toFixed(4);
+        dustGold.style.opacity = lerp(0, 0.65, smooth((p - 0.42) / 0.48)).toFixed(4);
+
+        // 3. Hero figure subtle walk cycle & final beat lift/shrink for ≥24px end-card clearance
+        const strideBob = Math.sin(p * Math.PI * 12) * lerp(2.2, 3.2, p);
+        const strideTilt = Math.sin(p * Math.PI * 6) * lerp(1.4, 0.5, p);
+        walkStride.style.transform = `translate3d(0, ${strideBob.toFixed(2)}px, 0) rotate(${strideTilt.toFixed(2)}deg)`;
+
+        // In Beat 6 (p: 0.86 -> 1.0), smoothly shrink figure to 0.72 and lift -28px so painted feet clear end card by >24px at both 540x960 and 360x640
+        const endLiftT = smooth((p - 0.86) / 0.11);
+        const rigScale = lerp(1.0, 0.72, endLiftT);
+        const rigLiftY = lerp(0, -28, endLiftT);
+        heroRig.style.transform = `translate3d(0, ${rigLiftY.toFixed(2)}px, 0) scale(${rigScale.toFixed(4)})`;
+
+        // 4. Matched crossfades for 3 silhouette poses & 3 carrier states (sum = 1.0 always)
+        const t01 = smooth((p - 0.30) / 0.16); // Pose 0 -> Pose 1
+        const t12 = smooth((p - 0.64) / 0.16); // Pose 1 -> Pose 2
+
+        const w0 = 1 - t01;
+        const w1 = t01 * (1 - t12);
+        const w2 = t12;
+
+        pose0.style.opacity = w0.toFixed(4);
+        pose1.style.opacity = w1.toFixed(4);
+        pose2.style.opacity = w2.toFixed(4);
+
+        bundleHeavy.style.opacity = w0.toFixed(4);
+        bundleMid.style.opacity = w1.toFixed(4);
+        lanternLight.style.opacity = w2.toFixed(4);
+
+        // Ground shadow lightens & narrows as bundle becomes lantern; warm light pool blooms
+        const shadowScaleX = lerp(1.0, 0.52, warmT);
+        const shadowOp = lerp(0.88, 0.34, warmT);
+        shadowHeavy.style.transform = `scaleX(${shadowScaleX.toFixed(4)})`;
+        shadowHeavy.style.opacity = shadowOp.toFixed(4);
+        warmPool.style.opacity = lerp(0, 0.95, t12).toFixed(4);
+
+        // 5. Captions (Beats 0..5)
+        for (let i = 0; i < captions.length; i++) {
+          const op = windowOpacity(p, CAPTION_WINDOWS[i]);
+          captions[i].style.opacity = op.toFixed(4);
+          const slideY = (1 - op) * 8;
+          captions[i].style.transform = `translate3d(0, ${slideY.toFixed(2)}px, 0)`;
+        }
+
+        // Scroll cue fades out right after Beat 0 starts moving
+        scrollCue.style.opacity = clamp01(1 - p * 16).toFixed(3);
+
+        // 6. End Card (Beat 6)
+        const endOp = smooth((p - 0.925) / 0.025);
+        endCard.style.opacity = endOp.toFixed(4);
+        endCard.style.transform = `translate3d(0, ${((1 - endOp) * 14).toFixed(2)}px, 0)`;
+        const isEndActive = endOp > 0.5;
+        if (isEndActive !== endCard.classList.contains('is-active')) {
+          endCard.classList.toggle('is-active', isEndActive);
+          endCard.setAttribute('aria-hidden', String(!isEndActive));
+        }
+
+        // 7. RTL Progress bar & active dot indicator
+        const barScale = Math.max(0.02, p);
+        progressFill.style.transform = `scaleX(${barScale.toFixed(4)})`;
+
+        let nearestIdx = 0;
+        let minDist = Infinity;
+        for (let i = 0; i < CENTERS.length; i++) {
+          const d = Math.abs(p - CENTERS[i]);
+          if (d < minDist) {
+            minDist = d;
+            nearestIdx = i;
+          }
+        }
+        if (nearestIdx !== activeDotIndex) {
+          dotBtns[activeDotIndex].removeAttribute('aria-current');
+          dotBtns[nearestIdx].setAttribute('aria-current', 'true');
+          activeDotIndex = nearestIdx;
+        }
+      }
+
+      function tick() {
+        const diff = targetP - currentP;
+        if (Math.abs(diff) < 0.0004) {
+          currentP = targetP;
+          render(currentP);
+          rafId = null; // Stop rAF loop completely when settled
+          return;
+        }
+        currentP += diff * DAMPING;
+        render(currentP);
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function onScrollOrResize() {
+        readScrollTarget();
+        if (rafId === null) {
+          rafId = requestAnimationFrame(tick);
+        }
+      }
+
+      // Clickable RTL dots jump directly to each stage's hold center
+      dotBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.index);
+          const destP = CENTERS[idx] ?? 0;
+          const maxScroll = Math.max(1, track.offsetHeight - window.innerHeight);
+          window.scrollTo({
+            top: destP * maxScroll,
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      window.addEventListener('scroll', onScrollOrResize, { passive: true });
+      window.addEventListener('resize', onScrollOrResize, { passive: true });
+
+      // Initial paint at exact p=0
+      readScrollTarget();
+      currentP = targetP;
+      render(currentP);
+    })();
+  </script>
+</body>
+</html>
