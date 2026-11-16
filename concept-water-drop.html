@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>AIDE — Habit Architecture | تصوراتی خاکہ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1A3B;
+    --navy-soft: #1B2F56;
+    --sea: #3DAB94;
+    --sea-deep: #247867;
+    --glass-top: #EFF6FD;
+    --glass-bot: #D9E7F6;
+    --gold: #C9A227;
+    --stone-hi: #8E9BAE;
+    --stone-mid: #536073;
+    --stone-lo: #242E3D;
+    --font-ur: 'Noto Nastaliq Urdu', serif;
+    --font-en: 'Montserrat', sans-serif;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    background: var(--glass-top);
+    color: var(--navy);
+    font-family: var(--font-ur);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: auto;
+  }
+
+  body {
+    overflow-x: hidden;
+    background: linear-gradient(180deg, var(--glass-top) 0%, var(--glass-bot) 100%);
+    min-height: 100svh;
+  }
+
+  /* Lab badge & top progress bar */
+  .lab-tag {
+    position: fixed;
+    top: max(10px, env(safe-area-inset-top));
+    left: 14px;
+    z-index: 40;
+    font-family: var(--font-ur);
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--navy-soft);
+    background: rgba(239, 246, 253, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(10, 26, 59, 0.12);
+    border-radius: 999px;
+    padding: 2px 11px 3px;
+    letter-spacing: 0.01em;
+    pointer-events: none;
+  }
+
+  .eyebrow-brand {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    right: 16px;
+    z-index: 40;
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--navy);
+    opacity: 0.78;
+    pointer-events: none;
+  }
+
+  .progress-rail {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: rgba(10, 26, 59, 0.08);
+    z-index: 50;
+  }
+
+  .progress-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, var(--sea) 0%, var(--gold) 100%);
+    transform-origin: right center;
+    transform: scaleX(0);
+    will-change: transform;
+  }
+
+  /* 700vh Scroll Track + 100svh Sticky Stage */
+  .story-track {
+    position: relative;
+    height: 700vh;
+    width: 100%;
+  }
+
+  .sticky-stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Atmospheric Backgrounds (Cool -> Warm Shift) */
+  .bg-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+
+  .bg-cool {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.85) 0%, rgba(239, 246, 253, 0.3) 48%, rgba(217, 231, 246, 0.95) 100%),
+      linear-gradient(180deg, #EBF4FC 0%, #D4E4F5 100%);
+    opacity: 1;
+  }
+
+  .bg-warm {
+    background:
+      radial-gradient(circle at 50% 38%, rgba(255, 246, 224, 0.92) 0%, rgba(239, 246, 253, 0.45) 52%, rgba(218, 234, 244, 0.96) 100%),
+      linear-gradient(180deg, #F6F3EA 0%, #DCE8F2 100%);
+    opacity: 0;
+  }
+
+  /* Parallax Layer 1: Distant Mist & Caustic Light Shafts */
+  .layer-mist {
+    position: absolute;
+    inset: -8% -8%;
+    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0.72;
+  }
+
+  .mist-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(36px);
+  }
+
+  .mist-1 {
+    width: 340px;
+    height: 220px;
+    top: 18%;
+    right: -10%;
+    background: radial-gradient(circle, rgba(61, 171, 148, 0.14), transparent 70%);
+  }
+
+  .mist-2 {
+    width: 360px;
+    height: 240px;
+    top: 48%;
+    left: -12%;
+    background: radial-gradient(circle, rgba(10, 26, 59, 0.08), transparent 72%);
+  }
+
+  .mist-3 {
+    width: 280px;
+    height: 280px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(201, 162, 39, 0.16), transparent 68%);
+  }
+
+  /* ZONE 1: TOP CAPTIONS (11% to 29% of viewport height) */
+  .caption-zone {
+    position: absolute;
+    top: 11svh;
+    height: 18svh;
+    width: min(92vw, 480px);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .beat-caption {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+    will-change: opacity, transform;
+  }
+
+  .beat-caption.is-initial {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .beat-tag {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--sea-deep);
+    background: rgba(61, 171, 148, 0.12);
+    border: 1px solid rgba(61, 171, 148, 0.28);
+    border-radius: 999px;
+    padding: 3px 11px;
+    margin-bottom: 10px;
+    direction: ltr;
+  }
+
+  .beat-text {
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: clamp(21px, 5.2vw, 27px);
+    line-height: 2.05;
+    color: var(--navy);
+    text-wrap: balance;
+    max-width: 19ch;
+    text-shadow: 0 1px 12px rgba(255, 255, 255, 0.7);
+  }
+
+  /* ZONE 2: HERO STONE STAGE (33% to 71% of viewport height)
+     At 540x960: top=317px, height=365px, bottom=682px.
+     At 360x640: top=211px, height=243px, bottom=454px.
+     End state (auditor-measured 16 Nov, lifts -200/-156): painted stone
+     bottom 392px vs panel top 422px = 30px at 540x960; stone bottom 234px
+     vs panel top 262px = 28px at 360x640. Both >= 24px.
+  */
+  .hero-zone {
+    position: absolute;
+    top: 33svh;
+    height: 38svh;
+    width: min(94vw, 490px);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .stone-rig {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .stone-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 365px;
+    overflow: visible;
+  }
+
+  /* Falling Drop Layer (Parallax Layer 3) */
+  .drop-rig {
+    position: absolute;
+    top: -18%;
+    left: 50%;
+    width: 32px;
+    height: 52px;
+    margin-left: -16px;
+    pointer-events: none;
+    will-change: transform, opacity;
+    opacity: 0;
+  }
+
+  /* Foreground Micro-Droplets / Spray (Parallax Layer 4) */
+  .fg-droplets {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 15;
+    will-change: transform, opacity;
+  }
+
+  .micro-drop {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.95), rgba(61, 171, 148, 0.42) 65%, rgba(10, 26, 59, 0.12));
+    box-shadow: 0 2px 6px rgba(10, 26, 59, 0.12);
+  }
+
+  .md-1 { width: 9px; height: 9px; top: 38%; right: 16%; }
+  .md-2 { width: 6px; height: 6px; top: 62%; left: 15%; }
+  .md-3 { width: 11px; height: 11px; top: 55%; right: 12%; }
+  .md-4 { width: 7px; height: 7px; top: 43%; left: 19%; }
+
+  /* ZONE 3: END CARD (Clears lifted hero by >= 24px on 540x960 and 360x640) */
+  .end-card-zone {
+    position: absolute;
+    top: 44svh;
+    bottom: 9svh;
+    width: min(92vw, 460px);
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    pointer-events: none;
+    will-change: opacity, transform;
+  }
+
+  .end-card-zone.is-active {
+    pointer-events: auto;
+  }
+
+  .end-card-inner {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(10, 26, 59, 0.1);
+    box-shadow:
+      0 18px 42px rgba(10, 26, 59, 0.11),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 22px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .end-gold-rule {
+    width: 44px;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .end-headline {
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: clamp(25px, 6.2vw, 32px);
+    line-height: 1.95;
+    color: var(--navy);
+    text-wrap: balance;
+    margin-bottom: 6px;
+  }
+
+  .end-brand {
+    font-family: var(--font-ur);
+    font-weight: 400;
+    font-size: clamp(13.5px, 3.5vw, 15.5px);
+    line-height: 1.9;
+    color: var(--navy-soft);
+    margin-bottom: 16px;
+  }
+
+  .end-brand .en-mark {
+    font-family: var(--font-en);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--navy);
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--navy) 0%, #142D5E 100%);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 2.05;
+    padding: 7px 28px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(201, 162, 39, 0.55);
+    box-shadow: 0 10px 24px rgba(10, 26, 59, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    margin-bottom: 12px;
+  }
+
+  .cta-btn:hover, .cta-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(10, 26, 59, 0.28);
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .cta-arrow {
+    font-family: var(--font-en);
+    font-size: 15px;
+    color: var(--gold);
+  }
+
+  .end-subline {
+    font-family: var(--font-ur);
+    font-weight: 400;
+    font-size: 12.5px;
+    line-height: 1.95;
+    color: var(--sea-deep);
+    text-wrap: balance;
+    max-width: 34ch;
+  }
+
+  /* ZONE 4: BOTTOM DOTS & SCROLL HINT (Bottom 8% of viewport) */
+  .bottom-nav {
+    position: absolute;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .scroll-cue {
+    font-family: var(--font-ur);
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--navy-soft);
+    opacity: 0.78;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .dots-row {
+    display: flex;
+    flex-direction: row; /* RTL document order puts dot 0 on right, dot 6 on left */
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(10, 26, 59, 0.1);
+  }
+
+  .dot-btn {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(10, 26, 59, 0.24);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+
+  .dot-btn[aria-current="true"] {
+    background: var(--sea);
+    transform: scale(1.38);
+    box-shadow: 0 0 0 3px rgba(61, 171, 148, 0.22);
+  }
+
+  .dot-btn:last-child[aria-current="true"] {
+    background: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
+  }
+
+  .dot-btn:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+
+  /* Short-viewport compact block (@media max-height: 700px — e.g. 360x640) */
+  @media (max-height: 700px) {
+    .caption-zone {
+      top: 9.5svh;
+      height: 19svh;
+    }
+    .beat-tag {
+      margin-bottom: 4px;
+      padding: 2px 9px;
+      font-size: 10px;
+    }
+    .beat-text {
+      font-size: 19px;
+      line-height: 1.9;
+    }
+    .hero-zone {
+      top: 32svh;
+      height: 39svh;
+    }
+    .end-card-zone {
+      top: 41svh;
+      bottom: 8svh;
+    }
+    .end-card-inner {
+      padding: 13px 16px 12px;
+      border-radius: 20px;
+    }
+    .end-gold-rule {
+      margin-bottom: 6px;
+    }
+    .end-headline {
+      font-size: 22px;
+      line-height: 1.8;
+      margin-bottom: 2px;
+    }
+    .end-brand {
+      font-size: 13px;
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+    .cta-btn {
+      font-size: 14.5px;
+      line-height: 1.9;
+      padding: 5px 22px 6px;
+      margin-bottom: 8px;
+    }
+    .end-subline {
+      font-size: 11.5px;
+      line-height: 1.8;
+    }
+    .bottom-nav {
+      bottom: 10px;
+      gap: 4px;
+    }
+  }
+
+  /* Reduced Motion & No-JS Fallback: Stacked Readable Layout */
+  @media (prefers-reduced-motion: reduce) {
+    .story-track {
+      height: auto;
+      padding: 64px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .sticky-stage {
+      position: static;
+      height: auto;
+      overflow: visible;
+      gap: 24px;
+    }
+    .bg-layer, .layer-mist, .fg-droplets, .bottom-nav, .progress-rail, .drop-rig {
+      display: none !important;
+    }
+    .hero-zone {
+      position: static;
+      height: 240px;
+      width: min(92vw, 440px);
+      transform: none !important;
+    }
+    .groove-s0, .groove-s1, .groove-s2, .groove-s3, .groove-s4 {
+      opacity: 0 !important;
+    }
+    .groove-s5 {
+      opacity: 1 !important;
+    }
+    .caption-zone {
+      position: static;
+      height: auto;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .beat-caption {
+      position: static;
+      opacity: 1 !important;
+      transform: none !important;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(10, 26, 59, 0.1);
+      border-radius: 18px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+    .end-card-zone {
+      position: static;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto;
+    }
+  }
+</style>
+<noscript>
+  <style>
+    .story-track { height: auto; padding: 64px 16px 48px; }
+    .sticky-stage { position: static; height: auto; overflow: visible; gap: 22px; }
+    .bottom-nav, .progress-rail, .drop-rig { display: none !important; }
+    .hero-zone { position: static; height: 240px; }
+    .groove-s5 { opacity: 1 !important; }
+    .caption-zone { position: static; height: auto; flex-direction: column; gap: 14px; }
+    .beat-caption {
+      position: static; opacity: 1 !important; transform: none !important;
+      background: rgba(255, 255, 255, 0.78); border-radius: 16px; padding: 14px 16px; width: 100%;
+    }
+    .end-card-zone { position: static; opacity: 1 !important; transform: none !important; pointer-events: auto; }
+  </style>
+</noscript>
+</head>
+<body>
+
+<div class="progress-rail" aria-hidden="true">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="eyebrow-brand" aria-hidden="true">AIDE</div>
+<div class="lab-tag">تصوراتی خاکہ — لیب</div>
+
+<main class="story-track" id="storyTrack">
+  <div class="sticky-stage" id="stickyStage">
+
+    <!-- Cool to Warm Atmospheric Shift -->
+    <div class="bg-layer bg-cool" id="bgCool" aria-hidden="true"></div>
+    <div class="bg-layer bg-warm" id="bgWarm" aria-hidden="true"></div>
+
+    <!-- Parallax Layer 1: Mist -->
+    <div class="layer-mist" id="layerMist" aria-hidden="true">
+      <div class="mist-orb mist-1"></div>
+      <div class="mist-orb mist-2"></div>
+      <div class="mist-orb mist-3"></div>
+    </div>
+
+    <!-- ZONE 1: Top Captions (11% - 29% svh) -->
+    <section class="caption-zone" aria-live="polite">
+      <article class="beat-caption is-initial" id="cap-0">
+        <span class="beat-tag">01 / 07</span>
+        <h2 class="beat-text">بڑی تبدیلی مشکل لگتی ہے۔</h2>
+      </article>
+      <article class="beat-caption" id="cap-1">
+        <span class="beat-tag">02 / 07</span>
+        <h2 class="beat-text">پہلا قدم بہت چھوٹا ہوتا ہے۔</h2>
+      </article>
+      <article class="beat-caption" id="cap-2">
+        <span class="beat-tag">03 / 07</span>
+        <h2 class="beat-text">ایک قطرہ اپنا نشان چھوڑتا ہے۔</h2>
+      </article>
+      <article class="beat-caption" id="cap-3">
+        <span class="beat-tag">04 / 07</span>
+        <h2 class="beat-text">دوسرا قطرہ بھی اسی جگہ گرتا ہے۔</h2>
+      </article>
+      <article class="beat-caption" id="cap-4">
+        <span class="beat-tag">05 / 07</span>
+        <h2 class="beat-text">نشان آہستہ آہستہ گہرا ہوتا ہے۔</h2>
+      </article>
+      <article class="beat-caption" id="cap-5">
+        <span class="beat-tag">06 / 07</span>
+        <h2 class="beat-text">مسلسل کوشش سے راستہ بنتا ہے۔</h2>
+      </article>
+    </section>
+
+    <!-- ZONE 2: Hero Stone Stage (33% - 71% svh; lifts & shrinks in End Beat) -->
+    <div class="hero-zone" id="heroZone" aria-hidden="true">
+      <div class="stone-rig" id="stoneRig">
+
+        <!-- Falling Water Drop (Always hits exact impact point x=250, y=132 in 500x360 viewBox) -->
+        <div class="drop-rig" id="dropRig">
+          <svg viewBox="0 0 32 52" width="32" height="52">
+            <defs>
+              <radialGradient id="dropGlass" cx="36%" cy="32%" r="65%">
+                <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.98"/>
+                <stop offset="38%" stop-color="#B9EFE4" stop-opacity="0.88"/>
+                <stop offset="78%" stop-color="#3DAB94" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0.72"/>
+              </radialGradient>
+            </defs>
+            <path d="M16 3 C16 3 27 21 27 33 C27 40.5 22.1 46 16 46 C9.9 46 5 40.5 5 33 C5 21 16 3 16 3 Z" fill="url(#dropGlass)"/>
+            <ellipse cx="12.5" cy="29" rx="2.4" ry="5.5" transform="rotate(-14 12.5 29)" fill="#FFFFFF" opacity="0.85"/>
+            <circle cx="19.5" cy="38.5" r="1.6" fill="#FFFFFF" opacity="0.65"/>
+          </svg>
+        </div>
+
+        <!-- River Stone SVG with Mineral Texture, Sedimentary Veins, Wet Sheen, Ripples & 6 Matched-Crossfade Groove States -->
+        <svg class="stone-svg" viewBox="0 0 500 360" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Ambient Ground Shadow -->
+            <radialGradient id="groundShadow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#0A1A3B" stop-opacity="0.42"/>
+              <stop offset="58%" stop-color="#0A1A3B" stop-opacity="0.16"/>
+              <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0"/>
+            </radialGradient>
+
+            <!-- 3D River Stone Body Lighting -->
+            <radialGradient id="stoneBodyGrad" cx="44%" cy="28%" r="72%" fx="40%" fy="22%">
+              <stop offset="0%" stop-color="#A7B4C4"/>
+              <stop offset="28%" stop-color="#768499"/>
+              <stop offset="68%" stop-color="#455266"/>
+              <stop offset="100%" stop-color="#202938"/>
+            </radialGradient>
+
+            <!-- Warm Golden Rim Light (Fades in during late beats) -->
+            <radialGradient id="stoneWarmRim" cx="50%" cy="18%" r="65%">
+              <stop offset="0%" stop-color="#FFF2CC" stop-opacity="0.58"/>
+              <stop offset="45%" stop-color="#C9A227" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+            </radialGradient>
+
+            <!-- Wet Sheen Specular Film -->
+            <radialGradient id="wetSheenGrad" cx="50%" cy="36%" r="48%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.62"/>
+              <stop offset="35%" stop-color="#BCECE2" stop-opacity="0.34"/>
+              <stop offset="75%" stop-color="#3DAB94" stop-opacity="0.12"/>
+              <stop offset="100%" stop-color="#3DAB94" stop-opacity="0"/>
+            </radialGradient>
+
+            <!-- Carved Channel Depth Gradient -->
+            <linearGradient id="grooveDepthGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#172131"/>
+              <stop offset="48%" stop-color="#28384F"/>
+              <stop offset="100%" stop-color="#1A293B"/>
+            </linearGradient>
+
+            <!-- Flowing Water Stream Inside Carved Channel -->
+            <linearGradient id="streamWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#E8FBF7" stop-opacity="0.95"/>
+              <stop offset="32%" stop-color="#53C7AF" stop-opacity="0.92"/>
+              <stop offset="75%" stop-color="#2B8A77" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#8CE8D5" stop-opacity="0.88"/>
+            </linearGradient>
+
+            <!-- Subtle Organic Mineral Grain Filter -->
+            <filter id="stoneGrain" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="14" result="noise"/>
+              <feColorMatrix type="matrix" values="
+                0 0 0 0 0.08
+                0 0 0 0 0.12
+                0 0 0 0 0.18
+                0 0 0 0.16 0" in="noise" result="coloredNoise"/>
+              <feComposite operator="in" in="coloredNoise" in2="SourceGraphic"/>
+            </filter>
+
+            <!-- Identical Stone Silhouette Clip -->
+            <clipPath id="stoneClip">
+              <path d="M 66 218 C 62 152, 126 96, 250 94 C 374 96, 438 152, 434 218 C 430 278, 362 308, 250 308 C 138 308, 70 278, 66 218 Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- Ground Contact Shadow & Pool -->
+          <ellipse cx="250" cy="306" rx="196" ry="32" fill="url(#groundShadow)"/>
+          <ellipse id="basePool" cx="250" cy="304" rx="145" ry="18" fill="none" stroke="#3DAB94" stroke-width="1.5" opacity="0.25"/>
+
+          <!-- Base River Stone Geometry (Shared by all 7 beats) -->
+          <g clip-path="url(#stoneClip)">
+            <!-- Primary 3D Shaded Stone -->
+            <path d="M 66 218 C 62 152, 126 96, 250 94 C 374 96, 438 152, 434 218 C 430 278, 362 308, 250 308 C 138 308, 70 278, 66 218 Z" fill="url(#stoneBodyGrad)"/>
+
+            <!-- Sedimentary Mineral Veins & Geological Strata -->
+            <g opacity="0.26" fill="none" stroke-linecap="round">
+              <path d="M 74 186 Q 152 172, 218 188 T 424 176" stroke="#D7E3F0" stroke-width="1.4"/>
+              <path d="M 68 214 Q 160 226, 232 212 T 432 218" stroke="#182232" stroke-width="2.2"/>
+              <path d="M 82 246 Q 178 234, 254 252 T 418 242" stroke="#C5D4E6" stroke-width="1.2"/>
+              <path d="M 110 142 Q 186 154, 246 140 T 392 146" stroke="#1E293B" stroke-width="1.6"/>
+              <path d="M 96 272 Q 184 264, 250 278 T 404 268" stroke="#141C28" stroke-width="2.5"/>
+            </g>
+
+            <!-- Procedural Tactile Mineral Grain Overlay -->
+            <rect x="60" y="90" width="380" height="225" fill="#1A2433" filter="url(#stoneGrain)"/>
+
+            <!-- Top Rim Specular Highlight -->
+            <path d="M 105 138 C 148 106, 198 98, 250 98 C 302 98, 352 106, 395 138" fill="none" stroke="#E8F1FA" stroke-width="3" stroke-linecap="round" opacity="0.42"/>
+
+            <!-- Warm Sunlight Shift Overlay -->
+            <ellipse id="stoneWarmOverlay" cx="250" cy="145" rx="190" ry="110" fill="url(#stoneWarmRim)" opacity="0"/>
+
+            <!-- Expanding Wet Sheen on Stone Crown -->
+            <ellipse id="wetSheen" cx="250" cy="156" rx="86" ry="44" fill="url(#wetSheenGrad)" opacity="0.18"/>
+
+            <!-- SAME-OBJECT MORPH: 6 Groove States with Matched Crossfade (Total Opacity = 1.0 always) -->
+            <!-- State 0 (Beat 0): Dry, unbroken river stone surface -->
+            <g id="groove-s0" class="groove-s0" opacity="1">
+              <ellipse cx="250" cy="132" rx="16" ry="5" fill="#95A3B5" opacity="0.22"/>
+            </g>
+
+            <!-- State 1 (Beat 1): First tiny glistening bead at impact spot (250, 132) -->
+            <g id="groove-s1" class="groove-s1" opacity="0">
+              <ellipse cx="250" cy="132" rx="14" ry="5.5" fill="#3DAB94" opacity="0.25"/>
+              <ellipse cx="250" cy="132" rx="6" ry="2.6" fill="#E6FBF7" opacity="0.92"/>
+            </g>
+
+            <!-- State 2 (Beat 2): Shallow damp dimple + first thin trickle down the face -->
+            <g id="groove-s2" class="groove-s2" opacity="0">
+              <ellipse cx="250" cy="132" rx="13" ry="6" fill="#233146" opacity="0.65"/>
+              <ellipse cx="250" cy="132.5" rx="9" ry="3.8" fill="#59C9B2" opacity="0.55"/>
+              <path d="M 250 135 C 248 158, 253 182, 249 208" fill="none" stroke="#8CE8D5" stroke-width="2" stroke-linecap="round" opacity="0.72"/>
+            </g>
+
+            <!-- State 3 (Beat 3): Distinct carved notch + widening wet trough -->
+            <g id="groove-s3" class="groove-s3" opacity="0">
+              <path d="M 236 126 C 242 138, 258 138, 264 126 C 258 144, 255 184, 253 236 L 247 236 C 245 184, 242 144, 236 126 Z" fill="url(#grooveDepthGrad)" opacity="0.82"/>
+              <path d="M 235 127 C 241 142, 244 184, 246 236" fill="none" stroke="#B6C6D9" stroke-width="1.4" opacity="0.55"/>
+              <path d="M 250 133 C 247 166, 253 198, 249 242" fill="none" stroke="#68D4BE" stroke-width="3.2" stroke-linecap="round" opacity="0.85"/>
+            </g>
+
+            <!-- State 4 (Beat 4): Deep sculpted groove reaching lower lip of the stone -->
+            <g id="groove-s4" class="groove-s4" opacity="0">
+              <path d="M 230 120 C 238 140, 262 140, 270 120 C 261 152, 259 216, 257 284 L 243 284 C 241 216, 239 152, 230 120 Z" fill="url(#grooveDepthGrad)" opacity="0.92"/>
+              <!-- Carved bevel highlights -->
+              <path d="M 229 121 C 238 152, 240 216, 242 284" fill="none" stroke="#DCE8F5" stroke-width="1.8" opacity="0.65"/>
+              <path d="M 271 121 C 262 152, 260 216, 258 284" fill="none" stroke="#121A26" stroke-width="2" opacity="0.75"/>
+              <!-- Steady water ribbon inside groove -->
+              <path d="M 250 131 C 246 174, 254 224, 250 286" fill="none" stroke="url(#streamWaterGrad)" stroke-width="5.5" stroke-linecap="round"/>
+              <path d="M 249 136 C 247 176, 252 222, 249 280" fill="none" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity="0.75"/>
+            </g>
+
+            <!-- State 5 (Beat 5 & End Card): Smooth, polished water channel with luminous stream flowing through -->
+            <g id="groove-s5" class="groove-s5" opacity="0">
+              <!-- Deep carved stone canyon -->
+              <path d="M 223 114 C 234 142, 266 142, 277 114 C 265 156, 263 230, 261 308 L 239 308 C 237 230, 235 156, 223 114 Z" fill="url(#grooveDepthGrad)"/>
+              <!-- Polished inner stone bevels catching warm gold + cool water light -->
+              <path d="M 222 115 C 234 156, 236 230, 238 308" fill="none" stroke="#FFF1C9" stroke-width="2.2" opacity="0.78"/>
+              <path d="M 278 115 C 266 156, 264 230, 262 308" fill="none" stroke="#9EECE0" stroke-width="1.8" opacity="0.52"/>
+              <!-- Full flowing clear water stream -->
+              <path d="M 232 126 C 240 164, 241 232, 242 308 L 258 308 C 259 232, 260 164, 268 126 C 258 140, 242 140, 232 126 Z" fill="url(#streamWaterGrad)"/>
+              <!-- Specular water flow filaments -->
+              <path d="M 246 134 C 245 182, 248 242, 246 306" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.88"/>
+              <path d="M 254 142 C 255 190, 252 248, 254 306" fill="none" stroke="#D9FFF7" stroke-width="1.3" stroke-linecap="round" opacity="0.68"/>
+            </g>
+
+            <!-- Concentric Ripple Rings at Impact Point (250, 132) -->
+            <g id="impactRipples" transform="translate(250, 132)">
+              <ellipse id="ripple1" cx="0" cy="0" rx="18" ry="6.5" fill="none" stroke="#FFFFFF" stroke-width="1.8" opacity="0"/>
+              <ellipse id="ripple2" cx="0" cy="0" rx="34" ry="12" fill="none" stroke="#7CE6D1" stroke-width="1.4" opacity="0"/>
+              <ellipse id="ripple3" cx="0" cy="0" rx="52" ry="18" fill="none" stroke="#3DAB94" stroke-width="1" opacity="0"/>
+            </g>
+          </g>
+
+          <!-- Outflow Pool Ripples at Bottom of Channel (Beats 4-6) -->
+          <g id="outflowPool" transform="translate(250, 306)" opacity="0">
+            <ellipse cx="0" cy="0" rx="36" ry="7" fill="#59C9B2" opacity="0.32"/>
+            <ellipse cx="0" cy="0" rx="58" ry="11" fill="none" stroke="#3DAB94" stroke-width="1.6" opacity="0.65"/>
+            <ellipse cx="0" cy="0" rx="84" ry="15" fill="none" stroke="#C9A227" stroke-width="1.1" opacity="0.45"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Parallax Layer 4: Foreground Ambient Micro-Droplets -->
+    <div class="fg-droplets" id="fgDroplets" aria-hidden="true">
+      <span class="micro-drop md-1"></span>
+      <span class="micro-drop md-2"></span>
+      <span class="micro-drop md-3"></span>
+      <span class="micro-drop md-4"></span>
+    </div>
+
+    <!-- ZONE 3: End Card (Beat 6 / 07) -->
+    <section class="end-card-zone" id="endCardZone" aria-label="پروگرام کی تفصیل">
+      <div class="end-card-inner">
+        <div class="end-gold-rule" aria-hidden="true"></div>
+        <h1 class="end-headline">چھوٹا قدم، ہر روز۔</h1>
+        <p class="end-brand"><span class="en-mark">AIDE</span> · عمران اسلم | لائف کوچ اور ٹرینر</p>
+        <a class="cta-btn" href="https://imranaslam.pk/ur/programme-habits.html" target="_blank" rel="noopener noreferrer">
+          <span>پروگرام دیکھیں</span>
+          <span class="cta-arrow" aria-hidden="true">←</span>
+        </a>
+        <p class="end-subline">4 ہفتوں کا پروگرام — ہفتہ وار لائیو + روزانہ چھوٹے اعمال</p>
+      </div>
+    </section>
+
+    <!-- ZONE 4: Bottom Navigation Dots & Cue -->
+    <nav class="bottom-nav" aria-label="مراحل">
+      <div class="scroll-cue" id="scrollCue">نیچے اسکرول کریں ↓</div>
+      <div class="dots-row" id="dotsRow">
+        <button type="button" class="dot-btn" data-beat="0" aria-label="مرحلہ 1" aria-current="true"></button>
+        <button type="button" class="dot-btn" data-beat="1" aria-label="مرحلہ 2"></button>
+        <button type="button" class="dot-btn" data-beat="2" aria-label="مرحلہ 3"></button>
+        <button type="button" class="dot-btn" data-beat="3" aria-label="مرحلہ 4"></button>
+        <button type="button" class="dot-btn" data-beat="4" aria-label="مرحلہ 5"></button>
+        <button type="button" class="dot-btn" data-beat="5" aria-label="مرحلہ 6"></button>
+        <button type="button" class="dot-btn" data-beat="6" aria-label="آخری کارڈ"></button>
+      </div>
+    </nav>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =========================================================================
+     CAPTION & MORPH TIMELINE (Normalized Progress p in [0.00, 1.00], 7 Beats)
+     Each beat center is b / 6 (0.000, 0.167, 0.333, 0.500, 0.667, 0.833, 1.000).
+     
+     1. NON-OVERLAPPING CAPTION WINDOWS (Outgoing reaches 0 BEFORE incoming > 0.5):
+        - Beat 0: [0.000 .. 0.105] -> 1.0 at p=0.000..0.055, smooth fade 1->0 over [0.055, 0.105]
+        - Beat 1: [0.115 .. 0.270] -> fade-in [0.115, 0.155], hold [0.155, 0.230], fade-out [0.230, 0.270]
+        - Beat 2: [0.280 .. 0.435] -> fade-in [0.280, 0.320], hold [0.320, 0.395], fade-out [0.395, 0.435]
+        - Beat 3: [0.445 .. 0.600] -> fade-in [0.445, 0.485], hold [0.485, 0.560], fade-out [0.560, 0.600]
+        - Beat 4: [0.610 .. 0.765] -> fade-in [0.610, 0.650], hold [0.650, 0.725], fade-out [0.725, 0.765]
+        - Beat 5: [0.775 .. 0.895] -> fade-in [0.775, 0.810], hold [0.810, 0.860], fade-out [0.860, 0.895]
+        - End Card (Beat 6): [0.905 .. 1.000] -> fade-in [0.905, 0.955], hold [0.955, 1.000]
+        Gap of 0.010 between every outgoing 0 and incoming 0 guarantees zero overlap.
+
+     2. MATCHED SAME-OBJECT GROOVE CROSS-DISSOLVES (Sum of opacities = 1.00 always):
+        - Window 0->1: [0.11, 0.19] (s0: 1->0, s1: 0->1)
+        - Window 1->2: [0.27, 0.36] (s1: 1->0, s2: 0->1)
+        - Window 2->3: [0.44, 0.53] (s2: 1->0, s3: 0->1)
+        - Window 3->4: [0.60, 0.69] (s3: 1->0, s4: 0->1)
+        - Window 4->5: [0.77, 0.86] (s4: 1->0, s5: 0->1)
+     ========================================================================= */
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  const track = document.getElementById('storyTrack');
+  const progressFill = document.getElementById('progressFill');
+  const bgWarm = document.getElementById('bgWarm');
+  const layerMist = document.getElementById('layerMist');
+  const heroZone = document.getElementById('heroZone');
+  const stoneRig = document.getElementById('stoneRig');
+  const dropRig = document.getElementById('dropRig');
+  const fgDroplets = document.getElementById('fgDroplets');
+  const endCardZone = document.getElementById('endCardZone');
+  const scrollCue = document.getElementById('scrollCue');
+
+  const captions = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('cap-' + i));
+  const grooves = [0, 1, 2, 3, 4, 5].map(i => document.getElementById('groove-s' + i));
+  const dots = Array.from(document.querySelectorAll('.dot-btn'));
+
+  const wetSheen = document.getElementById('wetSheen');
+  const stoneWarmOverlay = document.getElementById('stoneWarmOverlay');
+  const outflowPool = document.getElementById('outflowPool');
+  const ripple1 = document.getElementById('ripple1');
+  const ripple2 = document.getElementById('ripple2');
+  const ripple3 = document.getElementById('ripple3');
+
+  const CAP_WINDOWS = [
+    { inStart: -1,    inEnd: -1,    outStart: 0.055, outEnd: 0.105 }, // Beat 0: visible at p=0
+    { inStart: 0.115, inEnd: 0.155, outStart: 0.230, outEnd: 0.270 }, // Beat 1
+    { inStart: 0.280, inEnd: 0.320, outStart: 0.395, outEnd: 0.435 }, // Beat 2
+    { inStart: 0.445, inEnd: 0.485, outStart: 0.560, outEnd: 0.600 }, // Beat 3
+    { inStart: 0.610, inEnd: 0.650, outStart: 0.725, outEnd: 0.765 }, // Beat 4
+    { inStart: 0.775, inEnd: 0.810, outStart: 0.860, outEnd: 0.895 }  // Beat 5
+  ];
+
+  const MORPH_WINDOWS = [
+    [0.11, 0.19],
+    [0.27, 0.36],
+    [0.44, 0.53],
+    [0.60, 0.69],
+    [0.77, 0.86]
+  ];
+
+  function clamp01(x) {
+    return x < 0 ? 0 : x > 1 ? 1 : x;
+  }
+
+  function smoothstep(edge0, edge1, x) {
+    const t = clamp01((x - edge0) / (edge1 - edge0));
+    return t * t * (3 - 2 * t);
+  }
+
+  function getTargetProgress() {
+    const rect = track.getBoundingClientRect();
+    const maxScroll = rect.height - window.innerHeight;
+    if (maxScroll <= 0) return 0;
+    return clamp01(-rect.top / maxScroll);
+  }
+
+  let currentP = getTargetProgress();
+  let targetP = currentP;
+  let rafId = null;
+  let lastActiveBeat = -1;
+
+  function render(p) {
+    // 1. Top progress bar
+    progressFill.style.transform = `scaleX(${p.toFixed(4)})`;
+
+    // 2. Cool -> Warm light shift
+    const warmFactor = smoothstep(0.42, 0.94, p);
+    bgWarm.style.opacity = warmFactor.toFixed(3);
+    stoneWarmOverlay.style.opacity = (warmFactor * 0.9).toFixed(3);
+
+    // 3. Captions (Strict non-overlapping windows)
+    for (let i = 0; i < 6; i++) {
+      const w = CAP_WINDOWS[i];
+      let op = 0;
+      let yOffset = 0;
+
+      if (i === 0) {
+        if (p <= w.outStart) {
+          op = 1;
+          yOffset = 0;
+        } else if (p < w.outEnd) {
+          const t = smoothstep(w.outStart, w.outEnd, p);
+          op = 1 - t;
+          yOffset = -10 * t;
+        }
+      } else {
+        if (p > w.inStart && p < w.outEnd) {
+          if (p < w.inEnd) {
+            const t = smoothstep(w.inStart, w.inEnd, p);
+            op = t;
+            yOffset = 12 * (1 - t);
+          } else if (p <= w.outStart) {
+            op = 1;
+            yOffset = 0;
+          } else {
+            const t = smoothstep(w.outStart, w.outEnd, p);
+            op = 1 - t;
+            yOffset = -10 * t;
+          }
+        }
+      }
+      captions[i].style.opacity = op.toFixed(3);
+      captions[i].style.transform = `translate3d(0, ${yOffset.toFixed(1)}px, 0)`;
+    }
+
+    // 4. Same-Object Groove Morph (Matched cross-dissolves -> sum = 1.0)
+    const gOp = [0, 0, 0, 0, 0, 0];
+    if (p <= MORPH_WINDOWS[0][0]) {
+      gOp[0] = 1;
+    } else if (p >= MORPH_WINDOWS[4][1]) {
+      gOp[5] = 1;
+    } else {
+      let matched = false;
+      for (let i = 0; i < MORPH_WINDOWS.length; i++) {
+        const [a, b] = MORPH_WINDOWS[i];
+        if (p >= a && p <= b) {
+          const t = smoothstep(a, b, p);
+          gOp[i] = 1 - t;
+          gOp[i + 1] = t;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        for (let i = 0; i < MORPH_WINDOWS.length - 1; i++) {
+          if (p > MORPH_WINDOWS[i][1] && p < MORPH_WINDOWS[i + 1][0]) {
+            gOp[i + 1] = 1;
+            break;
+          }
+        }
+      }
+    }
+    for (let i = 0; i < 6; i++) {
+      grooves[i].style.opacity = gOp[i].toFixed(3);
+    }
+
+    // 5. Wet Sheen & Outflow Pool Growth
+    const wetness = smoothstep(0.10, 0.85, p);
+    wetSheen.style.opacity = (0.14 + wetness * 0.68).toFixed(3);
+    const poolVis = smoothstep(0.62, 0.90, p);
+    outflowPool.style.opacity = poolVis.toFixed(3);
+
+    // 6. Falling Drop & Ripple Cycle (Hits exact stone crown spot every beat 1..5)
+    // Five discrete drop impacts aligned with beats 1, 2, 3, 4, 5
+    // Auditor fix 16 Nov: the fall distance was a fixed 138px, so the drop
+    // vanished ~39px above the impact point at 540x960 yet overshot it at
+    // 360x640 (the stone renders at different sizes). Scale the fall to the
+    // hero height so the drop tip reaches the impact point at any viewport.
+    const fallAmp = heroZone.offsetHeight * 0.49;
+    const dropCycles = [
+      [0.09, 0.21],
+      [0.25, 0.37],
+      [0.42, 0.54],
+      [0.58, 0.70],
+      [0.75, 0.87]
+    ];
+    let dropOp = 0;
+    let dropY = -30;
+    let dropScaleY = 1;
+    let ripplePhase = 0;
+
+    for (let c = 0; c < dropCycles.length; c++) {
+      const [start, end] = dropCycles[c];
+      if (p >= start && p <= end) {
+        const u = (p - start) / (end - start); // 0 -> 1
+        if (u < 0.56) {
+          // Falling phase toward impact point (y = 114px in hero container)
+          const f = u / 0.56;
+          const accel = f * f;
+          dropOp = smoothstep(0, 0.18, f);
+          dropY = -28 + accel * fallAmp;
+          dropScaleY = 0.92 + accel * 0.26;
+        } else {
+          // Impact splash & expanding concentric ripples
+          const r = (u - 0.56) / 0.44;
+          dropOp = 0;
+          ripplePhase = r;
+        }
+        break;
+      }
+    }
+
+    dropRig.style.opacity = dropOp.toFixed(3);
+    dropRig.style.transform = `translate3d(0, ${dropY.toFixed(1)}px, 0) scaleY(${dropScaleY.toFixed(3)})`;
+
+    if (ripplePhase > 0) {
+      const r1Op = (1 - ripplePhase) * 0.85;
+      const r2Op = smoothstep(0.1, 0.35, ripplePhase) * (1 - ripplePhase) * 0.75;
+      const r3Op = smoothstep(0.25, 0.55, ripplePhase) * (1 - ripplePhase) * 0.55;
+      ripple1.style.opacity = r1Op.toFixed(3);
+      ripple2.style.opacity = r2Op.toFixed(3);
+      ripple3.style.opacity = r3Op.toFixed(3);
+      ripple1.style.transform = `scale(${(0.5 + ripplePhase * 1.1).toFixed(3)})`;
+      ripple2.style.transform = `scale(${(0.4 + ripplePhase * 1.25).toFixed(3)})`;
+      ripple3.style.transform = `scale(${(0.3 + ripplePhase * 1.35).toFixed(3)})`;
+    } else {
+      ripple1.style.opacity = '0';
+      ripple2.style.opacity = '0';
+      ripple3.style.opacity = '0';
+    }
+
+    // 7. Multi-layer Parallax + Final Beat Hero Lift & Shrink for Guaranteed >=24px End Card Clearance
+    const endLift = smoothstep(0.87, 0.96, p);
+    const isShort = window.innerHeight <= 700;
+    // Auditor fix 16 Nov: measured end-state clearance was +8px at 540x960
+    // and -10px (overlap) at 360x640 — the old lifts (-178/-118) did not
+    // deliver the 24px the header comment claimed. -200/-156 measured below.
+    const liftY = isShort ? -156 * endLift : -200 * endLift;
+    const heroScale = 1 - (isShort ? 0.30 : 0.26) * endLift;
+
+    // Subtle parallax drift across layers
+    const mistY = -26 * p;
+    const stoneParallaxY = 10 * (0.5 - p) * (1 - endLift);
+    const fgY = -54 * p;
+
+    layerMist.style.transform = `translate3d(0, ${mistY.toFixed(1)}px, 0)`;
+    heroZone.style.transform = `translate3d(0, ${(liftY + stoneParallaxY).toFixed(1)}px, 0) scale(${heroScale.toFixed(3)})`;
+    fgDroplets.style.transform = `translate3d(0, ${fgY.toFixed(1)}px, 0)`;
+    fgDroplets.style.opacity = (1 - endLift * 0.65).toFixed(3);
+
+    // 8. End Card Reveal (Beat 6)
+    const endOp = smoothstep(0.905, 0.955, p);
+    const endY = 24 * (1 - endOp);
+    endCardZone.style.opacity = endOp.toFixed(3);
+    endCardZone.style.transform = `translate3d(0, ${endY.toFixed(1)}px, 0)`;
+    if (endOp > 0.5) {
+      endCardZone.classList.add('is-active');
+    } else {
+      endCardZone.classList.remove('is-active');
+    }
+
+    // 9. Scroll Cue & Active Dot State
+    scrollCue.style.opacity = (0.78 * (1 - smoothstep(0.02, 0.12, p))).toFixed(3);
+
+    const activeBeat = Math.min(6, Math.round(p * 6));
+    if (activeBeat !== lastActiveBeat) {
+      lastActiveBeat = activeBeat;
+      dots.forEach((dot, idx) => {
+        if (idx === activeBeat) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
+  }
+
+  function tick() {
+    const diff = targetP - currentP;
+    if (Math.abs(diff) < 0.00035) {
+      currentP = targetP;
+      render(currentP);
+      rafId = null; // Stop loop cleanly when settled
+      return;
+    }
+    currentP += diff * 0.14;
+    render(currentP);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function onScrollOrResize() {
+    targetP = getTargetProgress();
+    if (!rafId) {
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  window.addEventListener('scroll', onScrollOrResize, { passive: true });
+  window.addEventListener('resize', onScrollOrResize, { passive: true });
+
+  // Clickable RTL Navigation Dots
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const beat = Number(dot.dataset.beat);
+      const rect = track.getBoundingClientRect();
+      const trackTop = window.scrollY + rect.top;
+      const maxScroll = rect.height - window.innerHeight;
+      const dest = trackTop + (beat / 6) * maxScroll;
+      window.scrollTo({ top: dest, behavior: 'smooth' });
+    });
+  });
+
+  // Initial Paint at exact scroll position
+  render(currentP);
+})();
+</script>
+</body>
+</html>
