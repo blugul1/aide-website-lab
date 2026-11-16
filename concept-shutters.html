@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1A3B">
+<title>AIDE | دریچہ کھولیں</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:#0A1A3B;
+  --green:#3DAB94;
+  --gold:#C9A227;
+  --cream:#F5EDE0;
+  --wood:#70452D;
+  --wood-light:#A8784C;
+  --glass:#EFF6FD;
+  --glass-deep:#D9E7F6;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  margin:0;
+  background:var(--navy);
+  color:white;
+  scroll-behavior:auto;
+}
+
+body {
+  margin:0;
+  font-family:"Noto Nastaliq Urdu",serif;
+  background:var(--navy);
+  overflow-x:hidden;
+}
+
+button,a {
+  font:inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline:2px solid var(--gold);
+  outline-offset:5px;
+}
+
+/* --------------------------------------------------
+   JAVASCRIPT MODE
+   Scroll track: 700vh.
+   One sticky viewport: 100svh.
+-------------------------------------------------- */
+
+html.js .story-track {
+  height:700vh;
+  position:relative;
+}
+
+html.js .stage {
+  position:sticky;
+  top:0;
+  height:100vh;
+  height:100svh;
+  min-height:480px;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+/* --------------------------------------------------
+   BACKGROUND
+-------------------------------------------------- */
+
+.stage {
+  background:
+    radial-gradient(ellipse at 50% 48%,#172C4A 0%,#0D2040 48%,#08142D 100%);
+}
+
+.ambient {
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 60%,rgba(61,171,148,.07),transparent 55%),
+    linear-gradient(180deg,rgba(4,12,29,.2),transparent 40%,rgba(4,10,25,.4));
+}
+
+.eyebrow {
+  position:absolute;
+  top:4.5%;
+  left:0;
+  right:0;
+  text-align:center;
+  z-index:20;
+  color:rgba(239,246,253,.65);
+  font-family:Montserrat,sans-serif;
+  font-size:10px;
+  letter-spacing:4px;
+  font-weight:600;
+  direction:ltr;
+}
+
+.lab-tag {
+  position:absolute;
+  top:4.1%;
+  right:5%;
+  z-index:30;
+  font-family:"Noto Nastaliq Urdu",serif;
+  font-size:9px;
+  color:rgba(239,246,253,.48);
+  border:1px solid rgba(239,246,253,.16);
+  padding:3px 9px;
+  border-radius:30px;
+}
+
+/* --------------------------------------------------
+   CAPTION ZONE: 11%–29%
+   Timeline:
+   Beat 0: 0.000–0.105
+   Beat 1: 0.155–0.260
+   Beat 2: 0.315–0.420
+   Beat 3: 0.475–0.580
+   Beat 4: 0.635–0.740
+   Beat 5: 0.795–0.900
+   End card: 0.925–1.000
+
+   Each caption fades independently.
+   No two caption windows overlap.
+   The outgoing caption reaches zero before
+   the next caption reaches 0.5 opacity.
+-------------------------------------------------- */
+
+.caption-zone {
+  position:absolute;
+  top:11%;
+  left:5%;
+  right:5%;
+  height:18%;
+  z-index:15;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  text-align:center;
+  pointer-events:none;
+}
+
+.caption {
+  position:absolute;
+  top:0;
+  width:100%;
+  max-width:470px;
+  opacity:0;
+  visibility:hidden;
+  will-change:opacity;
+}
+
+.caption-tag {
+  display:block;
+  direction:ltr;
+  font-family:Montserrat,sans-serif;
+  font-size:9px;
+  letter-spacing:3px;
+  color:var(--gold);
+  margin-bottom:12px;
+  font-weight:600;
+}
+
+.caption h2 {
+  margin:0 auto;
+  max-width:430px;
+  font-size:clamp(19px,4.6vw,29px);
+  line-height:2.05;
+  font-weight:400;
+  color:var(--glass);
+  text-wrap:balance;
+  text-shadow:0 3px 18px rgba(0,0,0,.35);
+}
+
+/* --------------------------------------------------
+   HERO
+   Base painted region: centre 33%–71%.
+   The final beat scales the complete SVG down
+   to clear the end card.
+-------------------------------------------------- */
+
+.hero-wrap {
+  position:absolute;
+  top:33%;
+  left:50%;
+  width:min(92vw,520px);
+  height:38%;
+  transform:translateX(-50%);
+  transform-origin:center center;
+  z-index:5;
+}
+
+.hero {
+  width:100%;
+  height:100%;
+  overflow:visible;
+  filter:drop-shadow(0 22px 28px rgba(0,0,0,.42));
+}
+
+.room-svg {
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+
+/* --------------------------------------------------
+   SVG SURFACE DETAILS
+-------------------------------------------------- */
+
+.wall-grain {
+  opacity:.28;
+}
+
+.wood-line {
+  fill:none;
+  stroke:#D3A174;
+  stroke-width:1.1;
+  opacity:.38;
+}
+
+.wood-dark-line {
+  fill:none;
+  stroke:#29180F;
+  stroke-width:2;
+  opacity:.42;
+}
+
+.carving {
+  fill:none;
+  stroke:#D4AA7B;
+  stroke-width:2;
+  opacity:.65;
+}
+
+.carving-dark {
+  fill:none;
+  stroke:#321C11;
+  stroke-width:2;
+  opacity:.65;
+}
+
+.shutter-group {
+  pointer-events:none;
+}
+
+.outside-layer {
+  transform-origin:center;
+}
+
+.window-glow {
+  opacity:0;
+}
+
+.beam {
+  opacity:0;
+}
+
+.dust-layer {
+  opacity:0;
+}
+
+.dust-dot {
+  fill:#FCE7B0;
+}
+
+.room-shadow {
+  opacity:.75;
+}
+
+/* --------------------------------------------------
+   END CARD
+   Its top is 68% of viewport.
+   Hero painted bottom:
+   540x960: approx 64.5% after scale .66.
+   360x640: approx 63% after compact scale .58.
+   Clearance is greater than 24px at both sizes.
+-------------------------------------------------- */
+
+.end-card {
+  position:absolute;
+  top:68%;
+  left:5%;
+  right:5%;
+  z-index:18;
+  text-align:center;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.end-card h1 {
+  margin:0 auto 8px;
+  max-width:450px;
+  font-size:clamp(21px,5vw,31px);
+  line-height:1.95;
+  font-weight:700;
+  color:#FFF2D9;
+  text-wrap:balance;
+  text-shadow:0 3px 15px rgba(0,0,0,.4);
+}
+
+.brand-line {
+  color:rgba(239,246,253,.82);
+  font-size:12px;
+  line-height:2;
+  margin-bottom:10px;
+}
+
+.cta {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  pointer-events:auto;
+  color:#0A1A3B;
+  background:linear-gradient(135deg,#E4C77B,#C9A227);
+  padding:10px 23px;
+  min-height:47px;
+  border-radius:4px;
+  font-size:14px;
+  font-weight:700;
+  box-shadow:0 7px 24px rgba(201,162,39,.18);
+  transition:background .2s, transform .2s;
+  text-wrap:balance;
+}
+
+.cta:hover {
+  background:#F0D99C;
+  transform:translateY(-2px);
+}
+
+.tiny-line {
+  font-size:10px;
+  color:rgba(239,246,253,.57);
+  margin-top:5px;
+}
+
+/* --------------------------------------------------
+   BOTTOM PROGRESS
+-------------------------------------------------- */
+
+.progress-zone {
+  position:absolute;
+  bottom:max(3.5%,env(safe-area-inset-bottom));
+  left:7%;
+  right:7%;
+  z-index:25;
+}
+
+.progress-track {
+  height:2px;
+  background:rgba(239,246,253,.16);
+  border-radius:5px;
+  overflow:hidden;
+  margin-bottom:13px;
+}
+
+.progress-fill {
+  height:100%;
+  width:100%;
+  /* Auditor fix 16 Nov: series convention is RTL fill (from the right,
+     matching the RTL dots), green first then gold — as water-drop. */
+  background:linear-gradient(90deg,var(--gold),var(--green));
+  transform:scaleX(0);
+  transform-origin:right center;
+}
+
+.dots {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:13px;
+  direction:rtl;
+}
+
+.dot {
+  width:8px;
+  height:8px;
+  padding:0;
+  border:1px solid rgba(239,246,253,.45);
+  background:transparent;
+  border-radius:50%;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+
+.dot.active {
+  background:var(--gold);
+  border-color:var(--gold);
+  box-shadow:0 0 10px rgba(201,162,39,.35);
+}
+
+.dot:focus-visible {
+  outline:2px solid white;
+  outline-offset:4px;
+}
+
+/* --------------------------------------------------
+   FINAL STATE
+-------------------------------------------------- */
+
+html.js .stage.final .hero-wrap {
+  /* Animated scale is controlled in the rAF loop. */
+}
+
+html.js .stage.final .hero {
+  filter:drop-shadow(0 12px 17px rgba(0,0,0,.28));
+}
+
+/* --------------------------------------------------
+   NO JAVASCRIPT FALLBACK
+-------------------------------------------------- */
+
+.nojs-content {
+  display:none;
+}
+
+html:not(.js) .story-track {
+  height:auto;
+}
+
+html:not(.js) .stage {
+  position:relative;
+  height:auto;
+  min-height:0;
+  overflow:visible;
+  padding:60px 18px 35px;
+}
+
+html:not(.js) .caption-zone,
+html:not(.js) .hero-wrap,
+html:not(.js) .progress-zone,
+html:not(.js) .end-card {
+  display:none;
+}
+
+html:not(.js) .nojs-content {
+  display:block;
+  max-width:540px;
+  margin:0 auto;
+}
+
+.nojs-content h2 {
+  font-size:21px;
+  line-height:2;
+  text-align:center;
+  font-weight:400;
+  color:var(--glass);
+  margin:28px 0;
+  text-wrap:balance;
+}
+
+.nojs-content .nojs-number {
+  font:600 10px Montserrat,sans-serif;
+  letter-spacing:3px;
+  color:var(--gold);
+  text-align:center;
+}
+
+.nojs-content .nojs-end {
+  text-align:center;
+  margin-top:45px;
+  padding:25px 12px;
+  border-top:1px solid rgba(239,246,253,.2);
+}
+
+/* --------------------------------------------------
+   REDUCED MOTION
+   Readable stacked version, all beats visible.
+-------------------------------------------------- */
+
+@media (prefers-reduced-motion:reduce) {
+  html.js .story-track {
+    height:auto;
+  }
+
+  html.js .stage {
+    position:relative;
+    height:auto;
+    min-height:0;
+    padding:50px 18px 35px;
+    overflow:visible;
+  }
+
+  html.js .caption-zone,
+  html.js .hero-wrap,
+  html.js .progress-zone {
+    display:none;
+  }
+
+  html.js .end-card {
+    display:none;
+  }
+
+  html.js .nojs-content {
+    display:block;
+  }
+
+  html.js .nojs-content h2 {
+    margin:25px auto;
+  }
+
+  html.js .ambient {
+    position:fixed;
+  }
+}
+
+/* --------------------------------------------------
+   SHORT VIEWPORT: 360x640 and similar
+-------------------------------------------------- */
+
+@media (max-height:700px) {
+  .hero-wrap {
+    top:33%;
+    height:38%;
+    transform:translateX(-50%) scale(.58);
+  }
+
+  .end-card {
+    top:68%;
+  }
+
+  .caption-zone {
+    top:10.5%;
+    height:20%;
+  }
+
+  .caption h2 {
+    font-size:clamp(17px,4.5vw,22px);
+    line-height:1.9;
+  }
+
+  .eyebrow {
+    top:3.5%;
+  }
+
+  .lab-tag {
+    top:3%;
+  }
+
+  .progress-zone {
+    bottom:max(2.5%,env(safe-area-inset-bottom));
+  }
+
+  .end-card h1 {
+    font-size:clamp(19px,5vw,24px);
+    line-height:1.8;
+    margin-bottom:5px;
+  }
+
+  .brand-line {
+    font-size:10px;
+    margin-bottom:5px;
+  }
+
+  .cta {
+    min-height:41px;
+    padding:7px 17px;
+    font-size:12px;
+  }
+
+  .tiny-line {
+    font-size:9px;
+    margin-top:2px;
+  }
+}
+
+@media (max-width:380px) {
+  .lab-tag {
+    font-size:8px;
+  }
+
+  .dots {
+    gap:11px;
+  }
+
+  .dot {
+    width:7px;
+    height:7px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="story-track" id="storyTrack">
+
+<section class="stage" id="stage">
+
+<div class="ambient"></div>
+
+<div class="eyebrow">A I D E</div>
+
+<div class="lab-tag">تصوراتی خاکہ — لیب</div>
+
+<!-- CAPTIONS -->
+
+<div class="caption-zone" aria-live="off">
+
+  <div class="caption" data-beat="0">
+    <span class="caption-tag">01 / 07</span>
+    <h2>کبھی ہر طرف دیواریں دکھائی دیتی ہیں۔</h2>
+  </div>
+
+  <div class="caption" data-beat="1">
+    <span class="caption-tag">02 / 07</span>
+    <h2>سوال دل میں جمع ہوتے رہتے ہیں۔</h2>
+  </div>
+
+  <div class="caption" data-beat="2">
+    <span class="caption-tag">03 / 07</span>
+    <h2>ایک دریچہ کھلنے لگتا ہے۔</h2>
+  </div>
+
+  <div class="caption" data-beat="3">
+    <span class="caption-tag">04 / 07</span>
+    <h2>باتوں کے نئے پہلو سامنے آتے ہیں۔</h2>
+  </div>
+
+  <div class="caption" data-beat="4">
+    <span class="caption-tag">05 / 07</span>
+    <h2>دوسرا دریچہ بھی کھل جاتا ہے۔</h2>
+  </div>
+
+  <div class="caption" data-beat="5">
+    <span class="caption-tag">06 / 07</span>
+    <h2>سامنے راستے کی وسعت دکھائی دیتی ہے۔</h2>
+  </div>
+
+</div>
+
+<!-- HERO: ONE CONTINUOUS ROOM -->
+
+<div class="hero-wrap" id="heroWrap">
+
+<div class="hero" id="hero">
+
+<svg class="room-svg" id="roomSvg"
+     viewBox="0 0 900 640"
+     preserveAspectRatio="xMidYMid meet"
+     xmlns="http://www.w3.org/2000/svg"
+     role="img"
+     aria-label="تراشیدہ لکڑی کے دو دریچوں والا روایتی کمرہ">
+
+<defs>
+
+  <!-- Wall plaster -->
+  <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#344158"/>
+    <stop offset=".45" stop-color="#29354A"/>
+    <stop offset="1" stop-color="#19283E"/>
+  </linearGradient>
+
+  <linearGradient id="wallLight" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#887A67" stop-opacity=".15"/>
+    <stop offset="1" stop-color="#17243A" stop-opacity=".35"/>
+  </linearGradient>
+
+  <!-- Wooden frame -->
+  <linearGradient id="wood" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#392318"/>
+    <stop offset=".18" stop-color="#95623D"/>
+    <stop offset=".43" stop-color="#67412A"/>
+    <stop offset=".72" stop-color="#A5754D"/>
+    <stop offset="1" stop-color="#382116"/>
+  </linearGradient>
+
+  <linearGradient id="woodFace" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#AD8054"/>
+    <stop offset=".32" stop-color="#795034"/>
+    <stop offset=".7" stop-color="#58341F"/>
+    <stop offset="1" stop-color="#302019"/>
+  </linearGradient>
+
+  <linearGradient id="woodEdge" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#28170F"/>
+    <stop offset=".5" stop-color="#B38255"/>
+    <stop offset="1" stop-color="#3B2418"/>
+  </linearGradient>
+
+  <!-- Outside sky -->
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#B8D4E9"/>
+    <stop offset=".55" stop-color="#D9E7F6"/>
+    <stop offset="1" stop-color="#EFF6FD"/>
+  </linearGradient>
+
+  <!-- Light volumetrics -->
+  <linearGradient id="lightBeam" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFF6D9" stop-opacity=".0"/>
+    <stop offset=".28" stop-color="#FFE9AF" stop-opacity=".24"/>
+    <stop offset=".7" stop-color="#F8D48D" stop-opacity=".12"/>
+    <stop offset="1" stop-color="#FFE6AD" stop-opacity=".0"/>
+  </linearGradient>
+
+  <linearGradient id="lightBeamStrong" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FFF4D5" stop-opacity=".05"/>
+    <stop offset=".45" stop-color="#FFE5A8" stop-opacity=".27"/>
+    <stop offset="1" stop-color="#FFF0C7" stop-opacity=".04"/>
+  </linearGradient>
+
+  <radialGradient id="sunGlow">
+    <stop offset="0" stop-color="#FFF8DC" stop-opacity=".8"/>
+    <stop offset=".35" stop-color="#FFE6B3" stop-opacity=".3"/>
+    <stop offset="1" stop-color="#FFE6B3" stop-opacity="0"/>
+  </radialGradient>
+
+  <!-- Shadows -->
+  <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="12"/>
+  </filter>
+
+  <filter id="beamBlur" x="-100%" y="-50%" width="300%" height="200%">
+    <feGaussianBlur stdDeviation="14"/>
+  </filter>
+
+  <filter id="dustGlow" x="-100%" y="-100%" width="300%" height="300%">
+    <feGaussianBlur stdDeviation="2.5"/>
+  </filter>
+
+  <filter id="wallTexture">
+    <feTurbulence type="fractalNoise"
+      baseFrequency=".7" numOctaves="3" seed="8"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer>
+      <feFuncA type="table" tableValues="0 .13"/>
+    </feComponentTransfer>
+    <feBlend in="SourceGraphic" mode="soft-light"/>
+  </filter>
+
+  <clipPath id="roomClip">
+    <rect x="0" y="0" width="900" height="640"/>
+  </clipPath>
+
+  <clipPath id="leftWindow">
+    <rect x="140" y="125" width="245" height="295"/>
+  </clipPath>
+
+  <clipPath id="rightWindow">
+    <rect x="515" y="125" width="245" height="295"/>
+  </clipPath>
+
+  <!-- One consistent carved shutter geometry -->
+  <g id="shutterShape">
+
+    <rect width="122" height="292" rx="2"
+          fill="url(#woodFace)" stroke="#2C1A11" stroke-width="5"/>
+
+    <rect x="8" y="8" width="106" height="276"
+          fill="none" stroke="#C08C5D" stroke-width="3"/>
+
+    <rect x="15" y="15" width="92" height="262"
+          fill="none" stroke="#321D13" stroke-width="2"/>
+
+    <!-- Vertical wood grain -->
+    <path class="wood-line"
+          d="M24 18 Q29 90 24 145 T27 275
+             M42 18 Q36 80 43 130 T40 274
+             M61 18 Q66 80 59 160 T64 275
+             M83 18 Q78 80 85 145 T82 275
+             M99 18 Q95 90 101 170 T97 275"/>
+
+    <path class="wood-dark-line"
+          d="M32 22 Q36 100 31 170 T35 270
+             M74 22 Q69 90 75 155 T71 270"/>
+
+    <!-- Carved arch -->
+    <path class="carving"
+          d="M24 78 Q61 22 98 78
+             M24 78 L24 125
+             M98 78 L98 125"/>
+
+    <path class="carving-dark"
+          d="M32 82 Q61 39 90 82
+             M32 82 L32 120
+             M90 82 L90 120"/>
+
+    <!-- Geometric carved pattern -->
+    <path class="carving"
+          d="M61 92 L78 112 L61 132 L44 112 Z
+             M61 102 L69 112 L61 122 L53 112 Z
+             M22 153 Q61 130 100 153
+             M22 162 Q61 139 100 162"/>
+
+    <path class="carving-dark"
+          d="M28 191 L94 191
+             M28 198 L94 198
+             M28 231 Q61 208 94 231
+             M28 239 Q61 216 94 239"/>
+
+    <!-- Brass details -->
+    <circle cx="98" cy="155" r="5" fill="#C9A227"/>
+    <circle cx="98" cy="155" r="2" fill="#F7DFA5"/>
+
+    <rect x="3" y="5" width="5" height="280"
+          fill="url(#woodEdge)"/>
+  </g>
+
+</defs>
+
+<g clip-path="url(#roomClip)">
+
+<!-- OUTER WALL: never changes -->
+
+<rect width="900" height="640" fill="url(#wall)"/>
+
+<rect width="900" height="640"
+      fill="url(#wallLight)"/>
+
+<rect width="900" height="640"
+      filter="url(#wallTexture)"
+      opacity=".48"/>
+
+<!-- Wall surface marks -->
+<g class="wall-grain" stroke="#A7A7A0" fill="none">
+  <path d="M30 100 Q110 95 180 102 M710 82 Q780 75 860 87"
+        stroke-width="1"/>
+  <path d="M20 220 Q95 210 120 217 M780 235 Q820 225 880 231"
+        stroke-width="1"/>
+  <path d="M30 300 L60 297 M830 310 L870 308"
+        stroke-width="2"/>
+  <path d="M75 450 Q140 442 190 450 M700 455 Q770 445 830 452"
+        stroke-width="1"/>
+  <path d="M105 55 L109 76 M790 52 L785 75"
+        stroke-width="1"/>
+</g>
+
+<!-- PLASTER ARCHITECTURAL FRAME -->
+
+<path d="M105 105 L105 435 L795 435 L795 105"
+      fill="none" stroke="#121D30" stroke-width="22"/>
+
+<path d="M112 109 L112 428 L788 428 L788 109"
+      fill="none" stroke="#9A826B" stroke-opacity=".35" stroke-width="4"/>
+
+<!-- Window openings: LEFT -->
+
+<rect x="140" y="125" width="245" height="295"
+      fill="#101E30"/>
+
+<!-- LEFT OUTSIDE WORLD -->
+
+<g class="outside-layer" id="leftOutside" clip-path="url(#leftWindow)">
+
+  <rect x="140" y="125" width="245" height="295"
+        fill="url(#sky)"/>
+
+  <circle cx="330" cy="180" r="75"
+          fill="url(#sunGlow)"/>
+
+  <!-- Distant hills -->
+  <path d="M120 310
+           Q185 245 235 275
+           Q295 205 360 270
+           Q400 240 420 285
+           L420 430 L120 430 Z"
+        fill="#829BB0"/>
+
+  <path d="M120 330
+           Q180 278 230 307
+           Q275 255 330 294
+           Q380 278 410 315
+           L410 430 L120 430 Z"
+        fill="#627F85"/>
+
+  <!-- Far hills -->
+  <path d="M120 355
+           Q180 310 230 336
+           Q280 293 340 330
+           Q390 310 415 350
+           L415 430 L120 430 Z"
+        fill="#476E64"/>
+
+  <!-- Garden -->
+  <path d="M120 360
+           Q185 338 230 363
+           Q300 330 355 360
+           L420 430 L120 430 Z"
+        fill="#426D51"/>
+
+  <path d="M135 390 Q220 352 285 385
+           Q340 360 395 390
+           L410 430 L130 430 Z"
+        fill="#315F43"/>
+
+  <!-- Trees -->
+  <g fill="#345A46">
+    <circle cx="165" cy="330" r="29"/>
+    <circle cx="187" cy="324" r="23"/>
+    <circle cx="355" cy="325" r="35"/>
+    <circle cx="380" cy="337" r="23"/>
+  </g>
+
+  <g fill="#5D8060" opacity=".8">
+    <circle cx="164" cy="322" r="15"/>
+    <circle cx="354" cy="315" r="19"/>
+  </g>
+
+  <!-- Garden path -->
+  <path d="M250 430 Q270 395 290 370
+           Q305 352 317 343"
+        stroke="#C5AE86" stroke-width="15"
+        fill="none" opacity=".8"/>
+
+  <path d="M250 430 Q270 395 290 370"
+        stroke="#E2D0AB" stroke-width="2"
+        fill="none" opacity=".5"/>
+
+</g>
+
+<!-- Window openings: RIGHT -->
+
+<rect x="515" y="125" width="245" height="295"
+      fill="#101E30"/>
+
+<!-- RIGHT OUTSIDE WORLD -->
+
+<g class="outside-layer" id="rightOutside" clip-path="url(#rightWindow)">
+
+  <rect x="515" y="125" width="245" height="295"
+        fill="url(#sky)"/>
+
+  <circle cx="680" cy="170" r="90"
+          fill="url(#sunGlow)"/>
+
+  <!-- Distant mountains -->
+  <path d="M490 310
+           L545 255 L580 275
+           L650 195 L700 255
+           L745 230 L790 285
+           L790 430 L490 430 Z"
+        fill="#90A9BB"/>
+
+  <path d="M490 330
+           L550 278 L592 302
+           L650 238 L702 286
+           L755 267 L790 310
+           L790 430 L490 430 Z"
+        fill="#668A87"/>
+
+  <!-- Foreground hills -->
+  <path d="M490 354
+           Q560 300 615 340
+           Q690 300 785 345
+           L790 430 L490 430 Z"
+        fill="#426F60"/>
+
+  <!-- Trees -->
+  <g fill="#345C46">
+    <circle cx="555" cy="335" r="28"/>
+    <circle cx="580" cy="332" r="25"/>
+    <circle cx="730" cy="330" r="32"/>
+    <circle cx="755" cy="338" r="24"/>
+  </g>
+
+  <g fill="#6D8B5E">
+    <circle cx="556" cy="326" r="16"/>
+    <circle cx="731" cy="320" r="17"/>
+  </g>
+
+  <!-- Ground -->
+  <path d="M500 390 Q620 355 790 388 L790 440 L500 440 Z"
+        fill="#315C43"/>
+
+</g>
+
+<!-- WINDOW FRAME STRUCTURE -->
+
+<g fill="none" stroke="#24170F">
+
+  <rect x="133" y="118" width="259" height="310"
+        stroke-width="17"/>
+
+  <rect x="508" y="118" width="259" height="310"
+        stroke-width="17"/>
+
+</g>
+
+<g fill="none" stroke="#B98A5B" opacity=".8">
+
+  <rect x="141" y="126" width="243" height="294"
+        stroke-width="3"/>
+
+  <rect x="516" y="126" width="243" height="294"
+        stroke-width="3"/>
+
+</g>
+
+<!-- Window crossbars -->
+
+<g stroke="#68452E" stroke-width="6">
+  <path d="M263 128 V420 M140 270 H385"/>
+  <path d="M638 128 V420 M515 270 H760"/>
+</g>
+
+<g stroke="#C29565" stroke-width="1.5" opacity=".7">
+  <path d="M267 128 V420 M642 128 V420"/>
+  <path d="M140 274 H385 M515 274 H760"/>
+</g>
+
+<!-- Room floor -->
+
+<path d="M0 430 L900 430 L900 640 L0 640 Z"
+      fill="#1C2838"/>
+
+<path d="M0 430 L900 430"
+      stroke="#B18A62" stroke-width="5" opacity=".55"/>
+
+<path d="M0 440 L900 440"
+      stroke="#101C2B" stroke-width="9"/>
+
+<!-- Floor subtle tiles -->
+
+<g stroke="#8B7155" opacity=".15" fill="none">
+  <path d="M0 510 H900 M0 570 H900"/>
+  <path d="M150 440 L75 640 M350 440 L300 640
+           M550 440 L600 640 M750 440 L830 640"/>
+</g>
+
+<!-- Room furniture silhouette, unchanged -->
+
+<g opacity=".8">
+
+  <path d="M320 460 L580 460 L595 500
+           L300 500 Z"
+        fill="#30251F"/>
+
+  <path d="M338 458 L338 525 M562 458 L562 525"
+        stroke="#61442D" stroke-width="12"/>
+
+  <path d="M300 500 Q440 512 595 500"
+        stroke="#A17A51" stroke-width="3" fill="none"/>
+
+</g>
+
+<!-- Interior light shadows -->
+
+<path class="room-shadow"
+      d="M0 0 H125 V640 H0 Z"
+      fill="#050D1B"/>
+
+<path class="room-shadow"
+      d="M775 0 H900 V640 H775 Z"
+      fill="#050D1B"/>
+
+<!-- LIGHT BEAMS -->
+
+<g class="beam" id="leftBeam">
+
+  <path d="M280 180 L140 640 L580 640 L385 180 Z"
+        fill="url(#lightBeam)"/>
+
+  <path d="M285 185 L220 640 L400 640 L370 185 Z"
+        fill="url(#lightBeamStrong)"
+        filter="url(#beamBlur)"/>
+
+  <path d="M305 185 L250 640"
+        stroke="#FFF1CC" stroke-width="15"
+        opacity=".09" filter="url(#beamBlur)"/>
+
+</g>
+
+<g class="beam" id="rightBeam">
+
+  <path d="M630 175 L450 640 L880 640 L760 175 Z"
+        fill="url(#lightBeam)"/>
+
+  <path d="M675 185 L550 640 L770 640 L740 185 Z"
+        fill="url(#lightBeamStrong)"
+        filter="url(#beamBlur)"/>
+
+</g>
+
+<!-- Dust particles -->
+
+<g class="dust-layer" id="dustLayer">
+
+  <g class="dust-dot">
+    <circle cx="290" cy="260" r="3"/>
+    <circle cx="330" cy="310" r="2"/>
+    <circle cx="365" cy="245" r="2.5"/>
+    <circle cx="405" cy="350" r="3"/>
+    <circle cx="460" cy="290" r="2"/>
+    <circle cx="510" cy="365" r="2.5"/>
+    <circle cx="560" cy="280" r="3"/>
+    <circle cx="610" cy="340" r="2"/>
+    <circle cx="680" cy="255" r="2.5"/>
+    <circle cx="420" cy="400" r="1.8"/>
+    <circle cx="350" cy="385" r="1.8"/>
+    <circle cx="590" cy="390" r="2"/>
+    <circle cx="485" cy="235" r="1.8"/>
+    <circle cx="530" cy="210" r="2"/>
+  </g>
+
+  <g fill="#FFF4D9" opacity=".55"
+     filter="url(#dustGlow)">
+    <circle cx="290" cy="260" r="7"/>
+    <circle cx="405" cy="350" r="6"/>
+    <circle cx="560" cy="280" r="7"/>
+    <circle cx="680" cy="255" r="6"/>
+  </g>
+
+</g>
+
+<!-- --------------------------------------------------
+     SHUTTERS: MATCHED GEOMETRY
+
+     All shutter versions use the SAME shape.
+     Closed / ajar / open cross-dissolve over
+     identical intervals. Their total opacity is 1.
+-------------------------------------------------- -->
+
+<!-- LEFT SHUTTER: CLOSED -->
+
+<g id="leftClosed" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(141 126)"/>
+  <use href="#shutterShape"
+       transform="translate(263 126) scale(-1 1) translate(-122 0)"/>
+</g>
+
+<!-- LEFT SHUTTER: AJAR -->
+
+<g id="leftAjar" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(141 126) skewY(-9) scale(.92 1)"/>
+  <use href="#shutterShape"
+       transform="translate(385 126) skewY(9) scale(-.92 1)"/>
+</g>
+
+<!-- LEFT SHUTTER: OPEN -->
+
+<g id="leftOpen" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(141 126) skewY(-18) scale(.68 1)"/>
+  <use href="#shutterShape"
+       transform="translate(385 126) skewY(18) scale(-.68 1)"/>
+</g>
+
+<!-- RIGHT SHUTTER: CLOSED -->
+
+<g id="rightClosed" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(516 126)"/>
+  <use href="#shutterShape"
+       transform="translate(638 126) scale(-1 1) translate(-122 0)"/>
+</g>
+
+<!-- RIGHT SHUTTER: AJAR -->
+
+<g id="rightAjar" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(516 126) skewY(-9) scale(.92 1)"/>
+  <use href="#shutterShape"
+       transform="translate(760 126) skewY(9) scale(-.92 1)"/>
+</g>
+
+<!-- RIGHT SHUTTER: OPEN -->
+
+<g id="rightOpen" class="shutter-group">
+  <use href="#shutterShape"
+       transform="translate(516 126) skewY(-18) scale(.68 1)"/>
+  <use href="#shutterShape"
+       transform="translate(760 126) skewY(18) scale(-.68 1)"/>
+</g>
+
+<!-- Fixed central carved wall decoration -->
+
+<g opacity=".5" fill="none" stroke="#B18A62">
+
+  <path d="M450 72 L470 92 L450 112 L430 92 Z"
+        stroke-width="2"/>
+
+  <path d="M450 80 L462 92 L450 104 L438 92 Z"
+        stroke-width="1"/>
+
+  <path d="M405 92 H420 M480 92 H495"
+        stroke-width="2"/>
+
+</g>
+
+<!-- Architectural frame edge lighting -->
+
+<path d="M120 104 H780"
+      stroke="#C49A68" stroke-width="3"
+      opacity=".55"/>
+
+<path d="M120 435 H780"
+      stroke="#D2A46E" stroke-width="2"
+      opacity=".6"/>
+
+</g>
+</svg>
+
+</div>
+</div>
+
+<!-- END CARD -->
+
+<div class="end-card" id="endCard">
+
+  <h1>دریچہ کھولیں، روشنی آنے دیں۔</h1>
+
+  <div class="brand-line">
+    AIDE · عمران اسلم | لائف کوچ اور ٹرینر
+  </div>
+
+  <a class="cta"
+     href="https://imranaslam.pk/ur/coaching.html">
+     مفت ڈسکوری کال بک کریں
+  </a>
+
+  <div class="tiny-line">
+    پہلی گفتگو مفت ہے — 15 منٹ
+  </div>
+
+</div>
+
+<!-- PROGRESS -->
+
+<div class="progress-zone">
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <div class="dots" id="dots">
+
+    <button class="dot active" data-target="0"
+            aria-label="منظر 1"></button>
+
+    <button class="dot" data-target="1"
+            aria-label="منظر 2"></button>
+
+    <button class="dot" data-target="2"
+            aria-label="منظر 3"></button>
+
+    <button class="dot" data-target="3"
+            aria-label="منظر 4"></button>
+
+    <button class="dot" data-target="4"
+            aria-label="منظر 5"></button>
+
+    <button class="dot" data-target="5"
+            aria-label="منظر 6"></button>
+
+    <button class="dot" data-target="6"
+            aria-label="آخری منظر"></button>
+
+  </div>
+
+</div>
+
+<!-- NO-JS AND REDUCED-MOTION FALLBACK -->
+
+<div class="nojs-content">
+
+  <div class="nojs-number">01 / 07</div>
+  <h2>کبھی ہر طرف دیواریں دکھائی دیتی ہیں۔</h2>
+
+  <div class="nojs-number">02 / 07</div>
+  <h2>سوال دل میں جمع ہوتے رہتے ہیں۔</h2>
+
+  <div class="nojs-number">03 / 07</div>
+  <h2>ایک دریچہ کھلنے لگتا ہے۔</h2>
+
+  <div class="nojs-number">04 / 07</div>
+  <h2>باتوں کے نئے پہلو سامنے آتے ہیں۔</h2>
+
+  <div class="nojs-number">05 / 07</div>
+  <h2>دوسرا دریچہ بھی کھل جاتا ہے۔</h2>
+
+  <div class="nojs-number">06 / 07</div>
+  <h2>سامنے راستے کی وسعت دکھائی دیتی ہے۔</h2>
+
+  <div class="nojs-end">
+
+    <h2>دریچہ کھولیں، روشنی آنے دیں۔</h2>
+
+    <p>AIDE · عمران اسلم | لائف کوچ اور ٹرینر</p>
+
+    <a class="cta"
+       href="https://imranaslam.pk/ur/coaching.html">
+       مفت ڈسکوری کال بک کریں
+    </a>
+
+    <p class="tiny-line">پہلی گفتگو مفت ہے — 15 منٹ</p>
+
+  </div>
+
+</div>
+
+</section>
+</main>
+
+<script>
+(function () {
+"use strict";
+
+document.documentElement.classList.add("js");
+
+const stage = document.getElementById("stage");
+const track = document.getElementById("storyTrack");
+const heroWrap = document.getElementById("heroWrap");
+const captions = [...document.querySelectorAll(".caption")];
+const dots = [...document.querySelectorAll(".dot")];
+const progressFill = document.getElementById("progressFill");
+const endCard = document.getElementById("endCard");
+
+const leftClosed = document.getElementById("leftClosed");
+const leftAjar = document.getElementById("leftAjar");
+const leftOpen = document.getElementById("leftOpen");
+
+const rightClosed = document.getElementById("rightClosed");
+const rightAjar = document.getElementById("rightAjar");
+const rightOpen = document.getElementById("rightOpen");
+
+const leftBeam = document.getElementById("leftBeam");
+const rightBeam = document.getElementById("rightBeam");
+const dustLayer = document.getElementById("dustLayer");
+
+const leftOutside = document.getElementById("leftOutside");
+const rightOutside = document.getElementById("rightOutside");
+
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+);
+
+if (reducedMotion.matches) {
+  document.documentElement.classList.remove("js");
+  return;
+}
+
+/* --------------------------------------------------
+   PROGRESS MODEL
+
+   The scroll track is 700vh.
+   Its scrollable distance is approximately 600vh,
+   because the stage remains sticky for 100vh.
+
+   The progress is normalised over the actual
+   scrollable track distance.
+-------------------------------------------------- */
+
+let current = 0;
+let target = 0;
+let rafId = null;
+let lastProgress = -1;
+let lastBeat = -1;
+
+const EASE = 0.085;
+const STOP_EPSILON = 0.00035;
+
+function clamp(value,min,max) {
+  return Math.max(min,Math.min(max,value));
+}
+
+function smooth(a,b,value) {
+  const t = clamp((value-a)/(b-a),0,1);
+  return t*t*(3-2*t);
+}
+
+function mix(a,b,t) {
+  return a+(b-a)*t;
+}
+
+/* --------------------------------------------------
+   SCROLL TARGET
+
+   The actual scrollY is read only inside the rAF
+   update loop. Scroll events merely request a frame.
+-------------------------------------------------- */
+
+function getProgress() {
+  const maxScroll =
+    track.offsetHeight - window.innerHeight;
+
+  if (maxScroll <= 0) return 0;
+
+  return clamp(window.scrollY/maxScroll,0,1);
+}
+
+function requestUpdate() {
+  if (rafId !== null) return;
+  rafId = requestAnimationFrame(update);
+}
+
+/* --------------------------------------------------
+   SHUTTER STATES
+
+   For each window, closed -> ajar -> open.
+
+   Every cross-dissolve uses exactly the same
+   interpolation value for outgoing and incoming
+   states. Thus opacity totals 1 at every point.
+
+   First window opens first.
+   Second window begins opening later.
+-------------------------------------------------- */
+
+function setCrossfade(closed,ajar,open,value) {
+
+  const first = smooth(0.18,0.40,value);
+  const second = smooth(0.55,0.78,value);
+
+  closed.style.opacity = String(1-first);
+
+  ajar.style.opacity = String(
+    first*(1-second)
+  );
+
+  open.style.opacity = String(
+    first*second
+  );
+}
+
+/* --------------------------------------------------
+   CAPTIONS
+
+   Independent non-overlapping windows.
+
+   The first caption starts at opacity 1.
+   It fades smoothly from its first paint.
+
+   Beat centers / windows:
+   0: 0.000–0.105
+   1: 0.155–0.260
+   2: 0.315–0.420
+   3: 0.475–0.580
+   4: 0.635–0.740
+   5: 0.795–0.900
+
+   End card: 0.925–1.000
+-------------------------------------------------- */
+
+const captionWindows = [
+  [0.000,0.105],
+  [0.155,0.260],
+  [0.315,0.420],
+  [0.475,0.580],
+  [0.635,0.740],
+  [0.795,0.900]
+];
+
+function updateCaptions(p) {
+
+  let activeBeat = 0;
+
+  captionWindows.forEach((windowRange,i) => {
+
+    const [start,end] = windowRange;
+
+    let opacity;
+
+    if (p < start || p > end) {
+      opacity = 0;
+    } else {
+      // Auditor fix 16 Nov: beat 0 must be visible at first paint.
+      // smooth(0,0.018,0) = 0, so the first update() overwrote the
+      // initial opacity "1" and the caption sat invisible at p=0.
+      // Fade-in span 0.010 (was 0.018): beat 1's hold sits at p=1/6
+      // and must be fully opaque there; 0.018 left it at 0.69.
+      const fadeIn = i === 0 ? 1 : smooth(start,start+0.010,p);
+      const fadeOut = 1-smooth(end-0.025,end,p);
+
+      opacity = Math.min(fadeIn,fadeOut);
+    }
+
+    if (opacity > 0.5) activeBeat = i;
+
+    captions[i].style.opacity = opacity.toFixed(4);
+    captions[i].style.visibility =
+      opacity > 0.001 ? "visible" : "hidden";
+  });
+
+  if (p >= 0.925) activeBeat = 6;
+
+  if (activeBeat !== lastBeat) {
+
+    dots.forEach((dot,i) => {
+      dot.classList.toggle("active",i===activeBeat);
+    });
+
+    lastBeat = activeBeat;
+  }
+}
+
+/* --------------------------------------------------
+   PARALLAX
+
+   Independent movement rates:
+   - distant mountains
+   - nearer garden
+   - interior beam
+   - dust particles
+
+   Only transforms and opacity are animated.
+-------------------------------------------------- */
+
+function updateParallax(p) {
+
+  const leftX = mix(-12,8,p);
+  const rightX = mix(10,-8,p);
+
+  leftOutside.style.transform =
+    `translate3d(${leftX}px,${mix(8,-5,p)}px,0)`;
+
+  rightOutside.style.transform =
+    `translate3d(${rightX}px,${mix(5,-9,p)}px,0)`;
+
+  leftBeam.style.opacity =
+    smooth(0.23,0.42,p)*0.85;
+
+  rightBeam.style.opacity =
+    smooth(0.56,0.80,p)*0.82;
+
+  dustLayer.style.opacity =
+    smooth(0.28,0.50,p)*0.8;
+
+  dustLayer.style.transform =
+    `translate3d(${mix(-5,8,p)}px,${mix(5,-16,p)}px,0)`;
+}
+
+/* --------------------------------------------------
+   HERO FINAL SCALE
+
+   Normal scale: 1
+   Final scale: 0.66
+   Compact viewport scale: 0.58
+
+   transform is applied to the complete hero wrapper.
+   The final hero is centred on its original centre,
+   rather than translated upward by an arbitrary amount.
+-------------------------------------------------- */
+
+function updateHero(p) {
+
+  const finalAmount = smooth(0.90,0.96,p);
+
+  const compact = window.innerHeight <= 700;
+
+  const normalScale = 1;
+  const finalScale = compact ? 0.58 : 0.66;
+
+  const scale = mix(
+    normalScale,
+    finalScale,
+    finalAmount
+  );
+
+  heroWrap.style.transform =
+    `translateX(-50%) scale(${scale})`;
+}
+
+/* --------------------------------------------------
+   END CARD
+
+   Appears only after the last caption has completed.
+-------------------------------------------------- */
+
+function updateEndCard(p) {
+
+  const opacity = smooth(0.925,0.975,p);
+
+  endCard.style.opacity = opacity.toFixed(4);
+
+  endCard.style.visibility =
+    opacity > 0.001 ? "visible" : "hidden";
+
+  endCard.style.pointerEvents =
+    opacity > 0.95 ? "auto" : "none";
+
+  stage.classList.toggle("final",p>0.925);
+}
+
+/* --------------------------------------------------
+   PROGRESS BAR
+-------------------------------------------------- */
+
+function updateProgress(p) {
+
+  progressFill.style.transform =
+    `scaleX(${p})`;
+}
+
+/* --------------------------------------------------
+   MAIN DAMPED LOOP
+
+   There is no permanent animation loop.
+
+   A frame is requested only when scrolling or
+   clicking a navigation dot.
+
+   The animation stops when the damped value settles.
+-------------------------------------------------- */
+
+function update() {
+
+  rafId = null;
+
+  /* Read scroll position inside the rAF loop */
+  target = getProgress();
+
+  const difference = target-current;
+
+  current += difference*EASE;
+
+  if (Math.abs(difference) < STOP_EPSILON) {
+    current = target;
+  }
+
+  const p = current;
+
+  if (Math.abs(p-lastProgress)>0.0001) {
+
+    setCrossfade(
+      leftClosed,
+      leftAjar,
+      leftOpen,
+      p
+    );
+
+    /*
+      The right window uses the same shutter geometry
+      and same matched cross-dissolve sequence, but
+      starts later in the narrative.
+    */
+
+    const rightProgress = clamp(
+      (p-0.37)/0.63,
+      0,
+      1
+    );
+
+    setCrossfade(
+      rightClosed,
+      rightAjar,
+      rightOpen,
+      rightProgress
+    );
+
+    updateCaptions(p);
+    updateParallax(p);
+    updateHero(p);
+    updateEndCard(p);
+    updateProgress(p);
+
+    lastProgress = p;
+  }
+
+  if (Math.abs(target-current)>STOP_EPSILON) {
+    requestUpdate();
+  }
+}
+
+/* --------------------------------------------------
+   EVENTS
+-------------------------------------------------- */
+
+window.addEventListener("scroll",requestUpdate,{
+  passive:true
+});
+
+window.addEventListener("resize",requestUpdate,{
+  passive:true
+});
+
+dots.forEach((dot,index) => {
+
+  dot.addEventListener("click",() => {
+
+    const maxScroll =
+      track.offsetHeight-window.innerHeight;
+
+    // Auditor fix 16 Nov: destinations were window starts, so a click
+    // landed mid-fade-in with a dim caption (e.g. 0.16 -> caption 1 at
+    // ~0.3 opacity). Land on the window centres instead.
+    const destinations = [
+      0.05,
+      0.21,
+      0.37,
+      0.53,
+      0.69,
+      0.85,
+      1
+    ];
+
+    window.scrollTo({
+      top:destinations[index]*maxScroll,
+      behavior:"smooth"
+    });
+
+  });
+
+});
+
+/* --------------------------------------------------
+   INITIAL STATE
+
+   Beat 0 is already visible at the first paint.
+-------------------------------------------------- */
+
+leftClosed.style.opacity = "1";
+leftAjar.style.opacity = "0";
+leftOpen.style.opacity = "0";
+
+rightClosed.style.opacity = "1";
+rightAjar.style.opacity = "0";
+rightOpen.style.opacity = "0";
+
+captions.forEach((caption,i) => {
+  caption.style.opacity = i===0 ? "1" : "0";
+  caption.style.visibility = i===0 ? "visible" : "hidden";
+});
+
+requestUpdate();
+
+})();
+</script>
+
+</body>
+</html>
