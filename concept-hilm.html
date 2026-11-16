@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>حِلم — AIDE | عمران اسلم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1A3B;
+    --sea-green: #3DAB94;
+    --glass-top: #EFF6FD;
+    --glass-bot: #D9E7F6;
+    --gold: #C9A227;
+    --font-ur: 'Noto Nastaliq Urdu', serif;
+    --font-en: 'Montserrat', sans-serif;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: #140806;
+    color: #FDF8F5;
+    font-family: var(--font-ur);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    overflow-x: hidden;
+    min-height: 100svh;
+  }
+
+  /* Scroll Track: ~700vh for 7 distinct stages */
+  .scroll-track {
+    position: relative;
+    height: 700vh;
+    width: 100%;
+  }
+
+  /* Sticky Viewport Stage */
+  .stage {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Top Brand & Progress Bar */
+  .top-chrome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    padding: 14px 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .progress-rail {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 99px;
+    overflow: hidden;
+    direction: rtl;
+  }
+
+  .progress-fill {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #FF5A1F, var(--gold), var(--sea-green));
+    transform-origin: right center;
+    transform: scaleX(0);
+    will-change: transform;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    color: rgba(255, 255, 255, 0.72);
+    text-transform: uppercase;
+  }
+
+  .lab-badge {
+    font-family: var(--font-ur);
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(10, 26, 59, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+  }
+
+  /* LAYER 1: Multi-stage Cross-Dissolving Atmospheric Background */
+  .bg-layer {
+    position: absolute;
+    inset: -8%;
+    z-index: 1;
+    will-change: transform, opacity;
+  }
+
+  /* Stage A: Hot volatile red-orange haze (Beats 0-1) */
+  .bg-hot {
+    background:
+      radial-gradient(circle at 50% 54%, rgba(255, 78, 20, 0.52) 0%, rgba(155, 22, 8, 0.68) 42%, #160504 88%),
+      linear-gradient(180deg, #240705 0%, #120403 100%);
+    opacity: 1;
+  }
+
+  /* Stage B: Warm amber dusk / breathing space (Beats 2-3) */
+  .bg-amber {
+    background:
+      radial-gradient(circle at 50% 52%, rgba(201, 162, 39, 0.36) 0%, rgba(74, 48, 24, 0.78) 48%, #0F1424 90%),
+      linear-gradient(180deg, #211710 0%, #0D1426 100%);
+    opacity: 0;
+  }
+
+  /* Stage C: Calm blue-grey & deep navy serenity (Beats 4-6) */
+  .bg-calm {
+    background:
+      radial-gradient(circle at 50% 48%, rgba(61, 171, 148, 0.22) 0%, rgba(28, 52, 84, 0.85) 48%, #0A1A3B 92%),
+      linear-gradient(180deg, #162B47 0%, #0A1A3B 100%);
+    opacity: 0;
+  }
+
+  /* Subtle grain & vignette texture */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(4, 8, 18, 0.68) 100%);
+    pointer-events: none;
+  }
+
+  /* LAYER 2: Rising Embers & Calm Dust Motes (Parallax Layer) */
+  .particles-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .ember {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFF3B0 0%, #FF6B1A 60%, transparent 100%);
+    box-shadow: 0 0 8px rgba(255, 110, 30, 0.8);
+    will-change: transform, opacity;
+  }
+
+  /* ZONE 1: TOP CAPTIONS (11% to 29% of viewport height) */
+  .caption-zone {
+    position: absolute;
+    top: 10.5svh;
+    height: 19svh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(90vw, 460px);
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .caption-card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .caption-card[data-beat="0"] {
+    opacity: 1;
+  }
+
+  .beat-tag {
+    font-family: var(--font-en);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    margin-bottom: 6px;
+    direction: ltr;
+  }
+
+  .caption-text {
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: clamp(18px, 4.4vw, 23px);
+    line-height: 2.05;
+    color: #FFFFFF;
+    text-wrap: balance;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+  }
+
+  /* ZONE 2: HERO FLAME -> LAMP (33% to 71% of viewport height) */
+  .hero-zone {
+    position: absolute;
+    top: 32svh;
+    height: 39svh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(88vw, 340px);
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .hero-svg {
+    width: 100%;
+    height: 100%;
+    max-height: 360px;
+    overflow: visible;
+  }
+
+  /* LAYER 4: Foreground Warm/Cool Ambient Floor Glow */
+  .foreground-glow {
+    position: absolute;
+    bottom: 14svh;
+    left: 50%;
+    width: 340px;
+    height: 110px;
+    transform: translateX(-50%);
+    z-index: 18;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .fg-hot {
+    background: radial-gradient(ellipse at center, rgba(255, 85, 20, 0.35) 0%, transparent 72%);
+    opacity: 1;
+  }
+
+  .fg-calm {
+    background: radial-gradient(ellipse at center, rgba(201, 162, 39, 0.25) 0%, rgba(61, 171, 148, 0.14) 45%, transparent 75%);
+    opacity: 0;
+  }
+
+  /* END CARD (Beat 6) - Positioned cleanly below shrunken/lifted hero */
+  .end-card {
+    position: absolute;
+    left: 50%;
+    bottom: 7.2svh;
+    transform: translate(-50%, 24px);
+    width: min(90vw, 420px);
+    z-index: 35;
+    background: linear-gradient(165deg, rgba(239, 246, 253, 0.96) 0%, rgba(217, 231, 246, 0.94) 100%);
+    color: var(--navy);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 22px;
+    padding: 18px 20px 16px;
+    text-align: center;
+    box-shadow: 0 20px 48px rgba(4, 12, 28, 0.55), 0 0 0 1px rgba(201, 162, 39, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .end-card.is-active {
+    pointer-events: auto;
+  }
+
+  .end-tag {
+    font-family: var(--font-en);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--sea-green);
+    direction: ltr;
+    margin-bottom: 2px;
+  }
+
+  .end-title {
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: clamp(28px, 6.5vw, 36px);
+    line-height: 1.75;
+    color: var(--navy);
+    text-wrap: balance;
+    margin-bottom: 2px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 4px 0 10px;
+    flex-wrap: wrap;
+  }
+
+  .price-old {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #5A6B85;
+    text-decoration: line-through;
+    text-decoration-color: #C0392B;
+    text-decoration-thickness: 1.5px;
+  }
+
+  .price-new {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--navy);
+    background: rgba(61, 171, 148, 0.18);
+    border: 1px solid rgba(61, 171, 148, 0.45);
+    padding: 1px 12px;
+    border-radius: 999px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 260px;
+    padding: 8px 22px;
+    background: var(--navy);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: var(--font-ur);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 2;
+    border-radius: 12px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(10, 26, 59, 0.28);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .cta-btn:hover, .cta-btn:focus-visible {
+    background: #132C60;
+    transform: translateY(-1px);
+  }
+
+  .deadline-line {
+    font-size: 12px;
+    line-height: 1.95;
+    color: #3A4D6B;
+    margin-top: 8px;
+  }
+
+  .brand-footer {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.9;
+    color: var(--navy);
+    border-top: 1px solid rgba(10, 26, 59, 0.12);
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  /* Bottom Dots Navigation (RTL: 0 on right, 6 on left) */
+  .dots-nav {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: rgba(10, 26, 59, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+  }
+
+  .dot-btn {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.22s ease, background-color 0.22s ease;
+  }
+
+  .dot-btn[aria-current="true"] {
+    background: var(--gold);
+    transform: scale(1.38);
+    box-shadow: 0 0 8px rgba(201, 162, 39, 0.85);
+  }
+
+  .dot-btn:focus-visible {
+    outline: 2px solid var(--sea-green);
+    outline-offset: 3px;
+  }
+
+  /* Short-viewport compact adjustment (e.g. 360x640) so End Card clears Hero by >= 24px */
+  @media (max-height: 700px) {
+    .top-chrome { padding-top: 8px; gap: 4px; }
+    .caption-zone { top: 8.5svh; height: 18svh; }
+    .caption-text { font-size: 16.5px; line-height: 1.95; }
+    .hero-zone { top: 27svh; height: 34svh; }
+    .end-card {
+      bottom: 6.2svh;
+      padding: 11px 14px 10px;
+      border-radius: 16px;
+    }
+    .end-title { font-size: 24px; line-height: 1.6; }
+    .price-row { margin: 2px 0 6px; gap: 8px; }
+    .price-old, .price-new { font-size: 13px; line-height: 1.75; }
+    .cta-btn { padding: 5px 16px; font-size: 14px; line-height: 1.85; }
+    .deadline-line { font-size: 11px; line-height: 1.75; margin-top: 4px; }
+    .brand-footer { font-size: 11px; line-height: 1.75; margin-top: 4px; padding-top: 4px; }
+    .dots-nav { bottom: 8px; padding: 4px 12px; gap: 8px; }
+  }
+
+  /* Reduced Motion & No-JS Fallback: Stacked readable layout */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .scroll-track { height: auto; }
+    .stage {
+      position: relative;
+      height: auto;
+      min-height: 100svh;
+      padding: 64px 16px 48px;
+      gap: 24px;
+      background: linear-gradient(180deg, #240907 0%, #16263E 52%, #0A1A3B 100%);
+    }
+    .bg-layer, .particles-layer, .dots-nav, .progress-rail { display: none; }
+    .caption-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: auto;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .caption-card {
+      position: relative;
+      opacity: 1 !important;
+      transform: none !important;
+      background: rgba(10, 26, 59, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+    .hero-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: 240px;
+    }
+    .end-card {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+  }
+</style>
+<noscript>
+  <style>
+    .scroll-track { height: auto; }
+    .stage {
+      position: relative;
+      height: auto;
+      padding: 64px 16px 48px;
+      gap: 22px;
+      background: linear-gradient(180deg, #240907 0%, #16263E 52%, #0A1A3B 100%);
+    }
+    .dots-nav, .progress-rail { display: none; }
+    .caption-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: auto;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .caption-card {
+      position: relative;
+      opacity: 1 !important;
+      transform: none !important;
+      background: rgba(10, 26, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+    .hero-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: 230px;
+    }
+    .end-card {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      transform: none;
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+  </style>
+</noscript>
+</head>
+<body>
+
+<main class="scroll-track" id="scrollTrack">
+  <section class="stage" aria-label="حِلم — بصری کہانی">
+
+    <!-- Top Chrome -->
+    <header class="top-chrome">
+      <div class="progress-rail" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="brand-row">
+        <span class="eyebrow">AIDE</span>
+        <span class="lab-badge">تصوراتی خاکہ — لیب</span>
+      </div>
+    </header>
+
+    <!-- Parallax Layer 1: Atmospheric Background Cross-Dissolve -->
+    <div class="bg-layer bg-hot" id="bgHot" aria-hidden="true"></div>
+    <div class="bg-layer bg-amber" id="bgAmber" aria-hidden="true"></div>
+    <div class="bg-layer bg-calm" id="bgCalm" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- Parallax Layer 2: Rising Embers -->
+    <div class="particles-layer" id="particlesLayer" aria-hidden="true"></div>
+
+    <!-- Zone 1: Top Captions (10.5svh – 29.5svh) -->
+    <div class="caption-zone" aria-live="polite">
+      <article class="caption-card" data-beat="0">
+        <span class="beat-tag">01 / 07</span>
+        <p class="caption-text">ایک جملہ۔ ایک لمحہ۔ اور سب کچھ جل جاتا ہے۔</p>
+      </article>
+      <article class="caption-card" data-beat="1">
+        <span class="beat-tag">02 / 07</span>
+        <p class="caption-text">غصہ آتا ہے — یہ انسان ہونا ہے۔</p>
+      </article>
+      <article class="caption-card" data-beat="2">
+        <span class="beat-tag">03 / 07</span>
+        <p class="caption-text">مگر غصے اور جواب کے درمیان ایک وقفہ ہے۔</p>
+      </article>
+      <article class="caption-card" data-beat="3">
+        <span class="beat-tag">04 / 07</span>
+        <p class="caption-text">وقفہ — سانس، سوچ، پھر زبان۔</p>
+      </article>
+      <article class="caption-card" data-beat="4">
+        <span class="beat-tag">05 / 07</span>
+        <p class="caption-text">حلم کمزوری نہیں، طاقت کا سب سے خاموش روپ ہے۔</p>
+      </article>
+      <article class="caption-card" data-beat="5">
+        <span class="beat-tag">06 / 07</span>
+        <p class="caption-text">وہی گھر، وہی لوگ — اب بات ٹھنڈی ہو کر ہوتی ہے۔</p>
+      </article>
+    </div>
+
+    <!-- Zone 2: Hero Object (Same Flame -> Steady Lamp) -->
+    <div class="hero-zone" id="heroZone">
+      <svg class="hero-svg" viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="بھڑکتے شعلے سے ٹھہرے ہوئے چراغ تک کا سفر">
+        <defs>
+          <!-- Radial Aura Gradients -->
+          <radialGradient id="auraHot" cx="50%" cy="52%" r="50%">
+            <stop offset="0%" stop-color="#FF5E14" stop-opacity="0.72"/>
+            <stop offset="48%" stop-color="#D92B04" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#D92B04" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="auraAmber" cx="50%" cy="54%" r="48%">
+            <stop offset="0%" stop-color="#F5B841" stop-opacity="0.62"/>
+            <stop offset="55%" stop-color="#C9A227" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#C9A227" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="auraLamp" cx="50%" cy="54%" r="46%">
+            <stop offset="0%" stop-color="#FFF2C2" stop-opacity="0.68"/>
+            <stop offset="45%" stop-color="#3DAB94" stop-opacity="0.24"/>
+            <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Flame Outer Gradients (Matched Geometry Morph) -->
+          <linearGradient id="flameOuterHot" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#B81D00"/>
+            <stop offset="42%" stop-color="#FF4D00"/>
+            <stop offset="82%" stop-color="#FF9E1B"/>
+            <stop offset="100%" stop-color="#FFD166"/>
+          </linearGradient>
+          <linearGradient id="flameOuterAmber" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#C86D11"/>
+            <stop offset="50%" stop-color="#F29E2E"/>
+            <stop offset="100%" stop-color="#FFE28A"/>
+          </linearGradient>
+          <linearGradient id="flameOuterCalm" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#C9A227"/>
+            <stop offset="55%" stop-color="#F6D365"/>
+            <stop offset="100%" stop-color="#FFF9E2"/>
+          </linearGradient>
+
+          <!-- Flame Mid & Core Gradients -->
+          <linearGradient id="flameMidGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#FF8811"/>
+            <stop offset="60%" stop-color="#FFD166"/>
+            <stop offset="100%" stop-color="#FFFDF5"/>
+          </linearGradient>
+          <radialGradient id="flameCoreGrad" cx="50%" cy="72%" r="55%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="55%" stop-color="#FFF7D6"/>
+            <stop offset="100%" stop-color="#FFCC4D" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Brass Lamp Base Metallic Gradients -->
+          <linearGradient id="brassBody" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#5E4612"/>
+            <stop offset="22%" stop-color="#C9A227"/>
+            <stop offset="46%" stop-color="#F4DC88"/>
+            <stop offset="72%" stop-color="#A67E1E"/>
+            <stop offset="100%" stop-color="#4A360C"/>
+          </linearGradient>
+          <linearGradient id="brassRim" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FCE89D"/>
+            <stop offset="50%" stop-color="#C9A227"/>
+            <stop offset="100%" stop-color="#6B4F14"/>
+          </linearGradient>
+
+          <!-- Glass Chimney Gradients & Texture -->
+          <linearGradient id="glassTint" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#EFF6FD" stop-opacity="0.34"/>
+            <stop offset="18%" stop-color="#D9E7F6" stop-opacity="0.10"/>
+            <stop offset="50%" stop-color="#EFF6FD" stop-opacity="0.04"/>
+            <stop offset="82%" stop-color="#D9E7F6" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#EFF6FD" stop-opacity="0.38"/>
+          </linearGradient>
+          <linearGradient id="glassSpecular" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.55"/>
+            <stop offset="35%" stop-color="#EFF6FD" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+          </linearGradient>
+
+          <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="8" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Layer A: Ambient Radial Halo (cross-dissolves hot -> amber -> lamp) -->
+        <g id="heroAuraGroup">
+          <circle id="auraHotEl" cx="160" cy="185" r="145" fill="url(#auraHot)"/>
+          <circle id="auraAmberEl" cx="160" cy="185" r="130" fill="url(#auraAmber)" opacity="0"/>
+          <circle id="auraLampEl" cx="160" cy="185" r="120" fill="url(#auraLamp)" opacity="0"/>
+        </g>
+
+        <!-- Layer B: Lamp Glass Chimney (emerges smoothly around the same flame) -->
+        <g id="lampGlassGroup" opacity="0">
+          <!-- Back glass wall -->
+          <path d="M126 112 C126 132, 108 156, 108 188 C108 214, 122 232, 130 242 L190 242 C198 232, 212 214, 212 188 C212 156, 194 132, 194 112 Z"
+                fill="url(#glassTint)" stroke="rgba(239, 246, 253, 0.42)" stroke-width="1.3"/>
+          <!-- Top glass lip -->
+          <ellipse cx="160" cy="112" rx="34" ry="5.5" fill="none" stroke="rgba(239, 246, 253, 0.55)" stroke-width="1.4"/>
+          <!-- Left curved glass highlight (surface detail 1) -->
+          <path d="M121 146 C115 166, 114 196, 123 224" fill="none" stroke="url(#glassSpecular)" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- Right subtle refraction rim -->
+          <path d="M201 154 C205 174, 205 198, 198 220" fill="none" stroke="rgba(217, 231, 246, 0.34)" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+        <!-- Layer C: THE HERO FLAME (Same object anchored at wick tip 160, 224) -->
+        <g id="flameMasterGroup" transform="translate(160, 224)">
+          <!-- Secondary wild tongues (fade out completely as anger subsides) -->
+          <g id="wildTongues" opacity="1">
+            <path d="M-26 -18 C-48 -58, -32 -118, -14 -152 C-18 -112, -6 -86, -8 -44 Z" fill="url(#flameOuterHot)" opacity="0.78"/>
+            <path d="M24 -16 C48 -54, 38 -112, 18 -144 C20 -106, 8 -82, 10 -40 Z" fill="url(#flameOuterHot)" opacity="0.75"/>
+            <path d="M-8 -88 C-16 -138, 6 -178, 2 -204 C14 -170, 12 -134, 4 -92 Z" fill="#FF9E1B" opacity="0.7"/>
+          </g>
+
+          <!-- Primary Flame Body: 3 matched-geometry paths cross-dissolving with total opacity = 1.0 -->
+          <g id="flameBodyGroup" filter="url(#softGlow)">
+            <!-- State 0: Hot Red-Orange Flame -->
+            <path id="flamePathHot"
+                  d="M0 0 C-36 -6, -54 -48, -36 -104 C-22 -146, -6 -174, 0 -196 C6 -174, 22 -146, 36 -104 C54 -48, 36 -6, 0 0 Z"
+                  fill="url(#flameOuterHot)" opacity="1"/>
+            <!-- State 1: Warm Amber Flame (identical path geometry for seamless cross-dissolve) -->
+            <path id="flamePathAmber"
+                  d="M0 0 C-36 -6, -54 -48, -36 -104 C-22 -146, -6 -174, 0 -196 C6 -174, 22 -146, 36 -104 C54 -48, 36 -6, 0 0 Z"
+                  fill="url(#flameOuterAmber)" opacity="0"/>
+            <!-- State 2: Calm Gold/Ivory Lamp Flame (identical path geometry) -->
+            <path id="flamePathCalm"
+                  d="M0 0 C-36 -6, -54 -48, -36 -104 C-22 -146, -6 -174, 0 -196 C6 -174, 22 -146, 36 -104 C54 -48, 36 -6, 0 0 Z"
+                  fill="url(#flameOuterCalm)" opacity="0"/>
+
+            <!-- Surface Detail: Inner Luminous Mantle -->
+            <path id="flameInnerMantle"
+                  d="M0 -4 C-22 -9, -32 -36, -21 -76 C-12 -106, -4 -126, 0 -142 C4 -126, 12 -106, 21 -76 C32 -36, 22 -9, 0 -4 Z"
+                  fill="url(#flameMidGrad)" opacity="0.92"/>
+
+            <!-- Surface Detail: Incandescent White-Gold Core -->
+            <ellipse id="flameCore" cx="0" cy="-34" rx="11" ry="26" fill="url(#flameCoreGrad)"/>
+          </g>
+        </g>
+
+        <!-- Layer D: Charred Wick & Engraved Brass Lamp Base (emerges beneath the same flame) -->
+        <g id="lampBaseGroup" opacity="0">
+          <!-- Wick & glowing ember tip at exact flame origin (160, 224) -->
+          <rect x="157.5" y="222" width="5" height="14" rx="2" fill="#2A1D15"/>
+          <circle cx="160" cy="223" r="2.6" fill="#FF9E1B"/>
+
+          <!-- Brass Burner Collar & Gallery Prongs -->
+          <rect x="134" y="235" width="52" height="7" rx="3.5" fill="url(#brassRim)"/>
+          <path d="M128 242 L192 242 L186 254 L134 254 Z" fill="url(#brassBody)"/>
+          <!-- Gallery air-intake perforations (surface detail 2) -->
+          <circle cx="144" cy="248" r="1.8" fill="#3B2A09"/>
+          <circle cx="152" cy="248" r="1.8" fill="#3B2A09"/>
+          <circle cx="160" cy="248" r="1.8" fill="#3B2A09"/>
+          <circle cx="168" cy="248" r="1.8" fill="#3B2A09"/>
+          <circle cx="176" cy="248" r="1.8" fill="#3B2A09"/>
+
+          <!-- Oil Reservoir Bowl -->
+          <path d="M134 254 C112 260, 106 278, 114 294 C120 305, 136 310, 160 310 C184 310, 200 305, 206 294 C214 278, 208 260, 186 254 Z"
+                fill="url(#brassBody)"/>
+          <!-- Engraved Brass Filigree Band -->
+          <path d="M113 277 Q160 285 207 277" fill="none" stroke="#FCE89D" stroke-width="1.2" opacity="0.65"/>
+          <path d="M115 282 Q160 290 205 282" fill="none" stroke="#4A360C" stroke-width="1.2" opacity="0.7"/>
+
+          <!-- Pedestal Foot -->
+          <path d="M142 310 L178 310 L188 324 L132 324 Z" fill="url(#brassBody)"/>
+          <rect x="124" y="324" width="72" height="7" rx="3.5" fill="url(#brassRim)"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Parallax Layer 4: Foreground Ambient Reflection -->
+    <div class="foreground-glow fg-hot" id="fgHot" aria-hidden="true"></div>
+    <div class="foreground-glow fg-calm" id="fgCalm" aria-hidden="true"></div>
+
+    <!-- End Card (Beat 6): Clears shrunken/lifted hero by >= 24px -->
+    <aside class="end-card" id="endCard" aria-label="کتاب حِلم کی تفصیل">
+      <div class="end-tag">07 / 07 · BOOK 06</div>
+      <h1 class="end-title">حِلم</h1>
+      <div class="price-row">
+        <span class="price-old">990 روپے</span>
+        <span class="price-new">افتتاحی قیمت 792 روپے</span>
+      </div>
+      <a class="cta-btn" href="https://imranaslam.pk/ur/books.html" target="_blank" rel="noopener noreferrer">کتابیں دیکھیں</a>
+      <p class="deadline-line">افتتاحی رعایت 31 دسمبر 2026 تک</p>
+      <p class="brand-footer">AIDE · عمران اسلم | لائف کوچ اور ٹرینر</p>
+    </aside>
+
+    <!-- Bottom 7-Dot Navigation (RTL: Beat 0 right -> Beat 6 left) -->
+    <nav class="dots-nav" aria-label="کہانی کے مراحل">
+      <button type="button" class="dot-btn" data-index="0" aria-label="مرحلہ 1" aria-current="true"></button>
+      <button type="button" class="dot-btn" data-index="1" aria-label="مرحلہ 2" aria-current="false"></button>
+      <button type="button" class="dot-btn" data-index="2" aria-label="مرحلہ 3" aria-current="false"></button>
+      <button type="button" class="dot-btn" data-index="3" aria-label="مرحلہ 4" aria-current="false"></button>
+      <button type="button" class="dot-btn" data-index="4" aria-label="مرحلہ 5" aria-current="false"></button>
+      <button type="button" class="dot-btn" data-index="5" aria-label="مرحلہ 6" aria-current="false"></button>
+      <button type="button" class="dot-btn" data-index="6" aria-label="اختتامی کارڈ" aria-current="false"></button>
+    </nav>
+
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  /*
+   * CAPTION & BEAT TIMELINE (Normalized scroll progress p in [0, 1]):
+   * 7 stages across 0..1:
+   *   Beat 0 (01/07): visible at p=0 (opacity=1.0), fades out cleanly over [0.09, 0.135]
+   *   Beat 1 (02/07): fades in [0.14, 0.16], holds, fades out [0.255, 0.295]
+   *   Beat 2 (03/07): fades in [0.30, 0.32], holds, fades out [0.415, 0.455]
+   *   Beat 3 (04/07): fades in [0.46, 0.48], holds, fades out [0.575, 0.615]
+   *   Beat 4 (05/07): fades in [0.62, 0.64], holds, fades out [0.735, 0.775]
+   *   Beat 5 (06/07): fades in [0.78, 0.80], holds, fades out [0.875, 0.905]
+   *   End Card (07/07): fades in [0.91, 0.955], holds to 1.0
+   * Every outgoing caption hits opacity 0 BEFORE the next caption begins fading in.
+   * (Auditor 16 Nov: fade-in spans shortened 0.04 -> 0.02 so every sixths
+   * hold sits at full opacity; beat 1's hold measured 0.74 before the fix.)
+   *
+   * MATCHED FLAME COLOR CROSS-DISSOLVE WINDOWS (total opacity always = 1.0):
+   *   Hot -> Amber:  [0.24, 0.48] (Hot: 1->0, Amber: 0->1 simultaneously)
+   *   Amber -> Calm: [0.56, 0.80] (Amber: 1->0, Calm: 0->1 simultaneously)
+   */
+
+  const CAPTION_WINDOWS = [
+    { inStart: -1,    inEnd: -1,    outStart: 0.090, outEnd: 0.135 }, // Beat 0: opacity=1 at p=0
+    { inStart: 0.140, inEnd: 0.160, outStart: 0.255, outEnd: 0.295 }, // Beat 1
+    { inStart: 0.300, inEnd: 0.320, outStart: 0.415, outEnd: 0.455 }, // Beat 2
+    { inStart: 0.460, inEnd: 0.480, outStart: 0.575, outEnd: 0.615 }, // Beat 3
+    { inStart: 0.620, inEnd: 0.640, outStart: 0.735, outEnd: 0.775 }, // Beat 4
+    { inStart: 0.780, inEnd: 0.800, outStart: 0.875, outEnd: 0.905 }  // Beat 5
+  ];
+
+  const BEAT_CENTERS = [0.0, 0.215, 0.375, 0.535, 0.695, 0.845, 1.0];
+
+  const track = document.getElementById('scrollTrack');
+  const progressFill = document.getElementById('progressFill');
+  const bgHot = document.getElementById('bgHot');
+  const bgAmber = document.getElementById('bgAmber');
+  const bgCalm = document.getElementById('bgCalm');
+  const particlesLayer = document.getElementById('particlesLayer');
+  const captionCards = Array.from(document.querySelectorAll('.caption-card'));
+  const heroZone = document.getElementById('heroZone');
+  const endCard = document.getElementById('endCard');
+  const dotBtns = Array.from(document.querySelectorAll('.dot-btn'));
+
+  // SVG Hero Elements
+  const auraHotEl = document.getElementById('auraHotEl');
+  const auraAmberEl = document.getElementById('auraAmberEl');
+  const auraLampEl = document.getElementById('auraLampEl');
+  const lampGlassGroup = document.getElementById('lampGlassGroup');
+  const lampBaseGroup = document.getElementById('lampBaseGroup');
+  const wildTongues = document.getElementById('wildTongues');
+  const flameBodyGroup = document.getElementById('flameBodyGroup');
+  const flamePathHot = document.getElementById('flamePathHot');
+  const flamePathAmber = document.getElementById('flamePathAmber');
+  const flamePathCalm = document.getElementById('flamePathCalm');
+  const flameInnerMantle = document.getElementById('flameInnerMantle');
+  const fgHot = document.getElementById('fgHot');
+  const fgCalm = document.getElementById('fgCalm');
+
+  // Generate deterministic rising ember particles (Parallax Layer 2)
+  const EMBER_COUNT = 22;
+  const embers = [];
+  for (let i = 0; i < EMBER_COUNT; i++) {
+    const el = document.createElement('span');
+    el.className = 'ember';
+    const size = 2.5 + ((i * 7) % 5);
+    const xPct = 14 + ((i * 37) % 72);
+    const baseTop = 28 + ((i * 29) % 52);
+    const speed = 140 + ((i * 53) % 190);
+    const drift = ((i % 2 === 0) ? 1 : -1) * (12 + (i % 18));
+    const phase = (i * 0.43) % 1;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.left = xPct + '%';
+    el.style.top = baseTop + '%';
+    particlesLayer.appendChild(el);
+    embers.push({ el, speed, drift, phase });
+  }
+
+  // Helpers
+  const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const smoothstep = (e0, e1, x) => {
+    if (e0 === e1) return x >= e1 ? 1 : 0;
+    const t = clamp01((x - e0) / (e1 - e0));
+    return t * t * (3 - 2 * t);
+  };
+
+  function getCaptionOpacity(win, p) {
+    const fadeIn = win.inStart < 0 ? 1 : smoothstep(win.inStart, win.inEnd, p);
+    const fadeOut = 1 - smoothstep(win.outStart, win.outEnd, p);
+    return fadeIn * fadeOut;
+  }
+
+  // Clickable RTL dots
+  dotBtns.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      const maxScroll = track.offsetHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+      const targetY = track.offsetTop + BEAT_CENTERS[idx] * maxScroll;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    });
+  });
+
+  // Damped rAF state — stops completely when settled
+  let targetP = 0;
+  let currentP = 0;
+  let rafId = null;
+  let lastActiveDot = -1;
+
+  function readScrollTarget() {
+    const rect = track.getBoundingClientRect();
+    const maxScroll = track.offsetHeight - window.innerHeight;
+    if (maxScroll <= 0) return 0;
+    return clamp01(-rect.top / maxScroll);
+  }
+
+  function render(p) {
+    // 1. Progress bar (fills RTL via scaleX)
+    progressFill.style.transform = `scaleX(${p.toFixed(4)})`;
+
+    // 2. Parallax Layer 1: Background Atmosphere (Hot -> Amber -> Calm Blue-Grey)
+    const bgHotToAmber = smoothstep(0.20, 0.46, p);
+    const bgAmberToCalm = smoothstep(0.54, 0.80, p);
+    bgHot.style.opacity = (1 - bgHotToAmber).toFixed(3);
+    bgAmber.style.opacity = (bgHotToAmber * (1 - bgAmberToCalm)).toFixed(3);
+    bgCalm.style.opacity = bgAmberToCalm.toFixed(3);
+
+    const bgShiftY = -p * 26;
+    bgHot.style.transform = `translate3d(0, ${bgShiftY.toFixed(2)}px, 0)`;
+    bgAmber.style.transform = `translate3d(0, ${bgShiftY.toFixed(2)}px, 0)`;
+    bgCalm.style.transform = `translate3d(0, ${bgShiftY.toFixed(2)}px, 0)`;
+
+    // 3. Parallax Layer 2: Rising Embers (turbulent & dense early -> calm & sparse later)
+    const emberVisibility = 1 - smoothstep(0.62, 0.88, p);
+    particlesLayer.style.opacity = emberVisibility.toFixed(3);
+    if (emberVisibility > 0.005) {
+      for (let i = 0; i < EMBER_COUNT; i++) {
+        const em = embers[i];
+        const cycle = (p * 3.4 + em.phase) % 1;
+        const y = -cycle * em.speed;
+        const x = Math.sin(cycle * Math.PI * 2 + i) * em.drift * (1 - p * 0.6);
+        const op = Math.sin(cycle * Math.PI) * 0.9;
+        em.el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+        em.el.style.opacity = op.toFixed(2);
+      }
+    }
+
+    // 4. Zone 1: Non-overlapping Captions (Beats 0..5)
+    for (let i = 0; i < captionCards.length; i++) {
+      const win = CAPTION_WINDOWS[i];
+      const op = getCaptionOpacity(win, p);
+      const card = captionCards[i];
+      card.style.opacity = op.toFixed(3);
+      // Subtle vertical float in/out (no layout shift)
+      let yOffset = 0;
+      if (win.inStart >= 0 && p < win.inEnd) {
+        yOffset = (1 - smoothstep(win.inStart, win.inEnd, p)) * 10;
+      } else if (p > win.outStart) {
+        yOffset = -smoothstep(win.outStart, win.outEnd, p) * 10;
+      }
+      card.style.transform = `translate3d(0, ${yOffset.toFixed(2)}px, 0)`;
+    }
+
+    // 5. Zone 2: Hero Transformation (Wild Large Flame -> Small Steady Lamp)
+    // Size & shape morph: starts tall & wide (1.18x, 1.32y), cools into compact teardrop (0.34x, 0.30y)
+    const tameProgress = smoothstep(0.08, 0.78, p);
+    const scaleX = lerp(1.18, 0.34, tameProgress);
+    const scaleY = lerp(1.32, 0.30, tameProgress);
+
+    // Turbulence / Flicker amplitude driven by scroll position (wild early -> zero stillness late)
+    const wildness = Math.pow(1 - smoothstep(0.05, 0.68, p), 1.6);
+    const waveA = Math.sin(p * 115);
+    const waveB = Math.cos(p * 185);
+    const skewDeg = wildness * (waveA * 9.5 + waveB * 4.2);
+    const flickerScaleX = 1 + wildness * waveB * 0.14;
+    const flickerScaleY = 1 + wildness * waveA * 0.16;
+
+    flameBodyGroup.setAttribute(
+      'transform',
+      `skewX(${skewDeg.toFixed(2)}) scale(${(scaleX * flickerScaleX).toFixed(3)}, ${(scaleY * flickerScaleY).toFixed(3)})`
+    );
+
+    // Wild side tongues shrink and vanish by Beat 3 (p=0.45)
+    const tonguesOp = 1 - smoothstep(0.10, 0.45, p);
+    wildTongues.setAttribute('opacity', tonguesOp.toFixed(3));
+    wildTongues.setAttribute(
+      'transform',
+      `skewX(${(-skewDeg * 1.35).toFixed(2)}) scale(${lerp(1.1, 0.35, 1 - tonguesOp).toFixed(3)})`
+    );
+
+    // Matched cross-dissolve on flame color paths (sum of opacities ALWAYS = 1.0)
+    const tHotToAmber = smoothstep(0.24, 0.48, p);
+    const tAmberToCalm = smoothstep(0.56, 0.80, p);
+    const opHot = 1 - tHotToAmber;
+    const opAmber = tHotToAmber * (1 - tAmberToCalm);
+    const opCalm = tAmberToCalm;
+
+    flamePathHot.setAttribute('opacity', opHot.toFixed(3));
+    flamePathAmber.setAttribute('opacity', opAmber.toFixed(3));
+    flamePathCalm.setAttribute('opacity', opCalm.toFixed(3));
+    flameInnerMantle.setAttribute('opacity', lerp(0.88, 0.98, tAmberToCalm).toFixed(3));
+
+    // Radial Aura cross-dissolve
+    auraHotEl.setAttribute('opacity', (1 - tHotToAmber).toFixed(3));
+    auraAmberEl.setAttribute('opacity', (tHotToAmber * (1 - tAmberToCalm)).toFixed(3));
+    auraLampEl.setAttribute('opacity', tAmberToCalm.toFixed(3));
+
+    // Brass lamp base & glass chimney emerge around the SAME flame (Beats 3 -> 5)
+    const lampAppear = smoothstep(0.46, 0.76, p);
+    lampBaseGroup.setAttribute('opacity', lampAppear.toFixed(3));
+    lampGlassGroup.setAttribute('opacity', smoothstep(0.54, 0.82, p).toFixed(3));
+
+    // Hero parallax + Final Beat lift & scale-down so End Card clears Hero by >= 24px
+    const endLift = smoothstep(0.86, 0.96, p);
+    const isCompact = window.innerHeight <= 700;
+    const heroY = -p * 14 - endLift * (isCompact ? 54 : 66);
+    const heroScale = 1 - endLift * (isCompact ? 0.24 : 0.18);
+    heroZone.style.transform = `translate3d(-50%, ${heroY.toFixed(2)}px, 0) scale(${heroScale.toFixed(3)})`;
+
+    // 6. Parallax Layer 4: Foreground Ambient Floor Glow
+    fgHot.style.opacity = (1 - tHotToAmber).toFixed(3);
+    fgCalm.style.opacity = tAmberToCalm.toFixed(3);
+    const fgY = -p * 34 - endLift * 40;
+    fgHot.style.transform = `translate3d(-50%, ${fgY.toFixed(2)}px, 0)`;
+    fgCalm.style.transform = `translate3d(-50%, ${fgY.toFixed(2)}px, 0)`;
+
+    // 7. End Card (Beat 6)
+    const endOp = smoothstep(0.905, 0.955, p);
+    endCard.style.opacity = endOp.toFixed(3);
+    endCard.style.transform = `translate3d(-50%, ${((1 - endOp) * 24).toFixed(2)}px, 0)`;
+    if (endOp > 0.5) {
+      endCard.classList.add('is-active');
+    } else {
+      endCard.classList.remove('is-active');
+    }
+
+    // 8. Active Dot Indicator
+    let activeIdx = 0;
+    for (let i = 0; i < BEAT_CENTERS.length; i++) {
+      if (Math.abs(p - BEAT_CENTERS[i]) < Math.abs(p - BEAT_CENTERS[activeIdx])) {
+        activeIdx = i;
+      }
+    }
+    if (activeIdx !== lastActiveDot) {
+      lastActiveDot = activeIdx;
+      dotBtns.forEach((btn, idx) => {
+        btn.setAttribute('aria-current', idx === activeIdx ? 'true' : 'false');
+      });
+    }
+  }
+
+  function tick() {
+    const diff = targetP - currentP;
+    if (Math.abs(diff) < 0.00035) {
+      currentP = targetP;
+      render(currentP);
+      rafId = null;
+      return; // Settle completely — no continuous rAF loop
+    }
+    currentP += diff * 0.16;
+    render(currentP);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function onScrollOrResize() {
+    targetP = readScrollTarget();
+    if (rafId === null) {
+      rafId = requestAnimationFrame(tick);
+    }
+  }
+
+  // Respect prefers-reduced-motion
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!reducedMotionQuery.matches) {
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    // Initial paint at exact scroll position
+    targetP = readScrollTarget();
+    currentP = targetP;
+    render(currentP);
+  }
+})();
+</script>
+</body>
+</html>
