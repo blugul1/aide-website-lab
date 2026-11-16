@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>نوجوان 18 تا 30 — قطب نما | AIDE لیب</title>
+<meta name="description" content="تصوراتی خاکہ: ایک کتاب کا سفر — گھومتی سوئی سے ٹھہری سمت تک۔">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /*
+    BOOK 34 v2 — built 16 Nov 2026 on the frozen v2 template
+    (concept-book4-v2.html) to the NoirPixel formula:
+    ONE product journeys; ONE big image per stage; 3 colours ONLY, taken
+    from the product (aged parchment / drawing ink / old brass); text
+    WHITE or BLACK, never coloured; ONE movement per stage (a slow Ken
+    Burns zoom); hook = a question; final reveal = the real cover, big,
+    on a clean background.
+    LIGHT-SIDE variant: the stages sit on light parchment, so captions,
+    top bar and HUD are BLACK from the first frame (the formula's
+    light-side inversion — text is still only black/white).
+  */
+  :root{
+    --navy:#452E16;
+    --cream:#F5EEDD;
+    --gold:#9A846E;
+    --parchment:#C4AE8D;
+    --font-ur:"Noto Nastaliq Urdu",serif;
+    --font-en:"Montserrat",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  html,body{height:100%}
+  body{
+    background:var(--parchment);
+    font-family:var(--font-ur);
+    color:#000;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ============ TRACK + STICKY STAGE ============ */
+  #story{position:relative;height:700vh}
+  .stage{
+    position:sticky;top:0;
+    height:100vh;height:100svh;
+    overflow:hidden;
+    background:var(--parchment);
+  }
+
+  /* ============ PHOTOGRAPHS: one big image per stage ============ */
+  .photo{
+    position:absolute;inset:0;
+    background-size:cover;
+    background-position:center 55%;
+    background-repeat:no-repeat;
+    opacity:0;
+    will-change:transform,opacity;
+    transform-origin:50% 60%;
+  }
+  #photo1{background-image:url("concept-assets/book34/stage1.webp");opacity:1}
+  #photo2{background-image:url("concept-assets/book34/stage2.webp")}
+  #photo3{background-image:url("concept-assets/book34/stage3.webp")}
+  #photo4{background-image:url("concept-assets/book34/stage4.webp")}
+
+  /* A soft LIGHT veil ONLY behind the caption zone, so black text
+     always reads over the photograph's upper area. */
+  .veil{
+    position:absolute;left:0;right:0;top:0;height:34%;
+    background:linear-gradient(180deg,rgba(245,238,221,.65),rgba(245,238,221,0));
+    pointer-events:none;
+  }
+
+  /* ============ TOP BAR ============ */
+  .top-bar{
+    position:absolute;top:0;left:0;right:0;z-index:20;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:calc(14px + env(safe-area-inset-top,0px)) 22px 0;
+    color:#000;
+  }
+  .eyebrow{
+    font-family:var(--font-en);font-weight:600;
+    font-size:13px;letter-spacing:4px;
+  }
+  .lab-tag{
+    font-family:var(--font-ur);font-size:14px;line-height:1;
+    border:1px solid rgba(0,0,0,.55);border-radius:999px;
+    padding:8px 14px 10px;
+  }
+
+  /* ============ CAPTIONS: one small headline, lots of empty space ============ */
+  .captions{
+    position:absolute;left:50%;transform:translateX(-50%);
+    top:11%;width:min(88vw,470px);z-index:15;
+    text-align:center;pointer-events:none;
+  }
+  .caption{position:absolute;inset:0;opacity:0;will-change:opacity}
+  .caption .tag{
+    display:block;
+    font-family:var(--font-en);font-weight:600;font-size:13px;
+    letter-spacing:3px;color:rgba(0,0,0,.75);
+    direction:ltr;unicode-bidi:isolate;
+    margin-bottom:10px;
+  }
+  .caption p{
+    font-size:31px;font-weight:700;line-height:2.05;
+    color:#000;text-wrap:balance;
+    text-shadow:0 2px 18px rgba(245,238,221,.8);
+  }
+  .caption .hook-mark{color:#000}
+
+  /* ============ REVEAL: the real cover, big, clean background ============ */
+  .reveal{
+    position:absolute;inset:0;z-index:18;
+    background:var(--cream);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:0;text-align:center;
+    opacity:0;pointer-events:none;
+    padding:calc(20px + env(safe-area-inset-top,0px)) 24px 90px;
+  }
+  .reveal.is-on{pointer-events:auto}
+  .reveal .cover{
+    height:33svh;max-height:330px;width:auto;
+    box-shadow:0 18px 40px rgba(69,46,22,.35);
+    border-radius:3px;
+  }
+  .reveal h2{
+    margin-top:20px;
+    font-size:35px;font-weight:700;line-height:1.9;color:#000;
+    text-wrap:balance;
+  }
+  .reveal .prices{
+    margin-top:6px;font-size:19px;line-height:2;color:#000;
+  }
+  .reveal .prices s{color:#6b6b6b;text-decoration-thickness:1.5px}
+  .reveal .prices b{font-weight:700}
+  .reveal .cta{
+    margin-top:14px;
+    display:inline-block;
+    background:var(--navy);color:#fff;text-decoration:none;
+    font-size:19px;font-weight:700;line-height:1;
+    padding:15px 30px 18px;border-radius:999px;
+  }
+  .reveal .tiny{
+    margin-top:12px;font-size:15px;line-height:1.9;color:#000;
+  }
+  .reveal .brand{
+    margin-top:4px;
+    font-family:var(--font-en);font-weight:600;font-size:11px;letter-spacing:3px;
+    color:#000;direction:ltr;unicode-bidi:isolate;
+  }
+
+  /* ============ HUD: dots + progress ============ */
+  .hud{
+    position:absolute;left:0;right:0;bottom:0;z-index:25;
+    padding:0 30px calc(20px + env(safe-area-inset-bottom,0px));
+  }
+  .dots{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:10px;
+  }
+  .dot{
+    width:11px;height:11px;border-radius:50%;
+    border:1.5px solid rgba(0,0,0,.8);
+    background:transparent;padding:0;cursor:pointer;
+  }
+  .dot.active{background:var(--gold);border-color:var(--gold)}
+  .bar{height:2px;background:rgba(0,0,0,.18);overflow:hidden}
+  .bar i{
+    display:block;height:100%;background:var(--gold);
+    transform:scaleX(0);transform-origin:right center;
+    will-change:transform;
+  }
+
+  /* HUD on the light reveal: same black treatment (light-side page). */
+  .stage.on-light .top-bar{color:#000}
+  .stage.on-light .lab-tag{border-color:rgba(0,0,0,.55)}
+  .stage.on-light .dot{border-color:rgba(0,0,0,.8)}
+  .stage.on-light .dot.active{background:var(--gold);border-color:var(--gold)}
+  .stage.on-light .bar{background:rgba(0,0,0,.18)}
+
+  /* ============ SHORT VIEWPORTS ============ */
+  @media (max-height:700px){
+    .captions{top:9%}
+    .caption p{font-size:26px;line-height:2}
+    .reveal{padding-bottom:76px}
+    .reveal .cover{height:29svh}
+    .reveal h2{font-size:29px;margin-top:14px}
+    .reveal .prices{font-size:17px}
+    .reveal .cta{font-size:17px;padding:13px 26px 16px}
+  }
+
+  /* ============ NO-JS / REDUCED MOTION: stacked, everything readable ============ */
+  .no-js #story,.reduce-motion #story{height:auto}
+  .no-js .stage,.reduce-motion .stage{position:static;height:auto;overflow:visible}
+  .no-js .photo,.reduce-motion .photo{
+    position:relative;height:62svh;opacity:1 !important;transform:none !important;
+  }
+  .no-js .veil,.reduce-motion .veil,
+  .no-js .hud,.reduce-motion .hud{display:none}
+  .no-js .captions,.reduce-motion .captions{
+    position:static;transform:none;width:min(88vw,470px);
+    margin:0 auto;padding:26px 0 6px;
+  }
+  .no-js .caption,.reduce-motion .caption{
+    position:static;opacity:1 !important;margin-bottom:30px;
+  }
+  .no-js .caption p,.reduce-motion .caption p{text-shadow:none}
+  .no-js .top-bar,.reduce-motion .top-bar{position:static;padding:16px 22px 0}
+  .no-js .reveal,.reduce-motion .reveal{
+    position:static;opacity:1 !important;pointer-events:auto;padding:30px 24px 40px;
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<main id="story">
+  <div class="stage" id="stage">
+
+    <div class="photo" id="photo1" role="img" aria-label="قطب نما، سوئی تیز گھومتی"></div>
+    <div class="photo" id="photo2" role="img" aria-label="سوئی سست ہوتی"></div>
+    <div class="photo" id="photo3" role="img" aria-label="سوئی کانپتی، تقریباً ٹھہری"></div>
+    <div class="photo" id="photo4" role="img" aria-label="سوئی ایک سمت پر ٹھہری"></div>
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="top-bar">
+      <span class="eyebrow">AIDE</span>
+      <span class="lab-tag">تصوراتی خاکہ — لیب</span>
+    </div>
+
+    <div class="captions" id="captions">
+      <div class="caption" id="cap0">
+        <span class="tag">01 / 07</span>
+        <p>اٹھارہ سے تیس — ہر فیصلہ دباؤ میں کیوں ہوتا ہے؟</p>
+      </div>
+      <div class="caption" id="cap1">
+        <span class="tag">02 / 07</span>
+        <p>کیریئر، شادی، مقصد — سب ایک ساتھ بولتے ہیں۔</p>
+      </div>
+      <div class="caption" id="cap2">
+        <span class="tag">03 / 07</span>
+        <p>پہلے سوال صاف ہوں — پھر جواب۔</p>
+      </div>
+      <div class="caption" id="cap3">
+        <span class="tag">04 / 07</span>
+        <p>سوئی ٹھہرے تو راستہ دکھائی دیتا ہے۔</p>
+      </div>
+      <div class="caption" id="cap4">
+        <span class="tag">05 / 07</span>
+        <p>سمت ملے تو قدم خود بنتا ہے۔</p>
+      </div>
+      <div class="caption" id="cap5">
+        <span class="tag">06 / 07</span>
+        <p>نقشہ آپ کا — سمت آپ کی۔</p>
+      </div>
+    </div>
+
+    <section class="reveal" id="reveal" aria-label="کتاب کا تعارف">
+      <img class="cover" src="covers/b34.webp" alt="نوجوان 18 تا 30 — سرورق" width="480" height="681">
+      <h2>نوجوان 18 تا 30</h2>
+      <p class="prices"><s>990 روپے</s> &nbsp; <b>افتتاحی قیمت 792 روپے</b></p>
+      <a class="cta" href="https://imranaslam.pk/ur/books.html" target="_blank" rel="noopener">کتابیں دیکھیں</a>
+      <p class="tiny">افتتاحی رعایت 31 دسمبر 2026 تک · 175 صفحات · 11 ابواب · مشق نامہ مفت</p>
+      <p class="brand">AIDE · IMRAN ASLAM</p>
+    </section>
+
+    <div class="hud">
+      <div class="dots" id="dots" role="navigation" aria-label="مراحل">
+        <button type="button" class="dot active" data-target="0" aria-label="مرحلہ 1"></button>
+        <button type="button" class="dot" data-target="1" aria-label="مرحلہ 2"></button>
+        <button type="button" class="dot" data-target="2" aria-label="مرحلہ 3"></button>
+        <button type="button" class="dot" data-target="3" aria-label="مرحلہ 4"></button>
+        <button type="button" class="dot" data-target="4" aria-label="مرحلہ 5"></button>
+        <button type="button" class="dot" data-target="5" aria-label="مرحلہ 6"></button>
+        <button type="button" class="dot" data-target="6" aria-label="مرحلہ 7"></button>
+      </div>
+      <div class="bar"><i id="progressFill"></i></div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const root = document.documentElement;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.classList.remove("no-js");
+    root.classList.add("reduce-motion");
+    return;
+  }
+
+  root.classList.remove("no-js");
+
+  const story = document.getElementById("story");
+  const stage = document.getElementById("stage");
+  const photos = [
+    document.getElementById("photo1"),
+    document.getElementById("photo2"),
+    document.getElementById("photo3"),
+    document.getElementById("photo4")
+  ];
+  const captions = [...document.querySelectorAll(".caption")];
+  const reveal = document.getElementById("reveal");
+  const progress = document.getElementById("progressFill");
+  const dots = [...document.querySelectorAll(".dot")];
+
+  let targetP = 0, currentP = 0, framePending = false, lastDot = -1;
+
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const smooth = (a, b, v) => {
+    const t = clamp((v - a) / (b - a), 0, 1);
+    return t * t * (3 - 2 * t);
+  };
+
+  /* Caption windows: centres at k/6, half-window 0.075, fade 0.015.
+     Outgoing reaches 0 before incoming passes 0.5. Beat 0 = 1 at p=0. */
+  function captionOpacity(p, i) {
+    const c = i / 6, d = Math.abs(p - c);
+    if (i === 0 && p === 0) return 1;
+    if (d <= 0.060) return 1;
+    if (d >= 0.075) return 0;
+    return 1 - smooth(0.060, 0.075, d);
+  }
+
+  function updateVisuals(p) {
+    /* Photographs: matched crossfades, sums = 1 across each window.
+       Caption centres (sixths) always sit on a settled photograph. */
+    const w1 = 1 - smooth(0.22, 0.30, p);
+    const w2 = smooth(0.22, 0.30, p) * (1 - smooth(0.38, 0.46, p));
+    const w3 = smooth(0.38, 0.46, p) * (1 - smooth(0.55, 0.63, p));
+    const w4 = smooth(0.55, 0.63, p) * (1 - smooth(0.90, 0.95, p));
+    const weights = [w1, w2, w3, w4];
+
+    /* The ONE movement: a slow Ken Burns zoom per photograph,
+       1.00 -> 1.06 across its own visible span. Nothing else moves. */
+    const scales = [
+      1 + 0.06 * clamp(p / 0.30, 0, 1),
+      1 + 0.06 * clamp((p - 0.22) / 0.24, 0, 1),
+      1 + 0.06 * clamp((p - 0.38) / 0.25, 0, 1),
+      1 + 0.06 * clamp((p - 0.55) / 0.40, 0, 1)
+    ];
+
+    photos.forEach((el, i) => {
+      el.style.opacity = weights[i].toFixed(4);
+      el.style.transform = "scale(" + scales[i].toFixed(4) + ")";
+    });
+
+    captions.forEach((el, i) => {
+      el.style.opacity = captionOpacity(p, i).toFixed(4);
+    });
+
+    /* Reveal: clean cream takes over the whole stage. */
+    const r = smooth(0.90, 0.96, p);
+    reveal.style.opacity = r.toFixed(4);
+    reveal.classList.toggle("is-on", r > 0.5);
+    stage.classList.toggle("on-light", p >= 0.93);
+
+    progress.style.transform = "scaleX(" + p.toFixed(4) + ")";
+
+    const active = Math.min(6, Math.round(p * 6));
+    if (active !== lastDot) {
+      dots.forEach((d, i) => d.classList.toggle("active", i === active));
+      lastDot = active;
+    }
+  }
+
+  function readScroll() {
+    const total = Math.max(1, story.offsetHeight - window.innerHeight);
+    targetP = clamp(-story.getBoundingClientRect().top / total, 0, 1);
+  }
+
+  function animate() {
+    const diff = targetP - currentP;
+    currentP += diff * 0.15;
+    if (Math.abs(diff) < 0.0005) currentP = targetP;
+    updateVisuals(currentP);
+    if (currentP !== targetP) requestAnimationFrame(animate);
+    else framePending = false;
+  }
+
+  function requestUpdate() {
+    readScroll();
+    if (!framePending) { framePending = true; requestAnimationFrame(animate); }
+  }
+
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate, { passive: true });
+
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+      const idx = Number(dot.dataset.target);
+      const total = Math.max(1, story.offsetHeight - window.innerHeight);
+      const top = window.scrollY + story.getBoundingClientRect().top;
+      window.scrollTo({ top: top + (idx / 6) * total, behavior: "smooth" });
+    });
+  });
+
+  readScroll();
+  currentP = 0; targetP = 0;
+  updateVisuals(0);
+})();
+</script>
+
+</body>
+</html>
