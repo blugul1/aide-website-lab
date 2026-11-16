@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1A3B">
+<title>AIDE | سانچہ نظر آئے تو راستہ بنتا ہے</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:#0A1A3B;
+  --green:#3DAB94;
+  --gold:#C9A227;
+  --glass:#EFF6FD;
+  --sand:#A69B8B;
+  --ink:#17243A;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:auto;
+  background:var(--navy);
+}
+
+body {
+  margin:0;
+  color:#fff;
+  font-family:"Noto Nastaliq Urdu",serif;
+  background:var(--navy);
+  overflow-x:hidden;
+}
+
+button {
+  font:inherit;
+}
+
+.story-track {
+  position:relative;
+  height:700vh;
+}
+
+.stage {
+  height:100svh;
+  min-height:560px;
+  width:100%;
+  position:sticky;
+  top:0;
+  overflow:hidden;
+  isolation:isolate;
+  background:#101F3A;
+}
+
+.stage::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:20;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,
+      rgba(5,14,33,.22),
+      transparent 25%,
+      transparent 75%,
+      rgba(5,14,33,.35)),
+    radial-gradient(ellipse at center,
+      transparent 35%,
+      rgba(4,12,28,.23) 100%);
+}
+
+/* ------------------------------------------------
+   BACKGROUND: three independently moving depths
+------------------------------------------------- */
+
+.sky {
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  background:
+    radial-gradient(ellipse at 50% 61%,
+      rgba(108,145,180,.25),
+      transparent 43%),
+    linear-gradient(180deg,
+      #0A1A3B 0%,
+      #172A48 48%,
+      #35465A 100%);
+  will-change:transform;
+}
+
+.warm-sky {
+  position:absolute;
+  inset:-12%;
+  z-index:1;
+  opacity:0;
+  background:
+    radial-gradient(ellipse at 54% 55%,
+      rgba(255,209,116,.46),
+      transparent 38%),
+    linear-gradient(180deg,
+      #25334B,
+      #8C7561 70%,
+      #D6AE70);
+  will-change:opacity,transform;
+}
+
+.horizon {
+  position:absolute;
+  z-index:2;
+  width:125%;
+  height:27%;
+  left:-12%;
+  bottom:33%;
+  opacity:.72;
+  background:
+    radial-gradient(ellipse at 18% 100%,
+      #263951 0 18%,
+      transparent 18.5%),
+    radial-gradient(ellipse at 55% 100%,
+      #34445A 0 27%,
+      transparent 27.5%),
+    radial-gradient(ellipse at 91% 100%,
+      #263951 0 20%,
+      transparent 20.5%);
+  will-change:transform;
+}
+
+.warm-horizon {
+  position:absolute;
+  z-index:3;
+  width:125%;
+  height:25%;
+  left:-12%;
+  bottom:33%;
+  opacity:0;
+  background:
+    radial-gradient(ellipse at 18% 100%,
+      #725D4C 0 18%,
+      transparent 18.5%),
+    radial-gradient(ellipse at 55% 100%,
+      #98765A 0 27%,
+      transparent 27.5%),
+    radial-gradient(ellipse at 91% 100%,
+      #765F4B 0 20%,
+      transparent 20.5%);
+  will-change:opacity,transform;
+}
+
+/* ------------------------------------------------
+   SAND GROUND
+------------------------------------------------- */
+
+.ground {
+  position:absolute;
+  z-index:4;
+  inset:51% -10% -10%;
+  background:
+    radial-gradient(ellipse at 48% 2%,
+      rgba(155,164,167,.17),
+      transparent 56%),
+    repeating-linear-gradient(
+      172deg,
+      transparent 0 7px,
+      rgba(235,224,205,.025) 8px,
+      transparent 9px 17px),
+    linear-gradient(180deg,
+      #606979 0%,
+      #535C68 35%,
+      #414B59 100%);
+  will-change:transform;
+}
+
+.warm-ground {
+  position:absolute;
+  z-index:5;
+  inset:51% -10% -10%;
+  opacity:0;
+  background:
+    radial-gradient(ellipse at 52% 5%,
+      rgba(255,225,169,.34),
+      transparent 56%),
+    repeating-linear-gradient(
+      172deg,
+      transparent 0 7px,
+      rgba(255,241,209,.07) 8px,
+      transparent 9px 17px),
+    linear-gradient(180deg,
+      #BBA181,
+      #A98A67 42%,
+      #806C58);
+  will-change:opacity,transform;
+}
+
+/* Sand surface grain, no images required */
+
+.grain {
+  position:absolute;
+  z-index:6;
+  inset:50% 0 0;
+  opacity:.25;
+  pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 13% 16%,#E8D9C0 98%,transparent),
+    radial-gradient(1px 1px at 38% 42%,#D9C6A8 98%,transparent),
+    radial-gradient(1px 1px at 67% 21%,#E8D9C0 98%,transparent),
+    radial-gradient(1px 1px at 86% 57%,#E8D9C0 98%,transparent),
+    radial-gradient(1.5px 1.5px at 26% 76%,#D9C6A8 98%,transparent),
+    radial-gradient(1px 1px at 73% 84%,#E8D9C0 98%,transparent);
+  background-size:89px 93px,113px 101px,97px 117px,121px 89px,131px 113px,107px 127px;
+}
+
+/* ------------------------------------------------
+   TOP CAPTION ZONE: 11–29%
+------------------------------------------------- */
+
+.top-zone {
+  position:absolute;
+  z-index:25;
+  top:9%;
+  left:7%;
+  right:7%;
+  height:22%;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  text-align:center;
+  pointer-events:none;
+}
+
+.lab-tag {
+  position:absolute;
+  top:0;
+  right:0;
+  padding:4px 12px 7px;
+  font-size:10px;
+  line-height:1.7;
+  color:#B8CBDC;
+  border:1px solid rgba(198,216,237,.24);
+  border-radius:30px;
+  background:rgba(10,26,59,.28);
+}
+
+.brand-eyebrow {
+  position:absolute;
+  top:2px;
+  left:0;
+  direction:ltr;
+  font-family:Montserrat,sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:3px;
+  color:rgba(222,237,250,.52);
+}
+
+.captions {
+  position:absolute;
+  top:30%;
+  left:0;
+  right:0;
+  height:70%;
+}
+
+.caption {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  text-align:center;
+  opacity:0;
+  transform:translateY(5px);
+  will-change:opacity,transform;
+}
+
+.beat-tag {
+  direction:ltr;
+  unicode-bidi:isolate;
+  font-family:Montserrat,sans-serif;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:2px;
+  color:var(--green);
+  margin-bottom:12px;
+}
+
+.caption p {
+  padding:0;
+  margin:0 auto;
+  max-width:450px;
+  font-size:clamp(17px,3.9vw,24px);
+  line-height:2.05;
+  font-weight:700;
+  color:#F1F5FC;
+  text-wrap:balance;
+  text-shadow:0 3px 20px rgba(0,0,0,.38);
+}
+
+/* ------------------------------------------------
+   CENTRE HERO SCENE: 33–71%
+------------------------------------------------- */
+
+.scene {
+  position:absolute;
+  z-index:10;
+  width:min(100%,540px);
+  height:38%;
+  top:33%;
+  left:50%;
+  transform:translateX(-50%);
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+
+.scene-light {
+  position:absolute;
+  width:70%;
+  height:90%;
+  left:15%;
+  top:3%;
+  opacity:0;
+  border-radius:50%;
+  background:radial-gradient(ellipse,
+    rgba(255,203,104,.26),
+    rgba(201,162,39,.08) 45%,
+    transparent 75%);
+  filter:blur(9px);
+  will-change:opacity,transform;
+}
+
+/* A little dust in the foreground */
+
+.dust {
+  position:absolute;
+  inset:0;
+  z-index:12;
+  pointer-events:none;
+  overflow:hidden;
+  will-change:transform;
+}
+
+.mote {
+  position:absolute;
+  display:block;
+  border-radius:50%;
+  background:#D9E4EE;
+  box-shadow:0 0 9px rgba(219,229,239,.6);
+  opacity:.45;
+}
+
+.m1 {width:3px;height:3px;left:14%;top:22%}
+.m2 {width:2px;height:2px;left:77%;top:37%}
+.m3 {width:4px;height:4px;left:24%;top:71%}
+.m4 {width:2px;height:2px;left:85%;top:68%}
+.m5 {width:3px;height:3px;left:62%;top:14%}
+.m6 {width:2px;height:2px;left:46%;top:84%}
+.m7 {width:3px;height:3px;left:91%;top:43%}
+.m8 {width:2px;height:2px;left:8%;top:57%}
+
+.warm-motes {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+  will-change:opacity;
+}
+
+.warm-motes .mote {
+  background:#F5D58B;
+  box-shadow:0 0 12px rgba(255,211,119,.8);
+}
+
+/* Circle states are pre-drawn, never morphed */
+
+.circle-state {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  will-change:opacity;
+}
+
+.closed-state {
+  opacity:1;
+}
+
+/* The circular drawing is irregular by design */
+
+.sand-ring {
+  position:absolute;
+  width:57%;
+  height:65%;
+  left:21.5%;
+  top:14%;
+  border:2px solid rgba(225,211,185,.68);
+  border-radius:49% 52% 48% 53% / 51% 47% 54% 49%;
+  transform:rotate(-8deg);
+  box-shadow:
+    0 2px 0 rgba(20,27,40,.2),
+    0 0 2px rgba(245,229,201,.22);
+}
+
+.sand-ring::before {
+  content:"";
+  position:absolute;
+  inset:-4px -2px -3px -5px;
+  border:1px dashed rgba(226,213,189,.38);
+  border-radius:51% 48% 54% 47%;
+  transform:rotate(4deg);
+}
+
+.sand-ring::after {
+  content:"";
+  position:absolute;
+  inset:4px 2px 2px 3px;
+  border:1px solid rgba(34,44,57,.23);
+  border-radius:48% 53% 49% 52%;
+}
+
+/* Grain scattered along the hand-drawn ring */
+
+.ring-grains {
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 22% 23%,#E9D9BB 95%,transparent),
+    radial-gradient(1px 1px at 28% 16%,#E9D9BB 95%,transparent),
+    radial-gradient(2px 1px at 77% 21%,#D8C5A5 95%,transparent),
+    radial-gradient(1px 1px at 81% 53%,#E9D9BB 95%,transparent),
+    radial-gradient(2px 2px at 74% 78%,#D8C5A5 95%,transparent),
+    radial-gradient(1px 1px at 34% 83%,#E9D9BB 95%,transparent),
+    radial-gradient(2px 1px at 19% 61%,#D8C5A5 95%,transparent);
+}
+
+/* Broken circle: gap on the right, new line begins there */
+
+.broken-state .sand-ring {
+  border-right-color:transparent;
+  transform:rotate(-8deg);
+}
+
+.broken-state .sand-ring::before {
+  border-right-color:transparent;
+}
+
+.break-patch {
+  position:absolute;
+  width:13%;
+  height:10%;
+  left:72%;
+  top:43%;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(87,92,97,.7) 35%,
+    rgba(87,92,97,.35));
+  transform:rotate(-16deg);
+}
+
+.starting-line {
+  position:absolute;
+  width:14%;
+  height:3px;
+  left:70%;
+  top:47%;
+  transform:rotate(-21deg);
+  transform-origin:right center;
+  background:linear-gradient(90deg,
+    rgba(225,211,185,.85),
+    rgba(201,162,39,.95));
+  box-shadow:0 0 8px rgba(201,162,39,.45);
+  border-radius:50%;
+}
+
+/* Complete path: old circle remains behind, new path leads away */
+
+.open-state .sand-ring {
+  opacity:.35;
+}
+
+.new-path {
+  position:absolute;
+  width:48%;
+  height:3px;
+  left:68%;
+  top:46%;
+  border-radius:50%;
+  transform:rotate(-31deg);
+  transform-origin:left center;
+  background:linear-gradient(90deg,
+    rgba(225,211,185,.7),
+    #C9A227 30%,
+    #F9D68A 85%,
+    transparent);
+  box-shadow:
+    0 0 8px rgba(201,162,39,.65),
+    0 0 24px rgba(255,205,104,.3);
+}
+
+.new-path::before {
+  content:"";
+  position:absolute;
+  inset:-5px 0;
+  background:linear-gradient(90deg,
+    transparent,
+    rgba(255,220,149,.15),
+    transparent);
+  filter:blur(5px);
+}
+
+.path-grains {
+  position:absolute;
+  width:48%;
+  height:12px;
+  left:68%;
+  top:45%;
+  transform:rotate(-31deg);
+  transform-origin:left center;
+  background:
+    radial-gradient(2px 2px at 12% 50%,#F0D9A6 95%,transparent),
+    radial-gradient(1px 1px at 39% 30%,#F0D9A6 95%,transparent),
+    radial-gradient(2px 1px at 66% 70%,#F0D9A6 95%,transparent);
+}
+
+/* ------------------------------------------------
+   THE SAME FIGURE: three poses, same silhouette box
+------------------------------------------------- */
+
+.figure-pose {
+  position:absolute;
+  width:38px;
+  height:85px;
+  left:50%;
+  top:50%;
+  margin-left:-19px;
+  margin-top:-42px;
+  opacity:0;
+  will-change:opacity,transform;
+}
+
+.pose-one {
+  opacity:1;
+  transform:translate(-114px,-25px) rotate(-20deg);
+}
+
+.pose-two {
+  transform:translate(75px,-65px) rotate(10deg);
+}
+
+.pose-three {
+  /* Auditor fix 16 Nov: lift -115px left the figure's shadow ~40px
+     above the new-path line at 540x960 (feet 427 vs path 467 at the
+     figure's x). -75px puts the feet on the path. */
+  transform:translate(130px,-75px) rotate(18deg);
+}
+
+.figure-shadow {
+  position:absolute;
+  width:29px;
+  height:8px;
+  bottom:1px;
+  left:5px;
+  border-radius:50%;
+  background:rgba(9,16,29,.43);
+  filter:blur(3px);
+}
+
+.figure-head {
+  position:absolute;
+  width:12px;
+  height:12px;
+  top:2px;
+  left:13px;
+  border-radius:50%;
+  background:#D0D5D8;
+  box-shadow:0 0 5px rgba(220,227,233,.18);
+}
+
+.figure-body {
+  position:absolute;
+  top:16px;
+  left:15px;
+  width:9px;
+  height:32px;
+  border-radius:5px;
+  background:linear-gradient(90deg,#8895A1,#D0D5D8 65%,#84909D);
+  transform:rotate(-5deg);
+}
+
+.figure-arm {
+  position:absolute;
+  width:5px;
+  height:25px;
+  top:18px;
+  left:11px;
+  border-radius:5px;
+  background:#AEB8C1;
+  transform:rotate(24deg);
+  transform-origin:top center;
+}
+
+.figure-arm.right {
+  left:23px;
+  transform:rotate(-30deg);
+}
+
+.figure-leg {
+  position:absolute;
+  width:6px;
+  height:28px;
+  top:43px;
+  left:14px;
+  border-radius:5px;
+  background:#AEB8C1;
+  transform:rotate(20deg);
+  transform-origin:top center;
+}
+
+.figure-leg.right {
+  left:21px;
+  transform:rotate(-26deg);
+}
+
+/* Different movement positions, same plain faceless human */
+
+.pose-two .figure-arm {
+  transform:rotate(46deg);
+}
+
+.pose-two .figure-arm.right {
+  transform:rotate(-40deg);
+}
+
+.pose-two .figure-leg {
+  transform:rotate(-12deg);
+}
+
+.pose-two .figure-leg.right {
+  transform:rotate(34deg);
+}
+
+.pose-three .figure-arm {
+  transform:rotate(50deg);
+}
+
+.pose-three .figure-arm.right {
+  transform:rotate(-15deg);
+}
+
+.pose-three .figure-leg {
+  transform:rotate(-35deg);
+}
+
+.pose-three .figure-leg.right {
+  transform:rotate(32deg);
+}
+
+/* ------------------------------------------------
+   BOTTOM PROGRESS / DOTS
+------------------------------------------------- */
+
+.progress-zone {
+  position:absolute;
+  z-index:30;
+  bottom:max(4.5%, env(safe-area-inset-bottom));
+  left:8%;
+  right:8%;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.progress-track {
+  position:absolute;
+  width:100%;
+  height:2px;
+  top:13px;
+  left:0;
+  background:rgba(220,233,246,.19);
+  overflow:hidden;
+}
+
+.progress-fill {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,var(--green),#E7C66D);
+  transform:scaleX(0);
+  transform-origin:right center;
+  will-change:transform;
+}
+
+.dots {
+  position:relative;
+  z-index:2;
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  direction:rtl;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.dot {
+  width:10px;
+  height:10px;
+  padding:0;
+  border:1px solid rgba(230,239,247,.65);
+  border-radius:50%;
+  background:#263B57;
+  cursor:pointer;
+  transition:background .2s,border-color .2s;
+}
+
+.dot.active {
+  background:#C9A227;
+  border-color:#F3D58B;
+  box-shadow:0 0 10px rgba(201,162,39,.6);
+}
+
+.dot:focus-visible {
+  outline:2px solid white;
+  outline-offset:5px;
+}
+
+/* ------------------------------------------------
+   FINAL CARD
+   Scene ends at 53.5% of viewport.
+   Card begins at 62%. Clearance: 8.5% of height.
+------------------------------------------------- */
+
+.end-card {
+  position:absolute;
+  z-index:27;
+  left:6%;
+  right:6%;
+  top:62%;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  opacity:0;
+  transform:translateY(10px);
+  pointer-events:none;
+  will-change:opacity,transform;
+}
+
+.end-card .beat-tag {
+  margin:0 0 2px;
+}
+
+.end-card h2 {
+  font-family:"Noto Nastaliq Urdu",serif;
+  font-weight:700;
+  font-size:clamp(19px,4.3vw,27px);
+  line-height:1.9;
+  max-width:440px;
+  margin:0;
+  color:#FFF2D6;
+  text-wrap:balance;
+  text-shadow:0 2px 16px rgba(0,0,0,.4);
+}
+
+.brand-line {
+  margin:0;
+  font-size:13px;
+  line-height:2;
+  color:#E3E8ED;
+}
+
+.cta {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:49px;
+  padding:7px 22px 11px;
+  border:1px solid rgba(255,231,178,.8);
+  border-radius:5px;
+  color:#18263D;
+  background:linear-gradient(135deg,#F1D38E,#C9A227);
+  text-decoration:none;
+  font-family:"Noto Nastaliq Urdu",serif;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 7px 25px rgba(0,0,0,.24);
+  transition:filter .2s,transform .2s;
+  pointer-events:auto;
+}
+
+.cta:hover {
+  filter:brightness(1.08);
+  transform:translateY(-2px);
+}
+
+.cta:focus-visible {
+  outline:2px solid white;
+  outline-offset:4px;
+}
+
+.free-line {
+  margin:0;
+  color:#F0DCA9;
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* ------------------------------------------------
+   SCENE SHRINK IN THE FINAL BEAT
+------------------------------------------------- */
+
+.stage.final-scene .scene {
+  transform:translate(-50%,-100px) scale(.62);
+}
+
+/* ------------------------------------------------
+   RESPONSIVE: 360x640 and short screens
+------------------------------------------------- */
+
+@media (max-width:600px) {
+  .top-zone {
+    left:6%;
+    right:6%;
+  }
+
+  .caption p {
+    max-width:345px;
+    font-size:clamp(16px,4.6vw,22px);
+  }
+
+  .scene {
+    width:100%;
+  }
+
+  .sand-ring {
+    width:62%;
+    left:19%;
+  }
+
+  .new-path {
+    width:42%;
+  }
+
+  .end-card {
+    left:5%;
+    right:5%;
+    gap:5px;
+  }
+
+  .end-card h2 {
+    font-size:21px;
+  }
+
+  .brand-line {
+    font-size:12px;
+  }
+
+  .cta {
+    font-size:14px;
+    min-height:46px;
+    padding-inline:15px;
+  }
+}
+
+@media (max-height:700px) {
+  .stage {
+    min-height:0;
+  }
+
+  .top-zone {
+    top:7%;
+    height:22%;
+  }
+
+  .caption {
+    justify-content:flex-start;
+  }
+
+  .caption p {
+    font-size:17px;
+    line-height:1.9;
+  }
+
+  .scene {
+    top:29%;
+    height:34%;
+  }
+
+  /* Auditor fix 16 Nov: with the base -75px lift, pose-three's head
+     sat 11px INTO the caption text zone at 360x640 (compact scene is
+     shorter). -95px clears the caption (+13px box gap) and keeps the
+     feet on the path line. */
+  .pose-three {
+    transform:translate(130px,-95px) rotate(18deg);
+  }
+
+  .stage.final-scene .scene {
+    transform:translate(-50%,-78px) scale(.56);
+  }
+
+  .end-card {
+    top:55%;
+    gap:3px;
+  }
+
+  .end-card h2 {
+    font-size:19px;
+    line-height:1.7;
+  }
+
+  .brand-line {
+    font-size:11px;
+  }
+
+  .cta {
+    min-height:42px;
+    font-size:13px;
+    padding:4px 14px 8px;
+  }
+
+  .free-line {
+    font-size:11px;
+  }
+
+  .progress-zone {
+    bottom:3%;
+  }
+}
+
+/* ------------------------------------------------
+   NO-JS AND REDUCED-MOTION FALLBACK
+   All content becomes a readable static sequence.
+------------------------------------------------- */
+
+.no-js .story-track,
+.reduce-motion .story-track {
+  height:auto;
+}
+
+.no-js .stage,
+.reduce-motion .stage {
+  position:relative;
+  height:auto;
+  min-height:0;
+  overflow:visible;
+  padding:30px 20px;
+}
+
+.no-js .sky,
+.no-js .warm-sky,
+.no-js .horizon,
+.no-js .warm-horizon,
+.no-js .ground,
+.no-js .warm-ground,
+.no-js .grain,
+.no-js .scene,
+.no-js .dust,
+.no-js .progress-zone,
+.no-js .stage::after,
+.reduce-motion .sky,
+.reduce-motion .warm-sky,
+.reduce-motion .horizon,
+.reduce-motion .warm-horizon,
+.reduce-motion .ground,
+.reduce-motion .warm-ground,
+.reduce-motion .grain,
+.reduce-motion .scene,
+.reduce-motion .dust,
+.reduce-motion .progress-zone,
+.reduce-motion .stage::after {
+  display:none;
+}
+
+.no-js .top-zone,
+.reduce-motion .top-zone {
+  position:relative;
+  top:auto;
+  left:auto;
+  right:auto;
+  height:auto;
+  display:block;
+  margin-bottom:25px;
+}
+
+.no-js .lab-tag,
+.reduce-motion .lab-tag {
+  position:relative;
+  display:inline-block;
+  margin-bottom:15px;
+}
+
+.no-js .brand-eyebrow,
+.reduce-motion .brand-eyebrow {
+  position:relative;
+  display:block;
+  margin-bottom:20px;
+}
+
+.no-js .captions,
+.reduce-motion .captions {
+  position:relative;
+  top:auto;
+  height:auto;
+}
+
+.no-js .caption,
+.reduce-motion .caption {
+  position:relative;
+  inset:auto;
+  opacity:1;
+  transform:none;
+  min-height:115px;
+  margin-bottom:22px;
+  border-bottom:1px solid rgba(220,233,246,.13);
+  padding-bottom:15px;
+}
+
+.no-js .caption p,
+.reduce-motion .caption p {
+  font-size:19px;
+  line-height:2.1;
+}
+
+.no-js .end-card,
+.reduce-motion .end-card {
+  position:relative;
+  top:auto;
+  left:auto;
+  right:auto;
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+  margin-top:25px;
+  padding:20px 0 35px;
+}
+
+.no-js .end-card h2,
+.reduce-motion .end-card h2 {
+  font-size:23px;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html {
+    scroll-behavior:auto;
+  }
+
+  .story-track {
+    height:auto;
+  }
+
+  .stage {
+    position:relative;
+    height:auto;
+    min-height:0;
+    overflow:visible;
+    padding:30px 20px;
+  }
+
+  .sky,.warm-sky,.horizon,.warm-horizon,
+  .ground,.warm-ground,.grain,.scene,.dust,
+  .progress-zone,.stage::after {
+    display:none!important;
+  }
+
+  .top-zone {
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    height:auto;
+    display:block;
+    margin-bottom:25px;
+  }
+
+  .lab-tag {
+    position:relative;
+    display:inline-block;
+    margin-bottom:15px;
+  }
+
+  .brand-eyebrow {
+    position:relative;
+    display:block;
+    margin-bottom:20px;
+  }
+
+  .captions {
+    position:relative;
+    top:auto;
+    height:auto;
+  }
+
+  .caption {
+    position:relative;
+    inset:auto;
+    opacity:1!important;
+    transform:none!important;
+    min-height:115px;
+    margin-bottom:22px;
+    border-bottom:1px solid rgba(220,233,246,.13);
+    padding-bottom:15px;
+  }
+
+  .caption p {
+    font-size:19px;
+    line-height:2.1;
+  }
+
+  .end-card {
+    position:relative;
+    top:auto;
+    left:auto;
+    right:auto;
+    opacity:1!important;
+    transform:none!important;
+    pointer-events:auto;
+    margin-top:25px;
+    padding:20px 0 35px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="story-track" id="story">
+
+  <section class="stage" id="stage" aria-label="AIDE کی تصوراتی تبدیلی کی کہانی">
+
+    <!-- Atmospheric depth -->
+    <div class="sky" id="sky"></div>
+    <div class="warm-sky" id="warmSky"></div>
+    <div class="horizon" id="horizon"></div>
+    <div class="warm-horizon" id="warmHorizon"></div>
+    <div class="ground" id="ground"></div>
+    <div class="warm-ground" id="warmGround"></div>
+    <div class="grain"></div>
+
+    <!-- Captions: timeline centres
+         Beat 0 = 0.000
+         Beat 1 = 0.167
+         Beat 2 = 0.333
+         Beat 3 = 0.500
+         Beat 4 = 0.667
+         Beat 5 = 0.833
+         End card = 1.000
+         Each caption has a short 0.015 fade-in and fade-out.
+         Adjacent windows never overlap.
+    -->
+
+    <header class="top-zone">
+
+      <span class="lab-tag">تصوراتی خاکہ — لیب</span>
+
+      <span class="brand-eyebrow">AIDE / PERSONAL GROWTH</span>
+
+      <div class="captions">
+
+        <div class="caption" data-beat="0">
+          <span class="beat-tag">01 / 07</span>
+          <p>وہی بات، وہی غصہ، وہی پچھتاوا — ہر بار۔</p>
+        </div>
+
+        <div class="caption" data-beat="1">
+          <span class="beat-tag">02 / 07</span>
+          <p>رویے خاموش تہوں میں بنتے ہیں۔</p>
+        </div>
+
+        <div class="caption" data-beat="2">
+          <span class="beat-tag">03 / 07</span>
+          <p>پہلے سانچہ نظر آتا ہے — وہ دائرہ جو دہرایا جاتا ہے۔</p>
+        </div>
+
+        <div class="caption" data-beat="3">
+          <span class="beat-tag">04 / 07</span>
+          <p>دائرہ ٹوٹتا ہے۔ ایک نئی لکیر بنتی ہے۔</p>
+        </div>
+
+        <div class="caption" data-beat="4">
+          <span class="beat-tag">05 / 07</span>
+          <p>اب قدم نئے راستے پر ہے۔</p>
+        </div>
+
+        <div class="caption" data-beat="5">
+          <span class="beat-tag">06 / 07</span>
+          <p>پرانا رویہ رکھ دیا — ہلکے دل کے ساتھ آگے۔</p>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- One continuous scene, three pre-drawn states -->
+
+    <div class="scene" id="scene">
+
+      <div class="scene-light" id="sceneLight"></div>
+
+      <!-- State 1: closed circle -->
+      <div class="circle-state closed-state" id="closedState">
+        <div class="sand-ring"></div>
+        <div class="ring-grains"></div>
+      </div>
+
+      <!-- State 2: broken circle -->
+      <div class="circle-state broken-state" id="brokenState">
+        <div class="sand-ring"></div>
+        <div class="ring-grains"></div>
+        <div class="break-patch"></div>
+        <div class="starting-line"></div>
+      </div>
+
+      <!-- State 3: old circle left behind, new path -->
+      <div class="circle-state open-state" id="openState">
+        <div class="sand-ring"></div>
+        <div class="ring-grains"></div>
+        <div class="path-grains"></div>
+        <div class="new-path"></div>
+      </div>
+
+      <!-- Same faceless human silhouette, three poses -->
+
+      <div class="figure-pose pose-one" id="poseOne">
+        <div class="figure-shadow"></div>
+        <div class="figure-head"></div>
+        <div class="figure-body"></div>
+        <div class="figure-arm"></div>
+        <div class="figure-arm right"></div>
+        <div class="figure-leg"></div>
+        <div class="figure-leg right"></div>
+      </div>
+
+      <div class="figure-pose pose-two" id="poseTwo">
+        <div class="figure-shadow"></div>
+        <div class="figure-head"></div>
+        <div class="figure-body"></div>
+        <div class="figure-arm"></div>
+        <div class="figure-arm right"></div>
+        <div class="figure-leg"></div>
+        <div class="figure-leg right"></div>
+      </div>
+
+      <div class="figure-pose pose-three" id="poseThree">
+        <div class="figure-shadow"></div>
+        <div class="figure-head"></div>
+        <div class="figure-body"></div>
+        <div class="figure-arm"></div>
+        <div class="figure-arm right"></div>
+        <div class="figure-leg"></div>
+        <div class="figure-leg right"></div>
+      </div>
+
+    </div>
+
+    <!-- Foreground dust: independent parallax -->
+    <div class="dust" id="dust">
+      <i class="mote m1"></i>
+      <i class="mote m2"></i>
+      <i class="mote m3"></i>
+      <i class="mote m4"></i>
+      <i class="mote m5"></i>
+      <i class="mote m6"></i>
+      <i class="mote m7"></i>
+      <i class="mote m8"></i>
+    </div>
+
+    <div class="warm-motes" id="warmMotes">
+      <i class="mote m1"></i>
+      <i class="mote m2"></i>
+      <i class="mote m3"></i>
+      <i class="mote m4"></i>
+      <i class="mote m5"></i>
+      <i class="mote m6"></i>
+      <i class="mote m7"></i>
+      <i class="mote m8"></i>
+    </div>
+
+    <!-- Final card: scene has already moved above it -->
+
+    <div class="end-card" id="endCard">
+
+      <span class="beat-tag">07 / 07</span>
+
+      <h2>سانچہ نظر آئے تو راستہ بنتا ہے۔</h2>
+
+      <p class="brand-line">
+        AIDE · عمران اسلم | لائف کوچ اور ٹرینر
+      </p>
+
+      <a class="cta"
+         href="https://imranaslam.pk/ur/coaching.html"
+         target="_blank"
+         rel="noopener noreferrer">
+        ظل ہما اسلم کے ساتھ سیشن بک کریں
+      </a>
+
+      <p class="free-line">پہلی گفتگو مفت ہے — 15 منٹ</p>
+
+    </div>
+
+    <!-- RTL progress: first dot starts on right -->
+
+    <nav class="progress-zone" aria-label="کہانی کے مراحل">
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="dots">
+        <button class="dot active" data-target="0" aria-label="مرحلہ 1"></button>
+        <button class="dot" data-target="1" aria-label="مرحلہ 2"></button>
+        <button class="dot" data-target="2" aria-label="مرحلہ 3"></button>
+        <button class="dot" data-target="3" aria-label="مرحلہ 4"></button>
+        <button class="dot" data-target="4" aria-label="مرحلہ 5"></button>
+        <button class="dot" data-target="5" aria-label="مرحلہ 6"></button>
+        <button class="dot" data-target="6" aria-label="مرحلہ 7"></button>
+      </div>
+
+    </nav>
+
+  </section>
+</main>
+
+<script>
+(() => {
+  "use strict";
+
+  const root = document.documentElement;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.classList.remove("no-js");
+    root.classList.add("reduce-motion");
+    return;
+  }
+
+  root.classList.remove("no-js");
+
+  const $ = id => document.getElementById(id);
+
+  const story = $("story");
+  const stage = $("stage");
+
+  const elements = {
+    sky: $("sky"),
+    warmSky: $("warmSky"),
+    horizon: $("horizon"),
+    warmHorizon: $("warmHorizon"),
+    ground: $("ground"),
+    warmGround: $("warmGround"),
+    scene: $("scene"),
+    sceneLight: $("sceneLight"),
+    dust: $("dust"),
+    warmMotes: $("warmMotes"),
+    closed: $("closedState"),
+    broken: $("brokenState"),
+    open: $("openState"),
+    poseOne: $("poseOne"),
+    poseTwo: $("poseTwo"),
+    poseThree: $("poseThree"),
+    endCard: $("endCard"),
+    progress: $("progressFill")
+  };
+
+  const captions = [...document.querySelectorAll(".caption")];
+  const dots = [...document.querySelectorAll(".dot")];
+
+  let targetProgress = 0;
+  let currentProgress = 0;
+  let framePending = false;
+  let lastActiveDot = -1;
+
+  const clamp = (v, min = 0, max = 1) =>
+    Math.max(min, Math.min(max, v));
+
+  const smooth = (a, b, v) => {
+    const t = clamp((v - a) / (b - a));
+    return t * t * (3 - 2 * t);
+  };
+
+  /*
+    CAPTION WINDOWS
+
+    Centres: 0, 1/6, 2/6, 3/6, 4/6, 5/6.
+
+    Fade-in duration: 0.015.
+    Fade-out duration: 0.015.
+    The hold region is deliberately wide.
+    Beat 0 is explicitly 1.0 at p=0.
+
+    Adjacent captions are separated by a clear
+    zero-opacity interval. No simultaneous captions.
+  */
+
+  function captionOpacity(p, index) {
+    const centre = index / 6;
+    const distance = Math.abs(p - centre);
+
+    if (index === 0 && p === 0) return 1;
+
+    const fade = 0.015;
+    const halfWindow = 0.075;
+
+    if (distance <= halfWindow - fade) return 1;
+
+    if (distance >= halfWindow) return 0;
+
+    return 1 - smooth(
+      halfWindow - fade,
+      halfWindow,
+      distance
+    );
+  }
+
+  /*
+    State crossfades use MATCHED windows:
+    closed -> broken: p .32 to .40
+    broken -> open:   p .62 to .70
+
+    Both outgoing and incoming opacity are complementary
+    over exactly the same interval.
+  */
+
+  function updateVisuals(p) {
+
+    /* Gradual colour journey */
+
+    const warmth = smooth(.12, .92, p);
+
+    elements.warmSky.style.opacity = warmth;
+    elements.warmHorizon.style.opacity = warmth;
+    elements.warmGround.style.opacity = warmth;
+
+    elements.sceneLight.style.opacity =
+      smooth(.38, .92, p);
+
+    elements.warmMotes.style.opacity = warmth;
+
+    /* Three distinct parallax rates */
+
+    elements.sky.style.transform =
+      `translate3d(0,${p * 12}px,0)`;
+
+    elements.horizon.style.transform =
+      `translate3d(0,${p * -24}px,0)`;
+
+    elements.warmHorizon.style.transform =
+      `translate3d(0,${p * -24}px,0)`;
+
+    elements.ground.style.transform =
+      `translate3d(0,${p * 16}px,0)`;
+
+    elements.warmGround.style.transform =
+      `translate3d(0,${p * 16}px,0)`;
+
+    elements.dust.style.transform =
+      `translate3d(0,${p * -45}px,0)`;
+
+    elements.warmMotes.style.transform =
+      `translate3d(0,${p * -45}px,0)`;
+
+    elements.sceneLight.style.transform =
+      `scale(${.8 + warmth * .4})`;
+
+    /* Circle states: exact complementary crossfades */
+
+    const firstTransition = smooth(.32, .40, p);
+    const secondTransition = smooth(.62, .70, p);
+
+    elements.closed.style.opacity =
+      1 - firstTransition;
+
+    elements.broken.style.opacity =
+      firstTransition * (1 - secondTransition);
+
+    elements.open.style.opacity =
+      secondTransition;
+
+    /* Figure poses: same silhouette, matched windows */
+
+    elements.poseOne.style.opacity =
+      1 - firstTransition;
+
+    elements.poseTwo.style.opacity =
+      firstTransition * (1 - secondTransition);
+
+    elements.poseThree.style.opacity =
+      secondTransition;
+
+    /* Final scene clearance:
+       normal scene top = 33%, height = 38%.
+       scale .62 gives painted height = 23.56%.
+       centred transformed scene, shifted up 100px.
+       end card starts at 62%, leaving over 24px
+       at both required viewport sizes.
+    */
+
+    const finalScale = smooth(.88, .98, p);
+
+    const lift = 100 * finalScale;
+
+    const scale = 1 - .38 * finalScale;
+
+    elements.scene.style.transform =
+      `translate3d(-50%,-${lift}px,0) scale(${scale})`;
+
+    /* End card appears at the end */
+
+    const cardOpacity = smooth(.945, .985, p);
+
+    elements.endCard.style.opacity = cardOpacity;
+
+    elements.endCard.style.transform =
+      `translate3d(0,${10 * (1-cardOpacity)}px,0)`;
+
+    /* Caption opacity */
+
+    captions.forEach((caption, index) => {
+      const opacity = captionOpacity(p, index);
+
+      caption.style.opacity = opacity;
+
+      caption.style.transform =
+        `translate3d(0,${5 * (1-opacity)}px,0)`;
+    });
+
+    /* Progress bar fills from the RIGHT */
+
+    elements.progress.style.transform =
+      `scaleX(${p})`;
+
+    /* Dot selection */
+
+    const activeDot = Math.min(6, Math.floor(p * 6 + .5));
+
+    if (activeDot !== lastActiveDot) {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === activeDot);
+        dot.setAttribute(
+          "aria-current",
+          index === activeDot ? "step" : "false"
+        );
+      });
+
+      lastActiveDot = activeDot;
+    }
+
+    stage.classList.toggle("final-scene", p >= .98);
+  }
+
+  function readScroll() {
+    const rect = story.getBoundingClientRect();
+
+    const totalScroll = Math.max(
+      1,
+      story.offsetHeight - window.innerHeight
+    );
+
+    const travelled = -rect.top;
+
+    targetProgress = clamp(travelled / totalScroll);
+  }
+
+  /*
+    One animation loop.
+    Damped easing factor: 0.15.
+    It stops requesting frames when settled.
+  */
+
+  function animate() {
+    const difference = targetProgress - currentProgress;
+
+    currentProgress += difference * .15;
+
+    if (Math.abs(difference) < .0005) {
+      currentProgress = targetProgress;
+    }
+
+    updateVisuals(currentProgress);
+
+    if (currentProgress !== targetProgress) {
+      requestAnimationFrame(animate);
+    } else {
+      framePending = false;
+    }
+  }
+
+  function requestUpdate() {
+    readScroll();
+
+    if (!framePending) {
+      framePending = true;
+      requestAnimationFrame(animate);
+    }
+  }
+
+  window.addEventListener("scroll", requestUpdate, {
+    passive:true
+  });
+
+  window.addEventListener("resize", requestUpdate, {
+    passive:true
+  });
+
+  /*
+    Dot destinations:
+    Each dot moves to the corresponding caption centre.
+    The seventh dot goes to the final card.
+  */
+
+  dots.forEach(dot => {
+    dot.addEventListener("click", () => {
+      const index = Number(dot.dataset.target);
+      const destination = index / 6;
+
+      const totalScroll = Math.max(
+        1,
+        story.offsetHeight - window.innerHeight
+      );
+
+      const storyTop =
+        window.scrollY + story.getBoundingClientRect().top;
+
+      window.scrollTo({
+        top:storyTop + destination * totalScroll,
+        behavior:"smooth"
+      });
+    });
+  });
+
+  /* First paint: Beat 0 is fully visible immediately */
+
+  readScroll();
+  currentProgress = 0;
+  targetProgress = 0;
+  updateVisuals(0);
+
+})();
+</script>
+
+</body>
+</html>
