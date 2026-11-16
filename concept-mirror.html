@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>AIDE — دھندلا آئینہ، صاف عکس | عمران اسلم</title>
+
+  <!-- Remove no-js immediately when JS is active -->
+  <script>document.documentElement.classList.remove('no-js');</script>
+
+  <!-- Google Fonts: Noto Nastaliq Urdu (400, 700) & Montserrat (600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & RESET
+       Palette:
+       - Navy: #0A1A3B
+       - Sea Green: #3DAB94
+       - Glass-Blue Gradient: #EFF6FD to #D9E7F6
+       - Brass/Gold Accent: #C9A227
+       ========================================================================== */
+    :root {
+      --navy-deep: #061026;
+      --navy-primary: #0A1A3B;
+      --navy-surface: rgba(10, 26, 59, 0.94);
+      --sea-green: #3DAB94;
+      --sea-green-hover: #32947f;
+      --glass-blue-top: #EFF6FD;
+      --glass-blue-bottom: #D9E7F6;
+      --brass-gold: #C9A227;
+      --brass-light: #F3D982;
+      --text-primary: #EFF6FD;
+      --text-secondary: #D9E7F6;
+      --font-urdu: 'Noto Nastaliq Urdu', serif;
+      --font-latin: 'Montserrat', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--navy-deep);
+      color: var(--text-primary);
+      font-family: var(--font-urdu);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: auto;
+    }
+
+    body {
+      background-color: var(--navy-deep);
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* ==========================================================================
+       2. SCROLL TRACK & STICKY VIEWPORT STAGE (100svh)
+       ========================================================================== */
+    .scroll-track {
+      position: relative;
+      width: 100%;
+      height: 700vh;
+    }
+
+    .stage {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100svh;
+      min-height: 560px;
+      overflow: hidden;
+      background-color: var(--navy-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    /* ==========================================================================
+       3. DEPTH LAYER 1: ARCHITECTURAL WALL, GRAIN & WARM LIGHT POOL
+       ========================================================================== */
+    .bg-layer {
+      position: absolute;
+      inset: -6%;
+      width: 112%;
+      height: 112%;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    /* Dark moody navy textured wall */
+    .bg-wall-dark {
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 75% 60% at 50% 48%, rgba(20, 44, 92, 0.55) 0%, rgba(10, 26, 59, 0.92) 58%, #050D1E 100%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.012) 0px,
+          rgba(255, 255, 255, 0.012) 1px,
+          transparent 1px,
+          transparent 36px
+        );
+    }
+
+    /* Warm golden + sea-green ambient light pool revealed as mirror clears */
+    .bg-wall-warm {
+      z-index: 2;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 46%, rgba(201, 162, 39, 0.24) 0%, rgba(61, 171, 148, 0.14) 36%, rgba(10, 26, 59, 0.96) 76%),
+        radial-gradient(ellipse 90% 55% at 50% 50%, rgba(239, 246, 253, 0.08) 0%, transparent 70%);
+    }
+
+    /* Fine architectural wall grain SVG data-URI overlay */
+    .bg-grain {
+      z-index: 3;
+      opacity: 0.28;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='wallNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23wallNoise)' opacity='0.55'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* Subtle vignette for cinematic focus */
+    .bg-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 48%, transparent 42%, rgba(4, 10, 24, 0.72) 100%);
+    }
+
+    /* ==========================================================================
+       4. TOP PROGRESS BAR & BRAND EYEBROW
+       ========================================================================== */
+    .top-progress-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(239, 246, 253, 0.12);
+      z-index: 40;
+    }
+
+    .top-progress-fill {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, var(--brass-gold), var(--sea-green));
+      transform-origin: right center;
+      transform: scaleX(0);
+      will-change: transform;
+    }
+
+    .eyebrow-header {
+      position: absolute;
+      top: 2.5%;
+      left: 0;
+      right: 0;
+      z-index: 35;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .eyebrow-badge {
+      font-family: var(--font-latin);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.34em;
+      color: var(--brass-light);
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      background: rgba(10, 26, 59, 0.55);
+      border: 1px solid rgba(201, 162, 39, 0.28);
+      direction: ltr;
+    }
+
+    /* ==========================================================================
+       5. ZONE MAP: CAPTION ZONE (TOP 11% – 28%)
+       Strict isolation from Mirror Zone (33% – 71%)
+       ========================================================================== */
+    .caption-zone {
+      position: absolute;
+      top: 10.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(90%, 490px);
+      height: 18%;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .beat-caption {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      will-change: opacity, transform;
+    }
+
+    .beat-caption.is-initial {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .beat-step-tag {
+      font-family: var(--font-latin);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--sea-green);
+      margin-bottom: 6px;
+      direction: ltr;
+      opacity: 0.9;
+    }
+
+    .beat-text {
+      font-family: var(--font-urdu);
+      font-weight: 700;
+      font-size: clamp(1.22rem, 4.4vw, 1.62rem);
+      line-height: 2.05;
+      color: var(--glass-blue-top);
+      text-shadow: 0 4px 20px rgba(4, 10, 24, 0.9);
+      word-spacing: 2px;
+    }
+
+    .beat-sub {
+      font-family: var(--font-urdu);
+      font-weight: 400;
+      font-size: clamp(0.86rem, 3.1vw, 1.02rem);
+      line-height: 1.9;
+      color: var(--glass-blue-bottom);
+      opacity: 0.85;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       6. ZONE MAP: HERO MIRROR ZONE (TOP 33% – 71%)
+       At 540x960: top ~317px, height ~365px, bottom ~682px.
+       In Beat 6: scales to 0.84 and translates Y by -13.5%, moving the box
+       bottom to 564px (measured 16 Nov 2026; the ~518px estimate was wrong).
+       ========================================================================== */
+    .mirror-zone {
+      position: absolute;
+      top: 33%;
+      left: 50%;
+      width: min(74vw, 310px);
+      height: 38svh;
+      max-height: 375px;
+      min-height: 250px;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate3d(-50%, 0, 0) scale(1);
+      transform-origin: center top;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    /* Ambient halo behind the brass mirror */
+    .mirror-halo {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50% 50% 18% 18% / 38% 38% 8% 8%;
+      background: radial-gradient(circle at 50% 42%, rgba(201, 162, 39, 0.42) 0%, rgba(61, 171, 148, 0.16) 45%, transparent 72%);
+      opacity: 0.12;
+      will-change: opacity, transform;
+      z-index: 1;
+    }
+
+    .mirror-svg {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 22px 34px rgba(3, 8, 20, 0.85));
+    }
+
+    /* GPU-composited internal SVG layers */
+    .svg-layer-gpu {
+      will-change: opacity, transform;
+    }
+
+    /* ==========================================================================
+       7. DEPTH LAYER 3: FOREGROUND DUST MOTES (SINGLE PARENT TRANSFORM)
+       ========================================================================== */
+    .motes-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 22;
+      pointer-events: none;
+      opacity: 0.25;
+      transform: translate3d(0, 0, 0);
+      will-change: transform, opacity;
+    }
+
+    .mote {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF7D6 0%, var(--brass-gold) 65%, transparent 100%);
+      box-shadow: 0 0 8px rgba(201, 162, 39, 0.65);
+    }
+
+    .mote--1 { width: 4px; height: 4px; top: 38%; right: 18%; opacity: 0.85; }
+    .mote--2 { width: 3px; height: 3px; top: 48%; left: 16%; opacity: 0.7; }
+    .mote--3 { width: 5px; height: 5px; top: 58%; right: 24%; opacity: 0.6; }
+    .mote--4 { width: 3px; height: 3px; top: 34%; left: 26%; opacity: 0.8; }
+    .mote--5 { width: 4px; height: 4px; top: 64%; left: 22%; opacity: 0.75; }
+    .mote--6 { width: 2.5px; height: 2.5px; top: 44%; right: 12%; opacity: 0.65; }
+    .mote--7 { width: 4.5px; height: 4.5px; top: 53%; left: 11%; opacity: 0.55; }
+    .mote--8 { width: 3px; height: 3px; top: 29%; right: 30%; opacity: 0.7; }
+
+    /* ==========================================================================
+       8. ZONE MAP: END CARD (BEAT 6) — OPAQUE FROSTED PANEL
+       Positioned at top: 61% (~586px on 960px screen), giving ~22px box
+       clearance below the lifted mirror bottom (564px, measured 16 Nov 2026;
+       painted frame ends ~20px above the box bottom, so visual gap ~42px).
+       ========================================================================== */
+    .end-card-zone {
+      position: absolute;
+      top: 61%;
+      left: 50%;
+      width: min(90%, 440px);
+      z-index: 32;
+      opacity: 0;
+      transform: translate3d(-50%, 26px, 0);
+      will-change: opacity, transform;
+      pointer-events: none;
+    }
+
+    .end-card-zone.is-interactive {
+      pointer-events: auto;
+    }
+
+    .end-card {
+      position: relative;
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px 20px 18px;
+      background: linear-gradient(
+        165deg,
+        rgba(13, 33, 74, 0.97) 0%,
+        rgba(10, 26, 59, 0.98) 60%,
+        rgba(7, 19, 44, 0.99) 100%
+      );
+      border: 1px solid rgba(201, 162, 39, 0.45);
+      box-shadow:
+        0 20px 48px rgba(2, 6, 16, 0.88),
+        inset 0 1px 0 rgba(239, 246, 253, 0.18);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .end-card-headline {
+      font-family: var(--font-urdu);
+      font-weight: 700;
+      font-size: clamp(1.32rem, 4.8vw, 1.7rem);
+      line-height: 1.95;
+      color: var(--glass-blue-top);
+      text-shadow: 0 2px 12px rgba(201, 162, 39, 0.25);
+    }
+
+    .end-card-brand {
+      font-family: var(--font-urdu);
+      font-weight: 400;
+      font-size: clamp(0.84rem, 3vw, 0.96rem);
+      line-height: 1.85;
+      color: var(--brass-light);
+      letter-spacing: 0.01em;
+    }
+
+    .end-card-brand .latin-mark {
+      font-family: var(--font-latin);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--brass-gold);
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 320px;
+      margin-top: 6px;
+      padding: 11px 22px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--sea-green) 0%, #2C8C78 100%);
+      color: #061326;
+      font-family: var(--font-urdu);
+      font-weight: 700;
+      font-size: clamp(0.98rem, 3.6vw, 1.12rem);
+      line-height: 1.85;
+      text-decoration: none;
+      border: 1px solid rgba(239, 246, 253, 0.35);
+      box-shadow:
+        0 8px 22px rgba(61, 171, 148, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .cta-button:hover,
+    .cta-button:focus-visible {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow:
+        0 12px 26px rgba(61, 171, 148, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      outline: 2px solid var(--brass-gold);
+      outline-offset: 2px;
+    }
+
+    .end-card-footnote {
+      font-family: var(--font-urdu);
+      font-weight: 400;
+      font-size: clamp(0.76rem, 2.7vw, 0.85rem);
+      line-height: 1.8;
+      color: var(--glass-blue-bottom);
+      opacity: 0.82;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       9. BOTTOM NAVIGATION DOTS & SCROLL CUE (RTL-AWARE)
+       ========================================================================== */
+    .bottom-hud {
+      position: absolute;
+      bottom: 2.2%;
+      left: 0;
+      right: 0;
+      z-index: 35;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .scroll-hint {
+      font-family: var(--font-urdu);
+      font-size: 0.76rem;
+      line-height: 1.6;
+      color: var(--glass-blue-bottom);
+      opacity: 0.72;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+
+    .beat-dots {
+      display: flex;
+      flex-direction: row; /* In dir="rtl", index 0 starts on the right */
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(6, 16, 38, 0.65);
+      border: 1px solid rgba(239, 246, 253, 0.12);
+    }
+
+    .beat-dot {
+      appearance: none;
+      border: none;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .beat-dot::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(239, 246, 253, 0.3);
+      border: 1px solid rgba(201, 162, 39, 0.35);
+      transition: transform 0.22s ease, background-color 0.22s ease, border-color 0.22s ease;
+    }
+
+    .beat-dot[aria-current="true"]::after {
+      background: var(--brass-gold);
+      border-color: var(--brass-light);
+      transform: scale(1.38);
+      box-shadow: 0 0 10px rgba(201, 162, 39, 0.75);
+    }
+
+    .beat-dot:focus-visible {
+      outline: 2px solid var(--sea-green);
+      border-radius: 50%;
+    }
+
+    /* ==========================================================================
+       10. NO-JS & PREFERS-REDUCED-MOTION GRACEFUL STACKED FALLBACK
+       Ensures all 7 beats + clear golden mirror + end card + CTA are readable
+       without JS or motion.
+       ========================================================================== */
+    /* ==========================================================================
+       9b. SHORT-VIEWPORT COMPACT (auditor fix, 16 Nov 2026 — measured):
+       at 360x640 the end card overlapped the bottom HUD by 23px and the
+       lifted mirror nearly touched the card. Compact card + smaller mirror
+       zone restore >=20px clearance at both seams. Placed BEFORE the
+       reduced-motion block so the stacked fallback keeps its own sizes.
+       ========================================================================== */
+    @media (max-height: 700px) {
+      .mirror-zone {
+        height: 34svh;
+        min-height: 210px;
+      }
+      .end-card-zone {
+        top: 57.5%;
+      }
+      .end-card {
+        padding: 13px 16px 11px;
+        gap: 5px;
+      }
+      .end-card-headline {
+        font-size: clamp(1.1rem, 4.2vw, 1.3rem);
+      }
+      .cta-button {
+        padding: 8px 18px;
+        margin-top: 2px;
+      }
+      .end-card-footnote {
+        margin-top: 0;
+      }
+      .bottom-hud {
+        bottom: 1.4%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-track {
+        height: auto;
+        padding: 28px 16px 56px;
+      }
+
+      .stage {
+        position: relative;
+        height: auto;
+        min-height: 100svh;
+        overflow: visible;
+        padding: 24px 0;
+        gap: 24px;
+      }
+
+      .top-progress-track,
+      .bottom-hud,
+      .motes-layer {
+        display: none !important;
+      }
+
+      .eyebrow-header {
+        position: relative;
+        top: auto;
+        margin-bottom: 8px;
+      }
+
+      .mirror-zone {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none !important;
+        width: min(76vw, 290px);
+        height: 330px;
+        margin: 0 auto;
+      }
+
+      /* Show clear luminous mirror state in static mode */
+      #grime-outer,
+      #grime-smudges,
+      #grime-scratches {
+        opacity: 0 !important;
+      }
+
+      #brass-bright-overlay,
+      .bg-wall-warm {
+        opacity: 1 !important;
+      }
+
+      .caption-zone {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none !important;
+        height: auto;
+        width: min(94%, 520px);
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .beat-caption {
+        position: relative;
+        inset: auto;
+        opacity: 1 !important;
+        transform: none !important;
+        background: rgba(10, 26, 59, 0.85);
+        border: 1px solid rgba(201, 162, 39, 0.26);
+        border-radius: 16px;
+        padding: 14px 18px;
+      }
+
+      .end-card-zone {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: min(94%, 460px);
+        margin-top: 8px;
+      }
+    }
+
+    html.no-js .scroll-track {
+      height: auto;
+      padding: 28px 16px 56px;
+    }
+
+    html.no-js .stage {
+      position: relative;
+      height: auto;
+      min-height: 100svh;
+      overflow: visible;
+      padding: 24px 0;
+      gap: 24px;
+    }
+
+    html.no-js .top-progress-track,
+    html.no-js .bottom-hud,
+    html.no-js .motes-layer {
+      display: none !important;
+    }
+
+    html.no-js .eyebrow-header {
+      position: relative;
+      top: auto;
+    }
+
+    html.no-js .mirror-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: min(76vw, 290px);
+      height: 330px;
+      margin: 0 auto;
+    }
+
+    html.no-js #grime-outer,
+    html.no-js #grime-smudges,
+    html.no-js #grime-scratches {
+      opacity: 0;
+    }
+
+    html.no-js #brass-bright-overlay,
+    html.no-js .bg-wall-warm {
+      opacity: 1;
+    }
+
+    html.no-js .caption-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      height: auto;
+      width: min(94%, 520px);
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    html.no-js .beat-caption {
+      position: relative;
+      inset: auto;
+      opacity: 1;
+      transform: none;
+      background: rgba(10, 26, 59, 0.85);
+      border: 1px solid rgba(201, 162, 39, 0.26);
+      border-radius: 16px;
+      padding: 14px 18px;
+    }
+
+    html.no-js .end-card-zone {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      width: min(94%, 460px);
+    }
+  </style>
+</head>
+<body>
+
+  <main class="scroll-track" id="scroll-track" aria-label="دھندلا آئینہ سے صاف عکس تک کا سفر">
+    <section class="stage" id="stage">
+
+      <!-- ====================================================================
+           LAYER 1: BACKGROUND ARCHITECTURAL WALL & AMBIENT LIGHT POOL
+           ==================================================================== -->
+      <div class="bg-layer bg-wall-dark" id="bg-dark" aria-hidden="true"></div>
+      <div class="bg-layer bg-wall-warm" id="bg-warm" aria-hidden="true"></div>
+      <div class="bg-layer bg-grain" id="bg-grain" aria-hidden="true"></div>
+      <div class="bg-vignette" aria-hidden="true"></div>
+
+      <!-- ====================================================================
+           TOP PROGRESS BAR & BRAND EYEBROW
+           ==================================================================== -->
+      <div class="top-progress-track" aria-hidden="true">
+        <div class="top-progress-fill" id="progress-fill"></div>
+      </div>
+
+      <header class="eyebrow-header">
+        <span class="eyebrow-badge">AIDE</span>
+      </header>
+
+      <!-- ====================================================================
+           CAPTION ZONE (TOP 10.5% – 28.5%) — BEATS 0 TO 5
+           Strict non-overlapping fade windows prevent any ghost-text bleed.
+           ==================================================================== -->
+      <div class="caption-zone" aria-live="polite">
+        <!-- Beat 0 (Hook) -->
+        <article class="beat-caption is-initial" id="caption-0">
+          <span class="beat-step-tag">01 / 07</span>
+          <h1 class="beat-text">دھندلا آئینہ، دھندلی پہچان۔</h1>
+        </article>
+
+        <!-- Beat 1 -->
+        <article class="beat-caption" id="caption-1">
+          <span class="beat-step-tag">02 / 07</span>
+          <p class="beat-text">برسوں کی گرد نے اصل چہرہ چھپا دیا ہے۔</p>
+        </article>
+
+        <!-- Beat 2 -->
+        <article class="beat-caption" id="caption-2">
+          <span class="beat-step-tag">03 / 07</span>
+          <p class="beat-text">پہلی دستک: اندر جھانکنے کا حوصلہ۔</p>
+        </article>
+
+        <!-- Beat 3 -->
+        <article class="beat-caption" id="caption-3">
+          <span class="beat-step-tag">04 / 07</span>
+          <p class="beat-text">پرانے خوف اور الجھنیں ہٹنے لگتی ہیں۔</p>
+        </article>
+
+        <!-- Beat 4 -->
+        <article class="beat-caption" id="caption-4">
+          <span class="beat-step-tag">05 / 07</span>
+          <p class="beat-text">آئینہ صاف ہوتا ہے، روشنی لوٹ آتی ہے۔</p>
+        </article>
+
+        <!-- Beat 5 -->
+        <article class="beat-caption" id="caption-5">
+          <span class="beat-step-tag">06 / 07</span>
+          <p class="beat-text">اب آپ خود کو واضح دیکھ سکتے ہیں۔</p>
+        </article>
+      </div>
+
+      <!-- ====================================================================
+           LAYER 2: HERO ANTIQUE ARCHED BRASS MIRROR SVG (CENTER 33% – 71%)
+           Strictly light and soft horizon glow inside the glass — NO faces.
+           ==================================================================== -->
+      <div class="mirror-zone" id="mirror-zone" role="img" aria-label="قدیمی پیتل کا آئینہ جو دھند اور گرد صاف ہونے کے بعد سنہری روشنی اور صاف افق دکھاتا ہے">
+        <div class="mirror-halo" id="mirror-halo" aria-hidden="true"></div>
+
+        <svg class="mirror-svg" viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Tarnished Antique Brass Gradient (Base) -->
+            <linearGradient id="brassTarnished" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6B541E" />
+              <stop offset="28%" stop-color="#4A3812" />
+              <stop offset="52%" stop-color="#876B26" />
+              <stop offset="78%" stop-color="#3E2E0E" />
+              <stop offset="100%" stop-color="#5C4718" />
+            </linearGradient>
+
+            <!-- Polished Warm Gold/Brass Gradient (Crossfaded Overlay) -->
+            <linearGradient id="brassPolished" x1="12%" y1="0%" x2="88%" y2="100%">
+              <stop offset="0%" stop-color="#F6DF8E" />
+              <stop offset="24%" stop-color="#C9A227" />
+              <stop offset="50%" stop-color="#FFF0B8" />
+              <stop offset="76%" stop-color="#B88E1B" />
+              <stop offset="100%" stop-color="#E5C14B" />
+            </linearGradient>
+
+            <!-- Inner Bevel Shadow Gradient -->
+            <linearGradient id="innerBevel" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#1E1505" stop-opacity="0.88" />
+              <stop offset="50%" stop-color="#523E13" stop-opacity="0.45" />
+              <stop offset="100%" stop-color="#F2D77E" stop-opacity="0.55" />
+            </linearGradient>
+
+            <!-- Clean Luminous Glass Sky & Horizon Gradient (No faces — light & horizon only) -->
+            <linearGradient id="cleanGlassSky" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="#D9E7F6" />
+              <stop offset="38%" stop-color="#EFF6FD" />
+              <stop offset="63%" stop-color="#FFF3CC" />
+              <stop offset="74%" stop-color="#E7C356" />
+              <stop offset="86%" stop-color="#5BA899" />
+              <stop offset="100%" stop-color="#183663" />
+            </linearGradient>
+
+            <!-- Warm Golden Horizon Sun Glow -->
+            <radialGradient id="horizonGlow" cx="50%" cy="66%" r="55%">
+              <stop offset="0%" stop-color="#FFFDF5" stop-opacity="0.96" />
+              <stop offset="32%" stop-color="#F5D36C" stop-opacity="0.68" />
+              <stop offset="68%" stop-color="#3DAB94" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0" />
+            </radialGradient>
+
+            <!-- Smudge & Dust Cloud Gradients -->
+            <radialGradient id="smudgeCluster1" cx="38%" cy="35%" r="48%">
+              <stop offset="0%" stop-color="#1C2434" stop-opacity="0.92" />
+              <stop offset="55%" stop-color="#283142" stop-opacity="0.72" />
+              <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0" />
+            </radialGradient>
+
+            <radialGradient id="smudgeCluster2" cx="65%" cy="62%" r="52%">
+              <stop offset="0%" stop-color="#232B3A" stop-opacity="0.94" />
+              <stop offset="60%" stop-color="#161F30" stop-opacity="0.76" />
+              <stop offset="100%" stop-color="#0A1A3B" stop-opacity="0" />
+            </radialGradient>
+
+            <!-- Diagonal Light Sweep Gradient -->
+            <linearGradient id="lightSweepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFFDF4" stop-opacity="0" />
+              <stop offset="38%" stop-color="#FFF7D6" stop-opacity="0.18" />
+              <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.78" />
+              <stop offset="62%" stop-color="#F5D36C" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="#FFFDF4" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Glass Reflection Streak Gradient -->
+            <linearGradient id="glassReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#EFF6FD" stop-opacity="0.36" />
+              <stop offset="50%" stop-color="#EFF6FD" stop-opacity="0.08" />
+              <stop offset="100%" stop-color="#EFF6FD" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Procedural Dust Grain Filter -->
+            <filter id="mirrorDustGrain" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="14" result="noise" />
+              <feColorMatrix type="matrix" values="
+                0.35 0 0 0 0.16
+                0 0.34 0 0 0.18
+                0 0 0.32 0 0.22
+                0 0 0 0.68 0" in="noise" result="tintedDust" />
+              <feComposite in="tintedDust" in2="SourceGraphic" operator="in" />
+            </filter>
+
+            <!-- Arched Mirror Inner Glass Clip Path -->
+            <clipPath id="mirrorGlassClip">
+              <path d="M 48,158 C 48,84 98,44 160,44 C 222,44 272,84 272,158 L 272,366 C 272,374 266,380 258,380 L 62,380 C 54,380 48,374 48,366 Z" />
+            </clipPath>
+          </defs>
+
+          <!-- ================================================================
+               A. ANTIQUE ENGRAVED BRASS FRAME (TARNISHED BASE)
+               ================================================================ -->
+          <g id="brass-frame-base">
+            <!-- Outer Crown Finial Ornament -->
+            <path d="M 160,8 C 166,8 171,13 171,19 C 171,23 168,26 165,28 C 178,29 190,34 198,42 C 185,39 172,38 160,38 C 148,38 135,39 122,42 C 130,34 142,29 155,28 C 152,26 149,23 149,19 C 149,13 154,8 160,8 Z"
+                  fill="url(#brassTarnished)" stroke="#291E08" stroke-width="1.2" />
+            <circle cx="160" cy="19" r="3.5" fill="#8C6E26" />
+
+            <!-- Outer Arched Frame Body -->
+            <path d="M 28,156 C 28,70 86,24 160,24 C 234,24 292,70 292,156 L 292,378 C 292,392 281,402 267,402 L 53,402 C 39,402 28,392 28,378 Z"
+                  fill="url(#brassTarnished)" stroke="#241906" stroke-width="2" />
+
+            <!-- Engraved Inner Molding Ridge -->
+            <path d="M 36,157 C 36,76 91,32 160,32 C 229,32 284,76 284,157 L 284,373 C 284,384 276,392 265,392 L 55,392 C 44,392 36,384 36,373 Z"
+                  fill="none" stroke="#9C7C2E" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.7" />
+
+            <!-- Recessed Bevel Ring -->
+            <path d="M 43,158 C 43,81 95,39 160,39 C 225,39 277,81 277,158 L 277,369 C 277,378 270,385 261,385 L 59,385 C 50,385 43,378 43,369 Z"
+                  fill="url(#innerBevel)" />
+
+            <!-- Engraved Corner & Base Rosettes -->
+            <circle cx="48" cy="388" r="4" fill="none" stroke="#8C6E26" stroke-width="1.2" />
+            <circle cx="272" cy="388" r="4" fill="none" stroke="#8C6E26" stroke-width="1.2" />
+            <path d="M 136,393 Q 160,386 184,393 Q 160,399 136,393 Z" fill="none" stroke="#8C6E26" stroke-width="1.2" />
+          </g>
+
+          <!-- ================================================================
+               B. POLISHED BRASS OVERLAY (CROSSFADED BY OPACITY ON SCROLL)
+               ================================================================ -->
+          <g id="brass-bright-overlay" class="svg-layer-gpu" opacity="0">
+            <path d="M 160,8 C 166,8 171,13 171,19 C 171,23 168,26 165,28 C 178,29 190,34 198,42 C 185,39 172,38 160,38 C 148,38 135,39 122,42 C 130,34 142,29 155,28 C 152,26 149,23 149,19 C 149,13 154,8 160,8 Z"
+                  fill="url(#brassPolished)" />
+            <path fill-rule="evenodd"
+                  d="M 28,156 C 28,70 86,24 160,24 C 234,24 292,70 292,156 L 292,378 C 292,392 281,402 267,402 L 53,402 C 39,402 28,392 28,378 Z
+                     M 48,158 C 48,84 98,44 160,44 C 222,44 272,84 272,158 L 272,366 C 272,374 266,380 258,380 L 62,380 C 54,380 48,374 48,366 Z"
+                  fill="url(#brassPolished)" />
+            <!-- Crisp Engraved Filigree Highlight -->
+            <path d="M 36,157 C 36,76 91,32 160,32 C 229,32 284,76 284,157 L 284,373 C 284,384 276,392 265,392 L 55,392 C 44,392 36,384 36,373 Z"
+                  fill="none" stroke="#FFF4C4" stroke-width="1.4" stroke-dasharray="5 3" opacity="0.9" />
+            <!-- Metallic Rim Specular Glint -->
+            <path d="M 56,82 C 82,48 118,30 160,30 C 186,30 210,36 230,48"
+                  fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity="0.75" />
+          </g>
+
+          <!-- ================================================================
+               C. MIRROR GLASS INTERIOR (CLIPPED TO ARCHED GLASS)
+               ================================================================ -->
+          <g clip-path="url(#mirrorGlassClip)">
+            <!-- 1. Clean Golden Sky & Soft Horizon Glow (Revealed beneath dust) -->
+            <rect x="44" y="40" width="232" height="344" fill="url(#cleanGlassSky)" />
+            <ellipse cx="160" cy="256" rx="125" ry="96" fill="url(#horizonGlow)" />
+
+            <!-- Soft Distant Horizon Light Band (Strictly horizon & light, NO faces) -->
+            <line x1="48" y1="262" x2="272" y2="262" stroke="#FFFDF2" stroke-width="2.2" opacity="0.78" />
+            <path d="M 48,263 Q 110,259 160,262 T 272,261 L 272,380 L 48,380 Z"
+                  fill="#0E254D" opacity="0.34" />
+            <!-- Gentle Shimmering Light Reflection on Calm Horizon -->
+            <ellipse cx="160" cy="276" rx="48" ry="4" fill="#FFF7D6" opacity="0.55" />
+            <ellipse cx="160" cy="290" rx="30" ry="2.5" fill="#F5D36C" opacity="0.4" />
+            <ellipse cx="160" cy="304" rx="16" ry="1.8" fill="#EFF6FD" opacity="0.3" />
+
+            <!-- 2. Grime Layer A: Fine Scratches & Fog Haze (Clears in Beat 3-4) -->
+            <g id="grime-scratches" class="svg-layer-gpu" opacity="0.92">
+              <rect x="44" y="40" width="232" height="344" fill="#17243D" opacity="0.46" />
+              <g stroke="#D9E7F6" stroke-linecap="round" opacity="0.26">
+                <line x1="74" y1="112" x2="128" y2="96" stroke-width="0.9" />
+                <line x1="184" y1="144" x2="244" y2="168" stroke-width="0.8" />
+                <line x1="88" y1="234" x2="152" y2="218" stroke-width="1.1" />
+                <line x1="166" y1="306" x2="232" y2="288" stroke-width="0.8" />
+                <line x1="110" y1="168" x2="146" y2="192" stroke-width="0.7" />
+              </g>
+            </g>
+
+            <!-- 3. Grime Layer B: Smudged Grime Clouds (Clears in Beat 2-3) -->
+            <g id="grime-smudges" class="svg-layer-gpu" opacity="0.96">
+              <rect x="44" y="40" width="232" height="344" fill="#111C33" opacity="0.52" />
+              <circle cx="122" cy="148" r="96" fill="url(#smudgeCluster1)" />
+              <circle cx="204" cy="256" r="108" fill="url(#smudgeCluster2)" />
+              <ellipse cx="156" cy="336" rx="112" ry="62" fill="#141E30" opacity="0.78" />
+            </g>
+
+            <!-- 4. Grime Layer C: Heavy Outer Dust & feTurbulence Grain (Clears first in Beat 1-2) -->
+            <g id="grime-outer" class="svg-layer-gpu" opacity="1">
+              <rect x="44" y="40" width="232" height="344" fill="#141C2E" opacity="0.74" />
+              <rect x="44" y="40" width="232" height="344" fill="#8A7E66" filter="url(#mirrorDustGrain)" opacity="0.95" />
+            </g>
+
+            <!-- 5. Diagonal Light Sweep (Glides across glass during clearing) -->
+            <g id="light-sweep" class="svg-layer-gpu" opacity="0" style="transform: translate3d(-170px, -110px, 0);">
+              <polygon points="0,0 75,0 265,390 190,390" fill="url(#lightSweepGrad)" />
+            </g>
+
+            <!-- 6. Permanent Subtle Glass Reflection Streak (Surface detail) -->
+            <polygon points="62,44 114,44 218,380 166,380" fill="url(#glassReflection)" />
+            <line x1="76" y1="54" x2="152" y2="295" stroke="#EFF6FD" stroke-width="1.2" opacity="0.24" />
+          </g>
+
+          <!-- Crisp Inner Glass Frame Shadow Border -->
+          <path d="M 48,158 C 48,84 98,44 160,44 C 222,44 272,84 272,158 L 272,366 C 272,374 266,380 258,380 L 62,380 C 54,380 48,374 48,366 Z"
+                fill="none" stroke="#1E1404" stroke-width="2.4" opacity="0.85" />
+        </svg>
+      </div>
+
+      <!-- ====================================================================
+           LAYER 3: FOREGROUND ATMOSPHERIC DUST MOTES (SINGLE PARENT TRANSFORM)
+           ==================================================================== -->
+      <div class="motes-layer" id="motes-layer" aria-hidden="true">
+        <span class="mote mote--1"></span>
+        <span class="mote mote--2"></span>
+        <span class="mote mote--3"></span>
+        <span class="mote mote--4"></span>
+        <span class="mote mote--5"></span>
+        <span class="mote mote--6"></span>
+        <span class="mote mote--7"></span>
+        <span class="mote mote--8"></span>
+      </div>
+
+      <!-- ====================================================================
+           BEAT 6: END CARD (OPAQUE FROSTED PANEL BELOW LIFTED MIRROR)
+           Guaranteed >= 24px clearance below mirror bottom at 540x960.
+           ==================================================================== -->
+      <div class="end-card-zone" id="end-card-zone" aria-hidden="true">
+        <div class="end-card">
+          <h2 class="end-card-headline">مختلف دیکھنا شروع کریں۔</h2>
+          <p class="end-card-brand">
+            <span class="latin-mark">AIDE</span> &middot; عمران اسلم | لائف کوچ اور ٹرینر
+          </p>
+          <a
+            href="https://imranaslam.pk/ur/coaching.html"
+            class="cta-button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            مفت ڈسکوری کال بک کریں
+          </a>
+          <p class="end-card-footnote">پہلی گفتگو مفت ہے — 15 منٹ</p>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           BOTTOM HUD: SCROLL HINT & RTL-ORDERED CLICKABLE BEAT DOTS
+           ==================================================================== -->
+      <nav class="bottom-hud" aria-label="کہانی کے مراحل">
+        <span class="scroll-hint" id="scroll-hint">نیچے سکرول کریں</span>
+        <div class="beat-dots" role="tablist">
+          <button type="button" class="beat-dot" data-beat="0" aria-label="مرحلہ 1" aria-current="true"></button>
+          <button type="button" class="beat-dot" data-beat="1" aria-label="مرحلہ 2" aria-current="false"></button>
+          <button type="button" class="beat-dot" data-beat="2" aria-label="مرحلہ 3" aria-current="false"></button>
+          <button type="button" class="beat-dot" data-beat="3" aria-label="مرحلہ 4" aria-current="false"></button>
+          <button type="button" class="beat-dot" data-beat="4" aria-label="مرحلہ 5" aria-current="false"></button>
+          <button type="button" class="beat-dot" data-beat="5" aria-label="مرحلہ 6" aria-current="false"></button>
+          <button type="button" class="beat-dot" data-beat="6" aria-label="آخری کارڈ" aria-current="false"></button>
+        </div>
+      </nav>
+
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Respect prefers-reduced-motion: CSS handles stacked readable layout
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (prefersReducedMotion.matches) {
+        return;
+      }
+
+      // DOM Element References
+      const track = document.getElementById('scroll-track');
+      const progressFill = document.getElementById('progress-fill');
+      const bgDark = document.getElementById('bg-dark');
+      const bgWarm = document.getElementById('bg-warm');
+      const bgGrain = document.getElementById('bg-grain');
+      const mirrorZone = document.getElementById('mirror-zone');
+      const mirrorHalo = document.getElementById('mirror-halo');
+      const brassBright = document.getElementById('brass-bright-overlay');
+      const grimeOuter = document.getElementById('grime-outer');
+      const grimeSmudges = document.getElementById('grime-smudges');
+      const grimeScratches = document.getElementById('grime-scratches');
+      const lightSweep = document.getElementById('light-sweep');
+      const motesLayer = document.getElementById('motes-layer');
+      const endCardZone = document.getElementById('end-card-zone');
+      const scrollHint = document.getElementById('scroll-hint');
+      const dots = Array.from(document.querySelectorAll('.beat-dot'));
+
+      const captions = [
+        document.getElementById('caption-0'),
+        document.getElementById('caption-1'),
+        document.getElementById('caption-2'),
+        document.getElementById('caption-3'),
+        document.getElementById('caption-4'),
+        document.getElementById('caption-5')
+      ];
+
+      /* ======================================================================
+         EXPLICIT NON-OVERLAPPING OPACITY WINDOWS (ZERO GHOST-TEXT BLEED)
+         Every outgoing caption reaches 0.00 before the next rises above 0.00:
+         - Beat 0: [0.00, 0.00, 0.11, 0.135] -> dead gap 0.135..0.145
+         - Beat 1: [0.145, 0.17, 0.26, 0.285] -> dead gap 0.285..0.295
+         - Beat 2: [0.295, 0.32, 0.41, 0.435] -> dead gap 0.435..0.445
+         - Beat 3: [0.445, 0.47, 0.56, 0.585] -> dead gap 0.585..0.595
+         - Beat 4: [0.595, 0.62, 0.71, 0.735] -> dead gap 0.735..0.745
+         - Beat 5: [0.745, 0.77, 0.85, 0.875] -> dead gap 0.875..0.890
+         - Beat 6 (End Card): fades in [0.89, 0.93], holds at 1.0 through 1.00
+         ====================================================================== */
+      const CAPTION_WINDOWS = [
+        { inStart: 0.000, inEnd: 0.000, outStart: 0.110, outEnd: 0.135 },
+        { inStart: 0.145, inEnd: 0.170, outStart: 0.260, outEnd: 0.285 },
+        { inStart: 0.295, inEnd: 0.320, outStart: 0.410, outEnd: 0.435 },
+        { inStart: 0.445, inEnd: 0.470, outStart: 0.560, outEnd: 0.585 },
+        { inStart: 0.595, inEnd: 0.620, outStart: 0.710, outEnd: 0.735 },
+        { inStart: 0.745, inEnd: 0.770, outStart: 0.850, outEnd: 0.875 }
+      ];
+
+      // Beat target scroll anchors for clickable RTL navigation dots
+      const BEAT_ANCHORS = [0.00, 0.21, 0.36, 0.51, 0.66, 0.81, 0.96];
+
+      // Math Helpers
+      function clamp(val, min, max) {
+        return val < min ? min : (val > max ? max : val);
+      }
+
+      function remap(val, inMin, inMax, outMin, outMax) {
+        if (inMax === inMin) return val >= inMax ? outMax : outMin;
+        const t = clamp((val - inMin) / (inMax - inMin), 0, 1);
+        return outMin + t * (outMax - outMin);
+      }
+
+      function smoothstep(edge0, edge1, x) {
+        const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
+        return t * t * (3 - 2 * t);
+      }
+
+      function windowOpacity(p, win) {
+        if (p < win.inStart || p > win.outEnd) return 0;
+        if (win.inEnd > win.inStart && p < win.inEnd) {
+          return smoothstep(win.inStart, win.inEnd, p);
+        }
+        if (p > win.outStart) {
+          return 1 - smoothstep(win.outStart, win.outEnd, p);
+        }
+        return 1;
+      }
+
+      // Scroll state & battery-safe damped rAF loop
+      let targetProgress = 0;
+      let currentProgress = 0;
+      let rafId = null;
+      let activeDotIndex = 0;
+      let isEndCardInteractive = false;
+
+      function computeScrollProgress() {
+        const rect = track.getBoundingClientRect();
+        const scrollableDistance = rect.height - window.innerHeight;
+        if (scrollableDistance <= 0) return 0;
+        return clamp(-rect.top / scrollableDistance, 0, 1);
+      }
+
+      // Render strictly using GPU-composited transform and opacity
+      function render(p) {
+        // 1. RTL-aware top progress bar
+        progressFill.style.transform = `scaleX(${p.toFixed(5)})`;
+
+        // 2. Scroll hint fades out early
+        const hintOpacity = 1 - smoothstep(0.01, 0.08, p);
+        scrollHint.style.opacity = hintOpacity.toFixed(3);
+        scrollHint.style.transform = `translate3d(0, ${(1 - hintOpacity) * -6}px, 0)`;
+
+        // 3. Depth Layer 1: Background wall parallax & warm light pool crossfade
+        const wallParallaxY = remap(p, 0, 1, 0, -28);
+        bgDark.style.transform = `translate3d(0, ${wallParallaxY.toFixed(2)}px, 0)`;
+        bgWarm.style.transform = `translate3d(0, ${(wallParallaxY * 1.15).toFixed(2)}px, 0)`;
+        bgGrain.style.transform = `translate3d(0, ${(wallParallaxY * 0.7).toFixed(2)}px, 0)`;
+
+        const warmGlowOpacity = smoothstep(0.45, 0.84, p);
+        bgWarm.style.opacity = warmGlowOpacity.toFixed(4);
+
+        // 4. Staggered Grime Dissipation inside the Mirror Glass
+        // Layer C (Outer dust grain): fades out 0.14 -> 0.42
+        const outerDustOp = 1 - smoothstep(0.14, 0.42, p);
+        grimeOuter.style.opacity = outerDustOp.toFixed(4);
+
+        // Layer B (Smudged grime clouds): fades out 0.30 -> 0.60
+        const smudgesOp = (1 - smoothstep(0.30, 0.60, p)) * 0.96;
+        grimeSmudges.style.opacity = smudgesOp.toFixed(4);
+
+        // Layer A (Fine scratches & fog): fades out 0.48 -> 0.76
+        const scratchesOp = (1 - smoothstep(0.48, 0.76, p)) * 0.92;
+        grimeScratches.style.opacity = scratchesOp.toFixed(4);
+
+        // 5. Diagonal Golden Light Sweep (Beats 2 to 4: p = 0.28 -> 0.74)
+        const sweepT = clamp((p - 0.28) / (0.74 - 0.28), 0, 1);
+        const sweepX = remap(sweepT, 0, 1, -180, 240);
+        const sweepY = remap(sweepT, 0, 1, -110, 130);
+        const sweepOp = sweepT > 0 && sweepT < 1 ? Math.sin(sweepT * Math.PI) * 0.85 : 0;
+        lightSweep.style.transform = `translate3d(${sweepX.toFixed(1)}px, ${sweepY.toFixed(1)}px, 0)`;
+        lightSweep.style.opacity = sweepOp.toFixed(4);
+
+        // 6. Antique Brass Frame Brightening via Opacity Overlay + Halo
+        const brassPolishedOp = smoothstep(0.42, 0.82, p);
+        brassBright.style.opacity = brassPolishedOp.toFixed(4);
+        mirrorHalo.style.opacity = (0.12 + brassPolishedOp * 0.68).toFixed(4);
+
+        // 7. Depth Layer 2 & End Card Transition (Beat 6: p = 0.86 -> 0.94)
+        // Mirror shrinks to scale 0.84 and lifts -13% so bottom sits ~518px at 540x960,
+        // leaving >= 38px clean clearance above the End Card at top 57.5% (~552px).
+        const endT = smoothstep(0.86, 0.94, p);
+        const mirrorParallaxY = remap(p, 0, 0.86, 0, -10);
+        const mirrorLiftPercent = endT * -13.5;
+        const mirrorScale = 1 - endT * 0.16; // 1.00 -> 0.84
+        mirrorZone.style.transform = `translate3d(-50%, calc(${mirrorParallaxY.toFixed(2)}px + ${mirrorLiftPercent.toFixed(2)}%), 0) scale(${mirrorScale.toFixed(4)})`;
+
+        // 8. Depth Layer 3: Foreground Dust Motes (Single parent transform)
+        const motesY = remap(p, 0, 1, 18, -56);
+        const motesX = Math.sin(p * Math.PI * 2) * 8;
+        const motesOp = 0.22 + smoothstep(0.25, 0.78, p) * 0.68;
+        motesLayer.style.transform = `translate3d(${motesX.toFixed(2)}px, ${motesY.toFixed(2)}px, 0)`;
+        motesLayer.style.opacity = motesOp.toFixed(4);
+
+        // 9. Captions (Beats 0–5) with strict non-overlapping opacity windows
+        for (let i = 0; i < captions.length; i++) {
+          const cap = captions[i];
+          const win = CAPTION_WINDOWS[i];
+          const op = windowOpacity(p, win);
+          cap.style.opacity = op.toFixed(4);
+          if (op > 0) {
+            const slideY = (1 - op) * 10;
+            cap.style.transform = `translate3d(0, ${slideY.toFixed(2)}px, 0)`;
+          }
+        }
+
+        // 10. End Card (Beat 6: fades in 0.89 -> 0.93)
+        const cardOp = smoothstep(0.89, 0.93, p);
+        const cardSlideY = (1 - cardOp) * 24;
+        endCardZone.style.opacity = cardOp.toFixed(4);
+        endCardZone.style.transform = `translate3d(-50%, ${cardSlideY.toFixed(2)}px, 0)`;
+
+        const shouldBeInteractive = cardOp > 0.65;
+        if (shouldBeInteractive !== isEndCardInteractive) {
+          isEndCardInteractive = shouldBeInteractive;
+          endCardZone.classList.toggle('is-interactive', shouldBeInteractive);
+          endCardZone.setAttribute('aria-hidden', String(!shouldBeInteractive));
+        }
+
+        // 11. Active Navigation Dot Indicator
+        let nearestDot = 0;
+        if (p >= 0.885) nearestDot = 6;
+        else if (p >= 0.74) nearestDot = 5;
+        else if (p >= 0.59) nearestDot = 4;
+        else if (p >= 0.44) nearestDot = 3;
+        else if (p >= 0.29) nearestDot = 2;
+        else if (p >= 0.14) nearestDot = 1;
+
+        if (nearestDot !== activeDotIndex) {
+          dots[activeDotIndex].setAttribute('aria-current', 'false');
+          dots[nearestDot].setAttribute('aria-current', 'true');
+          activeDotIndex = nearestDot;
+        }
+      }
+
+      // Battery-friendly damped rAF tick that halts completely once settled
+      function tick() {
+        const diff = targetProgress - currentProgress;
+        if (Math.abs(diff) < 0.0002) {
+          currentProgress = targetProgress;
+          render(currentProgress);
+          rafId = null;
+          return;
+        }
+        currentProgress += diff * 0.14;
+        render(currentProgress);
+        rafId = requestAnimationFrame(tick);
+      }
+
+      function scheduleRender() {
+        targetProgress = computeScrollProgress();
+        if (rafId === null) {
+          rafId = requestAnimationFrame(tick);
+        }
+      }
+
+      // Clickable RTL beat dots for direct beat navigation
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const beatIdx = Number(dot.getAttribute('data-beat'));
+          const anchor = BEAT_ANCHORS[beatIdx] || 0;
+          const scrollableDistance = track.offsetHeight - window.innerHeight;
+          const targetScrollY = track.offsetTop + anchor * scrollableDistance;
+          window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+        });
+      });
+
+      // Native passive scroll & resize listeners
+      window.addEventListener('scroll', scheduleRender, { passive: true });
+      window.addEventListener('resize', scheduleRender, { passive: true });
+
+      // Initial synchronous render on load
+      targetProgress = computeScrollProgress();
+      currentProgress = targetProgress;
+      render(currentProgress);
+    })();
+  </script>
+</body>
+</html>
