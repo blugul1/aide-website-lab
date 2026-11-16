@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A1A3B">
+<title>Strong Homes | AIDE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:#0A1A3B;
+  --green:#3DAB94;
+  --glass:#EFF6FD;
+  --glass-dark:#D9E7F6;
+  --gold:#C9A227;
+  --terracotta:#BD7958;
+  --warm:#F4C98B;
+  --ink:#172B48;
+  --progress:0;
+  --hero-scale:1;
+  --hero-lift:0px;
+}
+
+* { box-sizing:border-box; }
+
+html {
+  margin:0;
+  background:var(--navy);
+  scroll-behavior:auto;
+}
+
+body {
+  margin:0;
+  color:white;
+  background:var(--navy);
+  font-family:"Noto Nastaliq Urdu",serif;
+  overflow-x:hidden;
+}
+
+button, a { -webkit-tap-highlight-color:transparent; }
+
+.track {
+  height:700vh;
+  position:relative;
+}
+
+.stage {
+  position:sticky;
+  top:0;
+  height:100svh;
+  min-height:540px;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 50% 48%,#263D5A 0%,#152A48 45%,#09172F 100%);
+}
+
+.stage::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(ellipse at 50% 46%,rgba(91,123,157,.18),transparent 54%),
+    linear-gradient(160deg,#152B4B,#09162E 80%);
+}
+
+.stage::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:10;
+  pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(5,13,30,.12),transparent 22%,transparent 76%,rgba(5,13,30,.4)),
+    radial-gradient(ellipse at center,transparent 50%,rgba(2,9,22,.32) 100%);
+}
+
+/* Background depth */
+
+.atmosphere {
+  position:absolute;
+  inset:-12%;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse at 50% 50%,
+      rgba(88,117,147,.13),transparent 55%),
+    radial-gradient(ellipse at 10% 80%,
+      rgba(61,171,148,.07),transparent 45%);
+  transform:translate3d(0,calc(var(--p,0) * -24px),0);
+}
+
+.backlight {
+  position:absolute;
+  width:90vw;
+  height:65vw;
+  max-height:650px;
+  max-width:800px;
+  top:25%;
+  left:50%;
+  border-radius:50%;
+  transform:translateX(-50%) scale(calc(.8 + var(--warm-state,0) * .45));
+  background:radial-gradient(ellipse,
+    rgba(232,167,105,.16),
+    rgba(203,140,96,.045) 42%,
+    transparent 72%);
+  filter:blur(30px);
+  opacity:var(--warm-state,0);
+  pointer-events:none;
+}
+
+.ambient-lines {
+  position:absolute;
+  inset:0;
+  opacity:.14;
+  background-image:
+    linear-gradient(rgba(206,224,241,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(206,224,241,.035) 1px,transparent 1px);
+  background-size:48px 48px;
+  transform:translate3d(0,calc(var(--p,0) * 14px),0);
+}
+
+/* Header */
+
+.lab-tag {
+  position:absolute;
+  z-index:15;
+  top:calc(15px + env(safe-area-inset-top));
+  left:17px;
+  font-family:Montserrat,sans-serif;
+  font-size:9px;
+  letter-spacing:1.4px;
+  color:rgba(222,235,248,.55);
+  border:1px solid rgba(210,228,245,.22);
+  border-radius:20px;
+  padding:7px 11px;
+  background:rgba(8,23,48,.3);
+  direction:rtl;
+}
+
+/* Captions */
+
+.captions {
+  position:absolute;
+  z-index:12;
+  top:10.5%;
+  left:6%;
+  right:6%;
+  height:19%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+
+.caption {
+  position:absolute;
+  width:100%;
+  text-align:center;
+  opacity:0;
+  transform:translateY(8px);
+  will-change:opacity,transform;
+  transition:none;
+}
+
+.caption-tag {
+  display:block;
+  direction:ltr;
+  font-family:Montserrat,sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--green);
+  margin-bottom:9px;
+  font-weight:600;
+}
+
+.caption h2 {
+  font-size:clamp(20px,5.4vw,31px);
+  line-height:2.05;
+  font-weight:400;
+  color:#EFF6FD;
+  margin:0 auto;
+  max-width:490px;
+  text-wrap:balance;
+  text-shadow:0 2px 24px rgba(0,0,0,.25);
+}
+
+/* Architectural model */
+
+.hero {
+  position:absolute;
+  z-index:5;
+  top:32%;
+  left:50%;
+  width:min(92vw,540px);
+  height:38%;
+  max-height:420px;
+  transform:
+    translate3d(-50%,calc(var(--hero-lift,0px) * -1),0)
+    scale(var(--hero-scale,1));
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+
+.house-svg {
+  width:100%;
+  height:100%;
+  overflow:visible;
+  filter:
+    drop-shadow(0 30px 28px rgba(0,0,0,.38))
+    drop-shadow(0 8px 12px rgba(0,0,0,.25));
+}
+
+.model-shadow {
+  filter:blur(12px);
+  opacity:.7;
+}
+
+.wall {
+  fill:url(#plaster);
+  stroke:#A9B8C9;
+  stroke-opacity:.32;
+  stroke-width:1.3;
+}
+
+.wall-side {
+  fill:url(#sidePlaster);
+  stroke:#8B9BAF;
+  stroke-opacity:.35;
+  stroke-width:1.2;
+}
+
+.floor {
+  fill:url(#floorTexture);
+  stroke:#C4CFD9;
+  stroke-opacity:.27;
+  stroke-width:1.3;
+}
+
+.floor-edge {
+  fill:#52647A;
+  stroke:#91A1B2;
+  stroke-opacity:.5;
+}
+
+.room-shadow {
+  fill:#0C1A30;
+  opacity:.85;
+}
+
+.plaster-detail {
+  fill:none;
+  stroke:#D6DDE4;
+  stroke-width:.7;
+  opacity:.32;
+}
+
+.wood {
+  fill:url(#woodTexture);
+  stroke:#886344;
+  stroke-width:1.5;
+}
+
+.wood-line {
+  fill:none;
+  stroke:#D4AA76;
+  opacity:.42;
+  stroke-width:.8;
+}
+
+.crack {
+  fill:none;
+  stroke:#192B43;
+  stroke-width:3.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:url(#crackShadow);
+}
+
+.crack-thin {
+  fill:none;
+  stroke:#26374A;
+  stroke-width:1.2;
+  opacity:.8;
+}
+
+.repaired {
+  fill:none;
+  stroke:#C5B6A1;
+  stroke-width:4.4;
+  stroke-linecap:round;
+}
+
+.repair-highlight {
+  fill:none;
+  stroke:#E7D9C5;
+  stroke-width:1.4;
+  stroke-linecap:round;
+}
+
+.window {
+  fill:#142C4B;
+  stroke:#91A8BF;
+  stroke-width:2;
+}
+
+.window-glow {
+  fill:#E7B77D;
+  opacity:.8;
+  filter:url(#glow);
+}
+
+.door-closed {
+  transform-box:fill-box;
+  transform-origin:left center;
+}
+
+.door-open {
+  transform-box:fill-box;
+  transform-origin:left center;
+}
+
+.light-beam {
+  fill:url(#sunbeam);
+  filter:url(#beamBlur);
+}
+
+.warm-floor {
+  fill:#E3A66D;
+  opacity:.15;
+  filter:url(#glow);
+}
+
+.connection-light {
+  fill:none;
+  stroke:#F3C78D;
+  stroke-width:5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  filter:url(#glow);
+}
+
+.connection-core {
+  fill:none;
+  stroke:#FFF0CB;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Parallax foreground details */
+
+.dust {
+  position:absolute;
+  inset:0;
+  z-index:7;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle at 14% 36%,rgba(247,213,172,.8) 0 1px,transparent 1.8px),
+    radial-gradient(circle at 77% 43%,rgba(230,215,185,.6) 0 1px,transparent 2px),
+    radial-gradient(circle at 34% 63%,rgba(245,210,169,.5) 0 1px,transparent 2px),
+    radial-gradient(circle at 87% 74%,rgba(235,208,173,.5) 0 1px,transparent 2px),
+    radial-gradient(circle at 22% 80%,rgba(225,215,195,.5) 0 1px,transparent 2px);
+  transform:translate3d(0,calc(var(--p,0) * -40px),0);
+  opacity:.65;
+}
+
+.foreground-glow {
+  position:absolute;
+  z-index:6;
+  left:50%;
+  top:46%;
+  width:100%;
+  height:28%;
+  transform:translate(-50%,calc(var(--p,0) * 20px));
+  background:radial-gradient(ellipse,rgba(221,157,102,.09),transparent 65%);
+  opacity:var(--warm-state,0);
+  pointer-events:none;
+}
+
+/* End card */
+
+.end-card {
+  position:absolute;
+  z-index:13;
+  top:55%;
+  left:5%;
+  right:5%;
+  height:36%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  opacity:0;
+  transform:translateY(14px);
+  pointer-events:none;
+  will-change:opacity,transform;
+}
+
+.end-card h1 {
+  font-size:clamp(19px,5.2vw,29px);
+  font-weight:700;
+  line-height:2;
+  color:#FFF2D9;
+  max-width:490px;
+  margin:0 0 8px;
+  text-wrap:balance;
+  text-shadow:0 3px 22px rgba(0,0,0,.32);
+}
+
+.brand-line {
+  font-size:clamp(12px,3vw,15px);
+  color:#D9E7F6;
+  margin-bottom:12px;
+  line-height:2;
+}
+
+.brand-line strong {
+  font-family:Montserrat,sans-serif;
+  font-size:12px;
+  letter-spacing:1px;
+  color:var(--green);
+  direction:ltr;
+  display:inline-block;
+}
+
+.cta {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:155px;
+  min-height:44px;
+  padding:5px 23px;
+  border-radius:3px;
+  color:#17263C;
+  background:linear-gradient(135deg,#F2D5A2,#D4A75F);
+  border:1px solid rgba(255,235,191,.65);
+  font-size:15px;
+  text-decoration:none;
+  font-weight:700;
+  box-shadow:0 8px 28px rgba(206,148,82,.2);
+  pointer-events:auto;
+  transition:transform .2s,box-shadow .2s;
+}
+
+.cta:active {
+  transform:scale(.97);
+}
+
+.tiny-line {
+  font-size:10px;
+  color:rgba(235,225,209,.75);
+  margin-top:9px;
+  line-height:2;
+  text-wrap:balance;
+}
+
+/* Bottom navigation */
+
+.navigation {
+  position:absolute;
+  z-index:20;
+  bottom:calc(22px + env(safe-area-inset-bottom));
+  left:0;
+  right:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.progress-track {
+  height:2px;
+  width:70%;
+  max-width:350px;
+  background:rgba(216,230,245,.19);
+  overflow:hidden;
+  border-radius:4px;
+}
+
+.progress-fill {
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,var(--green),#C9A227);
+  transform:scaleX(var(--progress,0));
+  transform-origin:right center;
+}
+
+.dots {
+  display:flex;
+  direction:rtl;
+  justify-content:center;
+  align-items:center;
+  gap:13px;
+}
+
+.dot {
+  border:0;
+  padding:0;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(218,232,246,.3);
+  cursor:pointer;
+  position:relative;
+  transition:background .2s;
+}
+
+.dot::before {
+  content:"";
+  position:absolute;
+  inset:-9px;
+}
+
+.dot.active {
+  background:var(--gold);
+  box-shadow:0 0 10px rgba(201,162,39,.4);
+}
+
+.dot:focus-visible,
+.cta:focus-visible {
+  outline:2px solid var(--green);
+  outline-offset:5px;
+}
+
+/* Static fallback */
+
+.fallback {
+  display:none;
+}
+
+@media(max-height:700px) {
+  .stage {
+    min-height:0;
+  }
+
+  .lab-tag {
+    top:9px;
+  }
+
+  .captions {
+    top:8%;
+    height:19%;
+  }
+
+  .caption h2 {
+    font-size:clamp(18px,5vw,25px);
+    line-height:1.9;
+  }
+
+  .hero {
+    top:31%;
+    height:38%;
+    width:min(88vw,480px);
+  }
+
+  .end-card {
+    top:55%;
+    height:35%;
+  }
+
+  .end-card h1 {
+    font-size:clamp(17px,4.7vw,24px);
+    line-height:1.85;
+    margin-bottom:3px;
+  }
+
+  .brand-line {
+    margin-bottom:5px;
+    font-size:11px;
+  }
+
+  .cta {
+    min-height:38px;
+    font-size:13px;
+  }
+
+  .tiny-line {
+    margin-top:4px;
+    font-size:9px;
+  }
+
+  .navigation {
+    bottom:calc(10px + env(safe-area-inset-bottom));
+    gap:9px;
+  }
+}
+
+/* Reduced motion: readable stacked experience */
+
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+
+  .track {
+    height:auto;
+  }
+
+  .stage {
+    position:relative;
+    height:auto;
+    min-height:0;
+    overflow:visible;
+    padding:75px 0 35px;
+  }
+
+  .stage::after,
+  .ambient-lines,
+  .atmosphere,
+  .backlight,
+  .dust,
+  .foreground-glow,
+  .navigation {
+    display:none;
+  }
+
+  .lab-tag {
+    top:15px;
+  }
+
+  .captions {
+    position:relative;
+    inset:auto;
+    height:auto;
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+    padding:15px 8%;
+  }
+
+  .caption {
+    position:relative;
+    inset:auto;
+    opacity:1 !important;
+    transform:none !important;
+    margin:0;
+  }
+
+  .caption h2 {
+    font-size:22px;
+  }
+
+  .hero {
+    position:relative;
+    inset:auto;
+    width:min(90vw,500px);
+    height:auto;
+    aspect-ratio:600/440;
+    margin:20px auto;
+    transform:none !important;
+  }
+
+  .end-card {
+    position:relative;
+    inset:auto;
+    height:auto;
+    opacity:1 !important;
+    transform:none !important;
+    padding:30px 8%;
+    pointer-events:auto;
+  }
+}
+
+/* No-JavaScript fallback */
+
+.no-js .track {
+  height:auto;
+}
+
+.no-js .stage {
+  position:relative;
+  height:auto;
+  min-height:0;
+  overflow:visible;
+  padding:70px 0 35px;
+}
+
+.no-js .ambient-lines,
+.no-js .dust,
+.no-js .foreground-glow,
+.no-js .navigation {
+  display:none;
+}
+
+.no-js .captions {
+  position:relative;
+  inset:auto;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  padding:15px 8%;
+}
+
+.no-js .caption {
+  position:relative;
+  opacity:1;
+  transform:none;
+}
+
+.no-js .hero {
+  position:relative;
+  inset:auto;
+  width:min(90vw,500px);
+  height:auto;
+  aspect-ratio:600/440;
+  margin:20px auto;
+  transform:none;
+}
+
+.no-js .end-card {
+  position:relative;
+  inset:auto;
+  height:auto;
+  opacity:1;
+  transform:none;
+  padding:30px 8%;
+  pointer-events:auto;
+}
+
+@media(max-width:380px) {
+  .caption h2 { font-size:20px; }
+  .dots { gap:11px; }
+  .hero { width:92vw; }
+}
+</style>
+</head>
+
+<body class="no-js">
+
+<div class="track" id="track">
+  <main class="stage" id="stage">
+
+    <div class="atmosphere"></div>
+    <div class="ambient-lines"></div>
+    <div class="backlight"></div>
+
+    <div class="lab-tag">تصوراتی خاکہ — لیب</div>
+
+    <!-- Six non-overlapping narrative captions -->
+
+    <section class="captions" aria-label="گھر کی کہانی">
+
+      <article class="caption" data-beat="0">
+        <span class="caption-tag">01 / 07</span>
+        <h2>گھر میں خاموش فاصلے بڑھنے لگتے ہیں۔</h2>
+      </article>
+
+      <article class="caption" data-beat="1">
+        <span class="caption-tag">02 / 07</span>
+        <h2>باتیں دل تک نہیں پہنچتیں۔</h2>
+      </article>
+
+      <article class="caption" data-beat="2">
+        <span class="caption-tag">03 / 07</span>
+        <h2>ایک دراڑ کی مرمت شروع ہوتی ہے۔</h2>
+      </article>
+
+      <article class="caption" data-beat="3">
+        <span class="caption-tag">04 / 07</span>
+        <h2>گفتگو کے راستے کھلنے لگتے ہیں۔</h2>
+      </article>
+
+      <article class="caption" data-beat="4">
+        <span class="caption-tag">05 / 07</span>
+        <h2>گھر کے حصے ایک دوسرے سے جڑتے ہیں۔</h2>
+      </article>
+
+      <article class="caption" data-beat="5">
+        <span class="caption-tag">06 / 07</span>
+        <h2>گھر میں اعتماد کی فضا بنتی ہے۔</h2>
+      </article>
+
+    </section>
+
+    <!-- SAME HOUSE throughout the experience -->
+
+    <div class="hero" id="hero">
+
+      <svg class="house-svg"
+           viewBox="0 0 600 440"
+           xmlns="http://www.w3.org/2000/svg"
+           role="img"
+           aria-label="ایک روایتی گھر کا تین جہتی تصوراتی ماڈل">
+
+        <defs>
+
+          <!-- Architectural surface textures -->
+
+          <linearGradient id="plaster" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#D8D8D0"/>
+            <stop offset=".42" stop-color="#B7BFC3"/>
+            <stop offset="1" stop-color="#8799AC"/>
+          </linearGradient>
+
+          <linearGradient id="sidePlaster" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8796A6"/>
+            <stop offset="1" stop-color="#50647D"/>
+          </linearGradient>
+
+          <linearGradient id="floorTexture" x1="0" y1="0" x2=".9" y2="1">
+            <stop offset="0" stop-color="#8C9DAF"/>
+            <stop offset=".5" stop-color="#637991"/>
+            <stop offset="1" stop-color="#354D68"/>
+          </linearGradient>
+
+          <linearGradient id="woodTexture" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#A87C55"/>
+            <stop offset=".35" stop-color="#684A36"/>
+            <stop offset=".7" stop-color="#98704D"/>
+            <stop offset="1" stop-color="#49372C"/>
+          </linearGradient>
+
+          <pattern id="plasterGrain"
+                   width="36" height="32"
+                   patternUnits="userSpaceOnUse">
+            <path d="M3 8l4-1m10 14l5-2m7-13l3 1M8 28l3-1"
+                  stroke="#F2F1E9" stroke-width=".8" opacity=".45"/>
+            <circle cx="17" cy="6" r=".8" fill="#68788A" opacity=".3"/>
+            <circle cx="29" cy="26" r=".7" fill="#68788A" opacity=".3"/>
+            <path d="M1 19l3-2m22-9l2 1"
+                  stroke="#66798B" stroke-width=".6" opacity=".3"/>
+          </pattern>
+
+          <pattern id="floorGrain"
+                   width="28" height="22"
+                   patternUnits="userSpaceOnUse">
+            <path d="M0 5h28M0 15h28"
+                  stroke="#D7DFE7" stroke-width=".5" opacity=".17"/>
+            <path d="M5 0l4 22m14-22l-3 22"
+                  stroke="#142C48" stroke-width=".5" opacity=".12"/>
+          </pattern>
+
+          <pattern id="woodGrain"
+                   width="26" height="60"
+                   patternUnits="userSpaceOnUse">
+            <path d="M5 0c-3 17 4 29 0 60M14 0c3 18-3 39 2 60M22 0c-2 20 2 38 0 60"
+                  stroke="#D7B18B" stroke-width=".9" opacity=".35"/>
+          </pattern>
+
+          <filter id="crackShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+
+          <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="7"/>
+          </filter>
+
+          <filter id="beamBlur" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.5"/>
+          </filter>
+
+          <linearGradient id="sunbeam" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFE4B5" stop-opacity=".8"/>
+            <stop offset="1" stop-color="#E3A66D" stop-opacity="0"/>
+          </linearGradient>
+
+          <radialGradient id="windowLight">
+            <stop offset="0" stop-color="#FFE7BD"/>
+            <stop offset="1" stop-color="#D69A63" stop-opacity=".3"/>
+          </radialGradient>
+
+        </defs>
+
+        <!-- Ground shadow -->
+
+        <ellipse class="model-shadow"
+                 cx="300" cy="390" rx="246" ry="25"
+                 fill="#000"/>
+
+        <!-- House foundation -->
+
+        <path d="M62 180L300 54L540 181L300 320Z"
+              fill="#273E57" stroke="#8295A9" stroke-width="2"/>
+
+        <!-- Rear left wall -->
+
+        <path class="wall"
+              d="M90 169L300 60L300 284L90 177Z"/>
+
+        <!-- Rear right wall -->
+
+        <path class="wall-side"
+              d="M300 60L518 174L518 290L300 284Z"/>
+
+        <!-- Plaster surface grain -->
+
+        <path d="M90 169L300 60L300 284L90 177Z"
+              fill="url(#plasterGrain)" opacity=".6"/>
+
+        <path d="M300 60L518 174L518 290L300 284Z"
+              fill="url(#plasterGrain)" opacity=".28"/>
+
+        <!-- Internal dark rooms -->
+
+        <path class="room-shadow"
+              d="M112 173L300 80L300 262L112 176Z"/>
+
+        <path class="room-shadow"
+              d="M300 80L496 180L496 268L300 262Z"/>
+
+        <!-- Rear floor -->
+
+        <path class="floor"
+              d="M90 177L300 284L518 290L300 172Z"
+              opacity=".15"/>
+
+        <path d="M90 177L300 284L518 290L300 172Z"
+              fill="url(#floorGrain)" opacity=".3"/>
+
+        <!-- Left room details -->
+
+        <path d="M126 183L195 147L195 214L126 247Z"
+              fill="#172D47" stroke="#A7B7C8" stroke-opacity=".4"/>
+
+        <path class="window"
+              d="M139 177L180 155L180 194L139 216Z"/>
+
+        <path class="window-glow"
+              d="M144 180L175 164L175 190L144 206Z"/>
+
+        <path d="M160 168L160 205M139 197L180 178"
+              stroke="#A8BACD" stroke-width="1.5" opacity=".65"/>
+
+        <!-- Right room window -->
+
+        <path class="window"
+              d="M415 163L466 190L466 231L415 205Z"/>
+
+        <path class="window-glow"
+              d="M420 169L461 190L461 222L420 202Z"/>
+
+        <path d="M441 180L441 213M420 186L461 207"
+              stroke="#A8BACD" stroke-width="1.4" opacity=".7"/>
+
+        <!-- Interior walls / partitions -->
+
+        <path d="M235 118L235 250L248 257L248 111Z"
+              fill="#AAB5BE" stroke="#E0E4E5" stroke-opacity=".25"/>
+
+        <path d="M364 113L364 251L378 244L378 120Z"
+              fill="#8798A8" stroke="#CFD6DD" stroke-opacity=".3"/>
+
+        <path d="M300 135L300 275"
+              stroke="#A5B4C2" stroke-width="2" opacity=".25"/>
+
+        <!-- Original closed wooden doors -->
+
+        <g id="closedDoors">
+          <g class="door-closed">
+            <path class="wood" d="M239 178L280 157L280 245L239 265Z"/>
+            <path d="M239 178L280 157L280 245L239 265Z"
+                  fill="url(#woodGrain)"/>
+            <path class="wood-line" d="M247 179L247 260M271 166L271 250"/>
+            <circle cx="273" cy="207" r="2.5" fill="#D5AF71"/>
+          </g>
+
+          <g>
+            <path class="wood" d="M376 175L411 192L411 273L376 256Z"/>
+            <path d="M376 175L411 192L411 273L376 256Z"
+                  fill="url(#woodGrain)"/>
+            <path class="wood-line" d="M384 181L384 260M403 190L403 268"/>
+            <circle cx="384" cy="222" r="2.5" fill="#D5AF71"/>
+          </g>
+        </g>
+
+        <!-- Open door state, matched cross-dissolve -->
+
+        <g id="openDoors" opacity="0">
+          <path d="M239 178L260 168L260 254L239 265Z"
+                fill="#B9A184" opacity=".3"/>
+          <path class="wood"
+                d="M239 178L219 165L219 248L239 265Z"/>
+          <path d="M239 178L219 165L219 248L239 265Z"
+                fill="url(#woodGrain)"/>
+          <path class="wood-line" d="M226 170L226 253"/>
+          <circle cx="235" cy="218" r="2" fill="#E7C58D"/>
+
+          <path class="wood"
+                d="M376 175L395 164L395 249L376 256Z"/>
+          <path d="M376 175L395 164L395 249L376 256Z"
+                fill="url(#woodGrain)"/>
+          <path class="wood-line" d="M389 168L389 247"/>
+        </g>
+
+        <!-- Initial wall cracks -->
+
+        <g id="cracks">
+          <path class="crack"
+                d="M125 111L139 126L133 141L150 153L144 171"/>
+          <path class="crack-thin"
+                d="M139 126L119 132L113 143"/>
+
+          <path class="crack"
+                d="M440 115L429 133L442 148L430 166L442 183"/>
+          <path class="crack-thin"
+                d="M430 133L412 136L406 147"/>
+
+          <path class="crack"
+                d="M315 79L308 96L319 109L311 124"/>
+        </g>
+
+        <!-- Repaired cracks, same coordinates -->
+
+        <g id="repairedCracks" opacity="0">
+          <path class="repaired"
+                d="M125 111L139 126L133 141L150 153L144 171"/>
+          <path class="repair-highlight"
+                d="M125 111L139 126L133 141L150 153L144 171"/>
+
+          <path class="repaired"
+                d="M440 115L429 133L442 148L430 166L442 183"/>
+          <path class="repair-highlight"
+                d="M440 115L429 133L442 148L430 166L442 183"/>
+
+          <path class="repaired"
+                d="M315 79L308 96L319 109L311 124"/>
+          <path class="repair-highlight"
+                d="M315 79L308 96L319 109L311 124"/>
+        </g>
+
+        <!-- Warm light entering from courtyard -->
+
+        <g id="sunlight" opacity="0">
+          <path class="light-beam"
+                d="M300 30L405 105L443 242L315 279Z"/>
+          <path class="light-beam"
+                d="M480 90L518 165L518 280L449 241Z"/>
+
+          <ellipse cx="342" cy="235" rx="85" ry="36"
+                   fill="url(#windowLight)" filter="url(#glow)"/>
+
+          <path class="warm-floor"
+                d="M300 284L408 225L485 270L390 326Z"/>
+        </g>
+
+        <!-- Shared floor / courtyard -->
+
+        <path class="floor"
+              d="M62 180L300 320L540 181L540 315L300 420L62 315Z"/>
+
+        <path class="floor-edge"
+              d="M62 315L300 420L300 438L62 331Z"/>
+
+        <path class="floor-edge"
+              d="M300 420L540 315L540 331L300 438Z"/>
+
+        <path d="M62 180L300 320L540 181L540 315L300 420L62 315Z"
+              fill="url(#floorGrain)" opacity=".7"/>
+
+        <!-- Floor geometry -->
+
+        <path d="M300 320L300 420M180 250L180 368M420 250L420 368"
+              fill="none" stroke="#D7E0E8" stroke-opacity=".18"
+              stroke-width="1.1"/>
+
+        <path d="M120 215L300 321L480 215"
+              fill="none" stroke="#D8E2E9" stroke-opacity=".16"
+              stroke-width="1"/>
+
+        <!-- Continuous light connecting rooms -->
+
+        <g id="connection" opacity="0">
+          <path class="connection-light"
+                d="M135 266L210 309L300 354L388 310L468 266"/>
+          <path class="connection-core"
+                d="M135 266L210 309L300 354L388 310L468 266"/>
+
+          <circle cx="210" cy="309" r="5" fill="#EFC18A"
+                  filter="url(#glow)"/>
+          <circle cx="300" cy="354" r="7" fill="#FFF0CB"
+                  filter="url(#glow)"/>
+          <circle cx="388" cy="310" r="5" fill="#EFC18A"
+                  filter="url(#glow)"/>
+        </g>
+
+        <!-- Front courtyard walls -->
+
+        <path class="wall"
+              d="M62 180L300 320L300 369L62 229Z"
+              opacity=".92"/>
+
+        <path class="wall-side"
+              d="M300 320L540 181L540 230L300 369Z"
+              opacity=".92"/>
+
+        <!-- Front plaster grain -->
+
+        <path d="M62 180L300 320L300 369L62 229Z"
+              fill="url(#plasterGrain)" opacity=".6"/>
+
+        <path d="M300 320L540 181L540 230L300 369Z"
+              fill="url(#plasterGrain)" opacity=".25"/>
+
+        <!-- Courtyard openings -->
+
+        <path d="M190 257L230 281L230 335L190 312Z"
+              fill="#182E48" opacity=".8"/>
+
+        <path d="M370 281L413 257L413 311L370 335Z"
+              fill="#182E48" opacity=".8"/>
+
+        <!-- Wall plaster highlights -->
+
+        <path class="plaster-detail"
+              d="M78 193L286 318M313 320L527 195"/>
+
+        <path class="plaster-detail"
+              d="M83 211L120 232M469 220L511 196"/>
+
+        <!-- Tiny faceless, non-gendered symbolic figures -->
+
+        <g id="figures" opacity=".38">
+          <g fill="#C4CFD8">
+            <circle cx="163" cy="226" r="6"/>
+            <path d="M157 233Q163 229 169 233L172 259L154 259Z"/>
+            <path d="M157 257L154 276L159 276L163 260L167 276L172 276L168 257Z"/>
+
+            <circle cx="432" cy="222" r="6"/>
+            <path d="M426 229Q432 225 438 229L441 255L423 255Z"/>
+            <path d="M426 253L423 272L428 272L432 256L436 272L441 272L437 253Z"/>
+          </g>
+        </g>
+
+        <!-- Courtyard gathering silhouettes at final stage -->
+
+        <g id="together" opacity="0">
+          <g fill="#F1D6AD">
+            <circle cx="271" cy="290" r="5"/>
+            <path d="M265 296Q271 293 277 296L280 317L262 317Z"/>
+            <path d="M265 316L263 329L268 329L271 318L275 329L280 329L277 316Z"/>
+
+            <circle cx="298" cy="277" r="5"/>
+            <path d="M292 283Q298 280 304 283L307 304L289 304Z"/>
+            <path d="M292 303L290 316L295 316L298 305L302 316L307 316L304 303Z"/>
+
+            <circle cx="325" cy="290" r="5"/>
+            <path d="M319 296Q325 293 331 296L334 317L316 317Z"/>
+            <path d="M319 316L317 329L322 329L325 318L329 329L334 329L331 316Z"/>
+          </g>
+        </g>
+
+        <!-- Warm courtyard reflection -->
+
+        <ellipse id="courtyardGlow"
+                 cx="300" cy="338" rx="125" ry="34"
+                 fill="#EAB77D"
+                 opacity="0"
+                 filter="url(#glow)"/>
+
+      </svg>
+
+    </div>
+
+    <div class="foreground-glow"></div>
+    <div class="dust"></div>
+
+    <!-- Final message -->
+
+    <section class="end-card" id="endCard">
+      <h1>گھر صرف دیواروں سے نہیں، رشتوں سے بنتا ہے۔</h1>
+
+      <div class="brand-line">
+        <strong>AIDE</strong>
+        · عمران اسلم | لائف کوچ اور ٹرینر
+      </div>
+
+      <a class="cta"
+         href="https://imranaslam.pk/ur/programme-homes.html"
+         target="_blank"
+         rel="noopener">
+        پروگرام دیکھیں
+      </a>
+
+      <div class="tiny-line">
+        کوئی ظالم نہیں، کوئی مظلوم نہیں — 4 ہفتوں کا پروگرام
+      </div>
+    </section>
+
+    <!-- Seven navigation dots, RTL -->
+
+    <nav class="navigation" aria-label="کہانی کے مراحل">
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="dots">
+        <button class="dot active" data-target="0" aria-label="مرحلہ 1"></button>
+        <button class="dot" data-target="1" aria-label="مرحلہ 2"></button>
+        <button class="dot" data-target="2" aria-label="مرحلہ 3"></button>
+        <button class="dot" data-target="3" aria-label="مرحلہ 4"></button>
+        <button class="dot" data-target="4" aria-label="مرحلہ 5"></button>
+        <button class="dot" data-target="5" aria-label="مرحلہ 6"></button>
+        <button class="dot" data-target="6" aria-label="اختتام"></button>
+      </div>
+
+    </nav>
+
+  </main>
+</div>
+
+<!-- No-JavaScript readable alternative -->
+
+<noscript>
+  <style>
+    .no-js .stage {
+      display:none;
+    }
+  </style>
+
+  <section class="fallback" style="
+    display:block;
+    background:#0A1A3B;
+    color:#EFF6FD;
+    padding:35px 8%;
+    text-align:center;
+  ">
+    <h2>گھر میں خاموش فاصلے بڑھنے لگتے ہیں۔</h2>
+    <h2>باتیں دل تک نہیں پہنچتیں۔</h2>
+    <h2>ایک دراڑ کی مرمت شروع ہوتی ہے۔</h2>
+    <h2>گفتگو کے راستے کھلنے لگتے ہیں۔</h2>
+    <h2>گھر کے حصے ایک دوسرے سے جڑتے ہیں۔</h2>
+    <h2>گھر میں اعتماد کی فضا بنتی ہے۔</h2>
+    <h2>گھر صرف دیواروں سے نہیں، رشتوں سے بنتا ہے۔</h2>
+
+    <p>AIDE · عمران اسلم | لائف کوچ اور ٹرینر</p>
+
+    <a href="https://imranaslam.pk/ur/programme-homes.html"
+       style="color:#C9A227">
+       پروگرام دیکھیں
+    </a>
+
+    <p>کوئی ظالم نہیں، کوئی مظلوم نہیں — 4 ہفتوں کا پروگرام</p>
+  </section>
+</noscript>
+
+<script>
+(() => {
+  "use strict";
+
+  const body = document.body;
+  body.classList.remove("no-js");
+
+  const reduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reduced) {
+    return;
+  }
+
+  const root = document.documentElement;
+  const track = document.getElementById("track");
+  const captions = [...document.querySelectorAll(".caption")];
+  const dots = [...document.querySelectorAll(".dot")];
+  const hero = document.getElementById("hero");
+  const endCard = document.getElementById("endCard");
+
+  const cracks = document.getElementById("cracks");
+  const repaired = document.getElementById("repairedCracks");
+
+  const closedDoors = document.getElementById("closedDoors");
+  const openDoors = document.getElementById("openDoors");
+
+  const sunlight = document.getElementById("sunlight");
+  const connection = document.getElementById("connection");
+  const figures = document.getElementById("figures");
+  const together = document.getElementById("together");
+  const courtyardGlow = document.getElementById("courtyardGlow");
+
+  let current = 0;
+  let target = 0;
+  let raf = 0;
+
+  const clamp = (v, a = 0, b = 1) =>
+    Math.max(a, Math.min(b, v));
+
+  const smooth = (a, b, x) => {
+    const t = clamp((x - a) / (b - a));
+    return t * t * (3 - 2 * t);
+  };
+
+  /*
+    Caption windows:
+    Six separate windows with gaps.
+    Outgoing captions reach zero before
+    incoming captions cross 0.5.
+    First caption starts fully visible.
+  */
+
+  const captionCenters = [
+    0,
+    .17,
+    .34,
+    .51,
+    .68,
+    .84
+  ];
+
+  function captionOpacity(p, index) {
+    const c = captionCenters[index];
+
+    // Auditor fix 16 Nov: the old beat-0 special case returned 0.88 at
+    // p=0.075 and the distance formula returned 0 at p=0.076 — a visible
+    // pop-out. The uniform formula already gives 1 at p=0 (first paint
+    // visible) and fades smoothly to 0 at distance 0.071.
+    const distance = Math.abs(p - c);
+    const width = .071;
+
+    return 1 - smooth(.035, width, distance);
+  }
+
+  function setOpacity(element, value) {
+    element.style.opacity = value.toFixed(4);
+  }
+
+  /*
+    One scroll-driven animation.
+    Scroll events only request a frame.
+    Damped interpolation stops when settled.
+    No perpetual animation loop.
+  */
+
+  function render() {
+    raf = 0;
+
+    const difference = target - current;
+
+    current += difference * 0.095;
+
+    if (Math.abs(target - current) < 0.0005) {
+      current = target;
+    }
+
+    const p = current;
+
+    /*
+      Narrative progression
+    */
+
+    const repair = smooth(.31, .48, p);
+    const doors = smooth(.48, .65, p);
+    const warmth = smooth(.51, .88, p);
+    const shared = smooth(.67, .86, p);
+    const ending = smooth(.88, .965, p);
+
+    /*
+      Hero transformation:
+      Same house, smaller and lifted
+      for a guaranteed clear end-card zone.
+    */
+
+    const heroScale = 1 - ending * .42;
+    const heroLift = ending * (window.innerHeight * .045);
+
+    root.style.setProperty("--p", p.toFixed(4));
+    root.style.setProperty("--warm-state", warmth.toFixed(4));
+    root.style.setProperty("--hero-scale", heroScale.toFixed(4));
+    root.style.setProperty("--hero-lift", heroLift.toFixed(2) + "px");
+    root.style.setProperty("--progress", p.toFixed(4));
+
+    /*
+      Cool to warm environmental transition.
+    */
+
+    setOpacity(sunlight, warmth);
+    setOpacity(connection, shared);
+    setOpacity(courtyardGlow, warmth * .85);
+
+    /*
+      Matched cross-dissolve:
+      cracks out exactly as repaired plaster enters.
+      Doors closed out exactly as open doors enter.
+    */
+
+    setOpacity(cracks, 1 - repair);
+    setOpacity(repaired, repair);
+
+    setOpacity(closedDoors, 1 - doors);
+    setOpacity(openDoors, doors);
+
+    /*
+      Symbolic figures transition:
+      Separate silhouettes gradually give way
+      to a shared courtyard arrangement.
+    */
+
+    setOpacity(figures, (1 - shared) * 0.38); // auditor fix 16 Nov: the SVG
+    // attribute and the initial paint both say 0.38 (subtle); the old line
+    // overrode it to 1.0 on the first frame, making the pale figures stark.
+    setOpacity(together, shared);
+
+    /*
+      Captions
+    */
+
+    captions.forEach((caption, index) => {
+      const value = captionOpacity(p, index);
+      setOpacity(caption, value);
+
+      caption.style.transform =
+        `translateY(${(1 - value) * 8}px)`;
+    });
+
+    /*
+      Final card
+    */
+
+    setOpacity(endCard, ending);
+
+    endCard.style.transform =
+      `translateY(${(1 - ending) * 14}px)`;
+
+    /*
+      Active navigation dot
+    */
+
+    let active = 0;
+
+    const boundaries = [
+      .085,
+      .255,
+      .425,
+      .595,
+      .765,
+      .92
+    ];
+
+    for (let i = 0; i < boundaries.length; i++) {
+      if (p >= boundaries[i]) {
+        active = i + 1;
+      }
+    }
+
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === active);
+      dot.setAttribute(
+        "aria-current",
+        index === active ? "step" : "false"
+      );
+    });
+
+    /*
+      Continue only if the damping is not settled.
+    */
+
+    if (current !== target) {
+      raf = requestAnimationFrame(render);
+    }
+  }
+
+  function readScroll() {
+    const maxScroll = Math.max(
+      1,
+      track.offsetHeight - window.innerHeight
+    );
+
+    target = clamp(window.scrollY / maxScroll);
+
+    if (!raf) {
+      raf = requestAnimationFrame(render);
+    }
+  }
+
+  window.addEventListener(
+    "scroll",
+    readScroll,
+    { passive:true }
+  );
+
+  window.addEventListener(
+    "resize",
+    readScroll,
+    { passive:true }
+  );
+
+  /*
+    Clickable dots:
+    Seven navigation points.
+    Each click scrolls to its corresponding beat.
+  */
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const index = Number(dot.dataset.target);
+
+      const maxScroll = Math.max(
+        1,
+        track.offsetHeight - window.innerHeight
+      );
+
+      const destination = (index / 6) * maxScroll;
+
+      window.scrollTo({
+        top:destination,
+        behavior:"smooth"
+      });
+    });
+  });
+
+  /*
+    Initial paint:
+    Beat 0 is explicitly visible before
+    the first scroll event.
+  */
+
+  captions.forEach((caption, index) => {
+    caption.style.opacity = index === 0 ? "1" : "0";
+  });
+
+  setOpacity(cracks, 1);
+  setOpacity(repaired, 0);
+  setOpacity(closedDoors, 1);
+  setOpacity(openDoors, 0);
+  setOpacity(figures, .38);
+  setOpacity(together, 0);
+  setOpacity(sunlight, 0);
+  setOpacity(connection, 0);
+  setOpacity(endCard, 0);
+
+  readScroll();
+
+})();
+</script>
+
+</body>
+</html>
