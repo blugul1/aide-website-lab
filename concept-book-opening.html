@@ -173,9 +173,8 @@
     var raw=clamp01(window.scrollY/max);
     var lift=ss(.10,.24,raw), open=ss(.26,.44,raw), light=ss(.34,.56,raw),
         page=ss(.56,.70,raw), reveal=ss(.86,.97,raw);
-    var t=now/1000;
-    var floatY=reduced?0:Math.sin(t*0.9)*4*(1-open);
-    var breathe=reduced?0:Math.sin(t*1.1)*0.05;
+    var floatY=reduced?0:Math.sin(raw*Math.PI*6)*4*(1-open);
+    var breathe=reduced?0:Math.sin(raw*Math.PI*4)*0.05;
     book.style.transform='translateY('+(-16*lift+floatY).toFixed(1)+'px) rotateX('+(7*lift).toFixed(2)+'deg) scale('+(1+.03*lift).toFixed(3)+')';
     cover.style.transform='rotateY('+(168*open).toFixed(1)+'deg)';
     coverFront.style.opacity=(1-ss(.45,.55,open)).toFixed(3);
@@ -188,7 +187,7 @@
     halo.style.transform='translateX('+drift.toFixed(1)+'px) scale('+((.7+.5*L)).toFixed(3)+')';
     wash.style.opacity=(L*.45).toFixed(3);
     rays.style.opacity=L.toFixed(3);
-    rays.style.transform='translateZ(-4px) rotate('+(reduced?0:t*2).toFixed(1)+'deg) scale('+((.6+.55*L)).toFixed(3)+')';
+    rays.style.transform='translateZ(-4px) rotate('+(reduced?0:raw*30).toFixed(1)+'deg) scale('+((.6+.55*L)).toFixed(3)+')';
     shadowEl.style.opacity=(1-L*.75).toFixed(3);
     pagesEl.style.setProperty('--glow',L.toFixed(3));
     glowline.style.opacity=(clamp01(open*1.6)*(1-L*.6)).toFixed(3);
