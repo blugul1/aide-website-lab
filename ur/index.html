@@ -429,6 +429,13 @@
   .blend .row:nth-child(2){animation-delay:.27s}
   .blend .row:nth-child(3){animation-delay:.39s}
   .blend .row:hover{transform:translateY(-4px)}
+  /* GLOW GOLD (owner 2026-11-19): hero third row, solid-button ring, proof words */
+  .blend .row.alt{color:#E3C878}
+  .btn.btn-solid{border:1.5px solid rgba(201,162,39,.9);box-shadow:0 0 0 1px rgba(201,162,39,.18),0 10px 28px rgba(61,171,148,.30)}
+  .proof b em{color:#C9A227}
+  /* GLOW (owner 2026-11-19): emerald radial over the hero shade + gold ring on the nav CTA */
+  .hero .shade{background:radial-gradient(55% 46% at 26% 72%, rgba(61,171,148,.40) 0%, rgba(61,171,148,.16) 45%, rgba(61,171,148,0) 70%),linear-gradient(180deg, rgba(10,26,59,.42) 0%, rgba(10,26,59,.08) 34%, rgba(10,26,59,.55) 78%, rgba(10,26,59,.88) 100%)}
+  .nav-links a.nav-cta{border:1.5px solid rgba(201,162,39,.9);box-shadow:0 0 0 1px rgba(201,162,39,.18),0 10px 28px rgba(61,171,148,.35)}
   @keyframes heroRowIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
   .blend{animation:heroFloat 7s ease-in-out 1.4s infinite alternate}
   @keyframes heroFloat{from{transform:translateY(0)}to{transform:translateY(-7px)}}
@@ -803,6 +810,20 @@ html[data-theme="day"] .nav-links .lang-btn{color:#0A1A3B;border-color:rgba(10,2
 nav.scrolled .lang-btn{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:rgba(255,255,255,.6)}
 .nav-links .drop.lang-drop{min-width:150px}
 .nav-links .drop.lang-drop a[aria-current="page"]{font-weight:700;color:#1F7A66}
+/* --- mega centring fix (owner 2026-11-19): drops anchor to the full-width nav so they centre on the
+   viewport at every width (EN mega overflowed 47-97px at 821-1024px when centred on its link).
+   margin-top pulls the drop up to touch the link row, so the hover bridge has no dead strip. --- */
+.nav-links .has-drop:has(.drop.mega),.nav-links .has-drop:has(.drop.res-mega){position:static}
+.nav-links .drop.mega,.nav-links .drop.res-mega{inset-inline-start:auto;left:50%;right:auto;transform:translateX(-50%);margin-top:-30px}
+/* --- HERO WORD IDLE (LAB EXPERIMENT 2026-11-19 — owner feel-check in the morning; NOT live) ---
+   CHANGE lifts gently, DIFFERENTLY settles + widens a touch; different periods so they never lockstep.
+   Inner spans: the .w entrance is untouched; idle motion composes on top. */
+.hook .w-bob,.hook .w-sway{display:inline-block}
+.hook .w-bob{animation:bobY 4.5s ease-in-out infinite}
+.hook .w-sway{animation:swayY 5.5s ease-in-out infinite}
+@keyframes bobY{0%,100%{transform:translateY(0)}50%{transform:translateY(-.06em)}}
+@keyframes swayY{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(.04em) scale(1.02)}}
+@media (prefers-reduced-motion:reduce){.hook .w-bob,.hook .w-sway{animation:none}}
 
 
   [dir="rtl"] .pull{border-left:none;border-right:4px solid var(--sea)}
@@ -1201,10 +1222,16 @@ nav.scrolled .lang-btn{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:
     Array.prototype.slice.call(node.childNodes).forEach(function(n){
       if(n.nodeType === 3){
         var frag = document.createDocumentFragment();
-        n.textContent.split(/(\\s+)/).forEach(function(part){
+        n.textContent.split(/(\s+)/).forEach(function(part){
           if(!part){ return; }
-          if(/^\\s+$/.test(part)){ frag.appendChild(document.createTextNode(' ')); }
-          else { var s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', wi++); s.textContent = part; frag.appendChild(s); }
+          if(/^\s+$/.test(part)){ if(part.indexOf('\n') !== -1){ var s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', wi++); s.textContent = part; frag.appendChild(s); } else { frag.appendChild(document.createTextNode(' ')); } }
+          else { var s = document.createElement('span'); s.className = 'w'; s.style.setProperty('--i', wi++);
+            /* LAB EXPERIMENT 2026-11-19: tag CHANGE + DIFFERENTLY (all locales) for idle motion */
+            var bare = part.replace(/[\.!?\u06D4\u061F,;:]+$/, '').toLowerCase();
+            var idleCls = (bare === 'change' || bare === 'بدلتے' || bare === 'يتغيرون') ? 'w-bob' : (bare === 'differently' || bare === 'مختلف') ? 'w-sway' : null;
+            if(idleCls){ var inner = document.createElement('span'); inner.className = idleCls; inner.textContent = part; s.appendChild(inner); }
+            else { s.textContent = part; }
+            frag.appendChild(s); }
         });
         node.replaceChild(frag, n);
       } else if(n.nodeType === 1){ splitWords(n); }
