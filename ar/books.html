@@ -26,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;700&family=Noto+Sans+Arabic:wght@500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --canvas:#040B1C; --navy:#0A1A3B; --navy2:#0C2241; --sea:#3DAB94; --sea-hi:#4FBFA7;
+  --canvas:#040B1C; --navy:#0A1A3B; --navy2:#0C2241; --sea:#3DAB94; --sea-hi:#4FBFA7; --sea2:#4FBFA7;
   --ink:#EDF3FB; --muted:#A9BEDD; --bronze:#C9A227; --gold:#E9C767; --line:#1E3A5F;
   --glass:rgba(16,36,72,.55); --glass-brd:rgba(120,180,220,.22);
 }
@@ -49,20 +49,32 @@ img{max-width:100%;display:block}
 @keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(-6vw,5vh) scale(1.14)}}
 @keyframes drift2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(5vw,-4vh) scale(.94)}}
 /* nav */
-nav{position:sticky;top:0;z-index:60;background:rgba(4,11,28,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;gap:18px;min-height:72px;transition:min-height .35s ease}
-nav.scrolled{background:rgba(4,11,28,.93)}
-nav.scrolled .nav-in{min-height:58px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+nav{position:sticky;top:0;z-index:60;background:transparent;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:background-color .45s ease,border-color .45s ease}
+nav .nav-in{display:flex;align-items:center;gap:18px;min-height:72px;max-width:1180px;margin:0 auto;padding:0 24px;border-radius:120px;border:1px solid transparent;transition:max-width .45s ease,padding .45s ease,background-color .45s ease,border-color .45s ease,box-shadow .45s ease,min-height .35s ease}
+nav.scrolled .nav-in{max-width:980px;min-height:58px;padding:0 14px;background:rgba(255,255,255,.82);border-color:rgba(10,26,59,.12);box-shadow:0 12px 32px rgba(10,26,59,.18)}
+nav.scrolled .brand strong{color:#0A1A3B}
+nav.scrolled .brand small{color:#6B7688}
+nav.scrolled .nav-links a:not(.btn){color:#1B2A45}
+nav.scrolled .nav-links a:not(.btn):hover{color:#0A1A3B}
+nav.scrolled .lang-btn{color:#1B2A45;border-color:rgba(10,26,59,.25)}
+nav.scrolled .lang-btn:hover{color:#0A1A3B;border-color:#1F7A66}
+nav.scrolled .menu-btn{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:rgba(255,255,255,.6)}
+nav.scrolled .brand small{display:none}
+nav.scrolled .nav-links{gap:14px}
+@media(max-width:1150px){.brand small{display:none}.nav-links{gap:14px}}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex:none}
+.brand strong,.brand small{white-space:nowrap}
 .bezel{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:800 11px/1 "Segoe UI",sans-serif;letter-spacing:.06em;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.28),rgba(255,255,255,.04) 55%),var(--navy2);border:1px solid var(--glass-brd);box-shadow:inset 0 0 0 3px rgba(61,171,148,.35),0 6px 18px rgba(0,0,0,.45)}
 .brand strong{font-size:19px;letter-spacing:.14em}
 .brand small{display:block;font-size:10px;letter-spacing:.08em;color:var(--muted)}
 .nav-links{margin-inline-start:auto;display:flex;gap:22px;align-items:center}
-.nav-links a{text-decoration:none;font-size:14.5px;color:var(--muted);position:relative;padding:4px 0}
+.nav-links a{text-decoration:none;font-size:14.5px;color:var(--muted);position:relative;padding:4px 0;white-space:nowrap}
 .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--sea);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
 .nav-links a:not(.btn):hover{color:var(--ink)}
 .nav-links a:not(.btn):hover::after{transform:scaleX(1)}
-.nav-links a.btn{color:#04160F}
+.nav-links a.btn{color:#04160F;border-radius:120px;padding:7px 7px 7px 20px;flex:none}
+.nav-links a.btn .arr{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.45);display:grid;place-items:center;font-size:14px;flex:none;transition:transform .25s ease}
+.nav-links a.btn:hover .arr{transform:translateX(3px)}
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--sea);color:#04160F;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none;border:0;cursor:pointer;transition:box-shadow .3s ease;will-change:transform}
 .btn:hover{box-shadow:0 14px 32px rgba(61,171,148,.4)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
@@ -109,8 +121,10 @@ nav.scrolled .nav-in{min-height:58px}
 .orbit-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(10,26,59,.72);color:var(--ink);font-size:19px;line-height:1;cursor:pointer;backdrop-filter:blur(8px);transition:border-color .25s ease,transform .25s ease}
 .orbit-btn:hover{border-color:var(--sea);transform:translateY(-2px)}
 .menu-btn{display:none;margin-inline-start:auto;width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:rgba(10,26,59,.6);color:var(--ink);font-size:20px;cursor:pointer;place-items:center}
-.mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(4,11,28,.97);border-bottom:1px solid var(--line);padding:10px 24px 18px;flex-direction:column;gap:4px;z-index:59}
-.mobile-menu a{color:var(--ink);text-decoration:none;padding:11px 4px;font-size:16px;border-bottom:1px solid rgba(30,58,95,.5)}
+.mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid rgba(10,26,59,.10);border-radius:20px;margin:8px 16px 0;box-shadow:0 24px 60px rgba(10,26,59,.20);padding:12px 20px 18px;flex-direction:column;gap:4px;z-index:59}
+.mobile-menu a{color:#1B2A45;text-decoration:none;padding:11px 4px;font-size:16px;border-bottom:1px solid #EEEADF}
+.mobile-menu .mm-group{color:#8A6D1B}
+.mobile-menu .mm-sub{color:#46536A !important}
 .mobile-menu a:last-child{border-bottom:0}
 .mobile-menu.open{display:flex}
 nav{position:sticky}
@@ -303,14 +317,29 @@ footer a:hover{color:var(--ink)}
 @media(max-width:900px){.split,.cards3,.steps{grid-template-columns:1fr}.page-hero{padding-top:120px}}
 
 /* ===== dropdown nav + language switcher ===== */
-.has-drop{position:relative;display:inline-flex;align-items:center}
-.drop{position:absolute;top:100%;padding-top:14px;background-clip:padding-box;inset-inline-start:0;min-width:240px;background:rgba(10,26,59,.97);border:1px solid var(--line);border-radius:14px;padding:8px;display:none;flex-direction:column;box-shadow:0 24px 50px rgba(0,0,0,.5);z-index:70;backdrop-filter:blur(10px)}
+.has-drop{position:relative;display:inline-flex;align-items:center;flex:none}
+.drop{position:absolute;top:100%;inset-inline-start:0;min-width:240px;background:rgba(255,255,255,.96);border:1px solid rgba(10,26,59,.10);border-radius:16px;padding:8px;display:none;flex-direction:column;box-shadow:0 24px 60px rgba(10,26,59,.16);z-index:70;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .has-drop:hover .drop,.has-drop:focus-within .drop,.has-drop.open .drop{display:flex}
-.drop a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:14.5px;white-space:nowrap}
-.drop a:hover{background:rgba(61,171,148,.15);color:var(--ink)}
-.lang-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:7px 13px;cursor:pointer;font:inherit;font-size:13.5px}
+.drop a{color:#1B2A45;text-decoration:none;padding:9px 12px;border-radius:9px;font-size:14.5px;white-space:nowrap}
+.drop a:hover{background:#E7F2ED;color:#0A1A3B}
+.nav-links .drop a.mega-item::after{content:none}
+.lang-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:7px 13px;cursor:pointer;font:inherit;font-size:13.5px;white-space:nowrap;flex:none}
 .lang-btn:hover{color:var(--ink);border-color:var(--sea)}
 .lang-drop{min-width:150px}
+/* ===== mega card (Programmes): centred on its parent link, hover bridge via top padding ===== */
+.drop.mega{left:50%;inset-inline-start:auto;transform:translateX(-50%);width:min(880px,94vw);padding:12px 0 0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.mega-card{background:rgba(255,255,255,.96);border:1px solid rgba(10,26,59,.10);border-radius:24px;box-shadow:0 24px 60px rgba(10,26,59,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:12px}
+.mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.drop a.mega-item{display:flex;gap:14px;padding:14px 16px;border-radius:16px;white-space:normal;align-items:flex-start}
+.drop a.mega-item:hover{background:#F0F6F3}
+.mega-ico{width:44px;height:44px;flex:none;border-radius:12px;background:#E7F2ED;display:grid;place-items:center;color:#1F7A66}
+.mega-ico svg{width:22px;height:22px}
+.mega-tx{display:flex;flex-direction:column;min-width:0}
+.mega-tx b{font-size:16px;font-weight:700;color:#0A1A3B;line-height:1.35}
+.mega-meta{display:block;font-size:12.5px;font-weight:600;color:#1F7A66;margin-top:4px}
+.mega-foot{display:flex;justify-content:flex-end;padding:12px 16px 4px;margin-top:8px;border-top:1px solid #EEEADF}
+.mega-foot a{font-weight:700;color:#1F7A66;font-size:14px}
+.mega-foot a:hover{background:none;text-decoration:underline}
 .mm-group{display:block;color:var(--gold);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:14px 4px 2px}
 .mm-sub{padding-inline-start:18px !important;font-size:15px !important;color:var(--muted) !important}
 .mm-lang{display:flex;gap:16px;padding:8px 4px}
@@ -342,6 +371,9 @@ body.loc-ur p,body.loc-ur li{line-height:2.2}
 body.loc-ur h1,body.loc-ur h2,body.loc-ur h3,body.loc-ur h4{font-family:'Noto Nastaliq Urdu','Traditional Arabic',serif;line-height:2.0;letter-spacing:0}
 body.loc-ur .eyebrow,body.loc-ur .fmt,body.loc-ur .k,body.loc-ur .chip,body.loc-ur .mm-group,body.loc-ur .fact-box h3,body.loc-ur .fact-box h4{letter-spacing:0}
 body.loc-ur .btn,body.loc-ur .nav-links a,body.loc-ur .drop a{line-height:1.9}
+body.loc-ur .mega-tx b{line-height:1.9}
+body.loc-ur .mega-meta{line-height:1.9}
+body.loc-ar .mega-tx b,body.loc-ar .mega-meta{line-height:1.7}
 body.loc-ur .drag-hint{letter-spacing:0}
 body.loc-ar{font-family:'Noto Naskh Arabic','Traditional Arabic',sans-serif;font-size:19px;font-weight:500;line-height:1.8}
 body.loc-ar h1,body.loc-ar h2,body.loc-ar h3,body.loc-ar h4{font-family:'Noto Sans Arabic','Noto Naskh Arabic',sans-serif;font-weight:700;line-height:1.5;letter-spacing:0}
@@ -433,7 +465,7 @@ body.ready{opacity:1}
 .bp-note{margin-top:14px;font-size:13.5px;line-height:1.7;color:var(--muted)}
 .bp-note2{margin-top:12px;font-size:13px;line-height:1.7;color:var(--muted)}
 .fee-line{font-size:16.5px;font-weight:700;line-height:1.6;color:var(--sea2);margin-top:10px}
-.bp-btn{display:inline-block;margin-top:6px;background:var(--sea);color:#fff;font-weight:700;padding:13px 24px;border-radius:10px;text-decoration:none}
+.bp-btn{display:inline-block;margin-top:6px;background:var(--sea);color:#04160F;font-weight:700;padding:13px 24px;border-radius:10px;text-decoration:none}
 .bp-btn:hover{background:var(--sea-hi)}
 .book-line{margin-top:12px}
 .book-line a{color:var(--sea-hi);font-weight:700;text-decoration:none;border-bottom:2px solid var(--sea);padding-bottom:2px}
@@ -509,7 +541,7 @@ body.loc-ur .bk-price,body.loc-ar .bk-price{line-height:1.95}
 .rd-x:hover{border-color:var(--sea)}
 .rd-tools{display:flex;align-items:center;gap:8px;padding:8px 22px 12px;border-bottom:1px solid rgba(120,140,170,.28)}
 .rd-tools button{background:none;border:1px solid rgba(120,140,170,.5);color:inherit;border-radius:99px;padding:6px 14px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
-.rd-tools button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+.rd-tools button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#04160F}
 .rd-prog{flex:1;height:4px;border-radius:99px;background:rgba(120,140,170,.3);overflow:hidden;margin-inline-start:8px}
 .rd-prog i{display:block;height:100%;width:0;background:var(--sea);transition:width .15s linear}
 .rd-scroll{overflow-y:auto;padding:10px 22px 34px;flex:1;-webkit-overflow-scrolling:touch}
@@ -692,7 +724,7 @@ body.fadeout .ac-app{opacity:0}
 .ac-app .pulse{animation:pulseSoft 1.6s ease-in-out infinite}
 @media (prefers-reduced-motion: reduce){.ac-app *, .ac-app *::before, .ac-app *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 .ac-app section.view.out, .ac-app section.view.pre, .ac-app section.view.pre-back, .ac-app .grid.fading, body.fadeout .ac-app{opacity:1!important;transform:none!important}}
-.ac-app .badge.sig{background:linear-gradient(120deg,#3DAB94,#2A7D6B);color:#06251D;border-color:transparent;font-weight:800}
+.ac-app .badge.sig{background:#3DAB94;color:#06251D;border-color:transparent;font-weight:800}
 .ac-app .card.sigcard{border:1.5px solid rgba(61,171,148,.75);box-shadow:0 0 0 3px rgba(61,171,148,.16),0 10px 28px rgba(0,0,0,.25)}
 .ac-app .sigsec{grid-column:1/-1;margin:8px 0 2px;padding:16px 18px;border:1px solid rgba(61,171,148,.45);border-radius:16px;background:linear-gradient(140deg,rgba(61,171,148,.14),rgba(61,171,148,.03))}
 .ac-app .sigsec h2{font-size:21px;color:#9FE8D6;margin:0 0 6px}
@@ -704,7 +736,7 @@ body.fadeout .ac-app{opacity:0}
 .ac-app .guide-block h4{margin:0 0 6px;color:#9FE8D6;font-size:17px}
 .ac-app .guide-block p{margin:0;font-size:16px;line-height:2.05}
 .ac-app .guide-block .gmicro{margin-top:10px;font-size:12.5px;line-height:1.8;color:var(--ink-dim)}
-.ac-app #asstBtn{position:fixed;bottom:20px;inset-inline-end:20px;z-index:60;background:linear-gradient(120deg,#3DAB94,#2A7D6B);color:#fff;border:none;border-radius:999px;padding:13px 20px;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.4);font-family:inherit}
+.ac-app #asstBtn{position:fixed;bottom:20px;inset-inline-end:20px;z-index:60;background:#3DAB94;color:#04160F;border:none;border-radius:999px;padding:13px 20px;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.4);font-family:inherit}
 .ac-app #asstPanel{position:fixed;bottom:78px;inset-inline-end:20px;z-index:61;width:min(380px,calc(100vw - 32px));max-height:min(600px,calc(100vh - 110px));display:flex;flex-direction:column;background:#0D2148;border:1px solid rgba(61,171,148,.55);border-radius:18px;box-shadow:0 22px 50px rgba(0,0,0,.55);overflow:hidden}
 .ac-app #asstPanel.hidden{display:none}
 .ac-app .asst-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(61,171,148,.16);color:#fff;font-size:16px}
@@ -773,7 +805,7 @@ button.pd-pillar[aria-pressed="true"]{border-color:var(--sea);background:linear-
 body.loc-ur .pd-wk-title{line-height:2}
 .pd-tag{font-size:13px;font-weight:700;color:var(--pd-seadeep);background:rgba(61,171,148,.12);border:1px solid rgba(61,171,148,.35);border-radius:999px;padding:1px 14px;line-height:1.9;flex:none}
 .pd-sched-row.hl{background:rgba(61,171,148,.09);box-shadow:inset 4px 0 0 var(--sea)}
-.pd-sched-row.hl .pd-wk-num{border-color:var(--sea);background:var(--sea);color:#fff}
+.pd-sched-row.hl .pd-wk-num{border-color:var(--sea);background:var(--sea);color:#04160F}
 .pd-sched-strip{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--sea),var(--sea-hi));color:#04160F;font-weight:700;font-size:16.5px;padding:15px 20px;line-height:1.9;text-align:center;text-decoration:none;transition:filter .35s}
 .pd-sched-strip:hover{filter:brightness(1.07)}
 .pd-band{border:1px solid rgba(79,191,167,.35);border-radius:20px;background:linear-gradient(120deg,rgba(61,171,148,.13),rgba(61,171,148,.03) 55%,rgba(255,255,255,.02));padding:32px 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -792,9 +824,9 @@ body.loc-ur .pd-band-item h3{line-height:1.95}
 .pd-fees{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
 .pd-fee-card{border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;position:relative;transition:transform .35s,box-shadow .35s}
 .pd-fee-card:hover{transform:translateY(-5px)}
-.pd-fee-early{background:linear-gradient(150deg,var(--sea),var(--pd-seadeep) 130%);color:#fff;box-shadow:0 26px 50px rgba(46,138,118,.35)}
+.pd-fee-early{background:linear-gradient(150deg,#1F7A66,#14594A 130%);color:#fff;box-shadow:0 26px 50px rgba(46,138,118,.35)}
 .pd-fee-std{background:var(--pd-navy2);border:1px solid rgba(255,255,255,.14);color:var(--pd-on);box-shadow:0 22px 44px rgba(0,0,0,.28)}
-.pd-fee-tag{position:absolute;top:-14px;inset-inline-start:26px;background:#fff;color:var(--pd-seadeep);font-size:13.5px;font-weight:800;border-radius:999px;padding:2px 16px;line-height:1.9;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.pd-fee-tag{position:absolute;top:-14px;inset-inline-start:26px;background:#fff;color:#1F7A66;font-size:13.5px;font-weight:800;border-radius:999px;padding:2px 16px;line-height:1.9;box-shadow:0 8px 18px rgba(0,0,0,.18)}
 .pd-fee-name{font-size:19px;font-weight:700;line-height:1.9}
 .pd-fee-price{font-family:"Segoe UI",system-ui,sans-serif;font-weight:800;font-size:40px;line-height:1.3;margin:8px 0 4px}
 .pd-fee-price small{font-size:14px;font-weight:700;letter-spacing:.1em}
@@ -1033,9 +1065,6 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
 }
 
 </style>
-
-<link rel="stylesheet" href="../lab-glass.css">
-<meta name="robots" content="noindex, nofollow">
 </head>
 <body class="loc-ar">
 <noscript><style>body{opacity:1}</style></noscript>
@@ -1046,7 +1075,7 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   <div class="nav-links">
     <a data-nav="start" href="start.html">ابدأ هنا</a>
     <div class="has-drop"><a data-nav="about" href="about.html">حول</a><div class="drop"><a href="about.html">عن عمران</a><a href="about.html#team">الفريق</a><a href="about.html#circle">المبادرات المستقلة</a></div></div>
-    <div class="has-drop"><a data-nav="programmes" href="programmes.html">البرامج</a><div class="drop"><a href="programme-pldp.html">القيادة النبوية — PLDP</a><a href="programme-habits.html">هندسة العادات</a><a href="programme-sales.html">التميّز السلوكي في المبيعات</a><a href="programme-teach.html">التعليم بقلب</a><a href="programme-homes.html">بيوت قوية</a><a href="programme-rise.html">انهض وكُن — RISE</a><a href="programmes.html">كل البرامج</a></div></div>
+    <div class="has-drop"><a data-nav="programmes" href="programmes.html">البرامج</a><div class="drop mega"><div class="mega-card"><div class="mega-grid"><a class="mega-item" href="programme-pldp.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span class="mega-tx"><b>القيادة النبوية — PLDP</b><span class="mega-meta">8 أسابيع · مجموعة مباشرة</span></span></a><a class="mega-item" href="programme-habits.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span><span class="mega-tx"><b>هندسة العادات</b><span class="mega-meta">4 أسابيع · عبر الإنترنت</span></span></a><a class="mega-item" href="programme-sales.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><span class="mega-tx"><b>التميّز السلوكي في المبيعات</b><span class="mega-meta">يومان حضوريًا + متابعة 30 يومًا</span></span></a><a class="mega-item" href="programme-teach.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-4.5-2-8-2v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2z"/><path d="M12 6v13"/></svg></span><span class="mega-tx"><b>التعليم بقلب</b><span class="mega-meta">ورشة يوم واحد + 4 أسابيع</span></span></a><a class="mega-item" href="programme-homes.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><span class="mega-tx"><b>بيوت قوية</b><span class="mega-meta">4 أسابيع · عبر الإنترنت</span></span></a><a class="mega-item" href="programme-rise.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v4M5.6 7.6l2.8 2.8M18.4 7.6l-2.8 2.8M3 18h18"/></svg></span><span class="mega-tx"><b>انهض وكُن — RISE</b><span class="mega-meta">6 أسابيع · أعمار 16–25</span></span></a></div><div class="mega-foot"><a href="programmes.html">كل البرامج →</a></div></div></div></div>
     <div class="has-drop"><a data-nav="coaching" href="coaching.html">التوجيه</a><div class="drop"><a href="coaching.html">توجيه فردي</a><a href="assessments.html">الفحص الذاتي</a><a href="contact.html#faq">الأسئلة الشائعة</a></div></div>
     <div class="has-drop"><a data-nav="resources" class="act" href="resources.html">الموارد</a><div class="drop"><a href="books.html">الكتب</a><a href="assessments.html">مركز التقييم</a><a href="resources.html#tools">أدوات عملية</a><a href="resources.html#reading">قوائم القراءة</a></div></div>
     <a data-nav="writes" href="writes.html">ماني رايتس</a>
@@ -1054,7 +1083,7 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
     <div class="has-drop"><button class="lang-btn" type="button" aria-label="تغيير اللغة">ع ▾</button><div class="drop lang-drop"><a href="../books.html">English</a>
 <a href="../ur/books.html">اردو</a>
 <a href="books.html">العربية</a></div></div>
-    <a class="btn magnetic" href="https://wa.me/923309222029?text=Assalam-o-Alaikum!%20I%20would%20like%20to%20book%20the%20free%2015-minute%20discovery%20call%20with%20AIDE." target="_blank" rel="noopener">مكالمة استكشاف مجانية</a>
+    <a class="btn magnetic" href="https://wa.me/923309222029?text=Assalam-o-Alaikum!%20I%20would%20like%20to%20book%20the%20free%2015-minute%20discovery%20call%20with%20AIDE." target="_blank" rel="noopener">مكالمة استكشاف مجانية<span class="arr">→</span></a>
   </div>
   <button class="menu-btn" id="menuBtn" type="button" aria-label="فتح القائمة" aria-expanded="false">☰</button>
 </div>
@@ -1232,6 +1261,1638 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
     <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1190" data-opening="952">سعر الافتتاح: 952 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,190 روبية</p>
     <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
     <p class="bk-note rv">نموذج مجاني — المقدمة والفصل الأول، في قارئ الويب. الكتاب الكامل غير منشور على هذه الصفحة.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book5"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b5.webp" alt="غلاف لڑائی کی جڑیں"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">لڑائی کی جڑیں</h2>
+    <p class="bk-promise rv" lang="ur">میاں بیوی کے جھگڑوں کی سو وجوہات، ان کی پوشیدہ جڑیں اور عملی حل</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">ہر جھگڑے کے پیچھے ایک وجہ ہوتی ہے — اور اکثر وہ وجہ وہ نہیں ہوتی جس پر لڑائی ہوئی۔ یہ کتاب میاں بیوی کے جھگڑوں کی سو وجوہات کو ان کی جڑ تک لے جاتی ہے: پیسہ، گفتگو، خاندانی نظام، گھر کے کام، بچے، قربت، اعتماد، مزاج، توقعات، اقدار — ہر وجہ کے ساتھ عملی حل۔ دو جلدیں، ایک ساتھی مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>جلد 1</li>
+      <li>مالی اسباب (1–10)</li>
+      <li>گفتگو کے اسباب (11–20)</li>
+      <li>خاندانی نظام (21–30)</li>
+      <li>گھر کے کام (31–40)</li>
+      <li>بچوں سے متعلق (41–50)</li>
+      <li>جلد 2</li>
+      <li>قربت (51–60)</li>
+      <li>اعتماد (61–70)</li>
+      <li>مزاج و صحت (71–80)</li>
+      <li>توقعات و انا (81–90)</li>
+      <li>اقدار و تبدیلی (91–100)</li>
+      <li>ضمیمہ: جب رشتہ داری سے آگے کا معاملہ ہو</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%84%DA%91%D8%A7%D8%A6%DB%8C%20%DA%A9%DB%8C%20%D8%AC%DA%91%DB%8C%DA%BA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1990" data-opening="1592">سعر الافتتاح: 1,592 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book6"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b6.webp" alt="غلاف حِلم"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">حِلم</h2>
+    <p class="bk-promise rv" lang="ur">غصے کے وقت اپنے کردار کو سنبھالنے کا ہنر</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">غصہ آتا ہے تو زبان پہلے چلتی ہے، عقل بعد میں۔ اور جو جملہ غصے میں نکل جائے، وہ سالوں نہیں بھولتا۔ حِلم غصے کے وقت اپنے کردار کو سنبھالنے کا ہنر ہے — دس ابواب، ہر باب میں ایک منظر، ایک غور، اور ایک نرم قدم۔ گھر، دفتر، ہر جگہ کام آنے والی کتاب؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>غصہ: آخر انسان آپے سے باہر کیوں ہوتا ہے؟</li>
+      <li>حِلم: طاقت کے باوجود خود پر قابو</li>
+      <li>میرا غصہ کہاں سے آتا ہے؟</li>
+      <li>گھر میں غصہ</li>
+      <li>بچوں کے سامنے ہمارا غصہ</li>
+      <li>سسرال، رشتہ دار اور خاندان</li>
+      <li>دفتر، کاروبار اور معاش</li>
+      <li>سڑک، بازار اور معاشرہ</li>
+      <li>حِلم کی مشق: سات دن میں اپنے رویے کا جائزہ</li>
+      <li>جب غصہ حد سے بڑھ جائے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AD%D9%90%D9%84%D9%85%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book7"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b7.webp" alt="غلاف گھر کا رہنما"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھر کا رہنما</h2>
+    <p class="bk-promise rv" lang="ur">قوامیت، اسلامی کردار اور ذمہ دارانہ قیادت سے گھر اور معاشرے کی رہنمائی کا عملی طریقہ</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">قوامیت کا مطلب حکم چلانا نہیں، ذمہ داری اٹھانا ہے — اور یہ فرق جس گھر میں سمجھ آ جائے، وہاں سکون آ جاتا ہے۔ یہ کتاب گھر کی رہنمائی کا عملی طریقہ ہے: اسلامی کردار، ذمہ دارانہ قیادت، اور وہ فیصلے جو گھر کو جوڑتے ہیں، توڑتے نہیں۔ ہر اس شخص کے لیے جو گھر کا بوجھ اپنے کندھوں پر محسوس کرتا ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>ہمارے گھرانوں میں رہنما کہاں ہیں؟</li>
+      <li>جب گھر میں قیادت نہیں ہوتی</li>
+      <li>قیادت: گھر کی ضرورت، قوامیت کی شرعی بنیاد</li>
+      <li>رہنما کی شخصیت: اسلامی اخلاق سے قیادت تک</li>
+      <li>اپنے گھر کے رہنما</li>
+      <li>بیوی کے ساتھ قیادت، شراکت اور احترام</li>
+      <li>اولاد کے لیے رہنما بنیں</li>
+      <li>بہن بھائیوں میں قائدانہ کردار</li>
+      <li>وسیع خاندان میں رہنمائی</li>
+      <li>گھر سے محلے تک</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%20%DA%A9%D8%A7%20%D8%B1%DB%81%D9%86%D9%85%D8%A7%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book8"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b8.webp" alt="غلاف قیادت بطورِ امانت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">قیادت بطورِ امانت</h2>
+    <p class="bk-promise rv" lang="ur">قیادت امانت ہے، عہدہ نہیں</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">عہدہ مل جانا قیادت نہیں — قیادت امانت ہے، اور امانت کا حساب ہوتا ہے۔ یہ کتاب USWA کے چار ستونوں پر قیادت کا اسلامی تصور پیش کرتی ہے: فہم، اخلاص، حکمت اور جواب دہی — گھر سے دفتر تک۔ ہر اس شخص کے لیے جس کے فیصلوں پر دوسروں کی زندگی کھڑی ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>قیادت امانت ہے، عہدہ نہیں</li>
+      <li>اسوۂ رسول ﷺ، قیادت کا نبوی نمونہ</li>
+      <li>خود کو جاننا: رہنما کی اندرونی دنیا</li>
+      <li>لوگوں اور حالات کو پڑھنا</li>
+      <li>نیت کی پاکیزگی اور مقصد کی وضاحت</li>
+      <li>فیصلہ سازی، شوریٰ، عدل اور دور اندیشی</li>
+      <li>مشکل لوگ، مشکل لمحے، رحمت کے ساتھ مضبوطی</li>
+      <li>ٹیم و ادارہ، ذمہ داری کی تقسیم و اعتماد کی تعمیر</li>
+      <li>محاسبہ، رہنما کا اپنا احتساب اور اصلاح</li>
+      <li>میدانِ عمل، میرا قائدانہ منصوبہ</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%82%DB%8C%D8%A7%D8%AF%D8%AA%20%D8%A8%D8%B7%D9%88%D8%B1%D9%90%20%D8%A7%D9%85%D8%A7%D9%86%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book9"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b9.webp" alt="غلاف گھر کا مالی سکون"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھر کا مالی سکون</h2>
+    <p class="bk-promise rv" lang="ur">پیسے کا ذکر محض پیسے کا ذکر نہیں</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">پیسے کی کمی سے زیادہ نقصان پیسے پر خاموشی پہنچاتی ہے — اور ہمارے گھروں میں پیسے پر بات سب سے کم ہوتی ہے۔ یہ کتاب گھر کے بجٹ، بچت، قرض اور اسراف سے بچنے کا عملی راستہ ہے، اسلامی اصولوں کے ساتھ اور خاندان کی اصل آمدن کو سامنے رکھ کر۔ جن گھروں میں مہینے کے آخر میں حساب بگڑتا ہے، ان کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>پیسہ گھر میں لڑائی کیوں بنتا ہے؟</li>
+      <li>آمدن کا نظام: واحد و غیر یقینی آمدن</li>
+      <li>گھر کا بجٹ بطورِ امانت</li>
+      <li>کمیٹی، ادھار اور رشتہ داروں کے تقاضے</li>
+      <li>قرض: الجھن سے نجات کا نقشہ</li>
+      <li>اسراف و دکھاوا</li>
+      <li>مہر، بچت اور ہنگامی ذخیرہ</li>
+      <li>ترسیلات کا گھر: بیرونِ ملک کمائی</li>
+      <li>بچوں کو پیسے کی سمجھ</li>
+      <li>قناعت و برکت</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%20%DA%A9%D8%A7%20%D9%85%D8%A7%D9%84%DB%8C%20%D8%B3%DA%A9%D9%88%D9%86%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book10"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b10.webp" alt="غلاف باپ ہونا کافی نہیں"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">باپ ہونا کافی نہیں</h2>
+    <p class="bk-promise rv" lang="ur">یہ کتاب باپ کو مجرم ٹھہرانے کے لیے نہیں</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">باپ ہونا ایک رشتہ ہے، کردار نہیں — اور بچے کو رشتے سے زیادہ کردار چاہیے ہوتا ہے۔ یہ کتاب باپ کو مجرم ٹھہرانے کے لیے نہیں، باپ کو اس کی جگہ یاد دلانے کے لیے ہے: موجودگی، شفقت، حدود، اور وہ وقت جو پیسے سے نہیں خریدا جا سکتا۔ باپوں — اور ان ماؤں کے لیے جو باپ کی جگہ سمجھنا چاہتی ہیں؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>صرف کمانا کافی نہیں</li>
+      <li>چھوٹے بچے کا باپ</li>
+      <li>نظم و ضبط میں باپ کا لہجہ</li>
+      <li>بیٹے کی آنکھ میں باپ</li>
+      <li>بیٹی کا پہلا اعتماد</li>
+      <li>بلوغت کا دروازہ</li>
+      <li>جوان ہوتا بیٹا/بیٹی</li>
+      <li>باپ کی اپنی تھکن</li>
+      <li>ماں کے ساتھ شراکت</li>
+      <li>باپ کی میراث</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%D8%A7%D9%BE%20%DB%81%D9%88%D9%86%D8%A7%20%DA%A9%D8%A7%D9%81%DB%8C%20%D9%86%DB%81%DB%8C%DA%BA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book11"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b11.webp" alt="غلاف ایک گھر، دو نسلیں"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">ایک گھر، دو نسلیں</h2>
+    <p class="bk-promise rv" lang="ur">دو نسلیں، ایک چھت: نعمت بھی، آزمائش بھی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">ایک چھت کے نیچے دو نسلیں — ایک کی عادتیں پرانی، دوسری کی دنیا نئی۔ ٹکراؤ تب ہوتا ہے جب کوئی ایک دوسرے کی دنیا کو سمجھے بغیر فیصلہ سنا دے۔ یہ کتاب دو نسلوں کے ساتھ رہنے کا فن ہے: احترام، حدود، میراث کی بات، اور وہ فاصلہ جو محبت کو کھاتا نہیں، بچاتا ہے۔ مشترکہ خاندانوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دو نسلیں، ایک چھت: نعمت بھی، آزمائش بھی</li>
+      <li>اختیار کا سوال</li>
+      <li>فیصلے کس کے؟ مشورے کا نظام</li>
+      <li>پوتے پوتیوں کی تربیت: دادا دادی کی محبت، والدین کی حد</li>
+      <li>بہو اور داماد: نئے فرد کا استقبال</li>
+      <li>بڑھتی عمر، بڑھتی ضرورتیں</li>
+      <li>مال و جائیداد کی حساس باتیں</li>
+      <li>اختلاف ہو جائے تو</li>
+      <li>فاصلے آ جائیں تو</li>
+      <li>اقدار کی منتقلی: گھر کی اصل وراثت</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A7%DB%8C%DA%A9%20%DA%AF%DA%BE%D8%B1%D8%8C%20%D8%AF%D9%88%20%D9%86%D8%B3%D9%84%DB%8C%DA%BA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book12"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b12.webp" alt="غلاف رشتہ کی تلاش"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">رشتہ کی تلاش</h2>
+    <p class="bk-promise rv" lang="ur">معیار، مشورہ اور توکل</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">رشتہ ڈھونڈنا مشکل نہیں، رشتہ پہچاننا مشکل ہے — اور جلد بازی میں کیا گیا فیصلہ سالوں بھگتنا پڑتا ہے۔ یہ کتاب رشتے کی تلاش کا اسلامی اور عملی راستہ ہے: معیار کیا ہو، مشورہ کس سے ہو، اور توکل کہاں سے شروع ہو۔ رشتہ ڈھونڈنے والوں اور ان کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>رشتہ: ایک مقدس ذمہ داری</li>
+      <li>معیار: دین اور اخلاق</li>
+      <li>مشورہ: شوریٰ کا اصول</li>
+      <li>تحقیق: معلومات کا صحیح ذریعہ</li>
+      <li>پسند کی شادی: شرعی حدود</li>
+      <li>غیر کزن میرج: ایک نیا رجحان</li>
+      <li>توکل</li>
+      <li>صبر: انتظار کی گھڑیاں</li>
+      <li>استخارہ: اللہ سے رہنمائی</li>
+      <li>نکاح کا عقد: آخری قدم</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B1%D8%B4%D8%AA%DB%81%20%DA%A9%DB%8C%20%D8%AA%D9%84%D8%A7%D8%B4%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book13"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b13.webp" alt="غلاف سسرال کے رشتے"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">سسرال کے رشتے</h2>
+    <p class="bk-promise rv" lang="ur">حدود، احترام اور ہم آہنگی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">ساس بہو کا رشتہ ہمارے ڈراموں میں جنگ ہے، اور ہمارے گھروں میں اکثر خاموشی۔ دونوں غلط ہیں۔ یہ کتاب سسرال کے رشتوں کو حدود، احترام اور ہم آہنگی کے ساتھ نبھانے کا راستہ ہے — نہ ساس ولن، نہ بہو مظلوم، سب خاندان۔ نئے جوڑوں، ساس سسر اور والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>نیا گھر، نیا رشتہ: ایک امانت کا آغاز</li>
+      <li>ادب اور رعایت: بڑوں کے حقوق کا فریم</li>
+      <li>ذاتی حدود: گھر میں اپنی جگہ کا تعین</li>
+      <li>شوہر کا کردار: درمیان میں انصاف کا پل</li>
+      <li>مالی معاملات: مشترکہ کچن اور الگ بجٹ</li>
+      <li>بچوں کی تربیت میں بزرگوں کا کردار</li>
+      <li>اختلافات کا حل: جب بات نہ بنے</li>
+      <li>ثقافتی فرق: جب رسم و رواج ٹکرائیں</li>
+      <li>جب رشتہ زہریلا ہو جائے: حفاظت کا حق</li>
+      <li>ایک خوشگوار سسرال: محبت کا باغیچہ</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B3%D8%B3%D8%B1%D8%A7%D9%84%20%DA%A9%DB%92%20%D8%B1%D8%B4%D8%AA%DB%92%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book14"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b14.webp" alt="غلاف تاخیرِ شادی"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">تاخیرِ شادی</h2>
+    <p class="bk-promise rv" lang="ur">انتظار، صبر اور دعا</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">عمر گزرتی جائے، رشتے آتے جائیں اور بات نہ بنے — تو انتظار صرف انتظار نہیں رہتا، درد بن جاتا ہے۔ یہ کتاب تاخیرِ شادی کے درد کو پہلے مانتی ہے، پھر صبر اور دعا کے ساتھ عملی قدم بتاتی ہے: کیا کرنا ہے، کیا چھوڑنا ہے، اور امید کیسے قائم رہے۔ انتظار میں کھڑے نوجوانوں اور ان کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>انتظار کی گھڑیاں: ایک انسانی حقیقت (حضرت زکریا علیہ السلام کا انتظار و دعا)</li>
+      <li>معاشرتی دباؤ: «کیا ہوا، شادی کب؟</li>
+      <li>معاشی رکاوٹیں: جہیز، مکان، نوکری</li>
+      <li>والدین کا کردار: نگرانی یا نرمی؟</li>
+      <li>خود احتسابی: کیا میں خود تیار ہوں؟</li>
+      <li>حلال راستے: نکاح کی آسانیاں</li>
+      <li>صبر کی عبادت: انتظار کو بوجھ سے موقع تک</li>
+      <li>توکل اور دعا (حضرت موسیٰ علیہ السلام کی مدین والی دعا)</li>
+      <li>مایوسی اور ذہنی صحت: جب امید ٹوٹے</li>
+      <li>نیا آغاز: جب دروازہ کھلے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AA%D8%A7%D8%AE%DB%8C%D8%B1%D9%90%20%D8%B4%D8%A7%D8%AF%DB%8C%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book15"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b15.webp" alt="غلاف علیحدگی کے بعد کا سفر"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">علیحدگی کے بعد کا سفر</h2>
+    <p class="bk-promise rv" lang="ur">بچوں کی تربیت اور باہمی مصلحت</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">علیحدگی کے بعد سب سے زیادہ نقصان بچے کا ہوتا ہے — خاص طور پر جب بچہ پیغام رساں یا جاسوس بنا دیا جائے۔ یہ کتاب بچوں کی تربیت اور والدین کی باہمی مصلحت کا سفر ہے: بچے کی حفاظت، ملاقات کا قابلِ عمل انتظام، اور براہ راست رابطہ۔ علیحدہ والدین اور ان کے خاندانوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>طلاق: ایک ناپسندیدہ مگر جائز راستہ</li>
+      <li>درد کا سامنا: جذباتی بحران</li>
+      <li>بچوں کو بتانا: کیسے اور کب؟</li>
+      <li>بچوں کی تربیت: دو گھر، ایک پرورش</li>
+      <li>سابقہ شریکِ حیات سے تعلق: حدود اور آداب</li>
+      <li>خاندان کا کردار: مدد یا مداخلت؟</li>
+      <li>مالی معاملات: نفقہ، حضانت، جائیداد</li>
+      <li>نئی شادی: کب اور کیسے؟</li>
+      <li>روحانی بحالی: اللہ سے پناہ</li>
+      <li>نیا آغاز: ایک بہتر کل</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B9%D9%84%DB%8C%D8%AD%D8%AF%DA%AF%DB%8C%20%DA%A9%DB%92%20%D8%A8%D8%B9%D8%AF%20%DA%A9%D8%A7%20%D8%B3%D9%81%D8%B1%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book16"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b16.webp" alt="غلاف پہلے پانچ سال"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">پہلے پانچ سال</h2>
+    <p class="bk-promise rv" lang="ur">عادت اور محبت کی بنیاد</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بچے کی شخصیت کے پہلے پانچ سال وہ بنیاد ہیں جس پر اگلی پوری زندگی کھڑی ہوتی ہے — اور یہ سال پلک جھپکتے گزر جاتے ہیں۔ یہ کتاب صفر سے پانچ سال کی تربیت ہے: عادت، محبت، اور وہ چھوٹی باتیں جو بڑے کردار بناتی ہیں۔ نئے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>ننھا مہمان: ایک امانت کا آگاہ</li>
+      <li>پہلا سال: محبت اور حفاظت</li>
+      <li>دوسرا اور تیسرا سال: زبان اور عادات</li>
+      <li>چوتھا اور پانچواں سال: سوالوں کا موسم</li>
+      <li>عبادت کی عادت: چھوٹی عمر سے</li>
+      <li>اخلاقیات کی بنیاد: سچ، امانت، مدد</li>
+      <li>اسکرین کا سامنا: ڈیجیٹل دنیا میں حفاظت</li>
+      <li>غصے اور ضد کا سامنا</li>
+      <li>بہن بھائی کا رشتہ: محبت اور حسد</li>
+      <li>والدین کی اپنی تربیت: پہلے خود سنوریں</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%BE%DB%81%D9%84%DB%92%20%D9%BE%D8%A7%D9%86%DA%86%20%D8%B3%D8%A7%D9%84%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book17"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b17.webp" alt="غلاف سکول کا دور"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">سکول کا دور</h2>
+    <p class="bk-promise rv" lang="ur">6 سے 12 سال: عادت، عبادت اور کردار کی پختگی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">سکول کا دور وہ زمانہ ہے جب بچہ گھر سے نکل کر دنیا کو دیکھتا ہے — اور جو عادت یہاں پختہ ہو جائے، وہ ساتھ جاتی ہے۔ یہ کتاب 6 سے 12 سال کی تربیت ہے: عادت، عبادت اور کردار کی پختگی، بغیر دھمکی اور جسمانی سزا کے۔ والدین اور اساتذہ کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>سکول کا دروازہ: ایک نیا مرحلہ</li>
+      <li>نماز کی عادت: سات سال سے آغاز</li>
+      <li>قرآن کا انس: حفظ اور فہم</li>
+      <li>اخلاقیات: سچ، امانت، حیا</li>
+      <li>دوستی اور سنگت: اچھے ساتھی کا انتخاب</li>
+      <li>اسکرین اور نگرانی: حدود کا فریم</li>
+      <li>تعلیمی دباؤ: امتحان اور مقابلہ</li>
+      <li>جذبات کی تربیت: اپنے جذبات کو پہچاننا</li>
+      <li>بہن بھائی اور رشتہ دار: صلہ رحمی کی تربیت</li>
+      <li>والدین کا کردار: نمونہ بنیں</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B3%DA%A9%D9%88%D9%84%20%DA%A9%D8%A7%20%D8%AF%D9%88%D8%B1%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book18"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b18.webp" alt="غلاف نوعمری کا طوفان"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">نوعمری کا طوفان</h2>
+    <p class="bk-promise rv" lang="ur">13 سے 18 سال: شناخت، حدود اور والدین کا نیا کردار</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">نوعمر بچہ باغی نہیں ہوتا — وہ شناخت ڈھونڈ رہا ہوتا ہے، اور جس گھر میں اس کی تلاش کو جرم سمجھا جائے، وہاں دیواریں بن جاتی ہیں۔ یہ کتاب 13 سے 18 سال کی رہنمائی ہے: شناخت، حدود، اور والدین کا نیا کردار۔ نوعمر بچوں کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>نوعمری: فطری تبدیلی یا بغاوت؟</li>
+      <li>شناخت کا سفر: میں کون ہوں؟</li>
+      <li>حدود کا تعین: آزادی اور بے لگامی</li>
+      <li>والدین کا کردار: جج نہیں، رہنما</li>
+      <li>دوستی اور سنگت: نئے حلقے کا دباؤ</li>
+      <li>ڈیجیٹل دنیا اور نوعمر ذہن</li>
+      <li>بلوغت اور حیا: باوقار گفتگو</li>
+      <li>جذباتی اتار چڑھاؤ: غصہ اور اداسی</li>
+      <li>تعلیمی دباؤ اور مستقبل کا انتخاب</li>
+      <li>دعا اور روحانی تعلق: نوعمر کا سہارا</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%86%D9%88%D8%B9%D9%85%D8%B1%DB%8C%20%DA%A9%D8%A7%20%D8%B7%D9%88%D9%81%D8%A7%D9%86%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book19"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b19.webp" alt="غلاف بیٹی کی تربیت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بیٹی کی تربیت</h2>
+    <p class="bk-promise rv" lang="ur">رحمت، حیا اور خود اعتمادی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بیٹی پرایا دھن نہیں — یہ جملہ غلط ہے، اور اس غلطی کی قیمت بیٹیاں چکاتی ہیں۔ یہ کتاب بیٹی کی تربیت ہے: رحمت، حیا اور خود اعتمادی — وقار کے ساتھ، محبت کے ساتھ۔ بیٹیوں کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>بیٹی: رحمت یا بوجھ؟</li>
+      <li>خود اعتمادی کی بنیاد: تعریف اور حوصلہ</li>
+      <li>اسلامی حیا: کمزوری نہیں، وقار ہے</li>
+      <li>جسمانی تبدیلیاں اور بات چیت</li>
+      <li>تعلیم اور ہنر: مستقبل کی تیاری</li>
+      <li>سوشل میڈیا اور بیٹی کی خود اعتمادی</li>
+      <li>رشتوں کی توقعات: خواب اور حقیقت</li>
+      <li>نہیں» کہنا سیکھنا: ذاتی حدود کی حفاظت</li>
+      <li>باپ کا کردار: بیٹی کی حفاظت و اعتماد</li>
+      <li>ماں کا کردار: سہیلی اور رہنما</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%DB%8C%D9%B9%DB%8C%20%DA%A9%DB%8C%20%D8%AA%D8%B1%D8%A8%DB%8C%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book20"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b20.webp" alt="غلاف بیٹے کی تربیت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بیٹے کی تربیت</h2>
+    <p class="bk-promise rv" lang="ur">ذمہ داری، غیرت اور شفقت</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بیٹے کو «مرد بنو» کہہ کر ہم اس سے اس کے جذبات چھین لیتے ہیں — اور پھر حیران ہوتے ہیں کہ وہ بات کیوں نہیں کرتا۔ یہ کتاب بیٹے کی تربیت ہے: ذمہ داری، غیرت اور شفقت — تینوں ساتھ، ایک کے بغیر دوسرا ادھورا۔ بیٹوں کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>بیٹا: امانت، ملکیت نہیں</li>
+      <li>ذمہ داری کی شروعات: چھوٹے کام، بڑا کردار</li>
+      <li>حقیقی غیرت: حفاظت، جبر نہیں</li>
+      <li>جذبات کا اظہار: مرد نہیں روتے کا توڑ</li>
+      <li>ماں کا احترام: پہلا فرض</li>
+      <li>باپ کا کردار: نمونہ، صرف حاکم نہیں</li>
+      <li>دوستی اور برائی سے بچاؤ</li>
+      <li>مالی ذمہ داری: کمائی اور خرچ کا ادب</li>
+      <li>شادی کی ذہنی تیاری</li>
+      <li>روحانی مضبوطی: نماز و قرآن سے تعلق</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%DB%8C%D9%B9%DB%92%20%DA%A9%DB%8C%20%D8%AA%D8%B1%D8%A8%DB%8C%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book21"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b21.webp" alt="غلاف اکلوتا بچہ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">اکلوتا بچہ</h2>
+    <p class="bk-promise rv" lang="ur">لاڈ کے بجائے ذمہ داری، بانٹنا اور شکر</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">اکلوتا بچہ بگڑا ہوا نہیں ہوتا — اور اس کے والدین مجرم نہیں ہوتے۔ مگر اکلوتے بچے کی تربیت کے اپنے سوال ہیں: لاڈ کہاں رکے، بانٹنا کیسے سیکھے، شکر کیسے آئے۔ یہ کتاب انہی سوالوں کا جواب ہے — محبت کے ساتھ، ذمہ داری کے ساتھ۔ اکلوتے بچے کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>اکلوتا بچہ: نعمت اور ذمہ داری</li>
+      <li>لاڈ کی حد: محبت اور اعتدال</li>
+      <li>ہمدردی کی تربیت: دوسروں کا درد</li>
+      <li>اشتراک و تقسیم: کھلونے سے جذبات تک</li>
+      <li>سماجی مہارتیں: کھیل کے میدان سے زندگی تک</li>
+      <li>خود مختاری: والدین کا انحصار کم کرنا</li>
+      <li>نہیں سننے کی عادت: فرمائشوں کی حد</li>
+      <li>بزرگوں سے تعلق: دادا دادی کی صحبت</li>
+      <li>تنہائی کا توڑ: ذمہ داریاں اور مصروفیت</li>
+      <li>شکرگزاری: جو ہے اس پر خوشی</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A7%DA%A9%D9%84%D9%88%D8%AA%D8%A7%20%D8%A8%DA%86%DB%81%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book22"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b22.webp" alt="غلاف خاتونِ خانہ کی تدبیر"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">خاتونِ خانہ کی تدبیر</h2>
+    <p class="bk-promise rv" lang="ur">گھر کی منتظم، امانت کی امین</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">گھر چلانا نوکری سے کم نہیں — مگر اس کی نہ تنخواہ ہے، نہ چھٹی، نہ شکریہ۔ یہ کتاب خاتونِ خانہ کی تدبیر ہے: وقت، پیسہ، رشتے اور اپنی تھکن — سب کو سنبھالنے کا اسلامی اور عملی راستہ۔ عمران اسلم و سیدہ عمارہ زیدی کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>گھر: ایک امانت، خاتون: منتظم و امین</li>
+      <li>وقت کی تدبیر: ترجیحات کا فن</li>
+      <li>مالی تدبیر: گھر کے وسائل کا حسنِ استعمال</li>
+      <li>گھریلو مددگار کے حقوق: احسان کا معیار</li>
+      <li>شوہر سے شراکت: شوریٰ کا رشتہ</li>
+      <li>ماں کا کردار: صرف پرورش نہیں، کردار سازی</li>
+      <li>خود کی دیکھ بھال: حق النفس</li>
+      <li>دو گھروں کا توازن: سسرال اور اپنا گھر</li>
+      <li>باہر کا کام اور گھر کی ذمہ داری</li>
+      <li>گھر کی روحانی فضا: عبادت گاہ جیسا گھر</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AE%D8%A7%D8%AA%D9%88%D9%86%D9%90%20%D8%AE%D8%A7%D9%86%DB%81%20%DA%A9%DB%8C%20%D8%AA%D8%AF%D8%A8%DB%8C%D8%B1%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book23"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b23.webp" alt="غلاف ذہنی تھکاوٹ اور گھریلو دباؤ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">ذہنی تھکاوٹ اور گھریلو دباؤ</h2>
+    <p class="bk-promise rv" lang="ur">سکون، توازن اور بحالی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">تھکاوٹ کمزوری نہیں، اور نہ ایمان کی کمی ہے — مگر ہمارے گھروں میں تھکے ہوئے انسان کو یہی سنایا جاتا ہے۔ یہ کتاب ذہنی تھکاوٹ اور گھریلو دباؤ کی پہچان اور بحالی کا راستہ ہے: سکون، توازن، اور وہ قدم جو آج اٹھائے جا سکتے ہیں۔ عمران اسلم و سیدہ عمارہ زیدی کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>تھکاوٹ کی حقیقت: بوجھ یا انتباہ؟</li>
+      <li>توانائی کا رساؤ: کہاں گیا سکون؟</li>
+      <li>ترجیحات: ہر کام، ہر وقت نہیں</li>
+      <li>مدد مانگنا: احسان نہیں، حق</li>
+      <li>خلوت اور عبادت: روحانی بحالی</li>
+      <li>کمال پسندی کا ترک: رحمت کا گھر</li>
+      <li>موازنے کا زہر: دوسروں کے گھر، اپنی تھکاوٹ</li>
+      <li>نیند اور جسمانی صحت: حق النفس</li>
+      <li>نہیں کہنا: حدود کی حفاظت</li>
+      <li>نیا آغاز: شکر اور امید</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B0%DB%81%D9%86%DB%8C%20%D8%AA%DA%BE%DA%A9%D8%A7%D9%88%D9%B9%20%D8%A7%D9%88%D8%B1%20%DA%AF%DA%BE%D8%B1%DB%8C%D9%84%D9%88%20%D8%AF%D8%A8%D8%A7%D8%A4%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book24"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b24.webp" alt="غلاف باہر کے کام اور خاندانی زندگی"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">باہر کے کام اور خاندانی زندگی</h2>
+    <p class="bk-promise rv" lang="ur">توازن، ترجیحات اور حدود</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">کام کرنے والی عورت مجرم نہیں، اور گھر رہنے والی کم تر نہیں — مگر ہمارے معاشرے میں دونوں کو طعنے ملتے ہیں۔ یہ کتاب باہر کے کام اور خاندانی زندگی کا توازن ہے: ترجیحات، حدود، اور وہ فیصلے جو عزت کے ساتھ ہوں۔ عمران اسلم و سیدہ عمارہ زیدی کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>کام کا مقصد: ضرورت، خدمت یا خواہش؟</li>
+      <li>شرعی حدود: حیا اور فرائض کا فریم</li>
+      <li>گھر کی بنیادی ذمہ داریاں: سمجھوتہ کہاں؟</li>
+      <li>اولاد کی تربیت: غیر موجودگی کا توڑ</li>
+      <li>شوہر سے تفہیم: منصوبہ بندی کا رشتہ</li>
+      <li>چوبیس گھنٹے: وقت کے بلاک</li>
+      <li>کمائی اور بجٹ: شفافیت کا اصول</li>
+      <li>مدد کا نظام: خاندان اور مددگار</li>
+      <li>ہر کام خود کرنے کے وہم سے آزادی</li>
+      <li>توکل اور رزق کی برکت</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%D8%A7%DB%81%D8%B1%20%DA%A9%DB%92%20%DA%A9%D8%A7%D9%85%20%D8%A7%D9%88%D8%B1%20%D8%AE%D8%A7%D9%86%D8%AF%D8%A7%D9%86%DB%8C%20%D8%B2%D9%86%D8%AF%DA%AF%DB%8C%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book25"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b25.webp" alt="غلاف بحران کے بعد کی شروعات"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بحران کے بعد کی شروعات</h2>
+    <p class="bk-promise rv" lang="ur">بیوگی و علیحدگی کے بعد بحالی کا سفر</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بیوگی یا علیحدگی کے بعد عورت کی اپنی بحالی کی بات کوئی نہیں کرتا — سب بچوں کی بات کرتے ہیں، سب خاندان کی بات کرتے ہیں۔ یہ کتاب عورت کے اپنے سفر کی ہے: عدت، نفقہ، حضانت کی شرعی و قانونی رہنمائی، اور نئی شروعات کا حوصلہ۔ عمران اسلم و سیدہ عمارہ زیدی کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>درد کا سامنا: غم کو تسلیم کرنا</li>
+      <li>شرعی و قانونی حقوق: عدت، نفقہ، حضانت</li>
+      <li>بچوں کو بتانا اور سنبھالنا</li>
+      <li>خاندان اور معاشرہ: مدد یا مداخلت؟</li>
+      <li>مالی خود انحصاری: ہنر اور روزگار</li>
+      <li>نئی شادی: کب اور کیسے سوچیں؟</li>
+      <li>بچوں کی نفسیاتی بحالی</li>
+      <li>روحانی سہارا: قرآن و دعا</li>
+      <li>دستاویزات و قانونی حفاظت</li>
+      <li>نیا مقصد: درد سے خدمت تک</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%D8%AD%D8%B1%D8%A7%D9%86%20%DA%A9%DB%92%20%D8%A8%D8%B9%D8%AF%20%DA%A9%DB%8C%20%D8%B4%D8%B1%D9%88%D8%B9%D8%A7%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book26"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b26.webp" alt="غلاف گھر میں بات چیت کے آداب"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھر میں بات چیت کے آداب</h2>
+    <p class="bk-promise rv" lang="ur">سننا، بولنا اور سمجھنا</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">گھر میں سب سے زیادہ بات چیت ہوتی ہے — اور سب سے کم سننا۔ یہ کتاب سننے، بولنے اور سمجھنے کے آداب ہے: بات کیسے کی جائے کہ دوسرا سنے، اور سنی کیسے جائے کہ دوسرا کہہ سکے۔ جو گھر بات چیت سے جڑنا چاہتا ہے، اس کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>بات چیت کیوں؟ خاموشی یا چیخ</li>
+      <li>سننے کا فن: جواب نہیں، سمجھ</li>
+      <li>غصے میں گفتگو: وقفہ پہلے، لفظ بعد میں</li>
+      <li>الزام کے بجائے احساس کا اظہار</li>
+      <li>میاں بیوی کی گفتگو: نرمی اور مان</li>
+      <li>بچوں سے گفتگو: ڈر نہیں، اعتماد</li>
+      <li>بزرگوں سے گفتگو: ادب اور وضاحت</li>
+      <li>اختلاف: جیتنے کے لیے نہیں، سمجھنے کے لیے</li>
+      <li>معذرت اور درگزر</li>
+      <li>گھر کی شوریٰ: ہفتے کی ایک نشست</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%20%D9%85%DB%8C%DA%BA%20%D8%A8%D8%A7%D8%AA%20%DA%86%DB%8C%D8%AA%20%DA%A9%DB%92%20%D8%A2%D8%AF%D8%A7%D8%A8%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book27"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b27.webp" alt="غلاف شکرگزاری اور مودت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">شکرگزاری اور مودت</h2>
+    <p class="bk-promise rv" lang="ur">چھوٹی باتوں سے بنتا گھر کا موسم</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">چھوٹی باتیں گھر کا موسم بناتی ہیں — ایک شکریہ، ایک مسکراہٹ، ایک تسلیم۔ اور انہی چھوٹی باتوں کی کمی گھر کو سرد کر دیتی ہے۔ یہ کتاب شکرگزاری اور مودت کی عملی رہنمائی ہے: جو ہے اسے دیکھنا، اور جو ملا اسے کہنا۔ میاں بیوی اور پورے گھر کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>شکر: نعمت کی قدر، زندگی کی وسعت</li>
+      <li>مودت: محبت جو کہی بھی جائے</li>
+      <li>تعریف کا حق: اچھائی دیکھی بھی جائے، کہی بھی جائے</li>
+      <li>شکوہ یا شکریہ: زبان کا روزانہ چناؤ</li>
+      <li>تحفہ: چھوٹی چیز، بڑا پیغام</li>
+      <li>مسکراہٹ: گھر کی سب سے سستی زینت</li>
+      <li>درگزر کی وسعت: دل کا بڑا ہونا</li>
+      <li>گھر کی فضا: ذکر اور اچھی بات</li>
+      <li>مشکل وقت میں شکر: آزمائش کا دوسرا رخ</li>
+      <li>مودت کا ورثہ: بچے جو دیکھتے ہیں</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B4%DA%A9%D8%B1%DA%AF%D8%B2%D8%A7%D8%B1%DB%8C%20%D8%A7%D9%88%D8%B1%20%D9%85%D9%88%D8%AF%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book28"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b28.webp" alt="غلاف معذرت اور درگزر"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">معذرت اور درگزر</h2>
+    <p class="bk-promise rv" lang="ur">دراڑیں بھرنے کا فن</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">معافی مانگنا ہار نہیں، اور معاف کرنا کمزوری نہیں — مگر ہم دونوں کو یہی سمجھتے ہیں، اس لیے دراڑیں بھرتی نہیں، بڑھتی ہیں۔ یہ کتاب معذرت اور درگزر کا فن ہے: غلطی ماننا، معافی دینا، اور رشتے کو دوبارہ جوڑنا۔ ہر اس رشتے کے لیے جس میں دراڑ آ گئی ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دراڑ بھر سکتی ہے</li>
+      <li>انسانی خطا: غلطی فطری ہے، ضد نہیں</li>
+      <li>سچی معذرت کے ارکان: اقرار، ندامت، عزم</li>
+      <li>معذرت میں دیر: سوکھتی دراڑیں</li>
+      <li>درگزر کا اجر: بدلہ یا معافی؟</li>
+      <li>میاں بیوی کی لڑائی: پہل کون کرے؟</li>
+      <li>بچوں سے معذرت: والدین کا نمونہ</li>
+      <li>معذرت کا طریقہ: الفاظ کا چناؤ</li>
+      <li>جب معذرت فوراً قبول نہ ہو: وقت دینا</li>
+      <li>تیسرا فریق: اصلاحِ ذاتِ البین</li>
+      <li>نئی شروعات: ماضی کی راکھ</li>
+      <li>گھر وہی، موسم نیا</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%85%D8%B9%D8%B0%D8%B1%D8%AA%20%D8%A7%D9%88%D8%B1%20%D8%AF%D8%B1%DA%AF%D8%B2%D8%B1%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book29"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b29.webp" alt="غلاف حسد اور موازنہ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">حسد اور موازنہ</h2>
+    <p class="bk-promise rv" lang="ur">دوسروں کی نعمت، اپنی بے چینی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">دوسروں کی نعمت دیکھ کر اپنی بے چینی — یہ حسد ہے، اور یہ سب سے پہلے حسد کرنے والے کو کھاتا ہے۔ یہ کتاب حسد اور موازنے کی پہچان اور علاج ہے: نظر کہاں رکھیں، دل کیسے صاف ہو، اور اپنی نعمت کیسے نظر آئے۔ ہر اس دل کے لیے جو موازنے سے تھک گیا ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دوسروں کی نعمت، اپنی بے چینی</li>
+      <li>حسد کی تعریف اور اس کی تباہ کاریاں</li>
+      <li>موازنے کا زہر: اولاد، رزق اور حیثیت</li>
+      <li>اللہ کی تقسیم: ہر کسی کا حصہ مقرر ہے</li>
+      <li>دوسروں کی کامیابی پر خوشی: غبطہ کی تربیت</li>
+      <li>سوشل میڈیا اور حسد: ظاہری چمک کا دھوکہ</li>
+      <li>رشتہ داروں میں حسد</li>
+      <li>حسد کا توڑ: اپنی نعمت کی طرف نظر</li>
+      <li>اولاد میں موازنہ: ہر پھول کی الگ خوشبو</li>
+      <li>حسد سے حفاظت: دعا و ذکر</li>
+      <li>دل کی صفائی: کینے سے محبت کی طرف</li>
+      <li>دل صاف، گھر روشن</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AD%D8%B3%D8%AF%20%D8%A7%D9%88%D8%B1%20%D9%85%D9%88%D8%A7%D8%B2%D9%86%DB%81%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book30"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b30.webp" alt="غلاف مردانہ جذباتی بوجھ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">مردانہ جذباتی بوجھ</h2>
+    <p class="bk-promise rv" lang="ur">خاموش کندھوں کا بوجھ</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">مرد روتا نہیں، مرد تھکتا نہیں، مرد شکایت نہیں کرتا — یہ جملے مرد کے کندھوں پر خاموش بوجھ رکھ دیتے ہیں۔ یہ کتاب مردانہ جذباتی بوجھ کی پہچان اور ہلکا کرنے کا راستہ ہے: بولنا، ماننا، اور مدد لینا — بغیر کسی شرم کے۔ مردوں اور ان کے گھر والوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>خاموش کندھوں کا بوجھ</li>
+      <li>مردانہ ذمہ داری: قوامیت کا حقیقی مفہوم</li>
+      <li>خاموش دباؤ: کام کی تھکاوٹ اور گھر کا سکون</li>
+      <li>جذبات کا اظہار: مرد بھی روتے ہیں</li>
+      <li>بیوی: شوہر کے لیے سکینہ</li>
+      <li>باپ اور بچے: کھلونا نہیں، وقت چاہیے</li>
+      <li>مالی دباؤ اور توکل: رزق کا یقین</li>
+      <li>دوستوں اور بزرگوں کی صحبت</li>
+      <li>عبادت اور تنہائی: روحانی سکون</li>
+      <li>شریکِ حیات سے بات چیت: شکوہ نہیں، حل</li>
+      <li>خود کی دیکھ بھال: صحت اور آرام</li>
+      <li>بوجھ ہلکا، کندھے مضبوط</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%85%D8%B1%D8%AF%D8%A7%D9%86%DB%81%20%D8%AC%D8%B0%D8%A8%D8%A7%D8%AA%DB%8C%20%D8%A8%D9%88%D8%AC%DA%BE%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book31"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b31.webp" alt="غلاف اصلاحِ ذاتِ البین"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">اصلاحِ ذاتِ البین</h2>
+    <p class="bk-promise rv" lang="ur">ٹوٹے رشتے جوڑنے کا فن</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">ٹوٹے رشتے خود نہیں جڑتے — انہیں کوئی جوڑتا ہے، اور جوڑنے والا اکثر تیسرا انسان ہوتا ہے۔ یہ کتاب اصلاحِ ذاتِ البین کا فن ہے: صلح کیسے کرائی جائے، بات کیسے سنوائی جائے، اور ٹوٹا ہوا کیسے جڑے۔ خاندانوں، دوستوں اور مصلحین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>ٹوٹے رشتے جوڑنے کا فن</li>
+      <li>اصلاحِ ذاتِ البین: عبادت سے بڑھ کر</li>
+      <li>فساد کی جڑیں: غلط فہمی، غیبت اور انا</li>
+      <li>پہل کرنے والا بڑا ہے: انا کا قتل</li>
+      <li>ثالثی کا فن: بیچ میں پڑنا یا جوڑنا؟</li>
+      <li>معذرت قبول کرنا: دل کی وسعت</li>
+      <li>خاندانی جھگڑے: وراثت اور جائیداد</li>
+      <li>سسرال اور اپنے گھر کا تصادم</li>
+      <li>بچوں کو فساد سے بچانا</li>
+      <li>وقت کی قید: موت سے پہلے صلح</li>
+      <li>اللہ کی رضا: صلح کا حتمی مقصد</li>
+      <li>گھر وہی، رشتے نئے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A7%D8%B5%D9%84%D8%A7%D8%AD%D9%90%20%D8%B0%D8%A7%D8%AA%D9%90%20%D8%A7%D9%84%D8%A8%DB%8C%D9%86%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book32"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b32.webp" alt="غلاف اسکرین کی گھنی چھاؤں"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">اسکرین کی گھنی چھاؤں</h2>
+    <p class="bk-promise rv" lang="ur">بچوں اور گھر کی ڈیجیٹل حفاظت</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">اسکرین گھر میں آ گئی ہے — بچے کے ہاتھ میں، میاں بیوی کے درمیان، کھانے کی میز پر۔ ڈانٹ سے اسکرین نہیں جاتی، تدبیر سے جاتی ہے۔ یہ کتاب بچوں اور گھر کی ڈیجیٹل حفاظت ہے: حدود، معاہدہ، اور وہ باتیں جو ہر والدین کو جاننی چاہئیں۔ والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>چھاؤں بری نہیں، گھنی بری ہے</li>
+      <li>ڈیجیٹل دنیا: نعمت یا فتنہ؟</li>
+      <li>بچوں اور اسکرین: عمر کے مطابق حدود</li>
+      <li>والدین کا کردار: نگران یا ساتھی</li>
+      <li>متبادل سرگرمیاں: اسکرین سے ہٹ کر زندگی</li>
+      <li>سوشل میڈیا اور بچوں کی نفسیات</li>
+      <li>آن لائن تعلیم: فائدہ اور نقصان کا توازن</li>
+      <li>گھر میں ڈیجیٹل معاہدہ: قواعد کی وضاحت</li>
+      <li>نوجوان اور خود احتسابی: وقت ایک امانت</li>
+      <li>ڈیجیٹل عبادت: فائدہ یا بہانہ؟</li>
+      <li>ڈیجیٹل تعطیل: گھر کا ایک دن اسکرین کے بغیر</li>
+      <li>چھاؤں ہلکی، گھر روشن</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A7%D8%B3%DA%A9%D8%B1%DB%8C%D9%86%20%DA%A9%DB%8C%20%DA%AF%DA%BE%D9%86%DB%8C%20%DA%86%DA%BE%D8%A7%D8%A4%DA%BA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book33"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b33.webp" alt="غلاف سوشل میڈیا اور ازدواجی توقعات"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">سوشل میڈیا اور ازدواجی توقعات</h2>
+    <p class="bk-promise rv" lang="ur">اسکرین کی چمک، گھر کا سکون</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">اسکرین پر سب کی شادی خوش ہے، سب کا گھر خوبصورت ہے، سب کی زندگی مکمل ہے — اور ہمارا گھر ہمیں ادھورا لگنے لگتا ہے۔ یہ کتاب سوشل میڈیا کی چمک اور گھر کے سکون کے درمیان توازن ہے: توقعات کہاں سے آتی ہیں، اور انہیں زمین پر کیسے لایا جائے۔ میاں بیوی کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>اسکرین کی چمک، گھر کا سکون</li>
+      <li>ظاہری چمک اور اندرونی حقیقت</li>
+      <li>موازنے کا زہر: دوسروں کی شادی، اپنی مایوسی</li>
+      <li>شکرگزاری: جو ہے اس کی قدر</li>
+      <li>پرائیویسی اور شادی: گھر کی بات گھر میں</li>
+      <li>میاں بیوی کا سوشل میڈیا استعمال: مشترکہ حدود</li>
+      <li>آن لائن رابطے اور ازدواجی وفاداری</li>
+      <li>بچوں کی تصاویر اور پرائیویسی</li>
+      <li>ترک یا اعتدال؟</li>
+      <li>حقیقی خوشی: لائکس نہیں، سکینہ</li>
+      <li>ڈیجیٹل صفائی: اکاؤنٹس کا جائزہ</li>
+      <li>گھر کا سکون، اسکرین سے بڑا</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B3%D9%88%D8%B4%D9%84%20%D9%85%DB%8C%DA%88%DB%8C%D8%A7%20%D8%A7%D9%88%D8%B1%20%D8%A7%D8%B2%D8%AF%D9%88%D8%A7%D8%AC%DB%8C%20%D8%AA%D9%88%D9%82%D8%B9%D8%A7%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book34"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b34.webp" alt="غلاف نوجوان 18 تا 30"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">نوجوان 18 تا 30</h2>
+    <p class="bk-promise rv" lang="ur">کیریئر، شادی اور مقصد کی تلاش</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">اٹھارہ سے تیس کا زمانہ فیصلوں کا زمانہ ہے — کیریئر، شادی، مقصد — اور ہر فیصلہ دباؤ میں ہوتا ہے۔ یہ کتاب نوجوانوں سے براہ راست بات کرتی ہے: گیارہ ابواب، کوئی لیکچر نہیں، صرف وہ سوال جو آپ کے ذہن میں ہیں اور ان کے عملی جواب۔ نوجوانوں اور ان کے والدین کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>زندگی کا نقشہ بن رہا ہے</li>
+      <li>نوجوانی: طاقت، جوش اور ذمہ داری</li>
+      <li>مقصدِ حیات: صرف نوکری یا کچھ اور؟</li>
+      <li>کیریئر کا انتخاب: صلاحیت، ضرورت اور حلال رزق</li>
+      <li>شادی کا فیصلہ: جلد بازی یا تاخیر؟</li>
+      <li>دوستی اور صحبت: اچھے اور برے ساتھی کی پہچان</li>
+      <li>والدین کے ساتھ تعلقات: آزادی یا ادب</li>
+      <li>مالی خود مختاری: بچت، خرچ اور قرض سے بچاؤ</li>
+      <li>جذباتی دباؤ اور مایوسی کا توڑ</li>
+      <li>عبادت اور نوجوان: تعلق کو مضبوط بنانا</li>
+      <li>معاشرتی خدمت: نوجوان بطورِ مصلح</li>
+      <li>مستقبل کی منصوبہ بندی: دنیا اور آخرت کا توازن</li>
+      <li>نقشہ ہاتھ میں ہے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%86%D9%88%D8%AC%D9%88%D8%A7%D9%86%2018%20%D8%AA%D8%A7%2030%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book35"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b35.webp" alt="غلاف غیر ملکی ثقافت اور اسلامی شناخت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">غیر ملکی ثقافت اور اسلامی شناخت</h2>
+    <p class="bk-promise rv" lang="ur">ڈائسپورا والدین کے لیے رہنمائی</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">پردیس میں بچے پالنا دو ثقافتوں کے درمیان پل بنانا ہے — ایک طرف اسلامی شناخت، دوسری طرف وہ معاشرہ جس میں بچہ سانس لیتا ہے۔ یہ کتاب ڈائسپورا والدین کے لیے لکھی گئی ہے: شناخت کیسے بچے، بچہ کیسے جڑے، اور گھر کیسے قائم رہے۔ بیرونِ ملک مقیم خاندانوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دو ساحل، ایک کشتی</li>
+      <li>ڈائسپورا کا چیلنج: دو دنیاؤں کے درمیان</li>
+      <li>اسلامی شناخت: ہم کون ہیں؟</li>
+      <li>زبان کا تحفظ: اردو/مادری زبان کی اہمیت</li>
+      <li>مقامی ثقافت: کیا اپنائیں، کیا چھوڑیں؟</li>
+      <li>بچوں کی تربیت غیر ماحول میں</li>
+      <li>مسجد اور کمیونٹی کا کردار</li>
+      <li>اسکول اور تعلیمی نظام: چیلنجز اور حل</li>
+      <li>رشتہ داروں سے تعلق: فاصلے اور ذمہ داریاں</li>
+      <li>حلال خوراک اور تہوار: اپنی روایات کی حفاظت</li>
+      <li>نوجوان نسل اور شناختی بحران: والدین کی رہنمائی</li>
+      <li>دو جڑیں، ایک شناخت</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%BA%DB%8C%D8%B1%20%D9%85%D9%84%DA%A9%DB%8C%20%D8%AB%D9%82%D8%A7%D9%81%D8%AA%20%D8%A7%D9%88%D8%B1%20%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C%20%D8%B4%D9%86%D8%A7%D8%AE%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book36"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b36.webp" alt="غلاف گھریلو خوراک اور صحت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھریلو خوراک اور صحت</h2>
+    <p class="bk-promise rv" lang="ur">سنتِ نبوی کے مطابق خوراک کی عادات</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">گھر کا کھانا صرف پیٹ نہیں بھرتا — وہ عادت بناتا ہے، صحت بناتا ہے، اور گھر کا ماحول بناتا ہے۔ یہ کتاب سنتِ نبوی کے مطابق خوراک کی عادات ہے: کیا کھائیں، کتنا کھائیں، اور دسترخوان کو گھر کی محفل کیسے بنائیں۔ دسترخوان کو محفل بنانے والے ہر گھر کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دسترخوان، دل کا آئینہ</li>
+      <li>خوراک: عبادت یا محض ضرورت؟</li>
+      <li>سنتِ نبوی کے غذائی اصول: اعتدال اور طہارت</li>
+      <li>گھر کا کچن: حلال اور پاکیزہ خوراک کا اہتمام</li>
+      <li>اسراف اور فضول خرچی سے بچاؤ</li>
+      <li>بچوں کی خوراک: عادات کی بنیاد</li>
+      <li>بیماری میں خوراک: شفا اور صبر</li>
+      <li>مہمان نوازی اور خوراک: تکلف سے بچاؤ</li>
+      <li>موسمی خوراک اور مقامی پیداوار کا استعمال</li>
+      <li>گھر میں مشترکہ کھانا: برکت اور محبت</li>
+      <li>صحت اور عبادت: جسم کا حق</li>
+      <li>دسترخوان سے دل تک</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%DB%8C%D9%84%D9%88%20%D8%AE%D9%88%D8%B1%D8%A7%DA%A9%20%D8%A7%D9%88%D8%B1%20%D8%B5%D8%AD%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book37"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b37.webp" alt="غلاف تہوار و تقریبات"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">تہوار و تقریبات</h2>
+    <p class="bk-promise rv" lang="ur">اسراف اور بدعات کے بغیر اسلامی خوشیاں</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">خوشی منانا سنت ہے — مگر ہماری تقریبات میں خوشی سے زیادہ اسراف ہے، اور رسم سے زیادہ دکھاوا۔ یہ کتاب بتاتی ہے کہ خوشیاں کیسے منائی جائیں، اسراف اور بدعات کے بغیر۔ جو گھر خوشیاں سنت کے مطابق منانا چاہتا ہے، اس کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>خوشی بھی عبادت ہے</li>
+      <li>خوشیوں کا اسلامی تصور</li>
+      <li>شادی کی تقریبات: سادگی اور برکت</li>
+      <li>عید اور تہوار: روایات اور ان کی تطہیر</li>
+      <li>اسراف اور دکھاوے سے بچاؤ</li>
+      <li>مہمان نوازی: تکلف نہیں، اخلاص</li>
+      <li>بچوں کے لیے تہوار</li>
+      <li>خاندانی اجتماعات</li>
+      <li>تحائف کا تبادلہ</li>
+      <li>مالی دباؤ اور تہوار: قرض سے بچاؤ</li>
+      <li>خوشی کا اصل مرکز: گھر کا روحانی ماحول</li>
+      <li>خوشی، اب روزانہ کی بات</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AA%DB%81%D9%88%D8%A7%D8%B1%20%D9%88%20%D8%AA%D9%82%D8%B1%DB%8C%D8%A8%D8%A7%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book38"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b38.webp" alt="غلاف گھر کی عبادت گاہ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھر کی عبادت گاہ</h2>
+    <p class="bk-promise rv" lang="ur">نماز، قرآن اور ذکر کا گھریلو ماحول</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">مسجد جانا آسان ہے، گھر کو عبادت گاہ بنانا مشکل — مگر بچے دین گھر سے سیکھتے ہیں، مسجد سے نہیں۔ یہ کتاب نماز، قرآن اور ذکر کا گھریلو ماحول بنانے کا طریقہ بتاتی ہے: چھوٹی عادتیں، روز کی برکت۔ گھر کو عبادت کی جگہ بنانے کی خواہش رکھنے والوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>گھر بھی مسجد کی طرح</li>
+      <li>گھر اور مسجد کا تعلق: دونوں کا حق</li>
+      <li>نماز کا گھریلو ماحول: وقت کی پابندی</li>
+      <li>قرآن کی تلاوت اور تفہیم: روزانہ کا معمول</li>
+      <li>ذکر و اذکار: گھر میں فرشتوں کا نزول</li>
+      <li>بچوں کی عبادت: مشاہدہ اور ترغیب</li>
+      <li>رمضان کا گھریلو انتظام: عبادت اور روزمرہ کا توازن</li>
+      <li>گھر میں علم کا حلقہ: ہفتہ وار درس</li>
+      <li>گناہوں سے پاک ماحول: حرام سے بچاؤ</li>
+      <li>مہمانوں کا شرعی استقبال</li>
+      <li>گھر کی برکت: صدقہ اور صلہ رحمی کا اثر</li>
+      <li>گھر، اب عبادت گاہ</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%20%DA%A9%DB%8C%20%D8%B9%D8%A8%D8%A7%D8%AF%D8%AA%20%DA%AF%D8%A7%DB%81%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book39"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b39.webp" alt="غلاف خاندانی دستاویزات"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">خاندانی دستاویزات</h2>
+    <p class="bk-promise rv" lang="ur">وصیت، نکاح نامہ اور اہم کاغذات کی حفاظت و ترتیب</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">وصیت، نکاح نامہ، اہم کاغذات — یہ سب «بعد میں» کی فہرست میں پڑے رہتے ہیں، اور «بعد میں» اکثر کبھی نہیں آتا۔ یہ کتاب خاندانی دستاویزات کی حفاظت و ترتیب ہے: کیا سنبھالنا ہے، کیسے سنبھالنا ہے، اور وصیت کیسے لکھی جائے — پاکستانی قانون اور شرعی رہنمائی کے ساتھ۔ ہر اس خاندان کے لیے جس کے کاغذ ابھی «بعد میں» کی فہرست میں ہیں؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>کاغذ بھی امانت ہے</li>
+      <li>دستاویزات: ایک شرعی امانت</li>
+      <li>نکاح نامہ: اہمیت اور شرعی نکات</li>
+      <li>جائیداد اور اثاثوں کا ریکارڈ: شفافیت</li>
+      <li>وصیت: سنتِ نبوی ﷺ اور عملی طریقہ</li>
+      <li>بینک اکاؤنٹس اور انشورنس: شرعی نقطہ نظر</li>
+      <li>بچوں کے سرٹیفکیٹس اور تعلیمی ریکارڈ</li>
+      <li>طبی ریکارڈ اور ایمرجنسی معلومات</li>
+      <li>دستاویزات کی حفاظت: ڈیجیٹل اور کاغذی</li>
+      <li>وراثت کی تقسیم: شرعی اصول اور خاندانی رضامندی</li>
+      <li>قانونی مشورہ: کب اور کیسے لیں؟</li>
+      <li>کاغذ سنبھالے، حقوق سنبھالے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AE%D8%A7%D9%86%D8%AF%D8%A7%D9%86%DB%8C%20%D8%AF%D8%B3%D8%AA%D8%A7%D9%88%DB%8C%D8%B2%D8%A7%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book40"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b40.webp" alt="غلاف بحران میں خاندان"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بحران میں خاندان</h2>
+    <p class="bk-promise rv" lang="ur">بیماری، بیروزگاری یا حادثے کے دنوں میں صبر و تدبیر</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بیماری، بیروزگاری یا حادثہ — بحران پوچھ کر نہیں آتا، اور جب آتا ہے تو پورا خاندان ہل جاتا ہے۔ یہ کتاب بحران کے دنوں کی رہنمائی ہے: صبر کیسے ہو، تدبیر کیا ہو، اور خاندان ایک دوسرے کا سہارا کیسے بنے۔ ان دنوں کے لیے جب خاندان کو ایک دوسرے کی سب سے زیادہ ضرورت ہوتی ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>طوفان میں گھر</li>
+      <li>بحران کی حقیقت: آزمائش یا سزا؟</li>
+      <li>بیماری کا سامنا: تیمارداری اور دعا</li>
+      <li>بیروزگاری اور مالی بحران: قناعت اور تدبیر</li>
+      <li>حادثات اور نقصان: صبرِ جمیل</li>
+      <li>بچوں کو بحران کیسے بتائیں؟</li>
+      <li>خاندانی اتحاد: مشکل وقت میں ساتھ کھڑا ہونا</li>
+      <li>ماہرین کی مدد: ڈاکٹر، کونسلر، عالم دین</li>
+      <li>رشتہ داروں اور محلے کا کردار: مدد بمقابلہ مداخلت</li>
+      <li>ذہنی دباؤ کا شرعی توڑ: توکل اور عبادت</li>
+      <li>بحران کے بعد کی بحالی: نئی شروعات اور شکرگزاری</li>
+      <li>طوفان گزر جاتا ہے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%D8%AD%D8%B1%D8%A7%D9%86%20%D9%85%DB%8C%DA%BA%20%D8%AE%D8%A7%D9%86%D8%AF%D8%A7%D9%86%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book41"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b41.webp" alt="غلاف بڑھاپے کی دہلیز"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بڑھاپے کی دہلیز</h2>
+    <p class="bk-promise rv" lang="ur">والدین کی خدمت کے عملی، طبی اور جذباتی پہلو</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">والدین بوڑھے ہوتے ہیں تو ان کے سوال بدل جاتے ہیں — دوا، صحبت، اور یہ احساس کہ وہ بوجھ نہیں۔ یہ کتاب والدین کی خدمت کے عملی، طبی اور جذباتی پہلوؤں کی رہنمائی ہے: کیسے دیکھ بھال ہو، کیسے بات ہو، کیسے عزت قائم رہے۔ بوڑھے والدین کی اولاد کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دہلیز پر روشنی</li>
+      <li>بڑھاپا: عزت کا مرحلہ، بوجھ نہیں</li>
+      <li>والدین کی جسمانی دیکھ بھال: عملی نکات</li>
+      <li>جذباتی ضروریات: تنہائی اور توجہ کا خیال</li>
+      <li>طبی اخراجات اور فیصلے: شوریٰ اور عدل</li>
+      <li>بزرگوں کی رائے اور مشورہ: احترام کا اظہار</li>
+      <li>نسلوں کا درمیانی پل: دادا دادی اور پوتے پوتیاں</li>
+      <li>بڑھاپے میں عبادت: آسانی اور سہولت</li>
+      <li>جائیداد اور بزرگ: ان کے حقوق کی حفاظت</li>
+      <li>آخری ایام: وصیت اور روحانی تیاری</li>
+      <li>والدین کی دعا: کامیابی کی کنجی</li>
+      <li>دہلیز، اب دروازہ</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%DA%91%DA%BE%D8%A7%D9%BE%DB%92%20%DA%A9%DB%8C%20%D8%AF%DB%81%D9%84%DB%8C%D8%B2%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book42"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b42.webp" alt="غلاف رشتہ داروں کے حقوق"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">رشتہ داروں کے حقوق</h2>
+    <p class="bk-promise rv" lang="ur">خالہ، پھوپھی، ماموں اور ان کے بچوں کے ساتھ اسلامی آداب</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">خالہ، پھوپھی، ماموں — یہ رشتے محبت بھی ہیں اور آزمائش بھی، خاص طور پر جب حقوق اور حدود کی بات آئے۔ یہ کتاب رشتہ داروں کے حقوق اور اسلامی آداب ہے: صلہ رحمی، حدود، اور وہ توازن جو رشتے کو قائم رکھے۔ پورے خاندان کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>درخت کی شاخیں</li>
+      <li>صلہ رحمی: ایمان کی علامت</li>
+      <li>خالہ اور پھوپھی: ماں کا سایہ</li>
+      <li>ماموں اور ان کے بچے: رشتے کی مضبوطی</li>
+      <li>مالی مدد اور تحائف: اعتدال کا دامن</li>
+      <li>خیر خواہی بمقابلہ مداخلت</li>
+      <li>دور کے رشتہ دار: تعلق کیسے قائم رکھیں؟</li>
+      <li>رشتہ داروں کے جھگڑوں میں ثالثی</li>
+      <li>صلہ رحمی کے مادی و روحانی ثمرات</li>
+      <li>سوشل میڈیا اور رشتہ دار: حدود کا خیال</li>
+      <li>بزرگ رشتہ داروں کا ادب اور خدمت</li>
+      <li>شاخیں ملی رہیں</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B1%D8%B4%D8%AA%DB%81%20%D8%AF%D8%A7%D8%B1%D9%88%DA%BA%20%DA%A9%DB%92%20%D8%AD%D9%82%D9%88%D9%82%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book43"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b43.webp" alt="غلاف محلہ و مہمان نوازی"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">محلہ و مہمان نوازی</h2>
+    <p class="bk-promise rv" lang="ur">حقوق الجوار کا بھولا ہوا باب اور مہمان نوازی کا متوازن ادب</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">پڑوسی کا حق بھولا ہوا باب ہے — اور مہمان نوازی یا تو اسراف بن گئی ہے یا بوجھ۔ یہ کتاب حقوق الجوار اور مہمان نوازی کا متوازن ادب ہے: پڑوسی سے کیسے نبھاؤ، مہمان کیسے سنبھالو، بغیر تکلف کے۔ عمران اسلم و حلیمہ سعدیہ کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>تمہید</li>
+      <li>پڑوسی کا حق</li>
+      <li>گھر کا ماحول</li>
+      <li>مہمان نوازی</li>
+      <li>مشترکہ رہائش</li>
+      <li>غیر مسلم پڑوسی</li>
+      <li>محلے کے بچے</li>
+      <li>غیبت اور چغلی سے حفاظت</li>
+      <li>مشکل وقت میں سہارا</li>
+      <li>محلے کی مسجد</li>
+      <li>پڑوسی سے شکوہ</li>
+      <li>اختتامی کلام</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%85%D8%AD%D9%84%DB%81%20%D9%88%20%D9%85%DB%81%D9%85%D8%A7%D9%86%20%D9%86%D9%88%D8%A7%D8%B2%DB%8C%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book44"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b44.webp" alt="غلاف خصوصی ضروریات کے بچے"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">خصوصی ضروریات کے بچے</h2>
+    <p class="bk-promise rv" lang="ur">رحمت، صبر اور عملی تدبیر</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">خصوصی ضروریات کا بچہ بوجھ نہیں، سزا نہیں — وہ رحمت ہے، اور اس کے والدین کو سب سے زیادہ سمجھ اور تدبیر چاہیے۔ یہ کتاب ان بچوں کے والدین کے لیے ہے: رحمت، صبر اور عملی تدبیر — بغیر کسی طبی دعوے کے، صرف وہ جو گھر میں کیا جا سکتا ہے۔ والدین اور خاندان کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>ایک مختلف دھاگہ، وہی قالین</li>
+      <li>خصوصی بچہ: آزمائش یا اللہ کی خاص رحمت؟</li>
+      <li>والدین کا جذباتی سفر</li>
+      <li>طبی اور تعلیمی ضروریات</li>
+      <li>بہن بھائیوں کا کردار</li>
+      <li>معاشرے کی نظریں اور ہمارا باوقار ردعمل</li>
+      <li>گھر کا ماحول</li>
+      <li>عبادت اور روحانی تربیت میں رفق</li>
+      <li>ماہرین کی مدد</li>
+      <li>خصوصی بچوں کی شادی اور مستقبل کی منصوبہ بندی</li>
+      <li>والدین کی اپنی دیکھ بھال</li>
+      <li>قالین ابھی بن رہا ہے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AE%D8%B5%D9%88%D8%B5%DB%8C%20%D8%B6%D8%B1%D9%88%D8%B1%DB%8C%D8%A7%D8%AA%20%DA%A9%DB%92%20%D8%A8%DA%86%DB%92%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book45"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b45.webp" alt="غلاف کفالتِ یتیم"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">کفالتِ یتیم</h2>
+    <p class="bk-promise rv" lang="ur">محبت، امانت اور ذمہ داری</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">یتیم کی کفالت صدقہ نہیں، امانت ہے — اور امانت میں محبت بھی چاہیے، ذمہ داری بھی۔ یہ کتاب کفالتِ یتیم کا طریقہ بتاتی ہے: یتیم بچے کی پرورش، اس کے مال کی حفاظت، اور اس کے دل کا خیال۔ عمران اسلم و حلیمہ سعدیہ کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دروازہ کھلا رکھنا</li>
+      <li>یتیم کی کفالت: جنت میں نبی ﷺ کے ساتھ</li>
+      <li>سرپرستی بمقابلہ گود لینا</li>
+      <li>یتیم کے مال کی حفاظت</li>
+      <li>یتیم بچے کی نفسیاتی ضروریات</li>
+      <li>گھر میں انضمام</li>
+      <li>بلوغت کے بعد</li>
+      <li>رشتہ دار کا یتیم بمقابلہ غیر رشتہ دار</li>
+      <li>تعلیم اور ہنر</li>
+      <li>وقف اور صدقات</li>
+      <li>یتیم کی شادی</li>
+      <li>چراغ جلتا رہے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%A9%D9%81%D8%A7%D9%84%D8%AA%D9%90%20%DB%8C%D8%AA%DB%8C%D9%85%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book46"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b46.webp" alt="غلاف خاندانی میراث"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">خاندانی میراث</h2>
+    <p class="bk-promise rv" lang="ur">حق، انصاف اور خاندانی اتفاق</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">میراث کی تقسیم پر خاندان ٹوٹتے دیکھے ہیں — اور اکثر ٹوٹنے کی وجہ رقم نہیں، ناانصافی کا احساس ہوتا ہے۔ یہ کتاب خاندانی میراث کی رہنمائی ہے: حق، انصاف اور خاندانی اتفاق — پاکستانی قانون اور فقہی تنوع کے ساتھ، بغیر فتویٰ دیے۔ ہر اس خاندان کے لیے جہاں میراث کی بات ابھی باقی ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>گھر کی آخری گفتگو</li>
+      <li>وراثت: اللہ کا مقرر کردہ حق، جذبات نہیں</li>
+      <li>وصیت اور وارثوں کے حقوق میں شرعی فرق</li>
+      <li>تقسیم سے پہلے باہمی رضامندی اور شوریٰ</li>
+      <li>بیٹیوں اور بہنوں کا شرعی حصہ</li>
+      <li>جائیداد کے کاغذات اور شفافیت کی اہمیت</li>
+      <li>چھوٹی چھوٹی اشیاء کی تقسیم میں احسان اور انصاف</li>
+      <li>تنازعات کا حل: ثالثی اور عدالت کا شرعی طریقہ</li>
+      <li>زندگی میں ہی جائیداد تقسیم کرنا</li>
+      <li>میراث کو صدقہ جاریہ میں بدلنے کے طریقے</li>
+      <li>ورثاء کے لیے نصیحت: والدین کی دعا اور رضامندی</li>
+      <li>ترازو قائم رہے</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AE%D8%A7%D9%86%D8%AF%D8%A7%D9%86%DB%8C%20%D9%85%DB%8C%D8%B1%D8%A7%D8%AB%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book47"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b47.webp" alt="غلاف زکوٰۃ و صدقات"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">زکوٰۃ و صدقات</h2>
+    <p class="bk-promise rv" lang="ur">مال کی پاکیزگی، تقسیم اور برکت</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">زکوٰۃ مال کی صفائی ہے — مگر کس پر، کتنی، اور کن کو، یہ سوال ہر سال اٹھتے ہیں اور ہر سال الجھن رہتی ہے۔ یہ کتاب زکوٰۃ و صدقات کے سوالوں کا جواب دیتی ہے: مال کی پاکیزگی، تقسیم اور برکت — فقہی اختلاف کے احترام کے ساتھ، تفصیل عالم کے حوالے۔ ہر صاحبِ نصاب کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>مال کا صاف حصہ</li>
+      <li>زکوٰۃ: مال کی پاکیزگی اور اللہ کا حق</li>
+      <li>زکوٰۃ کے مستحقین</li>
+      <li>گھر کی خواتین اور زکوٰۃ کا انتظام</li>
+      <li>صدقہ: بلاؤں کا توڑ اور رزق میں برکت</li>
+      <li>فطرانہ اور عید کی خوشیاں</li>
+      <li>قربانی اور گوشت کی تقسیم</li>
+      <li>صدقہ جاریہ</li>
+      <li>بچوں کو صدقہ کی عادت ڈالنا</li>
+      <li>زکوٰۃ کے جدید مسائل</li>
+      <li>دولت کی برکت (اختتامی: صاف مال، مطمئن دل)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B2%DA%A9%D9%88%D9%B0%DB%83%20%D9%88%20%D8%B5%D8%AF%D9%82%D8%A7%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book48"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b48.webp" alt="غلاف گھریلو ملازمین کے حقوق"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">گھریلو ملازمین کے حقوق</h2>
+    <p class="bk-promise rv" lang="ur">احسان، انصاف اور اسلامی آداب</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">گھر میں کام کرنے والے انسان کو ہم اکثر انسان سمجھنا بھول جاتے ہیں — اس کی اجرت، اس کا آرام، اس کی عزت۔ یہ کتاب گھریلو ملازمین کے حقوق کا اسلامی ادب ہے: احسان، انصاف اور اسلامی آداب — پاکستانی قانون کی عمومی رہنمائی کے ساتھ۔ عمران اسلم و حلیمہ سعدیہ کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>گھر کا دروازہ، گھر کا دل</li>
+      <li>ملازم: گھر کا رکن اور اللہ کی امانت</li>
+      <li>اجرت: وقت پر اور پوری ادائیگی</li>
+      <li>کام کے اوقات اور آرام کا حق</li>
+      <li>عزتِ نفس: گالم گلوچ اور توہین سے بچاؤ</li>
+      <li>خواتین ملازمین کے ساتھ شرعی حدود</li>
+      <li>بیمار یا بوڑھے ملازم</li>
+      <li>ملازم کے بچے اور ان کی تعلیم میں مدد</li>
+      <li>تحائف اور عیدانہ</li>
+      <li>ملازم کی چوری یا غلطی</li>
+      <li>گھر کا ماحول: عبادت کا موقع (اختتامی: امانت لوٹے گی)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%AF%DA%BE%D8%B1%DB%8C%D9%84%D9%88%20%D9%85%D9%84%D8%A7%D8%B2%D9%85%DB%8C%D9%86%20%DA%A9%DB%92%20%D8%AD%D9%82%D9%88%D9%82%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book49"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b49.webp" alt="غلاف دادا دادی اور پوتے پوتیاں"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">دادا دادی اور پوتے پوتیاں</h2>
+    <p class="bk-promise rv" lang="ur">محبت، کہانیاں اور نسلوں کا ربط</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">دادا دادی کی کہانیاں بچوں کی پہلی درسگاہ ہیں — اور نسلوں کا ربط وہ دولت ہے جو پیسے سے نہیں ملتی۔ یہ کتاب دادا دادی اور پوتے پوتیوں کے ربط کی ہے: محبت، کہانیاں، اور وہ پل جو تین نسلوں کو جوڑتا ہے۔ دادا دادی، والدین اور بچوں کے لیے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>گھر کی سب سے پرانی کرسی</li>
+      <li>دادا دادی کی گود: محبت کا پہلا گھر</li>
+      <li>کہانیاں سنانے کی روایت</li>
+      <li>دادا دادی کی دعا</li>
+      <li>لاڈ کی حد: محبت اور اعتدال</li>
+      <li>فاصلے کے باوجود ربط</li>
+      <li>وفات کے بعد ربط: دعا و یاد</li>
+      <li>اقدار کی منتقلی: گھر کی اصل وراثت</li>
+      <li>کھیل، ہنسی اور بچپن کی یادیں</li>
+      <li>اختلاف ہو جائے تو: توازن</li>
+      <li>وراثتِ محبت (اختتامی: دعا کا سلسلہ)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%AF%D8%A7%D8%AF%D8%A7%20%D8%AF%D8%A7%D8%AF%DB%8C%20%D8%A7%D9%88%D8%B1%20%D9%BE%D9%88%D8%AA%DB%92%20%D9%BE%D9%88%D8%AA%DB%8C%D8%A7%DA%BA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book50"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b50.webp" alt="غلاف شادی کی آسان راہ"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">شادی کی آسان راہ</h2>
+    <p class="bk-promise rv" lang="ur">جہیز و دکھاوے سے نجات</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">شادی آسان تھی، ہم نے اسے مہنگا اور مشکل بنا دیا — جہیز، دکھاوا، قرض۔ یہ کتاب نکاح کو اس کی اصل سادگی کی طرف لوٹانے کا عملی راستہ ہے: خرچ کہاں کم ہو، رسم کہاں رکے، اور گھر کیسے بنے۔ نوجوانوں، والدین، اور ہر اس گھر کے لیے جہاں شادی کی بات چل رہی ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>خوشی کا دروازہ</li>
+      <li>شادی کی برکت: آسانی میں ہے</li>
+      <li>مہر: عورت کا حق، بوجھ نہیں</li>
+      <li>جہیز: رسم یا بوجھ؟</li>
+      <li>ولیمہ: خوشی، دکھاوا نہیں</li>
+      <li>قرض لے کر شادی</li>
+      <li>سادگی کی عزت</li>
+      <li>لوگ کیا کہیں گے</li>
+      <li>لڑکی کے والدین کا دباؤ</li>
+      <li>شادی کے بعد کی زندگی</li>
+      <li>آسان شادی کا عہد (اختتامی: آسان راہ، برکت والا گھر)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B4%D8%A7%D8%AF%DB%8C%20%DA%A9%DB%8C%20%D8%A2%D8%B3%D8%A7%D9%86%20%D8%B1%D8%A7%DB%81%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="990" data-opening="792">سعر الافتتاح: 792 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 990 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book51"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b51.webp" alt="غلاف سیلز کا فن"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">سیلز کا فن</h2>
+    <p class="bk-promise rv" lang="ur">بیس برس کے میدانِ فروخت سے</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">بیس برس کے میدانِ فروخت کا نچوڑ: گاہک کو جیتا نہیں جاتا، گاہک کا اعتماد کمایا جاتا ہے۔ یہ کتاب سچے تاجر کے اصولوں پر فروخت کا عملی فن سکھاتی ہے — سننا، سچ بولنا، وعدہ نبھانا — بغیر کسی دھوکے کے۔ دکان دار، سیلز مین، اور ہر اس شخص کے لیے جو کچھ بیچتا ہے؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>پہلی فروخت</li>
+      <li>سیلز کیا ہے: خدمت یا دھوکہ؟</li>
+      <li>سچا تاجر</li>
+      <li>گاہک کو سننا</li>
+      <li>دھوکہ نہیں</li>
+      <li>قیمت اور قدر</li>
+      <li>انکار کا سامنا</li>
+      <li>چار طرح کے خریدار</li>
+      <li>کارپوریٹ میدان</li>
+      <li>اعتماد کی تعمیر</li>
+      <li>سیلز میں برکت (اختتامی: آخری بات: بیچنا نہیں، دینا ہے)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%B3%DB%8C%D9%84%D8%B2%20%DA%A9%D8%A7%20%D9%81%D9%86%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1290" data-opening="1032">سعر الافتتاح: 1,032 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,290 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book52"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b52.webp" alt="غلاف کارپوریٹ کلچر"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">کارپوریٹ کلچر</h2>
+    <p class="bk-promise rv" lang="ur">اعتماد، وقار اور اصلاح کا نظام</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">دفتر کی ہوا وہاں کے لوگ بناتے ہیں — اور ہوا خراب ہو تو بہترین تنخواہ بھی انسان کو نہیں روک سکتی۔ یہ کتاب کارپوریٹ کلچر کا عملی نظام ہے: اعتماد، وقار اور اصلاح — بھرتی سے میٹنگ تک، غلطی سے ہراسانی تک۔ عمران اسلم و عرفان اسلم کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>دفتر کی ہوا</li>
+      <li>اصل کارپوریٹ کلچر کیا ہے؟</li>
+      <li>باس کا رویہ: کلچر کی بنیاد</li>
+      <li>بھرتیاں: کردار بمقابلہ ہنر</li>
+      <li>میٹنگز: وقت کا ضیاع یا فیصلوں کا مرکز</li>
+      <li>رابطے کا نظام</li>
+      <li>غلطیوں کا انتظام</li>
+      <li>کام کی جگہ پر ہراسانی اور ہر فرد کا وقار</li>
+      <li>صلہ اور اعتراف</li>
+      <li>زہریلا کلچر اور اس کی اصلاح</li>
+      <li>خود احتسابی: آئینے کا سامنا (اختتامی: کلچر آئینہ ہے)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%A9%D8%A7%D8%B1%D9%BE%D9%88%D8%B1%DB%8C%D9%B9%20%DA%A9%D9%84%DA%86%D8%B1%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1290" data-opening="1032">سعر الافتتاح: 1,032 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,290 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book53"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b53.webp" alt="غلاف بزنس قیادت"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">بزنس قیادت</h2>
+    <p class="bk-promise rv" lang="ur">فیصلہ، تفویض اور امانت کا عملی راستہ</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">قیادت کا پہلا دن وہ ہوتا ہے جب فیصلہ آپ کو کرنا پڑتا ہے — اور غلط فیصلے کی قیمت بھی آپ کو دینی پڑتی ہے۔ یہ کتاب بزنس قیادت کا عملی راستہ ہے: فیصلہ، تفویض اور امانت — شراکت اور مضاربہ سمیت، تحریری معاہدے کی اہمیت کے ساتھ۔ عمران اسلم و عرفان اسلم کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>قیادت کا پہلا دن</li>
+      <li>قائدانہ سوچ کیا ہے؟</li>
+      <li>غیر یقینی میں فیصلہ</li>
+      <li>تفویض: اختیار دینا، کنٹرول نہ کھونا</li>
+      <li>مالی نظم و ضبط</li>
+      <li>شراکت اور مضاربہ</li>
+      <li>پہلی بھرتی</li>
+      <li>ناکامی اور نقصان سے نمٹنا</li>
+      <li>خاندانی کاروبار میں رشتہ دار</li>
+      <li>جانشینی کی منصوبہ بندی</li>
+      <li>قائد کی شخصیت (اختتامی: قیادت امانت ہے)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D8%A8%D8%B2%D9%86%D8%B3%20%D9%82%DB%8C%D8%A7%D8%AF%D8%AA%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1290" data-opening="1032">سعر الافتتاح: 1,032 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,290 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book54"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b54.webp" alt="غلاف ٹیم سازی"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">ٹیم سازی</h2>
+    <p class="bk-promise rv" lang="ur">بھرتی، تربیت اور برقرار رکھنے کا عملی نظام</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">ٹیم عمارت نہیں، لوگ ہیں — اور لوگوں کو بھرتی کرنا آسان ہے، سنبھالنا مشکل۔ یہ کتاب ٹیم سازی کا عملی نظام ہے: بھرتی، تربیت اور برقرار رکھنا — کردار پہلے، ہنر بعد میں، اجرت وقت پر اور پوری۔ عمران اسلم و عرفان اسلم کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>پہلا ملازم</li>
+      <li>کردار پہلے، ہنر بعد میں</li>
+      <li>پہلے 90 دن</li>
+      <li>بغیر بجٹ کی تربیت</li>
+      <li>وقت پر پوری اجرت</li>
+      <li>باصلاحیت مگر زہریلا ملازم</li>
+      <li>پیسے سے آگے ترغیب</li>
+      <li>اچھی ٹیم کو روکنا</li>
+      <li>وقار کے ساتھ رخصتی</li>
+      <li>دوسری صف کے قائد</li>
+      <li>ٹیم امانت ہے (اختتامی: ٹیم دعا ہے)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%D9%B9%DB%8C%D9%85%20%D8%B3%D8%A7%D8%B2%DB%8C%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1290" data-opening="1032">سعر الافتتاح: 1,032 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,290 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
+  </div>
+</div></section>
+
+<section class="book-sec" id="book55"><div class="wrap bk-grid">
+  <div class="bk-cover rv"><img loading="lazy" decoding="async" src="../covers/b55.webp" alt="غلاف کسٹمر اور اعتماد"></div>
+  <div class="bk-main">
+    <span class="k rv">بالأردية · كتب AIDE</span>
+    <h2 class="rv" lang="ur">کسٹمر اور اعتماد</h2>
+    <p class="bk-promise rv" lang="ur">دیانت، وعدہ اور ساکھ کا عملی نظام</p>
+    <h3 class="bk-h rv">لمن هذا الكتاب</h3>
+    <p class="bk-who rv" lang="ur">گاہک ایک بار آتا ہے اشتہار سے، دوبارہ آتا ہے اعتماد سے — اور اعتماد ٹوٹے تو اشتہار بھی نہیں بچاتا۔ یہ کتاب کسٹمر اور اعتماد کا عملی نظام ہے: دیانت، وعدہ اور ساکھ — شکایت کا حل، فروخت کے بعد کی دیکھ بھال، اور ساکھ کی بحالی۔ عمران اسلم و عرفان اسلم کی مشترکہ تصنیف؛ ساتھ مشق نامہ مفت۔</p>
+    <h3 class="bk-h rv">ماذا في الكتاب</h3>
+    <ol class="bk-toc rv" lang="ur">
+      <li>پہلا گاہک</li>
+      <li>اعتماد — حقیقی سرمایہ</li>
+      <li>پہلا تاثر اور دکان کا ماحول</li>
+      <li>دیانت دار اشتہار</li>
+      <li>شفاف قیمت</li>
+      <li>شکایت کا حل — بغیر بحث کے</li>
+      <li>جب گاہک غلطی پر ہو</li>
+      <li>فروخت کے بعد کی دیکھ بھال</li>
+      <li>ساکھ خراب ہو جائے تو</li>
+      <li>دوبارہ آنے والا گاہک</li>
+      <li>تاجر کی دعا اور برکت (اختتامی: اعتماد کی دعا)</li>
+    </ol>
+    <h3 class="bk-h rv">الصيغ</h3>
+    <div class="chips rv"><span class="chip">Print PDF</span><span class="chip">Mobile PDF</span><span class="chip">EPUB</span><span class="chip">DOCX</span><span class="chip">دفتر تدريب مجاني</span></div>
+    <div class="bk-actions rv">
+      <a class="btn ghost magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AD%D8%B5%D9%88%D9%84%20%D8%B9%D9%84%D9%89%20%D9%83%D8%AA%D8%A7%D8%A8%20%C2%AB%DA%A9%D8%B3%D9%B9%D9%85%D8%B1%20%D8%A7%D9%88%D8%B1%20%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF%C2%BB%20%28%D8%A8%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%8A%D8%A9%29." target="_blank" rel="noopener">احصل على الكتاب</a>
+    </div>
+    <p class="bk-price rv js-price" data-fmt="sentence" data-loc="ar" data-regular="1290" data-opening="1032">سعر الافتتاح: 1,032 روبية (14 نوفمبر – 31 ديسمبر 2026) · السعر المعتاد: 1,290 روبية</p>
+    <p class="bk-note rv">يشمل كل سعر ملف PDF للطباعة والجوال، وEPUB، وDOCX، ودفتر تدريب مجاني.</p>
   </div>
 </div></section>
 
@@ -1878,6 +3539,7 @@ b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();var
 b.addEventListener('pointerleave',function(){inner.style.setProperty('--ry','0deg');inner.style.setProperty('--rx','0deg')});})();
 
 </script>
+
 
 </body>
 </html>

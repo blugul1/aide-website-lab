@@ -26,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --canvas:#040B1C; --navy:#0A1A3B; --navy2:#0C2241; --sea:#3DAB94; --sea-hi:#4FBFA7;
+  --canvas:#040B1C; --navy:#0A1A3B; --navy2:#0C2241; --sea:#3DAB94; --sea-hi:#4FBFA7; --sea2:#4FBFA7;
   --ink:#EDF3FB; --muted:#A9BEDD; --bronze:#C9A227; --gold:#E9C767; --line:#1E3A5F;
   --glass:rgba(16,36,72,.55); --glass-brd:rgba(120,180,220,.22);
 }
@@ -49,20 +49,32 @@ img{max-width:100%;display:block}
 @keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(-6vw,5vh) scale(1.14)}}
 @keyframes drift2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(5vw,-4vh) scale(.94)}}
 /* nav */
-nav{position:sticky;top:0;z-index:60;background:rgba(4,11,28,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;gap:18px;min-height:72px;transition:min-height .35s ease}
-nav.scrolled{background:rgba(4,11,28,.93)}
-nav.scrolled .nav-in{min-height:58px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+nav{position:sticky;top:0;z-index:60;background:transparent;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:background-color .45s ease,border-color .45s ease}
+nav .nav-in{display:flex;align-items:center;gap:18px;min-height:72px;max-width:1180px;margin:0 auto;padding:0 24px;border-radius:120px;border:1px solid transparent;transition:max-width .45s ease,padding .45s ease,background-color .45s ease,border-color .45s ease,box-shadow .45s ease,min-height .35s ease}
+nav.scrolled .nav-in{max-width:980px;min-height:58px;padding:0 14px;background:rgba(255,255,255,.82);border-color:rgba(10,26,59,.12);box-shadow:0 12px 32px rgba(10,26,59,.18)}
+nav.scrolled .brand strong{color:#0A1A3B}
+nav.scrolled .brand small{color:#6B7688}
+nav.scrolled .nav-links a:not(.btn){color:#1B2A45}
+nav.scrolled .nav-links a:not(.btn):hover{color:#0A1A3B}
+nav.scrolled .lang-btn{color:#1B2A45;border-color:rgba(10,26,59,.25)}
+nav.scrolled .lang-btn:hover{color:#0A1A3B;border-color:#1F7A66}
+nav.scrolled .menu-btn{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:rgba(255,255,255,.6)}
+nav.scrolled .brand small{display:none}
+nav.scrolled .nav-links{gap:14px}
+@media(max-width:1150px){.brand small{display:none}.nav-links{gap:14px}}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;flex:none}
+.brand strong,.brand small{white-space:nowrap}
 .bezel{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:800 11px/1 "Segoe UI",sans-serif;letter-spacing:.06em;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.28),rgba(255,255,255,.04) 55%),var(--navy2);border:1px solid var(--glass-brd);box-shadow:inset 0 0 0 3px rgba(61,171,148,.35),0 6px 18px rgba(0,0,0,.45)}
 .brand strong{font-size:19px;letter-spacing:.14em}
 .brand small{display:block;font-size:10px;letter-spacing:.08em;color:var(--muted)}
 .nav-links{margin-inline-start:auto;display:flex;gap:22px;align-items:center}
-.nav-links a{text-decoration:none;font-size:14.5px;color:var(--muted);position:relative;padding:4px 0}
+.nav-links a{text-decoration:none;font-size:14.5px;color:var(--muted);position:relative;padding:4px 0;white-space:nowrap}
 .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--sea);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
 .nav-links a:not(.btn):hover{color:var(--ink)}
 .nav-links a:not(.btn):hover::after{transform:scaleX(1)}
-.nav-links a.btn{color:#04160F}
+.nav-links a.btn{color:#04160F;border-radius:120px;padding:7px 7px 7px 20px;flex:none}
+.nav-links a.btn .arr{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.45);display:grid;place-items:center;font-size:14px;flex:none;transition:transform .25s ease}
+.nav-links a.btn:hover .arr{transform:translateX(3px)}
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--sea);color:#04160F;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;text-decoration:none;border:0;cursor:pointer;transition:box-shadow .3s ease;will-change:transform}
 .btn:hover{box-shadow:0 14px 32px rgba(61,171,148,.4)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
@@ -109,8 +121,10 @@ nav.scrolled .nav-in{min-height:58px}
 .orbit-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(10,26,59,.72);color:var(--ink);font-size:19px;line-height:1;cursor:pointer;backdrop-filter:blur(8px);transition:border-color .25s ease,transform .25s ease}
 .orbit-btn:hover{border-color:var(--sea);transform:translateY(-2px)}
 .menu-btn{display:none;margin-inline-start:auto;width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:rgba(10,26,59,.6);color:var(--ink);font-size:20px;cursor:pointer;place-items:center}
-.mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(4,11,28,.97);border-bottom:1px solid var(--line);padding:10px 24px 18px;flex-direction:column;gap:4px;z-index:59}
-.mobile-menu a{color:var(--ink);text-decoration:none;padding:11px 4px;font-size:16px;border-bottom:1px solid rgba(30,58,95,.5)}
+.mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid rgba(10,26,59,.10);border-radius:20px;margin:8px 16px 0;box-shadow:0 24px 60px rgba(10,26,59,.20);padding:12px 20px 18px;flex-direction:column;gap:4px;z-index:59}
+.mobile-menu a{color:#1B2A45;text-decoration:none;padding:11px 4px;font-size:16px;border-bottom:1px solid #EEEADF}
+.mobile-menu .mm-group{color:#8A6D1B}
+.mobile-menu .mm-sub{color:#46536A !important}
 .mobile-menu a:last-child{border-bottom:0}
 .mobile-menu.open{display:flex}
 nav{position:sticky}
@@ -303,14 +317,29 @@ footer a:hover{color:var(--ink)}
 @media(max-width:900px){.split,.cards3,.steps{grid-template-columns:1fr}.page-hero{padding-top:120px}}
 
 /* ===== dropdown nav + language switcher ===== */
-.has-drop{position:relative;display:inline-flex;align-items:center}
-.drop{position:absolute;top:100%;padding-top:14px;background-clip:padding-box;inset-inline-start:0;min-width:240px;background:rgba(10,26,59,.97);border:1px solid var(--line);border-radius:14px;padding:8px;display:none;flex-direction:column;box-shadow:0 24px 50px rgba(0,0,0,.5);z-index:70;backdrop-filter:blur(10px)}
+.has-drop{position:relative;display:inline-flex;align-items:center;flex:none}
+.drop{position:absolute;top:100%;inset-inline-start:0;min-width:240px;background:rgba(255,255,255,.96);border:1px solid rgba(10,26,59,.10);border-radius:16px;padding:8px;display:none;flex-direction:column;box-shadow:0 24px 60px rgba(10,26,59,.16);z-index:70;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .has-drop:hover .drop,.has-drop:focus-within .drop,.has-drop.open .drop{display:flex}
-.drop a{color:var(--muted);text-decoration:none;padding:9px 12px;border-radius:9px;font-size:14.5px;white-space:nowrap}
-.drop a:hover{background:rgba(61,171,148,.15);color:var(--ink)}
-.lang-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:7px 13px;cursor:pointer;font:inherit;font-size:13.5px}
+.drop a{color:#1B2A45;text-decoration:none;padding:9px 12px;border-radius:9px;font-size:14.5px;white-space:nowrap}
+.drop a:hover{background:#E7F2ED;color:#0A1A3B}
+.nav-links .drop a.mega-item::after{content:none}
+.lang-btn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:7px 13px;cursor:pointer;font:inherit;font-size:13.5px;white-space:nowrap;flex:none}
 .lang-btn:hover{color:var(--ink);border-color:var(--sea)}
 .lang-drop{min-width:150px}
+/* ===== mega card (Programmes): centred on its parent link, hover bridge via top padding ===== */
+.drop.mega{left:50%;inset-inline-start:auto;transform:translateX(-50%);width:min(880px,94vw);padding:12px 0 0;background:transparent;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.mega-card{background:rgba(255,255,255,.96);border:1px solid rgba(10,26,59,.10);border-radius:24px;box-shadow:0 24px 60px rgba(10,26,59,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:12px}
+.mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.drop a.mega-item{display:flex;gap:14px;padding:14px 16px;border-radius:16px;white-space:normal;align-items:flex-start}
+.drop a.mega-item:hover{background:#F0F6F3}
+.mega-ico{width:44px;height:44px;flex:none;border-radius:12px;background:#E7F2ED;display:grid;place-items:center;color:#1F7A66}
+.mega-ico svg{width:22px;height:22px}
+.mega-tx{display:flex;flex-direction:column;min-width:0}
+.mega-tx b{font-size:16px;font-weight:700;color:#0A1A3B;line-height:1.35}
+.mega-meta{display:block;font-size:12.5px;font-weight:600;color:#1F7A66;margin-top:4px}
+.mega-foot{display:flex;justify-content:flex-end;padding:12px 16px 4px;margin-top:8px;border-top:1px solid #EEEADF}
+.mega-foot a{font-weight:700;color:#1F7A66;font-size:14px}
+.mega-foot a:hover{background:none;text-decoration:underline}
 .mm-group{display:block;color:var(--gold);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:14px 4px 2px}
 .mm-sub{padding-inline-start:18px !important;font-size:15px !important;color:var(--muted) !important}
 .mm-lang{display:flex;gap:16px;padding:8px 4px}
@@ -342,6 +371,9 @@ body.loc-ur p,body.loc-ur li{line-height:2.2}
 body.loc-ur h1,body.loc-ur h2,body.loc-ur h3,body.loc-ur h4{font-family:'Noto Nastaliq Urdu','Traditional Arabic',serif;line-height:2.0;letter-spacing:0}
 body.loc-ur .eyebrow,body.loc-ur .fmt,body.loc-ur .k,body.loc-ur .chip,body.loc-ur .mm-group,body.loc-ur .fact-box h3,body.loc-ur .fact-box h4{letter-spacing:0}
 body.loc-ur .btn,body.loc-ur .nav-links a,body.loc-ur .drop a{line-height:1.9}
+body.loc-ur .mega-tx b{line-height:1.9}
+body.loc-ur .mega-meta{line-height:1.9}
+body.loc-ar .mega-tx b,body.loc-ar .mega-meta{line-height:1.7}
 body.loc-ur .drag-hint{letter-spacing:0}
 body.loc-ar{font-family:'Noto Naskh Arabic','Traditional Arabic',sans-serif;font-size:19px;font-weight:500;line-height:1.8}
 body.loc-ar h1,body.loc-ar h2,body.loc-ar h3,body.loc-ar h4{font-family:'Noto Sans Arabic','Noto Naskh Arabic',sans-serif;font-weight:700;line-height:1.5;letter-spacing:0}
@@ -433,7 +465,7 @@ body.ready{opacity:1}
 .bp-note{margin-top:14px;font-size:13.5px;line-height:1.7;color:var(--muted)}
 .bp-note2{margin-top:12px;font-size:13px;line-height:1.7;color:var(--muted)}
 .fee-line{font-size:16.5px;font-weight:700;line-height:1.6;color:var(--sea2);margin-top:10px}
-.bp-btn{display:inline-block;margin-top:6px;background:var(--sea);color:#fff;font-weight:700;padding:13px 24px;border-radius:10px;text-decoration:none}
+.bp-btn{display:inline-block;margin-top:6px;background:var(--sea);color:#04160F;font-weight:700;padding:13px 24px;border-radius:10px;text-decoration:none}
 .bp-btn:hover{background:var(--sea-hi)}
 .book-line{margin-top:12px}
 .book-line a{color:var(--sea-hi);font-weight:700;text-decoration:none;border-bottom:2px solid var(--sea);padding-bottom:2px}
@@ -509,7 +541,7 @@ body.loc-ur .bk-price,body.loc-ar .bk-price{line-height:1.95}
 .rd-x:hover{border-color:var(--sea)}
 .rd-tools{display:flex;align-items:center;gap:8px;padding:8px 22px 12px;border-bottom:1px solid rgba(120,140,170,.28)}
 .rd-tools button{background:none;border:1px solid rgba(120,140,170,.5);color:inherit;border-radius:99px;padding:6px 14px;font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}
-.rd-tools button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#fff}
+.rd-tools button[aria-pressed="true"]{background:var(--sea);border-color:var(--sea);color:#04160F}
 .rd-prog{flex:1;height:4px;border-radius:99px;background:rgba(120,140,170,.3);overflow:hidden;margin-inline-start:8px}
 .rd-prog i{display:block;height:100%;width:0;background:var(--sea);transition:width .15s linear}
 .rd-scroll{overflow-y:auto;padding:10px 22px 34px;flex:1;-webkit-overflow-scrolling:touch}
@@ -692,7 +724,7 @@ body.fadeout .ac-app{opacity:0}
 .ac-app .pulse{animation:pulseSoft 1.6s ease-in-out infinite}
 @media (prefers-reduced-motion: reduce){.ac-app *, .ac-app *::before, .ac-app *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 .ac-app section.view.out, .ac-app section.view.pre, .ac-app section.view.pre-back, .ac-app .grid.fading, body.fadeout .ac-app{opacity:1!important;transform:none!important}}
-.ac-app .badge.sig{background:linear-gradient(120deg,#3DAB94,#2A7D6B);color:#06251D;border-color:transparent;font-weight:800}
+.ac-app .badge.sig{background:#3DAB94;color:#06251D;border-color:transparent;font-weight:800}
 .ac-app .card.sigcard{border:1.5px solid rgba(61,171,148,.75);box-shadow:0 0 0 3px rgba(61,171,148,.16),0 10px 28px rgba(0,0,0,.25)}
 .ac-app .sigsec{grid-column:1/-1;margin:8px 0 2px;padding:16px 18px;border:1px solid rgba(61,171,148,.45);border-radius:16px;background:linear-gradient(140deg,rgba(61,171,148,.14),rgba(61,171,148,.03))}
 .ac-app .sigsec h2{font-size:21px;color:#9FE8D6;margin:0 0 6px}
@@ -704,7 +736,7 @@ body.fadeout .ac-app{opacity:0}
 .ac-app .guide-block h4{margin:0 0 6px;color:#9FE8D6;font-size:17px}
 .ac-app .guide-block p{margin:0;font-size:16px;line-height:2.05}
 .ac-app .guide-block .gmicro{margin-top:10px;font-size:12.5px;line-height:1.8;color:var(--ink-dim)}
-.ac-app #asstBtn{position:fixed;bottom:20px;inset-inline-end:20px;z-index:60;background:linear-gradient(120deg,#3DAB94,#2A7D6B);color:#fff;border:none;border-radius:999px;padding:13px 20px;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.4);font-family:inherit}
+.ac-app #asstBtn{position:fixed;bottom:20px;inset-inline-end:20px;z-index:60;background:#3DAB94;color:#04160F;border:none;border-radius:999px;padding:13px 20px;font-size:15.5px;font-weight:700;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.4);font-family:inherit}
 .ac-app #asstPanel{position:fixed;bottom:78px;inset-inline-end:20px;z-index:61;width:min(380px,calc(100vw - 32px));max-height:min(600px,calc(100vh - 110px));display:flex;flex-direction:column;background:#0D2148;border:1px solid rgba(61,171,148,.55);border-radius:18px;box-shadow:0 22px 50px rgba(0,0,0,.55);overflow:hidden}
 .ac-app #asstPanel.hidden{display:none}
 .ac-app .asst-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(61,171,148,.16);color:#fff;font-size:16px}
@@ -773,7 +805,7 @@ button.pd-pillar[aria-pressed="true"]{border-color:var(--sea);background:linear-
 body.loc-ur .pd-wk-title{line-height:2}
 .pd-tag{font-size:13px;font-weight:700;color:var(--pd-seadeep);background:rgba(61,171,148,.12);border:1px solid rgba(61,171,148,.35);border-radius:999px;padding:1px 14px;line-height:1.9;flex:none}
 .pd-sched-row.hl{background:rgba(61,171,148,.09);box-shadow:inset 4px 0 0 var(--sea)}
-.pd-sched-row.hl .pd-wk-num{border-color:var(--sea);background:var(--sea);color:#fff}
+.pd-sched-row.hl .pd-wk-num{border-color:var(--sea);background:var(--sea);color:#04160F}
 .pd-sched-strip{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--sea),var(--sea-hi));color:#04160F;font-weight:700;font-size:16.5px;padding:15px 20px;line-height:1.9;text-align:center;text-decoration:none;transition:filter .35s}
 .pd-sched-strip:hover{filter:brightness(1.07)}
 .pd-band{border:1px solid rgba(79,191,167,.35);border-radius:20px;background:linear-gradient(120deg,rgba(61,171,148,.13),rgba(61,171,148,.03) 55%,rgba(255,255,255,.02));padding:32px 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -792,9 +824,9 @@ body.loc-ur .pd-band-item h3{line-height:1.95}
 .pd-fees{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
 .pd-fee-card{border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;position:relative;transition:transform .35s,box-shadow .35s}
 .pd-fee-card:hover{transform:translateY(-5px)}
-.pd-fee-early{background:linear-gradient(150deg,var(--sea),var(--pd-seadeep) 130%);color:#fff;box-shadow:0 26px 50px rgba(46,138,118,.35)}
+.pd-fee-early{background:linear-gradient(150deg,#1F7A66,#14594A 130%);color:#fff;box-shadow:0 26px 50px rgba(46,138,118,.35)}
 .pd-fee-std{background:var(--pd-navy2);border:1px solid rgba(255,255,255,.14);color:var(--pd-on);box-shadow:0 22px 44px rgba(0,0,0,.28)}
-.pd-fee-tag{position:absolute;top:-14px;inset-inline-start:26px;background:#fff;color:var(--pd-seadeep);font-size:13.5px;font-weight:800;border-radius:999px;padding:2px 16px;line-height:1.9;box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.pd-fee-tag{position:absolute;top:-14px;inset-inline-start:26px;background:#fff;color:#1F7A66;font-size:13.5px;font-weight:800;border-radius:999px;padding:2px 16px;line-height:1.9;box-shadow:0 8px 18px rgba(0,0,0,.18)}
 .pd-fee-name{font-size:19px;font-weight:700;line-height:1.9}
 .pd-fee-price{font-family:"Segoe UI",system-ui,sans-serif;font-weight:800;font-size:40px;line-height:1.3;margin:8px 0 4px}
 .pd-fee-price small{font-size:14px;font-weight:700;letter-spacing:.1em}
@@ -1032,10 +1064,109 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   .alogo .alogo-shimmer, .alogo .alogo-glint { opacity: 0; }
 }
 
-</style>
+/* AIDE booking popup — matches the site design system (dark navy + glass + sea). */
+.ab-lock { overflow: hidden; }
+.ab-overlay {
+  position: fixed; inset: 0; z-index: 200; display: none;
+  align-items: flex-start; justify-content: center;
+  background: rgba(4, 11, 28, .72); backdrop-filter: blur(6px);
+  padding: 4vh 14px; overflow-y: auto;
+}
+.ab-overlay.ab-open { display: flex; }
+.ab-card {
+  width: 100%; max-width: 560px; border-radius: 18px;
+  background: var(--glass, rgba(16, 36, 72, .92));
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  color: var(--ink, #EDF3FB);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  padding: 20px 22px 22px;
+}
+.ab-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.ab-title { font-family: "Montserrat", "Segoe UI", sans-serif; font-size: 24px; margin: 0; line-height: 1.3; }
+[dir="rtl"] .ab-title { font-family: inherit; font-size: 24px; line-height: 1.7; }
+.ab-subtitle { color: var(--muted, #A9BEDD); margin: 4px 0 0; font-size: 15px; }
+.ab-x {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  background: transparent; color: var(--ink, #EDF3FB); font-size: 22px; cursor: pointer; line-height: 1;
+}
+.ab-body { margin-top: 16px; }
+.ab-coach { font-weight: 700; margin: 0 0 10px; }
+.ab-muted { color: var(--muted, #A9BEDD); }
+.ab-h { font-size: 14.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--bronze, #C9A227); margin: 16px 0 8px; }
+[dir="rtl"] .ab-h { letter-spacing: 0; text-transform: none; font-size: 18px; }
+.ab-h.ab-ok { color: var(--sea-hi, #4FBFA7); }
+.ab-opening { color: var(--gold, #E9C767); font-size: 14px; margin-top: 12px; }
+.ab-notice, .ab-error {
+  border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; font-size: 15px;
+  background: rgba(201, 162, 39, .14); border: 1px solid rgba(201, 162, 39, .4);
+}
+.ab-error { background: rgba(200, 80, 80, .14); border-color: rgba(200, 80, 80, .45); }
+.ab-services { display: grid; gap: 10px; }
+.ab-service {
+  text-align: start; width: 100%; cursor: pointer; border-radius: 12px; padding: 12px 14px;
+  background: rgba(255, 255, 255, .04); border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  color: var(--ink, #EDF3FB);
+}
+.ab-service:hover, .ab-service:focus-visible { border-color: var(--sea, #3DAB94); }
+.ab-service-top { display: flex; justify-content: space-between; gap: 10px; font-weight: 700; }
+.ab-service-sub { color: var(--muted, #A9BEDD); font-size: 14px; margin-top: 2px; }
+.ab-service-old { color: var(--muted, #A9BEDD); font-weight: 400; font-size: 14px; }
+.ab-calnav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ab-callabel { font-weight: 700; }
+.ab-calbtn {
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 20px;
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  background: transparent; color: var(--ink, #EDF3FB);
+}
+.ab-calbtn:disabled { opacity: .35; cursor: default; }
+.ab-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; }
+.ab-wd { color: var(--muted, #A9BEDD); font-size: 13px; padding: 4px 0; }
+.ab-day {
+  border-radius: 10px; padding: 8px 0; cursor: pointer; font-size: 15px;
+  border: 1px solid transparent; background: rgba(255, 255, 255, .04); color: var(--ink, #EDF3FB);
+}
+.ab-day:disabled { opacity: .3; cursor: default; }
+.ab-day.ab-has { border-color: rgba(61, 171, 148, .5); }
+.ab-day.ab-sel { background: var(--sea, #3DAB94); color: #04160F; font-weight: 700; }
+.ab-chipwrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.ab-chip {
+  border-radius: 999px; padding: 8px 16px; cursor: pointer; font-size: 15px;
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  background: rgba(255, 255, 255, .04); color: var(--ink, #EDF3FB);
+}
+.ab-chip.ab-sel { background: var(--sea, #3DAB94); color: #04160F; font-weight: 700; }
+.ab-hold { color: var(--gold, #E9C767); font-size: 14px; margin: 0 0 6px; }
+.ab-form { display: grid; gap: 12px; }
+.ab-field { display: grid; gap: 4px; }
+.ab-flabel { font-size: 14px; color: var(--muted, #A9BEDD); }
+.ab-input {
+  width: 100%; border-radius: 10px; padding: 10px 12px; font-size: 16px;
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+  background: rgba(4, 11, 28, .6); color: var(--ink, #EDF3FB);
+}
+.ab-input:focus { border-color: var(--sea, #3DAB94); outline: none; }
+.ab-radio-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.ab-radio { cursor: pointer; }
+.ab-formerr { color: #F0A0A0; margin: 0; font-size: 14px; }
+.ab-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.ab-btn {
+  border: none; border-radius: 999px; padding: 11px 22px; font-size: 16px; font-weight: 700;
+  cursor: pointer; text-decoration: none; display: inline-block;
+  background: var(--sea, #3DAB94); color: #04160F;
+}
+.ab-btn:disabled { opacity: .5; cursor: default; }
+.ab-btn-ghost {
+  background: transparent; color: var(--ink, #EDF3FB);
+  border: 1px solid var(--glass-brd, rgba(120, 180, 220, .22));
+}
+.ab-ref { font-size: 17px; }
+.ab-note { color: var(--muted, #A9BEDD); }
+@media (prefers-reduced-motion: reduce) {
+  .ab-overlay, .ab-card, .ab-day, .ab-chip, .ab-service { transition: none !important; }
+}
 
-<link rel="stylesheet" href="../lab-glass.css">
-<meta name="robots" content="noindex, nofollow">
+</style>
 </head>
 <body class="loc-ur">
 <noscript><style>body{opacity:1}</style></noscript>
@@ -1046,7 +1177,7 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   <div class="nav-links">
     <a data-nav="start" href="start.html">یہاں سے آغاز</a>
     <div class="has-drop"><a data-nav="about" href="about.html">تعارف</a><div class="drop"><a href="about.html">عمران کا تعارف</a><a href="about.html#team">ٹیم</a><a href="about.html#circle">آزاد اقدامات</a></div></div>
-    <div class="has-drop"><a data-nav="programmes" href="programmes.html">پروگرامز</a><div class="drop"><a href="programme-pldp.html">نبوی قیادت — PLDP</a><a href="programme-habits.html">عادت سازی کا نظام</a><a href="programme-sales.html">رویے پر مبنی سیلز مہارت</a><a href="programme-teach.html">دل سے تدریس</a><a href="programme-homes.html">گھر کی بنیاد</a><a href="programme-rise.html">اُٹھو اور بنو — RISE</a><a href="programmes.html">تمام پروگرامز</a></div></div>
+    <div class="has-drop"><a data-nav="programmes" href="programmes.html">پروگرامز</a><div class="drop mega"><div class="mega-card"><div class="mega-grid"><a class="mega-item" href="programme-pldp.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span class="mega-tx"><b>نبوی قیادت — PLDP</b><span class="mega-meta">8 ہفتے · لائیو کوہورٹ</span></span></a><a class="mega-item" href="programme-habits.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span><span class="mega-tx"><b>عادت سازی کا نظام</b><span class="mega-meta">4 ہفتے · آن لائن کوہورٹ</span></span></a><a class="mega-item" href="programme-sales.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><span class="mega-tx"><b>رویے پر مبنی سیلز مہارت</b><span class="mega-meta">2 روزہ آن سائٹ + 30 دن فیلڈ فالو اپ</span></span></a><a class="mega-item" href="programme-teach.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-4.5-2-8-2v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2z"/><path d="M12 6v13"/></svg></span><span class="mega-tx"><b>دل سے تدریس</b><span class="mega-meta">1 روزہ ورکشاپ + 4 ہفتے</span></span></a><a class="mega-item" href="programme-homes.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><span class="mega-tx"><b>گھر کی بنیاد</b><span class="mega-meta">4 ہفتے · آن لائن</span></span></a><a class="mega-item" href="programme-rise.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v4M5.6 7.6l2.8 2.8M18.4 7.6l-2.8 2.8M3 18h18"/></svg></span><span class="mega-tx"><b>اُٹھو اور بنو — RISE</b><span class="mega-meta">6 ہفتے · عمر 16–25</span></span></a></div><div class="mega-foot"><a href="programmes.html">تمام پروگرامز →</a></div></div></div></div>
     <div class="has-drop"><a data-nav="coaching" class="act" href="coaching.html">کوچنگ</a><div class="drop"><a href="coaching.html">انفرادی کوچنگ</a><a href="assessments.html">سیلف چیک</a><a href="contact.html#faq">سوالات</a></div></div>
     <div class="has-drop"><a data-nav="resources" href="resources.html">وسائل</a><div class="drop"><a href="books.html">کتابیں</a><a href="assessments.html">اسیسمنٹ سینٹر</a><a href="resources.html#tools">عملی اوزار</a><a href="resources.html#reading">مطالعہ فہرستیں</a></div></div>
     <a data-nav="writes" href="writes.html">مانی رائیٹس</a>
@@ -1054,7 +1185,7 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
     <div class="has-drop"><button class="lang-btn" type="button" aria-label="زبان بدلیں">اردو ▾</button><div class="drop lang-drop"><a href="../coaching.html">English</a>
 <a href="coaching.html">اردو</a>
 <a href="../ar/coaching.html">العربية</a></div></div>
-    <a class="btn magnetic" href="https://wa.me/923309222029?text=Assalam-o-Alaikum!%20I%20would%20like%20to%20book%20the%20free%2015-minute%20discovery%20call%20with%20AIDE." target="_blank" rel="noopener">مفت ڈسکوری کال</a>
+    <a class="btn magnetic" href="https://wa.me/923309222029?text=Assalam-o-Alaikum!%20I%20would%20like%20to%20book%20the%20free%2015-minute%20discovery%20call%20with%20AIDE." target="_blank" rel="noopener">مفت ڈسکوری کال<span class="arr">→</span></a>
   </div>
   <button class="menu-btn" id="menuBtn" type="button" aria-label="مینیو کھولیں" aria-expanded="false">☰</button>
 </div>
@@ -1131,8 +1262,8 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
     <select id="coachPick2" class="bp-select" data-bookwith="بک کریں:"><option value="0" data-field="لائف کوچنگ، قیادت، رویہ اور ذاتی نمو۔ سیشنز اردو، انگریزی یا عربی میں۔" data-for="خاص طور پر مفید — قیادت کے سوالات، عادات اور ذاتی سمت کے لیے۔" data-wa="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%DB%8C%DA%A9%D9%85%21%20%D9%85%D8%AC%DA%BE%DB%92%20%D8%B9%D9%85%D8%B1%D8%A7%D9%86%20%D8%A7%D8%B3%D9%84%D9%85%20%DA%A9%DB%92%20%D8%B3%D8%A7%D8%AA%DA%BE%20%D8%B0%D8%A7%D8%AA%DB%8C%20%DA%A9%D9%88%DA%86%D9%86%DA%AF%20%D8%A8%DA%A9%20%DA%A9%D8%B1%D9%86%D8%A7%20%DB%81%DB%92%DB%94">عمران اسلم</option><option value="1" data-field="بزنس کوچنگ، سیلز ڈیولپمنٹ اور پیشہ ورانہ نمو۔" data-for="خاص طور پر مفید — کاروباری مالکان، سیلز ٹیموں اور پیشہ ورانہ نمو کے لیے۔" data-wa="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%DB%8C%DA%A9%D9%85%21%20%D9%85%D8%AC%DA%BE%DB%92%20%D8%B9%D8%B1%D9%81%D8%A7%D9%86%20%D8%A7%D8%B3%D9%84%D9%85%20%DA%A9%DB%92%20%D8%B3%D8%A7%D8%AA%DA%BE%20%D8%A8%D8%B2%D9%86%D8%B3%20%DA%A9%D9%88%DA%86%D9%86%DA%AF%20%D8%A8%DA%A9%20%DA%A9%D8%B1%D9%86%D8%A7%20%DB%81%DB%92%DB%94">عرفان اسلم</option><option value="2" data-field="لائف کوچنگ، NLP پر مبنی ذاتی نمو اور ہپنوتھراپی سے آگاہ معاونت۔" data-for="خاص طور پر مفید — ذاتی تبدیلی، پرانے سانچوں اور پرسکون، صاف ذہن کے لیے۔" data-wa="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%DB%8C%DA%A9%D9%85%21%20%D9%85%D8%AC%DA%BE%DB%92%20%D8%B8%D9%84%20%DB%81%D9%85%D8%A7%20%D8%A7%D8%B3%D9%84%D9%85%20%DA%A9%DB%92%20%D8%B3%D8%A7%D8%AA%DA%BE%20%D8%B3%DB%8C%D8%B4%D9%86%20%D8%A8%DA%A9%20%DA%A9%D8%B1%D9%86%D8%A7%20%DB%81%DB%92%DB%94">ظل ہما اسلم</option><option value="3" data-field="لائف کوچنگ اور ذاتی نمو۔" data-for="خاص طور پر مفید — سمت اور ذاتی نمو چاہنے والی خواتین اور خاندانوں کے لیے۔" data-wa="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%DB%8C%DA%A9%D9%85%21%20%D9%85%D8%AC%DA%BE%DB%92%20%D8%AD%D9%84%DB%8C%D9%85%DB%81%20%D8%B3%D8%B9%D8%AF%DB%8C%DB%81%20%DA%A9%DB%92%20%D8%B3%D8%A7%D8%AA%DA%BE%20%D9%84%D8%A7%D8%A6%D9%81%20%DA%A9%D9%88%DA%86%D9%86%DA%AF%20%D8%A8%DA%A9%20%DA%A9%D8%B1%D9%86%D8%A7%20%DB%81%DB%92%DB%94">حلیمہ سعدیہ</option><option value="4" data-field="خواتین کو بااختیار بنانے کی کوچنگ۔" data-for="خاص طور پر مفید — اعتماد، آمدن اور خودمختاری بنانے والی خواتین کے لیے۔" data-wa="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%DB%8C%DA%A9%D9%85%21%20%D9%85%D8%AC%DA%BE%DB%92%20%D8%B3%DB%8C%D8%AF%DB%81%20%D8%B9%D9%85%D8%A7%D8%B1%DB%81%20%D8%B2%DB%8C%D8%AF%DB%8C%20%DA%A9%DB%92%20%D8%B3%D8%A7%D8%AA%DA%BE%20%D8%AE%D9%88%D8%A7%D8%AA%DB%8C%D9%86%20%DA%A9%DB%8C%20%DA%A9%D9%88%DA%86%D9%86%DA%AF%20%D8%A8%DA%A9%20%DA%A9%D8%B1%D9%86%D8%A7%20%DB%81%DB%92%DB%94">سیدہ عمارہ زیدی</option></select>
     <p class="bp-field" id="coachField2"></p>
     <p class="bp-for" id="coachFor2"></p>
-    <p><a class="bp-btn" id="coachBook2" href="#" target="_blank" rel="noopener"></a></p>
-    <p class="bp-note">ٹیپ کرتے ہی واٹس ایپ ایک تیار پیغام کے ساتھ کھلتا ہے۔ آپ کی مفت 15 منٹ کی ڈسکوری کال وہیں طے ہوتی ہے — اس سائٹ پر کوئی ادائیگی نہیں لی جاتی۔</p>
+    <p><a class="bp-btn" id="coachBook2" href="#" target="_blank" rel="noopener" data-booking-open></a></p>
+    <p class="bp-note">کیلنڈر میں اپنا وقت چنیں۔ آپ کی مفت 15 منٹ کی ڈسکوری کال واٹس ایپ پر طے ہوتی ہے — اس سائٹ پر کوئی ادائیگی نہیں لی جاتی۔</p>
   </div>
 </div></section>
 </main>
@@ -1548,5 +1679,485 @@ b.addEventListener('pointerleave',function(){inner.style.setProperty('--ry','0de
 
 </script>
 
+<script>
+/* AIDE booking popup — vanilla JS, no dependencies.
+ * Opens from the coaching page "Book with" button. Talks to the booking API
+ * (window.AIDE_BOOKING_API, default the PythonAnywhere app). Falls back to
+ * the button's WhatsApp link when the API is unreachable. */
+(function () {
+  'use strict';
+  var API = window.AIDE_BOOKING_API || 'https://blugul1.pythonanywhere.com/booking';
+  var LOCALE = (document.documentElement.lang || 'en').slice(0, 2);
+  if (LOCALE !== 'ur' && LOCALE !== 'ar') LOCALE = 'en';
+
+  var STR = {
+    en: {
+      title: 'Book a session', subtitle: 'Pick a service, a day and a time.',
+      free_call: 'Free discovery call', free_call_sub: '15 minutes · free',
+      session_45: 'Coaching session', session_45_sub: '45 minutes',
+      session_90: 'Coaching session', session_90_sub: '90 minutes',
+      package_90x4: '4-session package', package_90x4_sub: 'Four 90-minute sessions',
+      price: 'Rs {p}', opening: 'Opening offer until 31 Dec 2026',
+      pickDay: 'Choose a day', pickTime: 'Choose a time (PKT)',
+      noSlots: 'No open times this day — try another day.',
+      details: 'Your details', name: 'Your name', wa: 'WhatsApp number',
+      langLabel: 'Session language', topic: 'What would you like to work on? (optional)',
+      mode: 'How', online: 'Online', bhimber: 'In person, Bhimber',
+      bookBtn: 'Request booking', back: 'Back', close: 'Close',
+      pending: 'Request sent', ref: 'Booking ref',
+      pendingNote: 'Your time is held while {coach} confirms. Send the WhatsApp message so they see it right away — confirmation follows there.',
+      sendWa: 'Send on WhatsApp',
+      loadFail: 'Could not reach the booking calendar. Please try again, or book on WhatsApp.',
+      slotTaken: 'That time was just taken — please pick another.',
+      holdExpired: 'Your hold expired — please pick the time again.',
+      generic: 'Something went wrong. Please try again.',
+      heldFor: 'Held for {m}:{s}',
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      coaches: { imran: 'Imran Aslam', irfan: 'Irfan Aslam', huma: 'Zill-e-Huma Aslam', halima: 'Halima Sadia', ammara: 'Syeda Ammara Zaidi' },
+      langNames: { ur: 'Urdu', en: 'English', ar: 'Arabic' },
+      retry: 'Try again', waFallback: 'Book on WhatsApp instead'
+    },
+    ur: {
+      title: 'سیشن بک کریں', subtitle: 'سروس، دن اور وقت چنیں۔',
+      free_call: 'مفت تعارفی کال', free_call_sub: '15 منٹ · مفت',
+      session_45: 'کوچنگ سیشن', session_45_sub: '45 منٹ',
+      session_90: 'کوچنگ سیشن', session_90_sub: '90 منٹ',
+      package_90x4: 'چار سیشن کا پیکج', package_90x4_sub: 'چار 90 منٹ کے سیشن',
+      price: '{p} روپے', opening: 'افتتاحی رعایت 31 دسمبر 2026 تک',
+      pickDay: 'دن چنیں', pickTime: 'وقت چنیں (پاکستان وقت)',
+      noSlots: 'اس دن کوئی وقت خالی نہیں — کوئی اور دن چنیں۔',
+      details: 'آپ کی تفصیل', name: 'آپ کا نام', wa: 'وٹس اپ نمبر',
+      langLabel: 'سیشن کی زبان', topic: 'کس موضوع پر کام کرنا چاہتے ہیں؟ (اختیاری)',
+      mode: 'طریقہ', online: 'آن لائن', bhimber: 'بھمبر میں ملاقات',
+      bookBtn: 'بکنگ کی درخواست بھیجیں', back: 'واپس', close: 'بند کریں',
+      pending: 'درخواست بھیج دی گئی', ref: 'بکنگ حوالہ',
+      pendingNote: 'آپ کا وقت محفوظ ہے، {coach} کی تصدیق کا انتظار ہے۔ وٹس اپ پیغام بھیج دیں تاکہ انہیں فوراً نظر آئے — تصدیق وہیں ملے گی۔',
+      sendWa: 'وٹس اپ پر بھیجیں',
+      loadFail: 'کیلنڈر تک رسائی نہیں ہو سکی۔ دوبارہ کوشش کریں یا وٹس اپ پر بک کریں۔',
+      slotTaken: 'یہ وقت ابھی لیا گیا — کوئی اور وقت چنیں۔',
+      holdExpired: 'وقت کی پکڑ ختم ہو گئی — دوبارہ وقت چنیں۔',
+      generic: 'کچھ غلط ہو گیا۔ دوبارہ کوشش کریں۔',
+      heldFor: '{m}:{s} تک محفوظ',
+      months: ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'],
+      weekdays: ['پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ', 'اتوار'],
+      coaches: { imran: 'عمران اسلم', irfan: 'عرفان اسلم', huma: 'ظلِ ہما اسلم', halima: 'حلیمہ سعدیہ', ammara: 'سیدہ عمارہ زیدی' },
+      langNames: { ur: 'اردو', en: 'انگریزی', ar: 'عربی' },
+      retry: 'دوبارہ کوشش کریں', waFallback: 'وٹس اپ پر بک کریں'
+    },
+    ar: {
+      title: 'احجز جلسة', subtitle: 'اختر الخدمة واليوم والوقت.',
+      free_call: 'مكالمة تعارف مجانية', free_call_sub: '15 دقيقة · مجاناً',
+      session_45: 'جلسة توجيه', session_45_sub: '45 دقيقة',
+      session_90: 'جلسة توجيه', session_90_sub: '90 دقيقة',
+      package_90x4: 'باقة 4 جلسات', package_90x4_sub: 'أربع جلسات 90 دقيقة',
+      price: 'Rs {p}', opening: 'عرض الافتتاح حتى 31 ديسمبر 2026',
+      pickDay: 'اختر اليوم', pickTime: 'اختر الوقت (بتوقيت باكستان)',
+      noSlots: 'لا أوقات متاحة في هذا اليوم — جرّب يوماً آخر.',
+      details: 'بياناتك', name: 'الاسم', wa: 'رقم واتساب',
+      langLabel: 'لغة الجلسة', topic: 'ما الموضوع الذي تريد العمل عليه؟ (اختياري)',
+      mode: 'الطريقة', online: 'عبر الإنترنت', bhimber: 'حضورياً في بهمبر',
+      bookBtn: 'أرسل طلب الحجز', back: 'رجوع', close: 'إغلاق',
+      pending: 'تم إرسال الطلب', ref: 'مرجع الحجز',
+      pendingNote: 'وقتك محجوز بانتظار تأكيد {coach}. أرسل رسالة واتساب ليصلهم الطلب فوراً — وسيأتيك التأكيد هناك.',
+      sendWa: 'أرسل عبر واتساب',
+      loadFail: 'تعذّر الوصول إلى التقويم. حاول مجدداً أو احجز عبر واتساب.',
+      slotTaken: 'تم حجز هذا الوقت للتو — اختر وقتاً آخر.',
+      holdExpired: 'انتهت مدة الحجز المؤقت — اختر الوقت مجدداً.',
+      generic: 'حدث خطأ ما. حاول مجدداً.',
+      heldFor: 'محجوز لمدة {m}:{s}',
+      months: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
+      weekdays: ['اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت', 'أحد'],
+      coaches: { imran: 'عمران أسلم', irfan: 'عرفان أسلم', huma: 'ظلِّ هما أسلم', halima: 'حليمة سعدية', ammara: 'سيدة عمارة زيدي' },
+      langNames: { ur: 'الأردية', en: 'الإنجليزية', ar: 'العربية' },
+      retry: 'حاول مجدداً', waFallback: 'احجز عبر واتساب'
+    }
+  }[LOCALE];
+
+  function t(key, vars) {
+    var s = STR[key] || key;
+    if (vars) Object.keys(vars).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function fmtNum(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function fmtTime(min) { return String(Math.floor(min / 60)).padStart(2, '0') + ':' + String(min % 60).padStart(2, '0'); }
+  function iso(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function parseISO(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+
+  function api(path, opts) {
+    return fetch(API + path, opts).then(function (r) {
+      return r.json().then(function (j) { return { status: r.status, body: j }; });
+    });
+  }
+
+  var S = null; // session state, created on open
+  var overlay = null, card = null, bodyBox = null, lastFocus = null, countdownTimer = null;
+
+  function buildShell() {
+    overlay = el('div', 'ab-overlay');
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', t('title'));
+    card = el('div', 'ab-card');
+    var head = el('div', 'ab-head');
+    var titles = el('div', 'ab-titles');
+    titles.appendChild(el('h2', 'ab-title', t('title')));
+    titles.appendChild(el('p', 'ab-subtitle', t('subtitle')));
+    var x = el('button', 'ab-x', '×');
+    x.type = 'button'; x.setAttribute('aria-label', t('close'));
+    x.addEventListener('click', close);
+    head.appendChild(titles); head.appendChild(x);
+    bodyBox = el('div', 'ab-body');
+    card.appendChild(head); card.appendChild(bodyBox);
+    overlay.appendChild(card);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay) close(); });
+    document.body.appendChild(overlay);
+  }
+
+  function showError(msg, fallbackWa) {
+    bodyBox.innerHTML = '';
+    var box = el('div', 'ab-error', msg);
+    bodyBox.appendChild(box);
+    var row = el('div', 'ab-row');
+    var retry = el('button', 'ab-btn', t('retry'));
+    retry.type = 'button';
+    retry.addEventListener('click', function () { renderServices(); });
+    row.appendChild(retry);
+    if (fallbackWa) {
+      var a = el('a', 'ab-btn ab-btn-ghost', t('waFallback'));
+      a.href = fallbackWa; a.target = '_blank'; a.rel = 'noopener';
+      row.appendChild(a);
+    }
+    bodyBox.appendChild(row);
+  }
+
+  function open(coachId, fallbackWa) {
+    lastFocus = document.activeElement;
+    S = { coachId: coachId, fallbackWa: fallbackWa, services: null, service: null,
+          cursor: new Date(), monthDays: {}, date: null, startMin: null,
+          holdId: null, holdExpires: null, notice: null };
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    S.cursor = new Date(today.getFullYear(), today.getMonth(), 1);
+    S.today = today;
+    S.maxDate = new Date(today); S.maxDate.setDate(S.maxDate.getDate() + 60);
+    if (!overlay) buildShell();
+    overlay.classList.add('ab-open');
+    document.body.classList.add('ab-lock');
+    renderServices();
+    var f = card.querySelector('.ab-x'); if (f) f.focus();
+  }
+
+  function releaseHold() {
+    if (S && S.holdId) {
+      var id = S.holdId; S.holdId = null; stopCountdown();
+      api('/api/release', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hold_id: id }) }).catch(function () {});
+    }
+  }
+
+  function close() {
+    releaseHold();
+    if (overlay) overlay.classList.remove('ab-open');
+    document.body.classList.remove('ab-lock');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function stopCountdown() { if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; } }
+
+  /* ---- step 1: services ---- */
+  function renderServices() {
+    stopCountdown();
+    bodyBox.innerHTML = '';
+    var coachName = el('p', 'ab-coach', t('coaches')[S.coachId] || S.coachId);
+    bodyBox.appendChild(coachName);
+    var list = el('div', 'ab-services');
+    bodyBox.appendChild(list);
+    list.appendChild(el('p', 'ab-muted', '…'));
+    api('/api/coaches').then(function (res) {
+      if (res.status !== 200 || !res.body.ok) { showError(t('loadFail'), S.fallbackWa); return; }
+      var coach = null;
+      res.body.coaches.forEach(function (c) { if (c.id === S.coachId) coach = c; });
+      if (!coach) { showError(t('loadFail'), S.fallbackWa); return; }
+      S.services = coach.services;
+      S.openingUntil = res.body.opening_until;
+      list.innerHTML = '';
+      coach.services.forEach(function (svc) {
+        var b = el('button', 'ab-service');
+        b.type = 'button';
+        var top = el('div', 'ab-service-top');
+        top.appendChild(el('span', 'ab-service-name', t(svc.kind)));
+        var pr = el('span', 'ab-service-price');
+        if (svc.price === 0) { pr.textContent = t('free_call_sub').split('·')[1].trim(); }
+        else {
+          pr.textContent = t('price', { p: fmtNum(svc.price) });
+          if (svc.regular_price > svc.price) {
+            var old = el('s', 'ab-service-old', t('price', { p: fmtNum(svc.regular_price) }));
+            pr.appendChild(document.createTextNode(' ')); pr.appendChild(old);
+          }
+        }
+        top.appendChild(pr);
+        b.appendChild(top);
+        b.appendChild(el('div', 'ab-service-sub', t(svc.kind + '_sub')));
+        b.addEventListener('click', function () { S.service = svc; S.date = null; S.startMin = null; renderCalendar(); });
+        list.appendChild(b);
+      });
+      if (S.openingUntil) {
+        var note = el('p', 'ab-opening', t('opening'));
+        bodyBox.appendChild(note);
+      }
+    }).catch(function () { showError(t('loadFail'), S.fallbackWa); });
+  }
+
+  /* ---- step 2: calendar + slots ---- */
+  function renderCalendar() {
+    stopCountdown();
+    bodyBox.innerHTML = '';
+    if (S.notice) { bodyBox.appendChild(el('div', 'ab-notice', S.notice)); S.notice = null; }
+    var summary = el('p', 'ab-coach', t('coaches')[S.coachId] + ' · ' + t(S.service.kind) + ' · ' +
+      (S.service.price === 0 ? t('free_call_sub').split('·')[1].trim() : t('price', { p: fmtNum(S.service.price) })));
+    bodyBox.appendChild(summary);
+    bodyBox.appendChild(el('h3', 'ab-h', t('pickDay')));
+
+    var nav = el('div', 'ab-calnav');
+    var prev = el('button', 'ab-calbtn', '‹'); prev.type = 'button';
+    var next = el('button', 'ab-calbtn', '›'); next.type = 'button';
+    var label = el('span', 'ab-callabel');
+    nav.appendChild(prev); nav.appendChild(label); nav.appendChild(next);
+    bodyBox.appendChild(nav);
+
+    var grid = el('div', 'ab-grid');
+    bodyBox.appendChild(grid);
+    var slotBox = el('div', 'ab-slots');
+    bodyBox.appendChild(slotBox);
+    var row = el('div', 'ab-row');
+    var back = el('button', 'ab-btn ab-btn-ghost', t('back'));
+    back.type = 'button';
+    back.addEventListener('click', renderServices);
+    row.appendChild(back);
+    bodyBox.appendChild(row);
+
+    function drawMonth() {
+      label.textContent = STR.months[S.cursor.getMonth()] + ' ' + S.cursor.getFullYear();
+      prev.disabled = S.cursor <= new Date(S.today.getFullYear(), S.today.getMonth(), 1);
+      var nextMonth = new Date(S.cursor.getFullYear(), S.cursor.getMonth() + 1, 1);
+      next.disabled = nextMonth > S.maxDate;
+      grid.innerHTML = '';
+      STR.weekdays.forEach(function (w) { grid.appendChild(el('span', 'ab-wd', w)); });
+      var first = new Date(S.cursor.getFullYear(), S.cursor.getMonth(), 1);
+      var lead = (first.getDay() + 6) % 7; // Monday-first
+      for (var i = 0; i < lead; i++) grid.appendChild(el('span', 'ab-empty'));
+      var daysIn = new Date(S.cursor.getFullYear(), S.cursor.getMonth() + 1, 0).getDate();
+      for (var d = 1; d <= daysIn; d++) {
+        (function (dayNum) {
+          var dt = new Date(S.cursor.getFullYear(), S.cursor.getMonth(), dayNum);
+          var key = iso(dt);
+          var b = el('button', 'ab-day', String(dayNum));
+          b.type = 'button';
+          var slots = S.monthDays[key];
+          var usable = dt >= S.today && dt <= S.maxDate;
+          if (!usable || (slots && slots.length === 0)) b.disabled = true;
+          if (slots && slots.length > 0) b.classList.add('ab-has');
+          if (S.date === key) b.classList.add('ab-sel');
+          b.addEventListener('click', function () { S.date = key; S.startMin = null; drawMonth(); drawSlots(); });
+          grid.appendChild(b);
+        })(d);
+      }
+    }
+
+    function drawSlots() {
+      slotBox.innerHTML = '';
+      if (!S.date) return;
+      slotBox.appendChild(el('h3', 'ab-h', t('pickTime')));
+      var slots = S.monthDays[S.date] || [];
+      if (!slots.length) { slotBox.appendChild(el('p', 'ab-muted', t('noSlots'))); return; }
+      var wrap = el('div', 'ab-chipwrap');
+      slots.forEach(function (m) {
+        var c = el('button', 'ab-chip', fmtTime(m));
+        c.type = 'button';
+        c.setAttribute('dir', 'ltr');
+        if (S.startMin === m) c.classList.add('ab-sel');
+        c.addEventListener('click', function () { holdSlot(m); });
+        wrap.appendChild(c);
+      });
+      slotBox.appendChild(wrap);
+    }
+
+    function loadMonth() {
+      var from = iso(new Date(S.cursor.getFullYear(), S.cursor.getMonth(), 1));
+      var to = iso(new Date(S.cursor.getFullYear(), S.cursor.getMonth() + 1, 0));
+      grid.innerHTML = '';
+      grid.appendChild(el('p', 'ab-muted', '…'));
+      api('/api/availability?coach_id=' + encodeURIComponent(S.coachId) +
+        '&service_id=' + S.service.id + '&from=' + from + '&to=' + to).then(function (res) {
+        if (res.status !== 200 || !res.body.ok) { showError(t('loadFail'), S.fallbackWa); return; }
+        S.monthDays = res.body.days || {};
+        drawMonth(); drawSlots();
+      }).catch(function () { showError(t('loadFail'), S.fallbackWa); });
+    }
+
+    prev.addEventListener('click', function () {
+      S.cursor = new Date(S.cursor.getFullYear(), S.cursor.getMonth() - 1, 1); loadMonth();
+    });
+    next.addEventListener('click', function () {
+      S.cursor = new Date(S.cursor.getFullYear(), S.cursor.getMonth() + 1, 1); loadMonth();
+    });
+    loadMonth();
+  }
+
+  function holdSlot(min) {
+    api('/api/hold', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ coach_id: S.coachId, service_id: S.service.id, date: S.date, start_min: min }) })
+      .then(function (res) {
+        if (res.status === 409) { S.notice = t('slotTaken'); renderCalendar(); return; }
+        if (res.status !== 200 || !res.body.ok) { showError(t('generic'), S.fallbackWa); return; }
+        S.startMin = min; S.holdId = res.body.hold_id;
+        S.holdExpires = new Date(res.body.expires_at).getTime();
+        renderDetails();
+      }).catch(function () { showError(t('generic'), S.fallbackWa); });
+  }
+
+  /* ---- step 3: details ---- */
+  function renderDetails() {
+    bodyBox.innerHTML = '';
+    var summary = el('p', 'ab-coach');
+    summary.appendChild(document.createTextNode(t('coaches')[S.coachId] + ' · ' + t(S.service.kind) + ' · '));
+    var dt = el('bdi', null, S.date + ' · ' + fmtTime(S.startMin) + ' PKT');
+    dt.setAttribute('dir', 'ltr');
+    summary.appendChild(dt);
+    bodyBox.appendChild(summary);
+    var holdNote = el('p', 'ab-hold', '');
+    bodyBox.appendChild(holdNote);
+    bodyBox.appendChild(el('h3', 'ab-h', t('details')));
+
+    function tick() {
+      var left = Math.max(0, Math.floor((S.holdExpires - Date.now()) / 1000));
+      holdNote.textContent = t('heldFor', { m: Math.floor(left / 60), s: String(left % 60).padStart(2, '0') });
+      if (left <= 0) { stopCountdown(); releaseHold(); S.notice = t('holdExpired'); renderCalendar(); }
+    }
+    tick();
+    stopCountdown();
+    countdownTimer = setInterval(tick, 1000);
+
+    var form = el('form', 'ab-form');
+    form.noValidate = true;
+    function field(labelText, input) {
+      var lab = el('label', 'ab-field');
+      lab.appendChild(el('span', 'ab-flabel', labelText));
+      lab.appendChild(input);
+      return lab;
+    }
+    var nameI = el('input', 'ab-input'); nameI.type = 'text'; nameI.required = true;
+    nameI.maxLength = 80; nameI.autocomplete = 'name';
+    form.appendChild(field(t('name'), nameI));
+    var waI = el('input', 'ab-input'); waI.type = 'tel'; waI.required = true;
+    waI.setAttribute('dir', 'ltr'); waI.autocomplete = 'tel';
+    waI.placeholder = '03XXXXXXXXX';
+    form.appendChild(field(t('wa'), waI));
+
+    var langRow = el('div', 'ab-radio-row');
+    langRow.appendChild(el('span', 'ab-flabel', t('langLabel')));
+    ['ur', 'en', 'ar'].forEach(function (lg) {
+      var lab = el('label', 'ab-radio');
+      var r = el('input'); r.type = 'radio'; r.name = 'ab-lang'; r.value = lg;
+      if (lg === LOCALE) r.checked = true;
+      lab.appendChild(r); lab.appendChild(document.createTextNode(' ' + STR.langNames[lg]));
+      langRow.appendChild(lab);
+    });
+    form.appendChild(langRow);
+
+    var modeRow = el('div', 'ab-radio-row');
+    modeRow.appendChild(el('span', 'ab-flabel', t('mode')));
+    [['online', t('online')], ['bhimber', t('bhimber')]].forEach(function (pair, i) {
+      var lab = el('label', 'ab-radio');
+      var r = el('input'); r.type = 'radio'; r.name = 'ab-mode'; r.value = pair[0];
+      if (i === 0) r.checked = true;
+      lab.appendChild(r); lab.appendChild(document.createTextNode(' ' + pair[1]));
+      modeRow.appendChild(lab);
+    });
+    form.appendChild(modeRow);
+
+    var topicI = el('textarea', 'ab-input'); topicI.rows = 2; topicI.maxLength = 500;
+    form.appendChild(field(t('topic'), topicI));
+
+    var errBox = el('p', 'ab-formerr');
+    errBox.hidden = true;
+    form.appendChild(errBox);
+
+    var row = el('div', 'ab-row');
+    var back = el('button', 'ab-btn ab-btn-ghost', t('back'));
+    back.type = 'button';
+    back.addEventListener('click', function () { releaseHold(); renderCalendar(); });
+    var submit = el('button', 'ab-btn', t('bookBtn'));
+    submit.type = 'submit';
+    row.appendChild(back); row.appendChild(submit);
+    form.appendChild(row);
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = nameI.value.trim();
+      var wa = waI.value.replace(/[\s\-]/g, '');
+      if (!name) { errBox.textContent = t('name'); errBox.hidden = false; nameI.focus(); return; }
+      if (!/^\+?\d{10,15}$/.test(wa)) { errBox.textContent = t('wa'); errBox.hidden = false; waI.focus(); return; }
+      errBox.hidden = true;
+      submit.disabled = true;
+      var lang = (form.querySelector('input[name="ab-lang"]:checked') || {}).value || LOCALE;
+      var mode = (form.querySelector('input[name="ab-mode"]:checked') || {}).value || 'online';
+      api('/api/book', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hold_id: S.holdId, client_name: name, client_wa: wa,
+          language: lang, topic: topicI.value.trim(), mode: mode }) })
+        .then(function (res) {
+          if (res.status === 409) { stopCountdown(); S.holdId = null; S.notice = t('holdExpired'); renderCalendar(); return; }
+          if (res.status !== 200 || !res.body.ok) { submit.disabled = false; showError(t('generic'), S.fallbackWa); return; }
+          stopCountdown(); S.holdId = null;
+          renderPending(res.body);
+        }).catch(function () { submit.disabled = false; showError(t('generic'), S.fallbackWa); });
+    });
+    bodyBox.appendChild(form);
+  }
+
+  /* ---- step 4: pending ---- */
+  function renderPending(booking) {
+    bodyBox.innerHTML = '';
+    bodyBox.appendChild(el('h3', 'ab-h ab-ok', t('pending')));
+    var ref = el('p', 'ab-ref', t('ref') + ': ');
+    var b = el('bdi', null, String(booking.booking_id));
+    ref.appendChild(b);
+    bodyBox.appendChild(ref);
+    bodyBox.appendChild(el('p', 'ab-note',
+      t('pendingNote', { coach: t('coaches')[S.coachId] })));
+    var row = el('div', 'ab-row');
+    var wa = el('a', 'ab-btn', t('sendWa'));
+    wa.href = 'https://wa.me/' + booking.notify_wa + '?text=' + encodeURIComponent(booking.notify_text);
+    wa.target = '_blank'; wa.rel = 'noopener';
+    row.appendChild(wa);
+    var done = el('button', 'ab-btn ab-btn-ghost', t('close'));
+    done.type = 'button';
+    done.addEventListener('click', close);
+    row.appendChild(done);
+    bodyBox.appendChild(row);
+  }
+
+  /* ---- wiring: any [data-booking-open] button opens the popup ---- */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-booking-open]') : null;
+    if (!btn) return;
+    e.preventDefault();
+    var coachId = btn.getAttribute('data-coach') || 'imran';
+    var pick = document.getElementById('coachPick2');
+    if (pick && pick.options[pick.selectedIndex]) {
+      var map = ['imran', 'irfan', 'huma', 'halima', 'ammara'];
+      coachId = map[pick.selectedIndex] || coachId;
+    }
+    open(coachId, btn.getAttribute('href') || null);
+  });
+})();
+</script>
 </body>
 </html>
