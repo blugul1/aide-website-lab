@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIDE — Bold Hero Concept (Lab)</title>
+<meta name="description" content="Lab concept study: bold bright hero, mega-menu card, compacting pill header. Not the live site.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A1A3B; --ink:#1B2A45; --body:#46536A; --muted:#7A8494;
+    --sea:#3DAB94; --sea2:#4FBFA7; --seadeep:#1F7A66; --sea-tint:#E7F2ED;
+    --gold:#C9A227; --ivory:#FBFAF6; --card:#FFFFFF; --line:#E9E4D8;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--ivory);color:var(--ink);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--seadeep);outline-offset:3px;border-radius:6px}
+  .skip{position:absolute;left:-999px;top:0;background:var(--navy);color:#fff;padding:10px 16px;z-index:400;border-radius:0 0 12px 0}
+  .skip:focus{left:0}
+
+  /* ---------- Header: floating pill that compacts on scroll ---------- */
+  .site-header{position:fixed;inset:0 0 auto 0;z-index:100;padding:16px 20px 0}
+  .hrow{position:relative;max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:14px 26px;border-radius:120px;border:1px solid transparent;background:transparent;transition:max-width .45s ease,padding .45s ease,background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
+  .site-header.compact .hrow{max-width:980px;padding:8px 14px;background:rgba(255,255,255,.78);border-color:rgba(10,26,59,.12);box-shadow:0 12px 32px rgba(10,26,59,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .brand{display:flex;flex-direction:column;line-height:1;text-decoration:none;flex:none}
+  .brand b{font-size:26px;font-weight:800;letter-spacing:.02em;color:var(--navy);transition:font-size .45s ease}
+  .brand span{font-size:9px;letter-spacing:.34em;color:#6B7688;font-weight:600;margin-top:4px}
+  .site-header.compact .brand b{font-size:22px}
+
+  .navlist{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+  .has-mega{position:static}
+  .navlink,.navtoggle{padding:10px 16px;border-radius:120px;font-size:15px;font-weight:600;color:var(--ink);background:transparent;border:0;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;text-decoration:none;transition:background-color .25s ease,color .25s ease;white-space:nowrap}
+  .navlink:hover,.navtoggle:hover,.has-mega:hover>.navtoggle,.has-mega.open>.navtoggle{background:var(--navy);color:#fff}
+  .navtoggle svg{width:12px;height:12px;transition:transform .3s ease}
+  .has-mega:hover .navtoggle svg,.has-mega.open .navtoggle svg{transform:rotate(180deg)}
+
+  /* Mega card: centred under the pill, frosted, opens on hover / focus / tap */
+  .mega{position:absolute;left:50%;top:100%;transform:translate(-50%,8px);width:min(880px,94vw);padding-top:14px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,transform .18s ease,visibility .18s ease;z-index:50}
+  .has-mega:hover>.mega,.has-mega:focus-within>.mega,.has-mega.open>.mega{opacity:1;visibility:visible;transform:translate(-50%,0);pointer-events:auto}
+  .mega-card{background:rgba(255,255,255,.96);border:1px solid rgba(10,26,59,.10);border-radius:24px;box-shadow:0 24px 60px rgba(10,26,59,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:12px}
+  .mega-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .mega-item{display:flex;gap:14px;padding:14px 16px;border-radius:16px;text-decoration:none;transition:background-color .2s ease;align-items:flex-start}
+  .mega-item:hover{background:#F0F6F3}
+  .mega-ico{width:44px;height:44px;flex:none;border-radius:12px;background:var(--sea-tint);display:grid;place-items:center;color:var(--seadeep)}
+  .mega-ico svg{width:22px;height:22px}
+  .mega-item h3{margin:2px 0 3px;font-size:16px;font-weight:700;color:var(--navy);line-height:1.3}
+  .mega-item p{margin:0;font-size:13.5px;line-height:1.5;color:var(--body)}
+  .mega-item .meta{display:block;margin-top:5px;font-size:12.5px;font-weight:600;color:var(--seadeep)}
+  .mega-thumb{width:44px;height:58px;flex:none;border-radius:8px;object-fit:cover;box-shadow:0 4px 12px rgba(10,26,59,.18)}
+  .mega-tile{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:14px 16px;border-radius:16px;background:var(--navy);color:#fff;text-decoration:none}
+  .mega-tile b{font-size:16px}
+  .mega-tile span{font-size:13px;color:#C7D2E4}
+  .mega-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 16px 6px;margin-top:8px;border-top:1px solid #EEEADF;font-size:13px;color:var(--muted)}
+  .mega-foot a{font-weight:700;color:var(--seadeep);text-decoration:none;white-space:nowrap}
+  .mega-foot a:hover{text-decoration:underline}
+
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#04160F;font-weight:700;font-size:15px;padding:6px 6px 6px 18px;border-radius:120px;text-decoration:none;flex:none;transition:background-color .25s ease,padding .45s ease}
+  .cta:hover{background:var(--sea2)}
+  .cta .arr{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.45);display:grid;place-items:center;flex:none}
+  .cta .arr svg{width:14px;height:14px;transition:transform .25s ease}
+  .cta:hover .arr svg{transform:translateX(3px)}
+  .site-header.compact .cta{padding-left:14px;font-size:14px}
+  .burger{display:none;background:none;border:0;cursor:pointer;padding:10px;color:var(--navy)}
+  .burger svg{width:26px;height:26px;display:block}
+
+  /* ---------- Hero: one idea, big type, breathing room ---------- */
+  .hero{max-width:1240px;margin:0 auto;padding:172px 28px 90px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative}
+  .hero::before{content:"";position:absolute;top:60px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(61,171,148,.14),transparent 65%);pointer-events:none}
+  .eyebrow{display:flex;align-items:center;gap:12px;color:var(--seadeep);font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+  .eyebrow::before{content:"";width:32px;height:2px;background:var(--gold)}
+  h1{font-size:clamp(50px,6.2vw,88px);line-height:1.05;letter-spacing:-.02em;color:var(--navy);margin:22px 0 0;font-weight:800}
+  h1 .dot{color:var(--gold)}
+  .lede{font-size:19px;line-height:1.65;color:var(--body);max-width:52ch;margin:24px 0 0}
+  .hero-ctas{display:flex;gap:22px;align-items:center;margin-top:34px;flex-wrap:wrap}
+  .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#04160F;font-weight:700;font-size:16px;padding:15px 26px;border-radius:120px;text-decoration:none;transition:background-color .25s ease}
+  .btn-primary:hover{background:var(--sea2)}
+  .btn-primary svg{width:15px;height:15px;transition:transform .25s ease}
+  .btn-primary:hover svg{transform:translateX(3px)}
+  .btn-quiet{font-weight:700;font-size:16px;color:var(--navy);text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:3px}
+  .micro{margin-top:18px;font-size:13px;color:var(--muted)}
+  .hero-media{position:relative}
+  .frame-ring{position:absolute;inset:0;border:1.5px solid var(--gold);border-radius:28px;transform:translate(16px,16px);pointer-events:none}
+  .frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(10,26,59,.22);aspect-ratio:4/5;background:#DCE5E1}
+  .frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .stat-card{position:absolute;left:-24px;bottom:28px;background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(10,26,59,.18);padding:16px 22px;display:flex;gap:22px;z-index:2}
+  .stat b{display:block;font-size:22px;font-weight:800;color:var(--navy);line-height:1.1}
+  .stat span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .hero>*{animation:rise .38s ease both}
+  .hero>*:nth-child(2){animation-delay:.08s}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---------- Sections below the fold ---------- */
+  .section{max-width:1240px;margin:0 auto;padding:30px 28px 90px}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+  .sec-head h2{font-size:clamp(30px,3.4vw,44px);letter-spacing:-.01em;color:var(--navy);margin:0;font-weight:800}
+  .sec-head a{font-weight:700;color:var(--seadeep);text-decoration:none;white-space:nowrap}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;transition:transform .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(10,26,59,.10)}
+  .card .tag{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--seadeep)}
+  .card h3{font-size:22px;color:var(--navy);margin:12px 0 8px;line-height:1.3}
+  .card p{font-size:15px;line-height:1.6;color:var(--body);margin:0}
+  .card .meta{display:block;margin-top:16px;font-size:14px;font-weight:600;color:var(--ink)}
+  .band{background:var(--navy);color:#EDEFF3}
+  .band-inner{max-width:1240px;margin:0 auto;padding:72px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+  .band h3{color:#fff;font-size:21px;margin:0 0 8px}
+  .band p{color:#A9BEDD;font-size:15px;line-height:1.65;margin:0}
+  .footer{border-top:1px solid var(--line);padding:30px 28px;text-align:center;color:var(--muted);font-size:14px;line-height:1.7}
+  .footer a{color:var(--seadeep);font-weight:600}
+  .lab-badge{position:fixed;right:14px;bottom:14px;z-index:200;background:var(--navy);color:#fff;font-size:11px;font-weight:600;letter-spacing:.06em;padding:7px 12px;border-radius:120px;opacity:.88}
+
+  /* ---------- Drawer (mobile) ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(10,26,59,.45);z-index:290;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+  .scrim.show{opacity:1;visibility:visible}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(340px,88vw);background:#fff;z-index:300;transform:translateX(100%);transition:transform .3s ease;padding:22px;overflow-y:auto;box-shadow:-20px 0 60px rgba(0,0,0,.2)}
+  .drawer.open{transform:none}
+  .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .drawer-head b{font-size:20px;color:var(--navy)}
+  .drawer-close{background:none;border:0;cursor:pointer;padding:8px;color:var(--navy)}
+  .drawer-close svg{width:24px;height:24px;display:block}
+  .drawer a.dlink{display:block;padding:13px 4px;font-size:17px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid #F0EDE4}
+  .drawer details{border-bottom:1px solid #F0EDE4}
+  .drawer summary{padding:13px 4px;font-size:17px;font-weight:600;color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .drawer summary::-webkit-details-marker{display:none}
+  .drawer summary svg{width:14px;height:14px;transition:transform .25s ease}
+  .drawer details[open ] summary svg{transform:rotate(180deg)}
+  .drawer details a{display:block;padding:10px 4px 10px 16px;font-size:15px;color:var(--body);text-decoration:none}
+  .drawer .cta{margin-top:22px;width:100%;justify-content:space-between;padding:8px 8px 8px 20px}
+
+  @media (max-width:1020px){
+    .hero{grid-template-columns:1fr;gap:44px;padding-top:150px}
+    .hero-media{max-width:560px}
+    .cards{grid-template-columns:1fr 1fr}
+    .band-inner{grid-template-columns:1fr;gap:28px}
+  }
+  @media (max-width:900px){
+    .navlist{display:none}
+    .burger{display:block}
+    .site-header{padding:12px 14px 0}
+    .hrow{padding:10px 18px;gap:14px}
+    .site-header.compact .hrow{max-width:100%;padding:8px 14px}
+    .site-header .cta{font-size:13px;padding:5px 5px 5px 14px;gap:8px}
+    .site-header .cta .arr{width:28px;height:28px}
+    .eyebrow{font-size:11px;letter-spacing:.18em}
+    .hero{padding-top:132px}
+    .stat-card{left:12px}
+    .cards{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition:none !important;animation:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="hrow">
+    <a class="brand" href="#" aria-label="AIDE — home">
+      <b>AIDE</b>
+      <span>IMRAN ASLAM</span>
+    </a>
+
+    <nav aria-label="Main">
+      <ul class="navlist">
+        <li><a class="navlink" href="#">Home</a></li>
+        <li class="has-mega">
+          <button class="navtoggle" type="button" aria-haspopup="true" aria-expanded="false">
+            Programmes
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+          <div class="mega" role="menu">
+            <div class="mega-card">
+              <div class="mega-grid">
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span>
+                  <span><h3>Prophetic Leadership</h3><p>Eight weeks on the Prophet Muhammad's leadership, for people who carry responsibility.</p><span class="meta">8 weeks · Rs 45,000</span></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span>
+                  <span><h3>Habit Architecture</h3><p>Small habits, built properly, that survive real life.</p><span class="meta">4-week cohort · Rs 12,000</span></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
+                  <span><h3>Behavioural Sales Excellence</h3><p>Two days with your team, then thirty days in the field.</p><span class="meta">2-day corporate</span></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-4.5-2-8-2v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2z"/><path d="M12 6v13"/></svg></span>
+                  <span><h3>Teach With Heart</h3><p>Emotional intelligence for teachers, then four weeks in the classroom.</p><span class="meta">1 day + 4-week cycle</span></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
+                  <span><h3>Strong Homes</h3><p>Marriage and parenting, four weeks, built on the Love Clinic's work.</p><span class="meta">4 weeks · Rs 12,000</span></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v4M5.6 7.6l2.8 2.8M18.4 7.6l-2.8 2.8M3 18h18"/></svg></span>
+                  <span><h3>RISE Youth Life Design</h3><p>Six weeks for ages 16–25: direction, habits, and a plan of their own.</p><span class="meta">6 weeks · Rs 15,000</span></span>
+                </a>
+              </div>
+              <div class="mega-foot">
+                <span>Live cohorts and self-paced options.</span>
+                <a href="#">View all programmes →</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="has-mega">
+          <button class="navtoggle" type="button" aria-haspopup="true" aria-expanded="false">
+            Books
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+          <div class="mega" role="menu">
+            <div class="mega-card">
+              <div class="mega-grid">
+                <a class="mega-item" href="#">
+                  <img class="mega-thumb" src="book-pehla-saal.webp" alt="" loading="lazy">
+                  <span><h3>Pehla Saal</h3><p>The first year of marriage, week by week, honestly written.</p></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <img class="mega-thumb" src="book-shadi-se-pehle.webp" alt="" loading="lazy">
+                  <span><h3>Shadi Se Pehle</h3><p>What to settle before the wedding, while it is still easy to talk.</p></span>
+                </a>
+                <a class="mega-item" href="#">
+                  <img class="mega-thumb" src="book-bache-ka-ghussa.webp" alt="" loading="lazy">
+                  <span><h3>Bache ka Ghussa</h3><p>A child's anger, and the parent's path through it.</p></span>
+                </a>
+                <a class="mega-tile" href="#">
+                  <b>All 55 books →</b>
+                  <span>Urdu, English and Arabic. Print and digital.</span>
+                </a>
+              </div>
+              <div class="mega-foot">
+                <span>New titles every month.</span>
+                <a href="#">Browse the bookshop →</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a class="navlink" href="#">Coaching</a></li>
+        <li><a class="navlink" href="#">About</a></li>
+      </ul>
+    </nav>
+
+    <a class="cta" href="https://wa.me/923309222029" target="_blank" rel="noopener">
+      <span class="lbl">Book a Call</span>
+      <span class="arr"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
+
+    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" id="burgerBtn">
+      <svg viewBox="0 0 26 26" fill="none" aria-hidden="true"><path d="M3 7h20M3 13h20M3 19h20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Menu">
+  <div class="drawer-head">
+    <b>AIDE</b>
+    <button class="drawer-close" type="button" aria-label="Close menu" id="drawerClose">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <a class="dlink" href="#">Home</a>
+  <details>
+    <summary>Programmes <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+    <a href="#">Prophetic Leadership</a>
+    <a href="#">Habit Architecture</a>
+    <a href="#">Behavioural Sales Excellence</a>
+    <a href="#">Teach With Heart</a>
+    <a href="#">Strong Homes</a>
+    <a href="#">RISE Youth Life Design</a>
+  </details>
+  <details>
+    <summary>Books <svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+    <a href="#">Pehla Saal</a>
+    <a href="#">Shadi Se Pehle</a>
+    <a href="#">Bache ka Ghussa</a>
+    <a href="#">All 55 books</a>
+  </details>
+  <a class="dlink" href="#">Coaching</a>
+  <a class="dlink" href="#">About</a>
+  <a class="cta" href="https://wa.me/923309222029" target="_blank" rel="noopener">
+    <span class="lbl">Book a Call</span>
+    <span class="arr"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+</aside>
+
+<main id="main">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Imran Aslam · Life Coach &amp; Trainer</p>
+      <h1>From Awareness to Excellence<span class="dot">.</span></h1>
+      <p class="lede">Coaching, training and books that turn knowing into doing — for individuals, teams and families.</p>
+      <div class="hero-ctas">
+        <a class="btn-primary" href="https://wa.me/923309222029" target="_blank" rel="noopener">Book a free discovery call <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h9M8 3.5L11.5 7 8 10.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn-quiet" href="#">Explore programmes</a>
+      </div>
+      <p class="micro">Free 15-minute discovery call · No commitment</p>
+    </div>
+    <div class="hero-media">
+      <span class="frame-ring" aria-hidden="true"></span>
+      <div class="frame"><img src="imran-warm.webp" alt="Imran Aslam" width="800" height="1000"></div>
+      <div class="stat-card" aria-label="AIDE at a glance">
+        <div class="stat"><b>55</b><span>Books</span></div>
+        <div class="stat"><b>6</b><span>Programmes</span></div>
+        <div class="stat"><b>5</b><span>Coaches</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Start with one programme.</h2>
+      <a href="#">All programmes →</a>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="tag">Flagship · Live</span>
+        <h3>Prophetic Leadership Development Program</h3>
+        <p>Eight weeks on the Prophet Muhammad's leadership — understanding, sincerity, wisdom, accountability.</p>
+        <span class="meta">8 weeks · Rs 45,000</span>
+      </article>
+      <article class="card">
+        <span class="tag">Cohort · Online</span>
+        <h3>Habit Architecture</h3>
+        <p>Four weeks to build the habits your goals actually need, with a cohort walking beside you.</p>
+        <span class="meta">4 weeks · Rs 12,000</span>
+      </article>
+      <article class="card">
+        <span class="tag">Youth · Ages 16–25</span>
+        <h3>RISE Youth Life Design</h3>
+        <p>Six weeks of direction, habits and a life plan young people write themselves.</p>
+        <span class="meta">6 weeks · Rs 15,000</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-inner">
+      <div><h3>Coaching</h3><p>One-to-one and team coaching with five coaches, in Urdu and English, online and in person.</p></div>
+      <div><h3>Training</h3><p>Corporate and community programmes — leadership, sales, teaching, and strong homes.</p></div>
+      <div><h3>Books</h3><p>Fifty-five titles in Urdu, English and Arabic. Practical, warm, and rooted in faith.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  © 2026 Imran Aslam · AIDE — From Awareness to Excellence<br>
+  <a href="https://wa.me/923309222029" target="_blank" rel="noopener">WhatsApp 0330 9222029</a>
+</footer>
+
+<span class="lab-badge">Concept study · Lab only</span>
+
+<script>
+(function(){
+  "use strict";
+  var header = document.getElementById('siteHeader');
+  var compact = false, ticking = false;
+  function onScroll(){
+    var y = window.scrollY || 0;
+    if(!compact && y > 40){ compact = true; header.classList.add('compact'); }
+    else if(compact && y < 12){ compact = false; header.classList.remove('compact'); }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(onScroll); }
+  }, {passive:true});
+  onScroll();
+
+  // Mega menus: tap toggles (touch/keyboard); hover handled by CSS on desktop.
+  var toggles = document.querySelectorAll('.navtoggle');
+  function closeAll(except){
+    document.querySelectorAll('.has-mega.open').forEach(function(li){
+      if(li !== except){ li.classList.remove('open'); li.querySelector('.navtoggle').setAttribute('aria-expanded','false'); }
+    });
+  }
+  toggles.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var li = btn.parentElement;
+      var willOpen = !li.classList.contains('open');
+      closeAll(li);
+      li.classList.toggle('open', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.has-mega')) closeAll(null);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeAll(null); closeDrawer(); }
+  });
+
+  // Drawer
+  var drawer = document.getElementById('drawer'),
+      scrim = document.getElementById('scrim'),
+      burger = document.getElementById('burgerBtn'),
+      closer = document.getElementById('drawerClose');
+  function openDrawer(){
+    drawer.classList.add('open'); scrim.classList.add('show');
+    burger.setAttribute('aria-expanded','true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open'); scrim.classList.remove('show');
+    burger.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', openDrawer);
+  closer.addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeDrawer); });
+})();
+</script>
+</body>
+</html>
