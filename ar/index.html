@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="day">
+<html lang="ar" dir="rtl" data-theme="night">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -711,10 +711,13 @@ html[lang="ar"] .apop-row-tx p,body.loc-ar .apop-row-tx p{line-height:1.7}
 }
 @media (prefers-reduced-motion:reduce){.apop,.apop-card{transition:none}}
 
-/* ===== CONCEPT 2026-11-18: bold hero + pill header + mega cards (lab copy only) ===== */
-nav{background:transparent;border-bottom-color:transparent;transition:background-color .45s ease,border-color .45s ease}
+/* ===== CONCEPT 2026-11-18: pill header + mega cards over the live video hero (lab copy only) ===== */
+/* Top state: fully transparent, NO blur band — the film shows through cleanly. The old nav-dim's
+   head-reveal purpose is served by transparency itself, so its background is neutralised. */
+nav{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background-color .45s ease,border-color .45s ease}
+html[data-theme="night"] nav.nav-dim,html[data-theme="day"] nav.nav-dim{background:transparent}
 nav .nav-in{max-width:1180px;border-radius:120px;border:1px solid transparent;transition:max-width .45s ease,padding .45s ease,background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
-nav.scrolled .nav-in{max-width:1080px;padding-top:6px;padding-bottom:6px;background:rgba(255,255,255,.82);border-color:rgba(10,26,59,.12);box-shadow:0 12px 32px rgba(10,26,59,.18)}
+nav.scrolled .nav-in{max-width:1080px;padding-top:6px;padding-bottom:6px;background:rgba(255,255,255,.82);border-color:rgba(10,26,59,.12);box-shadow:0 12px 32px rgba(10,26,59,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 nav.scrolled .brand b{color:#0A1A3B}
 nav.scrolled .brand span span{color:#6B7688}
 nav.scrolled .nav-links a:not(.nav-cta){color:#1B2A45}
@@ -748,47 +751,6 @@ nav.scrolled .toggle{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:rg
 html[lang="ur"] .nav-links .mega-tx b{line-height:1.9}
 html[lang="ur"] .nav-links .mega-meta{line-height:1.9}
 html[lang="ar"] .nav-links .mega-tx b,html[lang="ar"] .nav-links .mega-meta{line-height:1.7}
-.hero-new{background:var(--bg);position:relative;overflow:hidden}
-.hero-new .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-top:150px;padding-bottom:80px}
-.hero-new::before{content:"";position:absolute;top:60px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(61,171,148,.14),transparent 65%);pointer-events:none}
-[dir="rtl"] .hero-new::before{right:auto;left:-80px}
-.hero-eyebrow{display:flex;align-items:center;gap:12px;color:#1F7A66;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin:0}
-html[data-theme="night"] .hero-eyebrow{color:#4FBFA7}
-html[lang="ur"] .hero-eyebrow,html[lang="ar"] .hero-eyebrow{letter-spacing:0;text-transform:none;font-size:15px}
-.hero-eyebrow::before{content:"";width:32px;height:2px;background:#C9A227;flex:none}
-.hero-h1{font-size:clamp(50px,5.6vw,80px);line-height:1.12;letter-spacing:-.02em;color:var(--text);margin:22px 0 0;font-weight:800}
-.hero-h1 .h1b{color:#1F7A66}
-html[data-theme="night"] .hero-h1 .h1b{color:#4FBFA7}
-html[lang="ur"] .hero-h1{font-size:clamp(34px,4.4vw,58px);line-height:1.95;letter-spacing:0}
-html[lang="ar"] .hero-h1{font-size:clamp(38px,4.8vw,64px);line-height:1.55;letter-spacing:0}
-.hero-cta{display:flex;gap:22px;align-items:center;margin-top:34px;flex-wrap:wrap}
-.hero-cta .btn{padding:15px 26px;border-radius:120px;font-size:16px}
-html[lang="ur"] .hero-cta .btn{padding:19px 26px 13px}
-html[data-theme="day"] .hero-cta .btn-line{border-color:rgba(10,26,59,.35);color:#0A1A3B;background:transparent}
-.hero-micro{margin-top:18px;font-size:13px;color:var(--text-dim)}
-.hero-media{position:relative}
-.hero-ring{position:absolute;inset:0;border:1.5px solid #C9A227;border-radius:28px;transform:translate(16px,16px);pointer-events:none}
-.hero-frame{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(10,26,59,.22);aspect-ratio:4/5;background:#DCE5E1}
-.hero-frame img{width:100%;height:100%;object-fit:cover;display:block}
-.hero-stats{position:absolute;left:-24px;bottom:28px;background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(10,26,59,.18);padding:16px 22px;display:flex;gap:22px;z-index:2}
-[dir="rtl"] .hero-stats{left:auto;right:-24px}
-.hstat b{display:block;font-size:22px;font-weight:800;color:#0A1A3B;line-height:1.1;font-family:Montserrat,"Segoe UI",system-ui,sans-serif}
-.hstat span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7A8494;font-weight:600}
-html[lang="ur"] .hstat span,html[lang="ar"] .hstat span{letter-spacing:0;text-transform:none;font-size:13px}
-.hero-new .hero-copy,.hero-new .hero-media{animation:heroNewIn .38s ease both}
-.hero-new .hero-media{animation-delay:.08s}
-@keyframes heroNewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.hero-new .hero-copy,.hero-new .hero-media{animation:none}}
-@media (max-width:1020px){.hero-new .wrap{grid-template-columns:1fr;gap:44px;padding-top:140px}.hero-media{max-width:560px}}
-@media (max-width:820px){
-  nav .nav-in{max-width:100%;border-radius:24px}
-  nav.scrolled .nav-in{max-width:100%}
-  nav .nav-links a.nav-cta{display:inline-flex}
-  .toggle #themeLabel{display:none}
-  .hero-new .wrap{padding-top:124px;padding-bottom:60px}
-  .hero-stats{left:12px}
-  [dir="rtl"] .hero-stats{right:12px}
-}
 /* --- header fit: one row, nothing squeezes internally. Section-anchor links are
    shed from the header (concept choice — they duplicate scrolling; one rule
    restores them) so the bar fits one row with the booking button. --- */
@@ -804,6 +766,10 @@ nav.scrolled .toggle #themeLabel{display:none}
 @media (max-width:1150px){nav .nav-links{gap:10px}nav .brand span span{display:none}.nav-links a.nav-cta{padding:6px 6px 6px 16px;font-size:14px}}
 @media (max-width:480px){nav .toggle{display:none}}
 @media (max-width:820px){
+  nav .nav-in{max-width:100%;border-radius:24px}
+  nav.scrolled .nav-in{max-width:100%}
+  nav .nav-links a.nav-cta{display:inline-flex}
+  .toggle #themeLabel{display:none}
   nav .nav-links .has-drop{display:none}
   nav .lang-links{display:none}
   nav .nav-in{gap:8px;width:calc(100vw - 16px)}
@@ -811,7 +777,6 @@ nav.scrolled .toggle #themeLabel{display:none}
   nav .bezel{width:44px;height:44px}
   .nav-links a.nav-cta{padding:6px 6px 6px 12px;font-size:13px}
   .nav-links a.nav-cta .arr{width:28px;height:28px}
-  .hero-eyebrow{font-size:11px;letter-spacing:.18em}
 }
 
 
@@ -853,35 +818,42 @@ nav.scrolled .toggle #themeLabel{display:none}
       <a href="start.html">ابدأ هنا</a><a class="sec-link" href="#about">عن عمران</a><div class="has-drop"><a href="#programmes">البرامج<svg class="chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a><div class="drop mega"><div class="mega-card"><div class="mega-grid"><a class="mega-item" href="programme-pldp.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span class="mega-tx"><b>Prophetic Leadership Development Program</b><span class="mega-meta">ثمانية أسابيع · بالأردية · جلسات مباشرة وعمل ميداني</span></span></a><a class="mega-item" href="programme-habits.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></span><span class="mega-tx"><b>Habit Architecture</b><span class="mega-meta">أربعة أسابيع · مجموعة عبر الإنترنت · بالأردية</span></span></a><a class="mega-item" href="programme-sales.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span><span class="mega-tx"><b>Behavioural Sales Excellence</b><span class="mega-meta">يومان في الموقع · 30 يوم متابعة ميدانية · للشركات</span></span></a><a class="mega-item" href="programme-teach.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-2-1.5-4.5-2-8-2v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2V4c-3.5 0-6 .5-8 2z"/><path d="M12 6v13"/></svg></span><span class="mega-tx"><b>Teach With Heart</b><span class="mega-meta">ورشة يوم واحد · دورة صفية أربعة أسابيع · للمدارس</span></span></a><a class="mega-item" href="programme-homes.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span><span class="mega-tx"><b>Strong Homes, Steady Hearts</b><span class="mega-meta">أربعة أسابيع · عبر الإنترنت · للأزواج والآباء</span></span></a><a class="mega-item" href="programme-rise.html"><span class="mega-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18a8 8 0 0 1 16 0"/><path d="M12 6v4M5.6 7.6l2.8 2.8M18.4 7.6l-2.8 2.8M3 18h18"/></svg></span><span class="mega-tx"><b>RISE: Youth Life Design</b><span class="mega-meta">ستة أسابيع · أعمار 16 إلى 25 · برنامج AIDE Society الرئيسي</span></span></a></div><div class="mega-foot"><a href="programmes.html">كل البرامج →</a></div></div></div></div><a class="sec-link" href="#team">الفريق</a><a class="sec-link" href="#coaching">التوجيه</a><div class="has-drop"><a href="resources.html">الموارد<svg class="chev" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a><div class="drop"><a href="books.html">الكتب</a><a href="assessments.html">مركز التقييم</a><a href="resources.html#tools">أدوات عملية</a><a href="resources.html#reading">قوائم القراءة</a></div></div><a class="sec-link" href="#writing">الكتابات</a><a href="contact.html">اتصال</a>
       <span class="lang-links"><a href="../index.html">EN</a> · <a href="../ur/index.html">اردو</a> · <a href="index.html">العربية</a></span>
       <button class="toggle" id="themeToggle" type="button" aria-label="Theme">
-        <span class="dot"></span><span id="themeLabel">النهار — زجاج ناعم</span>
+        <span class="dot"></span><span id="themeLabel">الليل — الشفق</span>
       </button>
       <a class="nav-cta" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%83%D8%A7%D9%84%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%83%D8%B4%D8%A7%D9%81%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9%20%D9%84%D9%85%D8%AF%D8%A9%2015%20%D8%AF%D9%82%D9%8A%D9%82%D8%A9%20%D9%85%D8%B9%20AIDE." target="_blank" rel="noopener">مكالمة استكشاف مجانية<span class="arr">→</span></a>
     </div>
   </div>
 </nav>
 
-<header class="hero-new" id="top">
-  <div class="wrap">
-    <div class="hero-copy">
-      <p class="hero-eyebrow">Imran Aslam · مدرّب حياة ومدرّب</p>
-      <h1 class="hero-h1"><span class="h1a">الناس لا يتغيرون لأنهم يسمعون أكثر.</span> <span class="h1b">يتغيرون حين يبدؤون أن يروا بشكل مختلف.</span></h1>
-      <div class="hero-cta">
-        <a class="btn btn-solid magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%83%D8%A7%D9%84%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%83%D8%B4%D8%A7%D9%81%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9%20%D9%84%D9%85%D8%AF%D8%A9%2015%20%D8%AF%D9%82%D9%8A%D9%82%D8%A9%20%D9%85%D8%B9%20AIDE." target="_blank" rel="noopener">احجز مكالمة الاستكشاف المجانية</a>
-        <a class="btn btn-line" href="#programmes">استكشف البرامج</a>
-      </div>
-      <p class="hero-micro">من بهمبر، آزاد كشمير — وعبر الإنترنت، في كل مكان.</p>
+<header class="hero" id="top">
+  <div class="stage" id="heroStage">
+    <div class="vwrap">
+      <video id="heroVideo" loop muted playsinline autoplay preload="auto" poster="../hero-poster.webp" aria-hidden="true">
+        <source src="../hero-film.mp4" type="video/mp4">
+      </video>
     </div>
-    <div class="hero-media">
-      <span class="hero-ring" aria-hidden="true"></span>
-      <div class="hero-frame"><img src="../imran-warm.webp" alt="Imran Aslam" width="800" height="1000"></div>
-      <div class="hero-stats" aria-label="AIDE at a glance">
-        <div class="hstat"><b>55</b><span>الكتب</span></div>
-        <div class="hstat"><b>6</b><span>البرامج</span></div>
-        <div class="hstat"><b>5</b><span>المدرّبون</span></div>
+    <div class="veil" aria-hidden="true"></div>
+    <span class="vstate" id="vState" aria-hidden="true">❚❚</span>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="shade" aria-hidden="true"></div>
+    <div class="hero-in">
+      <div class="wrap">
+        <div class="emblem" aria-hidden="true"><img src="../aide-logo-dome.png" alt=""></div>
+        <p class="hero-brand" dir="ltr"><b>AIDE</b><span class="hb-dot" aria-hidden="true"></span><span class="hb-tag">From Awareness to Excellence</span></p>
+        <span class="eyebrow"></span>
+        <h1 class="blend hook" id="hook"><span class="row">الناس لا يتغيرون</span>
+<span class="row">لأنهم يسمعون أكثر.</span>
+<span class="row alt">يتغيرون حين يبدؤون أن يروا بشكل مختلف.</span></h1>
+        <div class="hero-cta">
+          <a class="btn btn-solid magnetic" href="https://wa.me/923309222029?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%21%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AD%D8%AC%D8%B2%20%D9%85%D9%83%D8%A7%D9%84%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%83%D8%B4%D8%A7%D9%81%20%D8%A7%D9%84%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9%20%D9%84%D9%85%D8%AF%D8%A9%2015%20%D8%AF%D9%82%D9%8A%D9%82%D8%A9%20%D9%85%D8%B9%20AIDE." target="_blank" rel="noopener">احجز مكالمة الاستكشاف المجانية</a>
+          <a class="btn btn-line" href="#programmes">استكشف البرامج</a>
+        </div>
+        <p class="hero-sub2">من بهمبر، آزاد كشمير — وعبر الإنترنت، في كل مكان.</p>
       </div>
     </div>
   </div>
 </header>
+<span class="cut" aria-hidden="true"></span>
 <div class="hero-lead"><div class="wrap"><p>قائد أفضل. فريق أكثر ثباتًا. بيت أكثر هدوءًا. شاب يعرف إلى أين يتجه. كل هذه تبدأ من الوعي، ومن هناك يبدأ عملنا. أنا عمران أسلم، مدرّب حياة ومدرّب. عبر AIDE أعمل مع الأفراد والأسر والمهنيين والمؤسسات ممن يريدون الانتقال من حيث هم إلى حيث يريدون أن يكونوا.</p></div></div>
 
 <div class="proven" aria-label="The verified record">
