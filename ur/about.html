@@ -1065,6 +1065,11 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   50% { transform: translateY(-10px); }
 }
 .alogo-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* ABOUT HERO (owner 2026-11-20 — the man himself at the top: portrait beside the logo+heading, fills the empty right half) */
+.page-hero .wrap.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-portrait{margin:0;justify-self:end;max-width:440px;width:100%}
+.hero-portrait img{width:100%;border-radius:20px;border:1px solid var(--line);display:block}
+@media (max-width:900px){.page-hero .wrap.hero-grid{grid-template-columns:1fr;gap:28px}.hero-portrait{justify-self:start;max-width:440px}}
 
 /* ---------- Animation ----------
    Base state of every part is the finished logo.
@@ -1169,7 +1174,8 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
 </nav>
 
 <main>
-<section class="page-hero"><div class="wrap">
+<section class="page-hero"><div class="wrap hero-grid">
+<div class="hero-copy">
 <div class="alogo" id="alogo">
   <div class="alogo-tilt" id="alogoTilt">
     <div class="alogo-tilt-inner" id="alogoTiltInner">
@@ -1233,6 +1239,8 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   <span class="eyebrow rv">تعارف</span>
   <h1 class="rv">AIDE کے پیچھے کا آدمی۔</h1>
   <p class="lead rv">عمران اسلم ماہرِ نفسیات (علمی و رویہ جاتی طریقے)، NLP ماسٹر پریکٹیشنر، اور کارپوریٹ ٹرینر ہیں — مرکز بھمبر، آزاد کشمیر، اور تین براعظموں میں پندرہ سال سے زیادہ کی مشق۔</p>
+</div>
+<figure class="hero-portrait rv"><img loading="lazy" decoding="async" src="../imran-warm.webp" alt="عمران اسلم کی تصویر"></figure>
 </div></section>
 <section style="padding-top:26px"><div class="wrap"><div class="atomic rv"><p>AIDE — بصیرت و ترقی کی تیز رفتاری — عمران اسلم کا تربیتی و کوچنگ ادارہ ہے: ماہرِ نفسیات (علمی و رویہ جاتی)، NLP ماسٹر پریکٹیشنر اور کارپوریٹ ٹرینر، بھمبر، پاکستان سے۔ AIDE افراد، اسکولوں اور کمپنیوں کے ساتھ اردو، انگریزی اور عربی میں — آن لائن اور بالمشافہ — کوچنگ، تربیت اور چھ سگنیچر پروگرامز کے ذریعے کام کرتا ہے۔</p></div></div></section>
 

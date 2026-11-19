@@ -1065,6 +1065,11 @@ body.loc-ur [lang="en"] h1,body.loc-ur [lang="en"] h2,body.loc-ur [lang="en"] h3
   50% { transform: translateY(-10px); }
 }
 .alogo-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+/* ABOUT HERO (owner 2026-11-20 — the man himself at the top: portrait beside the logo+heading, fills the empty right half) */
+.page-hero .wrap.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero-portrait{margin:0;justify-self:end;max-width:440px;width:100%}
+.hero-portrait img{width:100%;border-radius:20px;border:1px solid var(--line);display:block}
+@media (max-width:900px){.page-hero .wrap.hero-grid{grid-template-columns:1fr;gap:28px}.hero-portrait{justify-self:start;max-width:440px}}
 
 /* ---------- Animation ----------
    Base state of every part is the finished logo.
