@@ -837,11 +837,77 @@ html[data-theme="night"] .prog-feature{background:rgba(10,26,59,.55);backdrop-fi
 html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
 @media (prefers-reduced-motion:reduce){html[data-theme="night"] body::before,html[data-theme="night"] body::after{animation:none}}
 @media (prefers-reduced-transparency:reduce){html[data-theme="night"] body::before,html[data-theme="night"] body::after{display:none}html[data-theme="night"] #programmes,html[data-theme="night"] #start,html[data-theme="night"] .cut{background:var(--bg-soft)!important}html[data-theme="night"] .prog-feature{background:var(--navy)}html[data-theme="night"] .uswa div{background:var(--navy-2)}}
+  /* TAKEAWAYS (owner 2026-11-19 — LAB): three-site review — announcement bar, three doors, dated cohorts, workbook, five reasons; proof count-up is JS-only on the existing strip */
+  :root{--td-bar-h:44px}
+  html[lang="ur"]{--td-bar-h:56px}
+  .td-bar{display:flex;align-items:center;justify-content:center;height:var(--td-bar-h);padding:0 16px;background:#081230;color:#E3C878;font-size:15px;font-weight:600;text-align:center;border-bottom:1px solid rgba(227,200,120,.22);white-space:nowrap;overflow:hidden}
+  .td-bar a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(227,200,120,.55);overflow:hidden;text-overflow:ellipsis}
+  .td-bar a:hover{color:#fff}
+  .td-bar .arr{font-weight:800}
+  html[lang="ur"] .td-bar{font-size:17px;line-height:1.9}
+  nav{top:var(--td-bar-h);transition:background-color .35s ease,top .3s ease}
+  nav.scrolled{top:0}
+  .td-doors{background:var(--bg-soft)}
+  html[data-theme="night"] .td-doors{background:rgba(13,33,72,.45)}
+  .td-door-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .td-door{position:relative;display:block;text-decoration:none;border-radius:20px;overflow:hidden;aspect-ratio:3/3.9;background:var(--navy-2);border:1px solid rgba(255,255,255,.12);box-shadow:0 24px 50px rgba(0,0,0,.35)}
+  .td-door img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+  .td-door:hover img{transform:scale(1.05)}
+  .td-door .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,12,30,0) 42%,rgba(4,12,30,.82) 78%,rgba(4,12,30,.94) 100%)}
+  .td-door .td-body{position:absolute;left:0;right:0;bottom:0;padding:24px}
+  .td-door .eyebrow{display:block;margin:0 0 6px}
+  .td-door h3{margin:0 0 6px}
+  .td-door p{margin:0;color:rgba(242,245,247,.85)}
+  html[lang="en"] .td-door p{font-size:15px;line-height:1.5}
+  .td-door .tile{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:#04160F;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;transition:transform .3s ease}
+  .td-door:hover .tile{transform:translate(3px,-3px)}
+  .td-cohort-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .td-cohort{background:var(--surface,rgba(255,255,255,.055));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--surface-line,rgba(255,255,255,.12));border-radius:18px;padding:26px;display:flex;flex-direction:column}
+  .td-cohort .prog{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sea-hi);margin:0 0 8px}
+  html[lang="ur"] .td-cohort .prog,html[lang="ar"] .td-cohort .prog{letter-spacing:0;font-size:14px}
+  .td-cohort h3{margin:0 0 18px}
+  .td-cohort .fact{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-top:1px solid var(--line,rgba(255,255,255,.1));font-size:15px}
+  html[lang="ur"] .td-cohort .fact,html[lang="ar"] .td-cohort .fact{font-size:17px}
+  .td-cohort .fact span{color:var(--text-dim);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding-top:2px}
+  html[lang="ur"] .td-cohort .fact span,html[lang="ar"] .td-cohort .fact span{letter-spacing:0;font-size:14px}
+  .td-cohort .fact b{font-weight:600;text-align:right}
+  html[dir="rtl"] .td-cohort .fact b{text-align:left}
+  .td-cohort .btn{margin-top:20px;justify-content:center}
+  .td-workbook{position:relative;padding:110px 0;text-align:center;overflow:hidden;background:#04101f}
+  .td-workbook img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+  .td-workbook .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,12,30,.55),rgba(4,12,30,.82))}
+  .td-workbook .inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px}
+  .td-workbook h2{margin:0 0 6px}
+  .td-wb-ur{font-family:"Noto Nastaliq Urdu","Traditional Arabic",serif;font-size:24px;line-height:2;color:#E3C878;margin:6px 0 26px}
+  .td-workbook p{color:rgba(242,245,247,.85)}
+  html[lang="en"] .td-workbook p{font-size:17px}
+  .td-rsn-grid{display:grid;grid-template-columns:300px 1fr;gap:36px;align-items:start}
+  .td-rsn-btns{display:flex;flex-direction:column;gap:10px}
+  .td-rsn-btn{display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;background:transparent;border:1px solid var(--line,rgba(255,255,255,.14));border-radius:14px;padding:14px 16px;color:var(--text);font-size:16px;font-weight:600}
+  html[lang="ur"] .td-rsn-btn,html[lang="ar"] .td-rsn-btn{font-size:18px}
+  html[dir="rtl"] .td-rsn-btn{text-align:right}
+  .td-rsn-btn .n{font-family:Montserrat,sans-serif;font-weight:800;font-size:15px;color:var(--text-dim);width:30px;height:30px;flex:0 0 30px;border-radius:50%;border:1px solid var(--line,rgba(255,255,255,.25));display:flex;align-items:center;justify-content:center}
+  .td-rsn-btn:hover{border-color:rgba(255,255,255,.4)}
+  .td-rsn-btn.on{border-color:var(--gold);background:rgba(201,162,39,.12)}
+  .td-rsn-btn.on .n{background:var(--gold);color:#04160F;border-color:var(--gold)}
+  .td-rsn-panel{background:var(--surface,rgba(255,255,255,.055));backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--surface-line,rgba(255,255,255,.12));border-radius:18px;padding:34px;min-height:220px;transition:opacity .25s ease,transform .25s ease}
+  .td-rsn-panel.swap{opacity:0;transform:translateY(6px);transition:opacity .18s ease,transform .18s ease}
+  .td-rsn-panel h3{margin:0 0 10px}
+  .td-rsn-panel p{color:var(--text-dim);margin:0}
+  @media (max-width:900px){
+    .td-door-grid,.td-cohort-grid{grid-template-columns:1fr}
+    .td-door{aspect-ratio:16/10}
+    .td-door img.book-cover{object-position:center 78%}
+    .td-rsn-grid{grid-template-columns:1fr}
+    .td-workbook{padding:84px 0}
+  }
 
 </style>
 </head>
 <body>
 <noscript><style>body{opacity:1}</style></noscript>
+
+<div class="td-bar"><a href="assessments.html">Free first step — take the USWA Mirror, a two-minute self-check <span class="arr">→</span></a></div>
 
 <nav>
   <div class="wrap nav-in">
@@ -897,6 +963,17 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
 
 <div class="wrap"><div class="steps3"><div class="step rv"><b><i>1</i>Book a Free Call</b><p>Fifteen minutes on WhatsApp. Say briefly what you want to work on.</p></div><div class="step rv"><b><i>2</i>Choose Your Programme</b><p>Together we match you with the right programme or the right practitioner.</p></div><div class="step rv"><b><i>3</i>Begin</b><p>A clear agreement in writing first — then the work starts.</p></div></div></div>
 
+<section class="td-doors" id="doors">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Three doors</span>
+      <h2>Which one is yours?</h2>
+      <p>No wrong door. Each one leads to the same path — you just enter from where you are.</p>
+    </div>
+    <div class="td-door-grid"><a class="td-door rv" href="books.html"><img loading="lazy" decoding="async" class="book-cover" src="book-pehla-saal.webp" alt="Books"><span class="shade" aria-hidden="true"></span><span class="tile" aria-hidden="true">↗</span><span class="td-body"><span class="eyebrow">For you</span><h3>Books</h3><p>Read your way in — 55 books on habits, homes, leadership and land. One chapter tonight is enough.</p></span></a><a class="td-door rv" href="programmes.html"><img loading="lazy" decoding="async" class="" src="prog-pldp.webp" alt="Courses"><span class="shade" aria-hidden="true"></span><span class="tile" aria-hidden="true">↗</span><span class="td-body"><span class="eyebrow">For you, from anywhere</span><h3>Courses</h3><p>Learn with a cohort — live sessions, fieldwork, and a workbook that follows you home.</p></span></a><a class="td-door rv" href="coaching.html"><img loading="lazy" decoding="async" class="" src="aide-coaching.webp" alt="Coaching"><span class="shade" aria-hidden="true"></span><span class="tile" aria-hidden="true">↗</span><span class="td-body"><span class="eyebrow">For you, one to one</span><h3>Coaching</h3><p>Talk it through with a coach who knows your name and your week — not a recording.</p></span></a></div>
+  </div>
+</section>
+
 <section class="guide" id="guide">
   <div class="wrap">
     <div class="sec-head rv">
@@ -947,6 +1024,17 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
   </div>
 </section>
 
+<section class="td-cohorts" id="cohorts">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Upcoming cohorts</span>
+      <h2>Pick your path</h2>
+      <p>Real dates, real seats. When a cohort is full, the card says so — no waiting-list theatre.</p>
+    </div>
+    <div class="td-cohort-grid"><article class="td-cohort rv"><p class="prog">Flagship · 8 weeks</p><h3>Prophetic Leadership Development Program</h3><div class="fact"><span>Starts</span><b>19 Jan 2027</b></div><div class="fact"><span>Mode</span><b>Online + fieldwork</b></div><div class="fact"><span>Length</span><b>8 weeks · 2 hrs weekly</b></div><a class="btn btn-solid" href="https://wa.me/923309222029?text=I%20want%20to%20reserve%20a%20seat%20in%20PLDP" target="_blank" rel="noopener">Reserve a seat</a></article><article class="td-cohort rv"><p class="prog">Cohort · 4 weeks</p><h3>Habit Architecture</h3><div class="fact"><span>Starts</span><b>26 Jan 2027</b></div><div class="fact"><span>Mode</span><b>Online</b></div><div class="fact"><span>Length</span><b>4 weeks · live sessions</b></div><a class="btn btn-solid" href="https://wa.me/923309222029?text=I%20want%20to%20reserve%20a%20seat%20in%20Habit%20Architecture" target="_blank" rel="noopener">Reserve a seat</a></article><article class="td-cohort rv"><p class="prog">Youth · 6 weeks</p><h3>RISE Youth Life Design</h3><div class="fact"><span>Starts</span><b>2 Feb 2027</b></div><div class="fact"><span>Mode</span><b>Online</b></div><div class="fact"><span>Length</span><b>6 weeks · ages 16–25</b></div><a class="btn btn-solid" href="https://wa.me/923309222029?text=I%20want%20to%20reserve%20a%20seat%20in%20RISE" target="_blank" rel="noopener">Reserve a seat</a></article></div>
+  </div>
+</section>
+
 <section id="team">
   <div class="wrap">
     <div class="sec-head rv">
@@ -990,6 +1078,18 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
 </section>
 
 <span class="cut" aria-hidden="true" style="background:var(--bg-soft)"></span>
+
+<section class="td-workbook">
+  <img class="bg" loading="lazy" decoding="async" src="gen-men-workshop.webp" alt="">
+  <span class="scrim" aria-hidden="true"></span>
+  <div class="inner">
+    <p class="eyebrow" style="color:#E3C878">Free workbook</p>
+    <h2>Which part of your life is quietly asking for attention right now?</h2>
+    <p class="ur td-wb-ur" lang="ur">آپ کی زندگی کا کون سا حصہ خاموشی سے توجہ مانگ رہا ہے؟</p>
+    <p>Seven honest questions, one page of reflection, and a small first step you can take this week. In Urdu, English or Arabic.</p>
+    <a class="btn btn-solid magnetic" href="assessments.html">Send me the free workbook <span class="arr">→</span></a>
+  </div>
+</section>
 
 <section id="start" style="background:var(--bg-soft);padding-top:64px">
   <div class="wrap">
@@ -1047,11 +1147,28 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
   </div>
 </section>
 
+<section class="td-reasons" id="reasons">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Why work with us</span>
+      <h2>Five honest reasons</h2>
+      <p>Tap a number. Each reason is a promise we have to keep — not a slogan.</p>
+    </div>
+    <div class="td-rsn-grid">
+      <div class="td-rsn-btns" role="tablist" aria-label="Five honest reasons"><button type="button" class="td-rsn-btn on" data-r="0"><span class="n">1</span>Three languages, one path</button><button type="button" class="td-rsn-btn" data-r="1"><span class="n">2</span>Faith-grounded, always</button><button type="button" class="td-rsn-btn" data-r="2"><span class="n">3</span>Practical, not theoretical</button><button type="button" class="td-rsn-btn" data-r="3"><span class="n">4</span>Book, course and coaching — together</button><button type="button" class="td-rsn-btn" data-r="4"><span class="n">5</span>A free first step</button></div>
+      <div class="td-rsn-panel" id="tdRsnPanel" role="tabpanel">
+        <h3 id="tdRsnTitle">Three languages, one path</h3>
+        <p id="tdRsnText">Urdu, English and Arabic — the same teaching, the same care, in the language you think in. You never have to translate yourself to be understood here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <div class="cta-block">
   <div class="wrap">
     <div>
       <div class="emblem cta-emblem" aria-hidden="true"><img src="aide-logo-dome.png" alt=""></div>
-      <h2>Your next chapter can begin with one honest conversation.</h2>
+      <h2>Where is your life actually going?</h2>
       <p>Whether you want to lead better, build a steadier home, grow your team or give your child direction, the first step is the same. Book your free fifteen minute discovery call on WhatsApp today.</p>
     </div>
     <a class="btn magnetic" href="https://wa.me/923309222029?text=Assalam-o-Alaikum%21%20I%20would%20like%20to%20book%20the%20free%2015-minute%20discovery%20call%20with%20AIDE." target="_blank" rel="noopener">Start the Conversation</a>
@@ -1350,6 +1467,7 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
 
   /* ---------- USWA EXPLORER ---------- */
   var USWA = [['Understanding','Know people before you lead them','In the programme: weeks 1 and 3'],['Sincerity','Intention before technique','In the programme: week 2'],['Wisdom','Judgement in the grey areas','In the programme: weeks 4 to 7'],['Accountability','Answerable — to people and to God','In the programme: week 8']];
+  var REASONS = [['Three languages, one path','Urdu, English and Arabic — the same teaching, the same care, in the language you think in. You never have to translate yourself to be understood here.'],['Faith-grounded, always','Quran, authentic Sunnah and reliable Seerah come first; modern psychology explains, it never replaces. Nothing we teach asks you to leave your deen at the door.'],['Practical, not theoretical','Every programme ends in the field, not in a notebook. You practise the thing in your real week — at home, at work, with your family — and bring the result back.'],['Book, course and coaching — together','Read the idea, learn it with a cohort, then work it through one to one. Three doors, one path — you are never left holding a book and wondering what to do with it.'],['A free first step','The USWA Mirror and a fifteen-minute discovery call cost nothing. Try the work before you pay for it — that is the honest order of things.']];
   var uBtns = document.querySelectorAll('.up'), uDet = document.getElementById('uswaDetail');
   function setUswa(k){
     if(!uDet || typeof USWA === 'undefined' || !USWA[k]) return;
@@ -1360,6 +1478,60 @@ html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
     uDet.querySelector('.wk').textContent = USWA[k][2];
   }
   if(uBtns.length){ uBtns.forEach(function(b){ b.addEventListener('click', function(){ setUswa(+b.getAttribute('data-u')); }); }); setUswa(0); }
+
+  /* ---------- TAKEAWAYS (three-site review, lab 2026-11-19) ----------
+     Proof count-up on the existing strip + the five-reasons selector. */
+  (function(){
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* Count-up: animate the number inside each .proven .proof b (e.g. "300+"). */
+    var proofBars = document.querySelectorAll('.proven .proof b');
+    function countUp(b){
+      var node = b.firstChild;
+      if(!node) return;
+      var m = /(\d+)(\+?)/.exec(node.textContent || '');
+      if(!m) return;
+      var target = parseInt(m[1], 10), plus = m[2] || '';
+      if(reduceMotion){ node.textContent = target + plus + ' '; return; }
+      var start = null, dur = 1200;
+      function tick(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        node.textContent = Math.round(target * eased) + plus + ' ';
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    if('IntersectionObserver' in window && proofBars.length){
+      var pio = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){ countUp(en.target); pio.unobserve(en.target); }
+        });
+      }, {threshold: 0.4});
+      proofBars.forEach(function(b){ pio.observe(b); });
+    } else {
+      proofBars.forEach(countUp);
+    }
+    /* Five reasons selector. */
+    var rBtns = document.querySelectorAll('.td-rsn-btn'),
+        rTitle = document.getElementById('tdRsnTitle'),
+        rText = document.getElementById('tdRsnText'),
+        rPanel = document.getElementById('tdRsnPanel');
+    if(rBtns.length && rTitle && rText && typeof REASONS !== 'undefined'){
+      rBtns.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          rBtns.forEach(function(x){ x.classList.remove('on'); });
+          btn.classList.add('on');
+          var r = REASONS[+btn.getAttribute('data-r')];
+          if(!r) return;
+          function swap(){ rTitle.textContent = r[0]; rText.textContent = r[1]; rPanel.classList.remove('swap'); }
+          if(reduceMotion){ swap(); return; }
+          rPanel.classList.add('swap');
+          setTimeout(swap, 180);
+        });
+      });
+    }
+  })();
 
   /* ---------- NAV: where you are ---------- */
   var navMap = {};
