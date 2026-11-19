@@ -1210,6 +1210,38 @@ const lerp=(a,b,t)=>a+(b-a)*t;
 /* reveal on scroll */
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.14});
 document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>io.observe(el));
+/* stats count-up on scroll (owner 2026-11-20 — About/team/assessments strips: numbers count up as they scroll in) */
+(function(){
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bars = document.querySelectorAll('.stats .stat b');
+  function countUp(b){
+    var node = b.firstChild;
+    if(!node) return;
+    var m = /(\d+)(\+?)/.exec(node.textContent || '');
+    if(!m) return;
+    var target = parseInt(m[1], 10), plus = m[2] || '';
+    if(reduceMotion){ node.textContent = target + plus + ' '; return; }
+    var start = null, dur = 1200;
+    function tick(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      node.textContent = Math.round(target * eased) + plus + ' ';
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if('IntersectionObserver' in window && bars.length){
+    var sio = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ countUp(en.target); sio.unobserve(en.target); }
+      });
+    }, {threshold: 0.4});
+    bars.forEach(function(b){ sio.observe(b); });
+  } else {
+    bars.forEach(countUp);
+  }
+})();
 /* hero — revolving picture ring engine */
 const stage=document.getElementById('stage'),ring=document.getElementById('ring'),orbit=document.getElementById('orbit'),glow=document.getElementById('glow');
 const panels=ring?[...ring.children]:[];
