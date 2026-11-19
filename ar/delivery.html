@@ -299,6 +299,31 @@ footer a:hover{color:var(--ink)}
 .prog .uname{font-family:'Noto Nastaliq Urdu',serif;color:var(--sea2);font-size:19px}
 .prog p{color:var(--muted);line-height:1.75;margin-top:10px;max-width:64ch}
 .prog ul{margin:12px 0 4px 18px;color:var(--muted);line-height:1.95;font-size:15px}
+/* PROG TONES (owner 2026-11-20 — one colour per programme, same system as homepage rows) */
+.prog[class*="tone-"]{position:relative;overflow:hidden}
+.prog[class*="tone-"]::before{content:"";position:absolute;top:0;inset-inline:0;height:4px;z-index:1}
+.prog.tone-pldp{background:linear-gradient(180deg,#12294F,#0A1A3B)}
+.prog.tone-pldp::before{background:#C9A227}
+.prog.tone-habit{background:linear-gradient(180deg,color-mix(in srgb,#3DAB94 24%,#152A52),color-mix(in srgb,#3DAB94 14%,#0A1A3B))}
+.prog.tone-habit::before{background:#3DAB94}
+.prog.tone-habit .fmt{color:#4FBFA7}
+.prog.tone-sales{background:linear-gradient(180deg,color-mix(in srgb,#C9A227 24%,#152A52),color-mix(in srgb,#C9A227 14%,#0A1A3B))}
+.prog.tone-sales::before{background:#C9A227}
+.prog.tone-sales .fmt{color:#E3C878}
+.prog.tone-teach{background:linear-gradient(180deg,color-mix(in srgb,#5B8DC9 24%,#152A52),color-mix(in srgb,#5B8DC9 14%,#0A1A3B))}
+.prog.tone-teach::before{background:#5B8DC9}
+.prog.tone-teach .fmt{color:#8FB4DE}
+.prog.tone-homes{background:linear-gradient(180deg,color-mix(in srgb,#1F7A66 26%,#152A52),color-mix(in srgb,#1F7A66 15%,#0A1A3B))}
+.prog.tone-homes::before{background:#1F7A66}
+.prog.tone-homes .fmt{color:#5EC4A8}
+.prog.tone-rise{background:linear-gradient(180deg,#F4EFE3,#E9DFC6)}
+.prog.tone-rise::before{background:#C9A227}
+.prog.tone-rise h2,.prog.tone-rise h2 a{color:#0A1A3B}
+.prog.tone-rise p,.prog.tone-rise ul{color:#3D4A5C}
+.prog.tone-rise .fmt{color:#8A6D1B}
+.prog.tone-rise .uname{color:#1F7A66}
+.prog.tone-rise .fee-line{color:#5A4632}
+.prog.tone-rise .side .btn{color:#0A1A3B;border-color:rgba(10,26,59,.45)}
 .prog .row{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:flex-start}
 .prog .side{min-width:190px}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
