@@ -824,6 +824,19 @@ nav.scrolled .lang-btn{color:#0A1A3B;border-color:rgba(10,26,59,.25);background:
 @keyframes bobY{0%,100%{transform:translateY(0)}50%{transform:translateY(-.06em)}}
 @keyframes swayY{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(.04em) scale(1.02)}}
 @media (prefers-reduced-motion:reduce){.hook .w-bob,.hook .w-sway{animation:none}}
+/* LIQUID NAVY (owner 2026-11-19 — LAB): background navy as floating liquid — soft luminous orbs drift behind everything; solid navy surfaces go translucent so the liquid shows through */
+html[data-theme="night"] body::before,html[data-theme="night"] body::after{content:"";position:fixed;inset:-90px;z-index:-1;pointer-events:none}
+html[data-theme="night"] body::before{background:radial-gradient(52% 42% at 16% 20%,rgba(61,171,148,.25) 0%,rgba(61,171,148,0) 70%),radial-gradient(44% 36% at 80% 24%,rgba(201,162,39,.13) 0%,rgba(201,162,39,0) 70%),radial-gradient(58% 46% at 64% 82%,rgba(31,122,102,.23) 0%,rgba(31,122,102,0) 70%);animation:liquidDrift 36s ease-in-out infinite alternate}
+html[data-theme="night"] body::after{background:radial-gradient(40% 32% at 74% 62%,rgba(79,191,167,.17) 0%,rgba(79,191,167,0) 70%),radial-gradient(46% 38% at 24% 70%,rgba(61,171,148,.15) 0%,rgba(61,171,148,0) 70%);animation:liquidDrift2 44s ease-in-out infinite alternate}
+@keyframes liquidDrift{from{transform:translate3d(-26px,-14px,0) scale(1)}to{transform:translate3d(28px,18px,0) scale(1.05)}}
+@keyframes liquidDrift2{from{transform:translate3d(22px,12px,0)}to{transform:translate3d(-24px,-18px,0)}}
+/* solid navy surfaces go see-through (night only) so the liquid shows through */
+html[data-theme="night"] #programmes,html[data-theme="night"] #start{background:rgba(13,33,72,.42)!important;background:color-mix(in srgb,var(--bg-soft) 38%,transparent)!important}
+html[data-theme="night"] .cut{background:rgba(10,26,59,.45)!important;background:color-mix(in srgb,var(--bg) 45%,transparent)!important}
+html[data-theme="night"] .prog-feature{background:rgba(10,26,59,.55);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+html[data-theme="night"] .uswa div{background:rgba(14,34,73,.45)}
+@media (prefers-reduced-motion:reduce){html[data-theme="night"] body::before,html[data-theme="night"] body::after{animation:none}}
+@media (prefers-reduced-transparency:reduce){html[data-theme="night"] body::before,html[data-theme="night"] body::after{display:none}html[data-theme="night"] #programmes,html[data-theme="night"] #start,html[data-theme="night"] .cut{background:var(--bg-soft)!important}html[data-theme="night"] .prog-feature{background:var(--navy)}html[data-theme="night"] .uswa div{background:var(--navy-2)}}
 
 </style>
 </head>
